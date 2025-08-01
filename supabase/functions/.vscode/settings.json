@@ -1,0 +1,19 @@
+{
+  // Enable Deno specifically for this folder within the workspace
+  "deno.enable": true,
+  // Enable linting for this folder
+  "deno.lint": true,
+  // Enable unstable Deno APIs if needed by functions (adjust as necessary)
+  "deno.unstable": true,
+  // Point to the import map relative to this folder's root
+  "deno.importMap": "./import_map.json",
+  // Point to the deno config file relative to this folder's root
+  "deno.config": "./deno.jsonc",
+  // Set Deno as the default formatter for TS files in this folder
+  "[typescript]": {
+    "editor.defaultFormatter": "denoland.vscode-deno"
+  },
+  "[javascript]": {
+    "editor.defaultFormatter": "denoland.vscode-deno"
+  }
+}

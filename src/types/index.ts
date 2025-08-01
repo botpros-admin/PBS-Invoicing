@@ -1,0 +1,476 @@
+// Base types
+export type ID = string | number;
+export type Timestamp = string; // ISO 8601 string
+export type DateString = string; // YYYY-MM-DD
+export type DateRange = '7days' | '30days' | '90days' | 'ytd';
+
+// Organization
+export interface Organization {
+  id: ID;
+  name: string;
+  createdAt: Timestamp;
+  updatedAt: Timestamp;
+}
+
+// User roles
+export type UserRole = 'super_admin' | 'admin' | 'ar_manager' | 'staff';
+export type UserStatus = 'active' | 'inactive' | 'invited';
+export type ClientUserRole = 'admin' | 'user';
+
+// User (Internal Admin, AR Manager, Staff)
+export interface User {
+  id: ID;
+  organizationId?: ID;
+  name: string;
+  email: string;
+  role: UserRole;
+  status: UserStatus;
+  mfaEnabled: boolean;
+  lastLoginAt?: Timestamp;
+  createdAt: Timestamp;
+  updatedAt: Timestamp;
+  avatar?: string;
+}
+
+// Client User (Portal Access)
+export interface ClientUser {
+  id: ID;
+  clientId: ID;
+  name: string;
+  email: string;
+  role: ClientUserRole;
+  status: UserStatus;
+  mfaEnabled: boolean;
+  lastLoginAt?: Timestamp;
+  createdAt: Timestamp;
+  updatedAt: Timestamp;
+}
+
+// Invoice statuses
+export type InvoiceStatus = 'draft' | 'sent' | 'partial' | 'paid' | 'overdue' | 'dispute' | 'write_off' | 'exhausted';
+
+// Payment methods
+export type PaymentMethod = 'credit_card' | 'check' | 'ach' | 'wire' | 'adjustment' | 'write_off' | 'other';
+export type ReconciliationStatus = 'received' | 'reconciled' | 'issue';
+
+// Invoice types & reason types
+export type InvoiceType = 'Hospice' | 'Invalids' | 'CB' | 'Standard';
+export type ReasonType = 'hospice' | 'snf' | 'ltc';
+
+// CPT Code
+export interface CptCode {
+  id: ID;
+  code: string;
+  description: string;
+  defaultPrice: number;
+  createdAt: Timestamp;
+  updatedAt: Timestamp;
+}
+
+// Pricing Overrides
+export interface ClientPricingOverride {
+  id: ID;
+  clientId: ID;
+  cptCodeId: ID;
+  price: number;
+  startDate?: DateString;
+  endDate?: DateString;
+  createdAt: Timestamp;
+  updatedAt: Timestamp;
+}
+
+export interface ClinicPricingOverride {
+  id: ID;
+  clinicId: ID;
+  cptCodeId: ID;
+  price: number;
+  startDate?: DateString;
+  endDate?: DateString;
+  createdAt: Timestamp;
+  updatedAt: Timestamp;
+}
+
+// Invoice Item
+export interface InvoiceItem {
+  id: ID;
+  invoiceId: ID;
+  cptCodeId: ID;
+  cptCode: string; // For display
+  description: string;
+  descriptionOverride?: string;
+  dateOfService: DateString;
+  quantity: number;
+  unitPrice: number;
+  total: number;
+  isDisputed: boolean;
+  disputeReason?: string;
+  disputeResolvedAt?: Timestamp;
+  disputeResolutionNotes?: string;
+  medicalNecessityProvided: boolean;
+  medicalNecessityDocumentPath?: string;
+  createdAt: Timestamp;
+  updatedAt: Timestamp;
+}
+
+// Invoice
+export interface Invoice {
+  id: ID;
+  clientId: ID;
+  clinicId: ID;
+  patientId: ID;
+  invoiceNumber: string;
+  dateCreated: DateString;
+  dateDue: DateString;
+  status: InvoiceStatus;
+  invoiceType?: InvoiceType;
+  reasonType?: ReasonType;
+  icn?: string; // Internal Claim Number
+  notes?: string;
+  subtotal: number;
+  total: number;
+  amountPaid: number;
+  balance: number;
+  writeOffAmount?: number;
+  writeOffReason?: string;
+  createdAt: Timestamp;
+  updatedAt: Timestamp;
+  
+  // Populated fields (not in DB)
+  items?: InvoiceItem[];
+  client?: Client;
+  clinic?: Clinic;
+  patient?: Patient;
+}
+
+// Payment
+export interface Payment {
+  id: ID;
+  clientId: ID;
+  paymentDate: DateString;
+  amount: number;
+  method: PaymentMethod;
+  referenceNumber?: string;
+  notes?: string;
+  reconciliationStatus: ReconciliationStatus;
+  createdByUserId?: ID;
+  createdByClientUserId?: ID;
+  createdAt: Timestamp;
+  updatedAt: Timestamp;
+  
+  // Populated (not in DB)
+  allocations?: PaymentAllocation[];
+}
+
+// Payment Allocation
+export interface PaymentAllocation {
+  id: ID;
+  paymentId: ID;
+  invoiceId: ID;
+  invoiceItemId?: ID;
+  allocatedAmount: number;
+  createdAt: Timestamp;
+  
+  // Populated (not in DB)
+  invoice?: Invoice;
+  invoiceItem?: InvoiceItem;
+}
+
+// MFA related types
+export interface MfaEnrollmentData {
+  factorId: string;
+  qrCode: string;
+  secret: string;
+}
+
+export interface MfaChallengeData {
+  challengeId: string;
+  factorId: string;
+}
+
+export interface MfaFactor {
+  id: string;
+  friendlyName?: string;
+  factorType: 'totp';
+  status: 'verified' | 'unverified';
+}
+
+// Invoice History (Audit Trail)
+export interface InvoiceHistory {
+  id: ID;
+  invoiceId: ID;
+  timestamp: Timestamp;
+  userId?: ID;
+  clientUserId?: ID;
+  eventType: string;
+  description: string;
+  previousValue?: string;
+  newValue?: string;
+  
+  // Populated (not in DB)
+  user?: User;
+  clientUser?: ClientUser;
+}
+
+// Patient
+export interface Patient {
+  id: ID;
+  clientId: ID;
+  first_name: string; // Match DB schema
+  last_name: string;  // Match DB schema
+  middle_name?: string; // Add optional middle_name from DB schema
+  dob?: DateString;
+  sex?: 'male' | 'female' | 'other' | 'unknown';
+  mrn?: string; // Add mrn from DB schema
+  accessionNumber?: string;
+  createdAt: Timestamp;
+  updatedAt: Timestamp;
+}
+
+// Clinic Contact
+export interface ClinicContact {
+  id: ID;
+  clinicId: ID;
+  name: string;
+  title?: string;
+  email?: string;
+  phone?: string;
+  fax?: string;
+  department?: string;
+  notes?: string;
+  isPrimary: boolean;
+  clientUserId?: ID;
+  createdAt: Timestamp;
+  updatedAt: Timestamp;
+  
+  // Populated (not in DB)
+  clientUser?: ClientUser;
+}
+
+// Clinic (Formerly Facility)
+export interface Clinic {
+  id: ID;
+  clientId: ID;
+  parentClinicId?: ID;
+  name: string;
+  address: string;
+  logoUrl?: string;
+  salesRep?: string;
+  preferredContactMethod?: 'email' | 'phone' | 'portal';
+  billToAddress?: string;
+  notes?: string;
+  contractDocumentPath?: string;
+  isActive: boolean;
+  createdAt: Timestamp;
+  updatedAt: Timestamp;
+  
+  // Populated (not in DB)
+  contacts?: ClinicContact[];
+  parentClinic?: Clinic;
+  childClinics?: Clinic[];
+}
+
+// Invoice Parameters
+export interface InvoiceParameters {
+  id: ID;
+  clientId?: ID; // null for global default
+  showLogo: boolean;
+  logoPosition: 'top-left' | 'top-right';
+  headerStyle: 'modern' | 'classic';
+  footerStyle: 'simple' | 'detailed';
+  companyName?: string;
+  companyAddress?: string;
+  companyEmail?: string;
+  companyPhone?: string;
+  customMessage?: string;
+  primaryColor: string;
+  highlightColor: string;
+  fontFamily: string;
+  fontSize: string;
+  createdAt: Timestamp;
+  updatedAt: Timestamp;
+}
+
+// Client
+export interface Client {
+  id: ID;
+  organizationId?: ID;
+  name: string;
+  logoUrl?: string;
+  address?: string;
+  paymentRemitInfo?: string;
+  paymentAddress?: string;
+  wiringInfo?: string;
+  onlineCcProcessorConfig?: Record<string, unknown>; // Replaced any
+  invoiceContactPhone?: string;
+  invoiceContactEmail?: string;
+  invoiceContactFax?: string;
+  invoiceContactWebsite?: string;
+  invoiceContactHours?: string;
+  w9DocumentPath?: string;
+  createdAt: Timestamp;
+  updatedAt: Timestamp;
+  
+  // Populated (not in DB)
+  clinics?: Clinic[];
+  invoiceParameters?: InvoiceParameters;
+  users?: ClientUser[];
+}
+
+// Email Settings
+export interface EmailSettings {
+  id: ID;
+  settingType: string;
+  configDetails: Record<string, unknown>; // Replaced any - JSON structure for server/credentials
+  fromEmail?: string;
+  fromName?: string;
+  isActive: boolean;
+  createdAt: Timestamp;
+  updatedAt: Timestamp;
+}
+
+// Email Templates
+export interface EmailTemplate {
+  id: ID;
+  templateType: string;
+  name: string;
+  description?: string;
+  subject: string;
+  htmlContent: string;
+  plainTextContent?: string;
+  isActive: boolean;
+  createdAt: Timestamp;
+  updatedAt: Timestamp;
+}
+
+// Automation Rules
+export interface AutomationRule {
+  id: ID;
+  emailTemplateId: ID;
+  triggerEvent: string;
+  conditionLogic?: string;
+  delayValue?: number;
+  delayUnit?: 'minutes' | 'hours' | 'days';
+  isActive: boolean;
+  createdAt: Timestamp;
+  updatedAt: Timestamp;
+  
+  // Populated (not in DB)
+  emailTemplate?: EmailTemplate;
+}
+
+// Notification Types
+export type NotificationType = 'dispute_filed' | 'payment_received' | 'invoice_overdue' | 'system' | 'dispute' | 'payment';
+
+// Notification Preferences
+export interface NotificationPreference {
+  id: ID;
+  userId?: ID;
+  clientUserId?: ID;
+  notificationType: NotificationType;
+  isEnabled: boolean;
+}
+
+// Notification
+export interface Notification {
+  id: ID;
+  userId?: ID;
+  clientUserId?: ID;
+  type: NotificationType;
+  message: string;
+  isRead?: boolean;
+  read?: boolean; // For backwards compatibility
+  readAt?: Timestamp;
+  date?: string; // For backwards compatibility
+  relatedEntityType?: string;
+  relatedEntityId?: ID;
+  invoiceId?: ID; // For backwards compatibility
+  createdAt?: Timestamp;
+}
+
+// Invoice Upload
+export interface InvoiceUpload {
+  id: ID;
+  clientId: ID;
+  clientUserId: ID;
+  filePath: string;
+  originalFilename: string;
+  uploadTimestamp: Timestamp;
+  status: 'pending' | 'processing' | 'completed' | 'error';
+  processingStartedAt?: Timestamp;
+  processingCompletedAt?: Timestamp;
+  totalRows?: number;
+  processedRows?: number;
+  errorCount?: number;
+  errorLogPath?: string;
+  
+  // Populated (not in DB)
+  client?: Client;
+  clientUser?: ClientUser;
+}
+
+// Dashboard Stats
+export interface DashboardStat {
+  id: string;
+  title: string;
+  value: string | number;
+  change?: number;
+  icon: string;
+  link?: string;
+}
+
+// Filter Options (for API queries)
+export interface FilterOptions {
+  search?: string;
+  status?: InvoiceStatus[];
+  dateFrom?: DateString;
+  dateTo?: DateString;
+  clientId?: ID[];
+  clinicId?: ID[];
+  patientId?: ID[];
+  sortBy?: string;
+  sortDirection?: 'asc' | 'desc';
+  page?: number;
+  limit?: number;
+}
+
+// Pagination Response
+export interface PaginatedResponse<T> {
+  data: T[];
+  total: number;
+  page: number;
+  limit: number;
+  totalPages: number;
+}
+
+// Aging Bucket (for reports)
+export interface AgingBucket {
+  label: string;
+  value: number;
+  count: number;
+}
+
+// Report Data
+export interface ReportData {
+  agingBuckets: AgingBucket[];
+  statusDistribution: {
+    status: InvoiceStatus;
+    count: number;
+    value: number;
+  }[];
+  clientPerformance: {
+    clientId: ID;
+    clientName: string;
+    invoiceCount: number;
+    totalValue: number;
+    disputeRate: number;
+  avgDaysToPayment: number;
+}[];
+}
+
+// Global Search Result Type
+export interface SearchResult {
+  id: string;
+  type: 'invoice' | 'client' | 'clinic' | 'patient' | 'user';
+  title: string;
+  subtitle: string;
+}

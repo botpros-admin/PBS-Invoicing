@@ -1,0 +1,45 @@
+/* src/styles/global.css */
+
+/* 1) Tailwind directives (from old index.css) */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* 2) Form / shared styles (from old index.css) */
+@layer components {
+  .form-input,
+  .form-select,
+  .form-textarea {
+    @apply mt-1 block w-full px-3 py-3 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500;
+  }
+
+  .form-input-sm {
+    @apply px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500;
+  }
+
+  .form-label {
+    @apply block text-sm font-medium text-gray-700 mb-1;
+  }
+
+  .form-hint {
+    @apply mt-1 text-xs text-gray-500;
+  }
+
+  .form-checkbox-container {
+    @apply flex items-start space-x-3;
+  }
+}
+
+/* 3) Animations (moved from animations.css) */
+@keyframes slide-left {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+.animate-slide-left {
+  animation: slide-left 0.3s ease-out forwards;
+}
