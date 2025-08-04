@@ -1,6 +1,4 @@
-well i just realize though now in settings tab the page is white and :
-main-CcPE_GgT.js:617 Root element found, rendering full app with authentication...
-index.ts-2a21a9d0.js:1 [Long Running Recorder] Content script initialised
+main-h7tEEW37.js:617 Root element found, rendering full app with authentication...
 contentScript.bundle.js:75   POST https://o456514.ingest.us.sentry.io/api/4507249138532352/envelope/?sentry_key=e5d75f765f30b0d67a057b207ff736e1&sentry_version=7&sentry_client=sentry.javascript.react%2F7.119.2 net::ERR_BLOCKED_BY_CLIENT
 (anonymous) @ contentScript.bundle.js:75
 (anonymous) @ contentScript.bundle.js:75
@@ -17,51 +15,266 @@ vO @ contentScript.bundle.js:75
 (anonymous) @ contentScript.bundle.js:75
 (anonymous) @ contentScript.bundle.js:75
 (anonymous) @ contentScript.bundle.js:75
+index.ts-2a21a9d0.js:1 [Long Running Recorder] Content script initialised
 index.ts-2a21a9d0.js:3 [Long Running Recorder] Recorder disabled
-main-CcPE_GgT.js:434 Loaded layout from DB: (6) [{…}, {…}, {…}, {…}, {…}, {…}]
-main-CcPE_GgT.js:514 Querying clients data from Supabase with embedded selects
-main-CcPE_GgT.js:514 Retrieved 4 clients with related data from database
-main-CcPE_GgT.js:40  TypeError: x.map is not a function
-    at phe (main-CcPE_GgT.js:518:49434)
-    at Rx (main-CcPE_GgT.js:38:16998)
-    at Sk (main-CcPE_GgT.js:40:43963)
-    at bk (main-CcPE_GgT.js:40:39727)
-    at ND (main-CcPE_GgT.js:40:39655)
-    at qf (main-CcPE_GgT.js:40:39508)
-    at Gv (main-CcPE_GgT.js:40:35875)
-    at q1 (main-CcPE_GgT.js:40:36678)
-    at ya (main-CcPE_GgT.js:38:3274)
-    at main-CcPE_GgT.js:40:34207
+main-h7tEEW37.js:514 Querying clients data from Supabase with embedded selects
+main-h7tEEW37.js:514 Retrieved 4 clients with related data from database
+main-h7tEEW37.js:514 Querying clients data from Supabase with embedded selects
+main-h7tEEW37.js:514 Retrieved 4 clients with related data from database
+main.js:2414 2025-08-04T22:40:06.093Z: Input was focused, will ask for screenshot analysis
+main.js:2414 2025-08-04T22:40:06.155Z: Input was focused, will ask for screenshot analysis
+main.js:2414 2025-08-04T22:40:06.178Z: PhishingPageManager: Detection suppressed because of password injection
+main-h7tEEW37.js:430 Searching for: admin@email.com
+main-h7tEEW37.js:72   POST https://qwvukolqraoucpxjqpmu.supabase.co/rest/v1/rpc/global_search 400 (Bad Request)
+(anonymous) @ main-h7tEEW37.js:72
+(anonymous) @ main-h7tEEW37.js:72
+o @ main-h7tEEW37.js:72
+Promise.then
+u @ main-h7tEEW37.js:72
+(anonymous) @ main-h7tEEW37.js:72
+D4 @ main-h7tEEW37.js:72
+(anonymous) @ main-h7tEEW37.js:72
+then @ main-h7tEEW37.js:67
+setTimeout
+g @ main-h7tEEW37.js:430
+w @ main-h7tEEW37.js:430
+w @ main-h7tEEW37.js:430
+KM @ main-h7tEEW37.js:37
+YM @ main-h7tEEW37.js:37
+XM @ main-h7tEEW37.js:37
+p1 @ main-h7tEEW37.js:37
+SP @ main-h7tEEW37.js:37
+(anonymous) @ main-h7tEEW37.js:37
+Hx @ main-h7tEEW37.js:40
+KN @ main-h7tEEW37.js:37
+Zm @ main-h7tEEW37.js:37
+xx @ main-h7tEEW37.js:37
+fI @ main-h7tEEW37.js:37
+simulateInputElementChangedEvent @ bootstrap-autofill-overlay.js:7681
+triggerPostInsertEventsOnElement @ bootstrap-autofill-overlay.js:7603
+handleInsertValueAndTriggerSimulatedEvents @ bootstrap-autofill-overlay.js:7573
+insertValueIntoField @ bootstrap-autofill-overlay.js:7561
+handleFillFieldByOpidAction @ bootstrap-autofill-overlay.js:7508
+fill_by_opid @ bootstrap-autofill-overlay.js:7405
+(anonymous) @ bootstrap-autofill-overlay.js:7425
+setTimeout
+(anonymous) @ bootstrap-autofill-overlay.js:7424
+InsertAutofillContentService.runFillScriptAction @ bootstrap-autofill-overlay.js:7424
+(anonymous) @ bootstrap-autofill-overlay.js:7446
+(anonymous) @ bootstrap-autofill-overlay.js:7389
+insert_autofill_content_service_awaiter @ bootstrap-autofill-overlay.js:7385
+fillForm @ bootstrap-autofill-overlay.js:7438
+(anonymous) @ bootstrap-autofill-overlay.js:7810
+fulfilled @ bootstrap-autofill-overlay.js:7691
+Promise.then
+step @ bootstrap-autofill-overlay.js:7693
+(anonymous) @ bootstrap-autofill-overlay.js:7694
+autofill_init_awaiter @ bootstrap-autofill-overlay.js:7690
+fillForm @ bootstrap-autofill-overlay.js:7802
+fillForm @ bootstrap-autofill-overlay.js:7722
+AutofillInit.handleExtensionMessage @ bootstrap-autofill-overlay.js:7737
+main-h7tEEW37.js:430  Error performing global search: {code: '42804', details: null, hint: null, message: 'UNION types bigint and uuid cannot be matched'}
 overrideMethod @ hook.js:608
-Dv @ main-CcPE_GgT.js:40
-r.callback @ main-CcPE_GgT.js:40
-O1 @ main-CcPE_GgT.js:38
-B1 @ main-CcPE_GgT.js:40
-gk @ main-CcPE_GgT.js:40
-SD @ main-CcPE_GgT.js:40
-kD @ main-CcPE_GgT.js:40
-Aa @ main-CcPE_GgT.js:40
-q1 @ main-CcPE_GgT.js:40
-ya @ main-CcPE_GgT.js:38
-(anonymous) @ main-CcPE_GgT.js:40
-main-CcPE_GgT.js:518  Uncaught TypeError: x.map is not a function
-    at phe (main-CcPE_GgT.js:518:49434)
-    at Rx (main-CcPE_GgT.js:38:16998)
-    at Sk (main-CcPE_GgT.js:40:43963)
-    at bk (main-CcPE_GgT.js:40:39727)
-    at ND (main-CcPE_GgT.js:40:39655)
-    at qf (main-CcPE_GgT.js:40:39508)
-    at Gv (main-CcPE_GgT.js:40:35875)
-    at q1 (main-CcPE_GgT.js:40:36678)
-    at ya (main-CcPE_GgT.js:38:3274)
-    at main-CcPE_GgT.js:40:34207
-phe @ main-CcPE_GgT.js:518
-Rx @ main-CcPE_GgT.js:38
-Sk @ main-CcPE_GgT.js:40
-bk @ main-CcPE_GgT.js:40
-ND @ main-CcPE_GgT.js:40
-qf @ main-CcPE_GgT.js:40
-Gv @ main-CcPE_GgT.js:40
-q1 @ main-CcPE_GgT.js:40
-ya @ main-CcPE_GgT.js:38
-(anonymous) @ main-CcPE_GgT.js:40
+J8 @ main-h7tEEW37.js:430
+await in J8
+(anonymous) @ main-h7tEEW37.js:430
+p @ main-h7tEEW37.js:430
+x @ main-h7tEEW37.js:430
+v @ main-h7tEEW37.js:430
+setTimeout
+g @ main-h7tEEW37.js:430
+w @ main-h7tEEW37.js:430
+w @ main-h7tEEW37.js:430
+KM @ main-h7tEEW37.js:37
+YM @ main-h7tEEW37.js:37
+XM @ main-h7tEEW37.js:37
+p1 @ main-h7tEEW37.js:37
+SP @ main-h7tEEW37.js:37
+(anonymous) @ main-h7tEEW37.js:37
+Hx @ main-h7tEEW37.js:40
+KN @ main-h7tEEW37.js:37
+Zm @ main-h7tEEW37.js:37
+xx @ main-h7tEEW37.js:37
+fI @ main-h7tEEW37.js:37
+simulateInputElementChangedEvent @ bootstrap-autofill-overlay.js:7681
+triggerPostInsertEventsOnElement @ bootstrap-autofill-overlay.js:7603
+handleInsertValueAndTriggerSimulatedEvents @ bootstrap-autofill-overlay.js:7573
+insertValueIntoField @ bootstrap-autofill-overlay.js:7561
+handleFillFieldByOpidAction @ bootstrap-autofill-overlay.js:7508
+fill_by_opid @ bootstrap-autofill-overlay.js:7405
+(anonymous) @ bootstrap-autofill-overlay.js:7425
+setTimeout
+(anonymous) @ bootstrap-autofill-overlay.js:7424
+InsertAutofillContentService.runFillScriptAction @ bootstrap-autofill-overlay.js:7424
+(anonymous) @ bootstrap-autofill-overlay.js:7446
+(anonymous) @ bootstrap-autofill-overlay.js:7389
+insert_autofill_content_service_awaiter @ bootstrap-autofill-overlay.js:7385
+fillForm @ bootstrap-autofill-overlay.js:7438
+(anonymous) @ bootstrap-autofill-overlay.js:7810
+fulfilled @ bootstrap-autofill-overlay.js:7691
+Promise.then
+step @ bootstrap-autofill-overlay.js:7693
+(anonymous) @ bootstrap-autofill-overlay.js:7694
+autofill_init_awaiter @ bootstrap-autofill-overlay.js:7690
+fillForm @ bootstrap-autofill-overlay.js:7802
+fillForm @ bootstrap-autofill-overlay.js:7722
+AutofillInit.handleExtensionMessage @ bootstrap-autofill-overlay.js:7737
+main-h7tEEW37.js:430  Supabase error in Global Search: {code: '42804', details: null, hint: null, message: 'UNION types bigint and uuid cannot be matched'}
+overrideMethod @ hook.js:608
+mn @ main-h7tEEW37.js:430
+J8 @ main-h7tEEW37.js:430
+await in J8
+(anonymous) @ main-h7tEEW37.js:430
+p @ main-h7tEEW37.js:430
+x @ main-h7tEEW37.js:430
+v @ main-h7tEEW37.js:430
+setTimeout
+g @ main-h7tEEW37.js:430
+w @ main-h7tEEW37.js:430
+w @ main-h7tEEW37.js:430
+KM @ main-h7tEEW37.js:37
+YM @ main-h7tEEW37.js:37
+XM @ main-h7tEEW37.js:37
+p1 @ main-h7tEEW37.js:37
+SP @ main-h7tEEW37.js:37
+(anonymous) @ main-h7tEEW37.js:37
+Hx @ main-h7tEEW37.js:40
+KN @ main-h7tEEW37.js:37
+Zm @ main-h7tEEW37.js:37
+xx @ main-h7tEEW37.js:37
+fI @ main-h7tEEW37.js:37
+simulateInputElementChangedEvent @ bootstrap-autofill-overlay.js:7681
+triggerPostInsertEventsOnElement @ bootstrap-autofill-overlay.js:7603
+handleInsertValueAndTriggerSimulatedEvents @ bootstrap-autofill-overlay.js:7573
+insertValueIntoField @ bootstrap-autofill-overlay.js:7561
+handleFillFieldByOpidAction @ bootstrap-autofill-overlay.js:7508
+fill_by_opid @ bootstrap-autofill-overlay.js:7405
+(anonymous) @ bootstrap-autofill-overlay.js:7425
+setTimeout
+(anonymous) @ bootstrap-autofill-overlay.js:7424
+InsertAutofillContentService.runFillScriptAction @ bootstrap-autofill-overlay.js:7424
+(anonymous) @ bootstrap-autofill-overlay.js:7446
+(anonymous) @ bootstrap-autofill-overlay.js:7389
+insert_autofill_content_service_awaiter @ bootstrap-autofill-overlay.js:7385
+fillForm @ bootstrap-autofill-overlay.js:7438
+(anonymous) @ bootstrap-autofill-overlay.js:7810
+fulfilled @ bootstrap-autofill-overlay.js:7691
+Promise.then
+step @ bootstrap-autofill-overlay.js:7693
+(anonymous) @ bootstrap-autofill-overlay.js:7694
+autofill_init_awaiter @ bootstrap-autofill-overlay.js:7690
+fillForm @ bootstrap-autofill-overlay.js:7802
+fillForm @ bootstrap-autofill-overlay.js:7722
+AutofillInit.handleExtensionMessage @ bootstrap-autofill-overlay.js:7737
+main-h7tEEW37.js:430  Uncaught (in promise) Error: UNION types bigint and uuid cannot be matched
+    at mn (main-h7tEEW37.js:430:41306)
+    at J8 (main-h7tEEW37.js:430:42198)
+    at async main-h7tEEW37.js:430:42613
+mn @ main-h7tEEW37.js:430
+J8 @ main-h7tEEW37.js:430
+await in J8
+(anonymous) @ main-h7tEEW37.js:430
+p @ main-h7tEEW37.js:430
+x @ main-h7tEEW37.js:430
+v @ main-h7tEEW37.js:430
+setTimeout
+g @ main-h7tEEW37.js:430
+w @ main-h7tEEW37.js:430
+w @ main-h7tEEW37.js:430
+KM @ main-h7tEEW37.js:37
+YM @ main-h7tEEW37.js:37
+XM @ main-h7tEEW37.js:37
+p1 @ main-h7tEEW37.js:37
+SP @ main-h7tEEW37.js:37
+(anonymous) @ main-h7tEEW37.js:37
+Hx @ main-h7tEEW37.js:40
+KN @ main-h7tEEW37.js:37
+Zm @ main-h7tEEW37.js:37
+xx @ main-h7tEEW37.js:37
+fI @ main-h7tEEW37.js:37
+simulateInputElementChangedEvent @ bootstrap-autofill-overlay.js:7681
+triggerPostInsertEventsOnElement @ bootstrap-autofill-overlay.js:7603
+handleInsertValueAndTriggerSimulatedEvents @ bootstrap-autofill-overlay.js:7573
+insertValueIntoField @ bootstrap-autofill-overlay.js:7561
+handleFillFieldByOpidAction @ bootstrap-autofill-overlay.js:7508
+fill_by_opid @ bootstrap-autofill-overlay.js:7405
+(anonymous) @ bootstrap-autofill-overlay.js:7425
+setTimeout
+(anonymous) @ bootstrap-autofill-overlay.js:7424
+InsertAutofillContentService.runFillScriptAction @ bootstrap-autofill-overlay.js:7424
+(anonymous) @ bootstrap-autofill-overlay.js:7446
+(anonymous) @ bootstrap-autofill-overlay.js:7389
+insert_autofill_content_service_awaiter @ bootstrap-autofill-overlay.js:7385
+fillForm @ bootstrap-autofill-overlay.js:7438
+(anonymous) @ bootstrap-autofill-overlay.js:7810
+fulfilled @ bootstrap-autofill-overlay.js:7691
+Promise.then
+step @ bootstrap-autofill-overlay.js:7693
+(anonymous) @ bootstrap-autofill-overlay.js:7694
+autofill_init_awaiter @ bootstrap-autofill-overlay.js:7690
+fillForm @ bootstrap-autofill-overlay.js:7802
+fillForm @ bootstrap-autofill-overlay.js:7722
+AutofillInit.handleExtensionMessage @ bootstrap-autofill-overlay.js:7737
+main.js:2414 2025-08-04T22:40:07.764Z: PhishingPageManager: Page logo detection updated: {
+    "logoFound": true,
+    "protectedLogoFound": false
+}
+main-h7tEEW37.js:434 Loaded layout from DB: (6) [{…}, {…}, {…}, {…}, {…}, {…}]
+main-h7tEEW37.js:434 Loaded layout from DB: (6) [{…}, {…}, {…}, {…}, {…}, {…}]
+main-h7tEEW37.js:434 Attempting to save layout: (6) [{…}, {…}, {…}, {…}, {…}, {…}]
+main-h7tEEW37.js:434 Dashboard layout saved successfully.
+main-h7tEEW37.js:75 [Supabase Client] Attempting to call /auth-logout Edge Function for key: sb-qwvukolqraoucpxjqpmu-auth-token
+main-h7tEEW37.js:430 [PublicRoute] User not authenticated and not loading. Rendering public route children.
+main-h7tEEW37.js:75   POST https://qwvukolqraoucpxjqpmu.supabase.co/functions/v1/auth-logout 401 (Unauthorized)
+remove @ main-h7tEEW37.js:75
+o @ main-h7tEEW37.js:75
+removeItem @ main-h7tEEW37.js:75
+await in removeItem
+_i @ main-h7tEEW37.js:73
+_removeSession @ main-h7tEEW37.js:74
+(anonymous) @ main-h7tEEW37.js:74
+await in (anonymous)
+_useSession @ main-h7tEEW37.js:74
+await in _useSession
+_signOut @ main-h7tEEW37.js:74
+(anonymous) @ main-h7tEEW37.js:74
+(anonymous) @ main-h7tEEW37.js:74
+(anonymous) @ main-h7tEEW37.js:73
+main-h7tEEW37.js:75  [Supabase Client] Error response from /auth-logout: 401 
+overrideMethod @ hook.js:608
+(anonymous) @ main-h7tEEW37.js:75
+Promise.then
+remove @ main-h7tEEW37.js:75
+o @ main-h7tEEW37.js:75
+removeItem @ main-h7tEEW37.js:75
+await in removeItem
+_i @ main-h7tEEW37.js:73
+_removeSession @ main-h7tEEW37.js:74
+(anonymous) @ main-h7tEEW37.js:74
+await in (anonymous)
+_useSession @ main-h7tEEW37.js:74
+await in _useSession
+_signOut @ main-h7tEEW37.js:74
+(anonymous) @ main-h7tEEW37.js:74
+(anonymous) @ main-h7tEEW37.js:74
+(anonymous) @ main-h7tEEW37.js:73
+main-h7tEEW37.js:75  [Supabase Client] Logout error body: {code: 401, message: 'Missing authorization header'}
+overrideMethod @ hook.js:608
+(anonymous) @ main-h7tEEW37.js:75
+Promise.then
+(anonymous) @ main-h7tEEW37.js:75
+Promise.then
+remove @ main-h7tEEW37.js:75
+o @ main-h7tEEW37.js:75
+removeItem @ main-h7tEEW37.js:75
+await in removeItem
+_i @ main-h7tEEW37.js:73
+_removeSession @ main-h7tEEW37.js:74
+(anonymous) @ main-h7tEEW37.js:74
+await in (anonymous)
+_useSession @ main-h7tEEW37.js:74
+await in _useSession
+_signOut @ main-h7tEEW37.js:74
+(anonymous) @ main-h7tEEW37.js:74
+(anonymous) @ main-h7tEEW37.js:74
+(anonymous) @ main-h7tEEW37.js:73
