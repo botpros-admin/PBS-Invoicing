@@ -47,10 +47,8 @@ const ClientsClinicsSettings: React.FC = () => {
     error: errorClients,
   } = useQuery({
     queryKey: ['clients'],
-    queryFn: async (): Promise<Client[]> => {
-      const response = await getClients();
-      return Array.isArray(response.data) ? response.data : [];
-    },
+    queryFn: getClients,
+    select: (data) => data.data,
     staleTime: 5 * 60 * 1000
   });
 

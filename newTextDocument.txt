@@ -1,1 +1,67 @@
-however... <button class="btn btn-primary flex items-center">Next <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-right ml-1"><path d="m9 18 6-6-6-6"></path></svg></button> this needs to look like a regular button how all other buttons look also the dropdowns on this '' page need to be more modern and uniformed like the others are
+well i just realize though now in settings tab the page is white and :
+main-CcPE_GgT.js:617 Root element found, rendering full app with authentication...
+index.ts-2a21a9d0.js:1 [Long Running Recorder] Content script initialised
+contentScript.bundle.js:75   POST https://o456514.ingest.us.sentry.io/api/4507249138532352/envelope/?sentry_key=e5d75f765f30b0d67a057b207ff736e1&sentry_version=7&sentry_client=sentry.javascript.react%2F7.119.2 net::ERR_BLOCKED_BY_CLIENT
+(anonymous) @ contentScript.bundle.js:75
+(anonymous) @ contentScript.bundle.js:75
+add @ contentScript.bundle.js:75
+o @ contentScript.bundle.js:75
+_sendEnvelope @ contentScript.bundle.js:75
+sendSession @ contentScript.bundle.js:75
+captureSession @ contentScript.bundle.js:75
+bE @ contentScript.bundle.js:75
+wE @ contentScript.bundle.js:75
+(anonymous) @ contentScript.bundle.js:75
+vO @ contentScript.bundle.js:75
+(anonymous) @ contentScript.bundle.js:75
+(anonymous) @ contentScript.bundle.js:75
+(anonymous) @ contentScript.bundle.js:75
+(anonymous) @ contentScript.bundle.js:75
+index.ts-2a21a9d0.js:3 [Long Running Recorder] Recorder disabled
+main-CcPE_GgT.js:434 Loaded layout from DB: (6) [{…}, {…}, {…}, {…}, {…}, {…}]
+main-CcPE_GgT.js:514 Querying clients data from Supabase with embedded selects
+main-CcPE_GgT.js:514 Retrieved 4 clients with related data from database
+main-CcPE_GgT.js:40  TypeError: x.map is not a function
+    at phe (main-CcPE_GgT.js:518:49434)
+    at Rx (main-CcPE_GgT.js:38:16998)
+    at Sk (main-CcPE_GgT.js:40:43963)
+    at bk (main-CcPE_GgT.js:40:39727)
+    at ND (main-CcPE_GgT.js:40:39655)
+    at qf (main-CcPE_GgT.js:40:39508)
+    at Gv (main-CcPE_GgT.js:40:35875)
+    at q1 (main-CcPE_GgT.js:40:36678)
+    at ya (main-CcPE_GgT.js:38:3274)
+    at main-CcPE_GgT.js:40:34207
+overrideMethod @ hook.js:608
+Dv @ main-CcPE_GgT.js:40
+r.callback @ main-CcPE_GgT.js:40
+O1 @ main-CcPE_GgT.js:38
+B1 @ main-CcPE_GgT.js:40
+gk @ main-CcPE_GgT.js:40
+SD @ main-CcPE_GgT.js:40
+kD @ main-CcPE_GgT.js:40
+Aa @ main-CcPE_GgT.js:40
+q1 @ main-CcPE_GgT.js:40
+ya @ main-CcPE_GgT.js:38
+(anonymous) @ main-CcPE_GgT.js:40
+main-CcPE_GgT.js:518  Uncaught TypeError: x.map is not a function
+    at phe (main-CcPE_GgT.js:518:49434)
+    at Rx (main-CcPE_GgT.js:38:16998)
+    at Sk (main-CcPE_GgT.js:40:43963)
+    at bk (main-CcPE_GgT.js:40:39727)
+    at ND (main-CcPE_GgT.js:40:39655)
+    at qf (main-CcPE_GgT.js:40:39508)
+    at Gv (main-CcPE_GgT.js:40:35875)
+    at q1 (main-CcPE_GgT.js:40:36678)
+    at ya (main-CcPE_GgT.js:38:3274)
+    at main-CcPE_GgT.js:40:34207
+phe @ main-CcPE_GgT.js:518
+Rx @ main-CcPE_GgT.js:38
+Sk @ main-CcPE_GgT.js:40
+bk @ main-CcPE_GgT.js:40
+ND @ main-CcPE_GgT.js:40
+qf @ main-CcPE_GgT.js:40
+Gv @ main-CcPE_GgT.js:40
+q1 @ main-CcPE_GgT.js:40
+ya @ main-CcPE_GgT.js:38
+(anonymous) @ main-CcPE_GgT.js:40
