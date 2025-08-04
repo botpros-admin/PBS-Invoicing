@@ -212,7 +212,7 @@ const CreateInvoice: React.FC = () => {
                             name="client"
                             value={invoiceData.clientId || ''}
                             onChange={(e) => handleInvoiceDataChange('clientId', e.target.value)}
-                            className="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-secondary focus:border-secondary sm:text-sm rounded-md"
+                            className="block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-secondary focus:border-secondary sm:text-sm rounded-md"
                         >
                             <option value="">Select a client</option>
                             {clients?.map(client => (
@@ -272,7 +272,7 @@ const CreateInvoice: React.FC = () => {
                                     {patients?.map(patient => (
                                         <li key={patient.id} className="flex justify-between items-center p-2 hover:bg-gray-100">
                                             <span>{patient.first_name} {patient.last_name}</span>
-                                            <button onClick={() => handleAddPatientToInvoice(patient)} className="btn btn-sm btn-secondary">Add</button>
+                                            <button onClick={() => handleAddPatientToInvoice(patient)} className="inline-flex items-center px-2.5 py-1.5 border border-transparent text-xs font-medium rounded shadow-sm text-white bg-secondary hover:bg-opacity-90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-secondary">Add</button>
                                         </li>
                                     ))}
                                 </ul>
@@ -323,24 +323,24 @@ const CreateInvoice: React.FC = () => {
         <div className="p-4 sm:p-6 bg-gray-50 border-t">
             <div className="flex justify-between">
                 {currentStep > 1 ? (
-                    <button onClick={() => setCurrentStep(s => s - 1)} className="btn btn-secondary flex items-center">
+                    <button onClick={() => setCurrentStep(s => s - 1)} className="inline-flex items-center px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-secondary">
                         <ChevronLeft size={16} className="mr-1" /> Previous
                     </button>
                 ) : <div />}
                 {currentStep < 3 ? (
                     <button 
                       onClick={() => setCurrentStep(s => s + 1)} 
-                      className="btn btn-primary flex items-center"
+                      className="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-secondary hover:bg-opacity-90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-secondary"
                       disabled={currentStep === 1 && !invoiceData.clientId || currentStep === 2 && patientsOnInvoice.size === 0}
                     >
                         Next <ChevronRight size={16} className="ml-1" />
                     </button>
                 ) : (
                     <div>
-                        <button onClick={handleSaveDraft} className="btn btn-secondary mr-2">
+                        <button onClick={handleSaveDraft} className="inline-flex items-center px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-secondary mr-2">
                             <Save size={16} className="mr-1" /> Save Draft
                         </button>
-                        <button onClick={handleSendInvoice} className="btn btn-primary">
+                        <button onClick={handleSendInvoice} className="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-secondary hover:bg-opacity-90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-secondary">
                             <Send size={16} className="mr-1" /> Send Invoice
                         </button>
                     </div>
