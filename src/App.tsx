@@ -75,28 +75,19 @@ function App() {
             
 
             {/* Protected Routes */}
-            <Route path="/dashboard" element={
-              <ProtectedRoute>
-                <Layout>
-                  <Routes>
-                    <Route 
-                      index 
-                      element={
-                        <ErrorBoundary fallback={<p className="text-red-500">Error loading Dashboard.</p>}>
-                          <Dashboard />
-                        </ErrorBoundary>
-                      } 
-                    />
-                    <Route path="invoices" element={<Invoices />} />
-                    <Route path="invoices/create" element={<CreateInvoice />} />
-                    <Route path="invoices/:id" element={<InvoiceDetail />} />
-                    <Route path="reports" element={<Reports />} />
-                    <Route path="import" element={<ImportData />} />
-                    <Route path="settings/*" element={<Settings />} />
-                  </Routes>
-                </Layout>
-              </ProtectedRoute>
-            } />
+            <Route element={<ProtectedRoute><Layout /></ProtectedRoute>}>
+              <Route path="/dashboard" element={
+                <ErrorBoundary fallback={<p className="text-red-500">Error loading Dashboard.</p>}>
+                  <Dashboard />
+                </ErrorBoundary>
+              } />
+              <Route path="/dashboard/invoices" element={<Invoices />} />
+              <Route path="/dashboard/invoices/create" element={<CreateInvoice />} />
+              <Route path="/dashboard/invoices/:id" element={<InvoiceDetail />} />
+              <Route path="/dashboard/reports" element={<Reports />} />
+              <Route path="/dashboard/import" element={<ImportData />} />
+              <Route path="/dashboard/settings/*" element={<Settings />} />
+            </Route>
             {/* Special Routes */}
             <Route path="/forbidden" element={<Forbidden />} />
             

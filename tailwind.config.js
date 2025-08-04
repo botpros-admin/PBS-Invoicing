@@ -4,7 +4,7 @@ export default {
   theme: {
     extend: {
       colors: {
-        primary: '#334155', // slate-700
+        primary: '#9EA0A2', // Original Gray
         secondary: '#0078D7',
       }
     },
