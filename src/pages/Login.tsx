@@ -6,7 +6,6 @@ import { supabase } from '../api/supabase'; // Import supabase client
 import MfaVerificationModal from '../components/auth/MfaVerificationModal';
 import DnaSpinner from '../components/common/DnaSpinner';
 import { formatAuthError } from '../utils/authErrors'; // Keep error formatting
-import pbsLogo from '../assets/pbs-logo.png';
 
 const Login: React.FC = () => {
   const [email, setEmail] = useState('');
@@ -209,7 +208,7 @@ const Login: React.FC = () => {
           <div className="flex flex-col items-center">
              {/* Placeholder for logo if needed */}
              <img
-               src={pbsLogo}
+               src="/pbs-logo.png" // Assuming logo is in public folder
                alt="Precision Billing Solution Logo"
                className="h-24 mb-2"
              />
@@ -404,7 +403,7 @@ const Login: React.FC = () => {
                 </div>
                 <div className="relative flex justify-center text-sm">
                   <span className="px-2 bg-white text-gray-500">
-                    Admin: admin@email.com / TempPass123!
+                    Demo credentials upon request
                   </span>
                 </div>
               </div>
