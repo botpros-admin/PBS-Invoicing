@@ -143,7 +143,7 @@ const Header: React.FC<HeaderProps> = ({ toggleSidebar }) => {
             placeholder="Search invoices, clients, patients..."
             value={searchTerm}
             onChange={handleSearchChange}
-            className="block w-full pl-10 pr-10 py-2 border border-gray-300 rounded-md leading-5 bg-gray-50 placeholder-gray-400 focus:outline-none focus:bg-white focus:border-[#EF3A4D] focus:ring-1 focus:ring-[#EF3A4D] sm:text-sm" // Updated focus color
+            className="block w-full pl-10 pr-10 py-2 border border-gray-300 rounded-md leading-5 bg-gray-50 placeholder-gray-400 focus:outline-none focus:bg-white focus:border-secondary focus:ring-1 focus:ring-secondary sm:text-sm" // Updated focus color
           />
           {searchTerm && (
             <button

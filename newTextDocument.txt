@@ -1,38 +1,2226 @@
-The following has read buttons!!!:
-
-/dashboard:
-<div class="flex items-center space-x-4"><div class="flex items-center space-x-2 bg-white p-2 rounded-md shadow-sm border border-gray-200"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-calendar text-gray-500"><path d="M8 2v4"></path><path d="M16 2v4"></path><rect width="18" height="18" x="3" y="4" rx="2"></rect><path d="M3 10h18"></path></svg><select class="text-sm border-none focus:outline-none focus:ring-0 bg-transparent" aria-label="Select dashboard date range"><option value="7days">Last 7 Days</option><option value="30days">Last 30 Days</option><option value="90days">Last 90 Days</option><option value="ytd">Year to Date</option></select></div><button class="inline-flex items-center px-3 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-[#EF3A4D] hover:bg-[#D93445]" title="Refresh Data"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-refresh-ccw "><path d="M21 12a9 9 0 0 0-9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"></path><path d="M3 3v5h5"></path><path d="M3 12a9 9 0 0 0 9 9 9.75 9.75 0 0 0 6.74-2.74L21 16"></path><path d="M16 16h5v5"></path></svg></button><button class="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-[#EF3A4D] hover:bg-[#D93445]"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-plus mr-2"><path d="M5 12h14"></path><path d="M12 5v14"></path></svg>Add Widget</button></div>
-
-also when clicking Add Widget button there is a PURPLE button that pops up!!!:
-<div class="flex justify-end pt-4 border-t border-gray-200 mt-4"><button type="button" class="mr-2 px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50">Cancel</button><button type="submit" class="px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700">Add Widget</button></div>
-
-on /dashboard/settings/pricing:
-<div class="flex space-x-2"><button class="btn btn-secondary"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-upload mr-2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" x2="12" y1="3" y2="15"></line></svg> Import Schedule</button><button class="btn btn-primary"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-plus mr-2"><path d="M5 12h14"></path><path d="M12 5v14"></path></sag> Create Schedule</button></div> this needs to be like this: <div class="flex space-x-3"><button class="inline-flex items-center px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#0078D7]"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-upload mr-2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" x2="12" y1="3" y2="15"></line></svg>Import Data</button><button class="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-[#0078D7] hover:bg-[#0078D7] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#0078D7]"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-plus mr-2"><path d="M5 12h14"></path><path d="M12 5v14"></path></svg>Create Invoice</button></div>
-
-ALSO /dashboard/settings/payment:
-this page has a DARKER blue?????!!!?!?!!?? wtf??? where is the uniformity?????????:
-<button type="button" class="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-secondary hover:bg-secondary/90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-secondary"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-save mr-2"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path><polyline points="17 21 17 13 7 13 7 21"></polyline><polyline points="7 3 7 8 15 8"></polyline></svg>Save Payment Settings</button>
+there is a 404 when i click <button class="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-[#0078D7] hover:bg-[#0078D7] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#0078D7]"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-plus mr-2"><path d="M5 12h14"></path><path d="M12 5v14"></path></svg>Create Invoice</button>
 
 
 
-
-
-this is NOT good!!!!! we ened it to be the lighter should of blue and eleiminate all of these sheades iof blue from everything!!!!!!!! only 1 shade we should have!!!!!
-
-
-
-also /dashboard/settings/email I think ALL buttons on this page (<button disabled="" class="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-secondary hover:bg-secondary/90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-secondary disabled:opacity-50 disabled:cursor-not-allowed"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-send mr-2"><path d="m22 2-7 20-4-9-9-4Z"></path><path d="M22 2 11 13"></path></svg>Send Test Email</button>,  and <button class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md shadow-sm text-white bg-secondary hover:bg-secondary/90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-secondary"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-plus mr-1"><path d="M5 12h14"></path><path d="M12 5v14"></path></svg>Create Template</button> AND, <button class="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-secondary hover:bg-secondary/90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-secondary"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-save mr-2"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path><polyline points="17 21 17 13 7 13 7 21"></polyline><polyline points="7 3 7 8 15 8"></polyline></svg>Save Email Settings</button> are all darker!!!)
+also the login page should not have a read login button:
+<button type="submit" class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-[#ef3a4d] hover:bg-[#d92c3d] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#ef3a4d] "><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-log-in mr-2 h-4 w-4"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"></path><polyline points="10 17 15 12 10 7"></polyline><line x1="15" x2="3" y1="12" y2="12"></line></svg>Sign in</button>
 
 
 
-also: /dashboard/settings/invoice seems to have dark blue on <button class="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-secondary hover:bg-secondary/90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-secondary"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-save mr-2"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path><polyline points="17 21 17 13 7 13 7 21"></polyline><polyline points="7 3 7 8 15 8"></polyline></svg>Save Changes</button>
-
-also regardinghh: /dashboard/settings/security there is dark blue on <button class="px-4 py-2 text-sm font-medium text-white bg-secondary rounded-md hover:bg-secondary/90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-secondary ">Enable Two-Factor Authentication</button>
-(also when this button is clicked the modal that pops up with the Two Factorr QR code has a PURPLE BUTON <button class="px-4 py-2 text-sm font-medium text-white bg-indigo-600 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Continue</button>)
-
-
-also this button is dark blue and shouldn't be!!!:
-<button type="button" class="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-secondary hover:bg-secondary/90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-secondary"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-save mr-2"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path><polyline points="17 21 17 13 7 13 7 21"></polyline><polyline points="7 3 7 8 15 8"></polyline></svg>Save Organization Settings</button>
+also these:
+ WebAssembly is supported in this environment
+ WASM SDK loaded in 21ms
+ Retrieving application id
+ State version: 72
+ Migrator Bv (to version 3) should migrate: false - up
+ Migrator Hg (to version 4) should migrate: false - up
+ Migrator Lf (to version 5) should migrate: false - up
+ Migrator Cy (to version 6) should migrate: false - up
+ Migrator Ev (to version 7) should migrate: false - up
+ Migrator Uv (to version 8) should migrate: false - up
+ Migrator Lv (to version 9) should migrate: false - up
+ Migrator Zp (to version 10) should migrate: false - up
+ Migrator tm (to version 11) should migrate: false - up
+ Migrator sm (to version 12) should migrate: false - up
+ Migrator cm (to version 13) should migrate: false - up
+ Migrator hm (to version 14) should migrate: false - up
+ Migrator gm (to version 15) should migrate: false - up
+ Migrator vm (to version 16) should migrate: false - up
+ Migrator km (to version 17) should migrate: false - up
+ Migrator Cm (to version 18) should migrate: false - up
+ Migrator Em (to version 19) should migrate: false - up
+ Migrator jm (to version 20) should migrate: false - up
+ Migrator Dm (to version 21) should migrate: false - up
+ Migrator Rm (to version 22) should migrate: false - up
+ Migrator Lm (to version 23) should migrate: false - up
+ Migrator Vm (to version 24) should migrate: false - up
+ Migrator Hm (to version 25) should migrate: false - up
+ Migrator Jm (to version 26) should migrate: false - up
+ Migrator Zm (to version 27) should migrate: false - up
+ Migrator tg (to version 28) should migrate: false - up
+ Migrator ng (to version 29) should migrate: false - up
+ Migrator og (to version 30) should migrate: false - up
+ Migrator ug (to version 31) should migrate: false - up
+ Migrator pg (to version 32) should migrate: false - up
+ Migrator bg (to version 33) should migrate: false - up
+ Migrator Cg (to version 34) should migrate: false - up
+ Migrator Eg (to version 35) should migrate: false - up
+ Migrator jg (to version 36) should migrate: false - up
+ Migrator Dg (to version 37) should migrate: false - up
+ Migrator qg (to version 38) should migrate: false - up
+ Migrator $g (to version 39) should migrate: false - up
+ Migrator Xg (to version 40) should migrate: false - up
+ Migrator nf (to version 41) should migrate: false - up
+ Migrator sf (to version 42) should migrate: false - up
+ Migrator cf (to version 43) should migrate: false - up
+ Migrator hf (to version 44) should migrate: false - up
+ Migrator vf (to version 45) should migrate: false - up
+ Migrator kf (to version 46) should migrate: false - up
+ Migrator Tf (to version 47) should migrate: false - up
+ Migrator Nf (to version 48) should migrate: false - up
+ Migrator Uf (to version 49) should migrate: false - up
+ Migrator $f (to version 50) should migrate: false - up
+ Migrator Wf (to version 51) should migrate: false - up
+background.js:2 Migrator Gf (to version 52) should migrate: false - up
+background.js:2 Migrator Zf (to version 53) should migrate: false - up
+background.js:2 Migrator iy (to version 54) should migrate: false - up
+background.js:2 Migrator oy (to version 55) should migrate: false - up
+background.js:2 Migrator dy (to version 56) should migrate: false - up
+background.js:2 Migrator gy (to version 57) should migrate: false - up
+background.js:2 Migrator vy (to version 58) should migrate: false - up
+background.js:2 Migrator Sy (to version 59) should migrate: false - up
+background.js:2 Migrator zy (to version 60) should migrate: false - up
+background.js:2 Migrator Ny (to version 61) should migrate: false - up
+background.js:2 Migrator Vy (to version 62) should migrate: false - up
+background.js:2 Migrator Gy (to version 63) should migrate: false - up
+background.js:2 Migrator Yy (to version 64) should migrate: false - up
+background.js:2 Migrator cv (to version 65) should migrate: false - up
+background.js:2 Migrator gv (to version 66) should migrate: false - up
+background.js:2 Migrator vv (to version 67) should migrate: false - up
+background.js:2 Migrator kv (to version 68) should migrate: false - up
+background.js:2 Migrator _v (to version 69) should migrate: false - up
+background.js:2 Migrator jv (to version 70) should migrate: false - up
+background.js:2 Migrator Dv (to version 71) should migrate: false - up
+background.js:2 Migrator Rv (to version 72) should migrate: false - up
+background.js:2  Uncaught (in promise) Error: Duplicate script ID 'fido2-page-script-registration'
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+Unchecked runtime.lastError: The page keeping the extension port is moved into back/forward cache, so the message channel is closed.
+background.js:2 Using WebPush for notifications
+background.js:2  Issue with web push, falling back to SignalR NotAllowedError: Registration failed - permission denied
+write @ background.js:2
+background.js:2 [CipherService] Decrypting 218 ciphers took 14ms
+background.js:2 [SearchService] Building search index of 218 ciphers took 84ms
+background.js:2 Self-host environment did not respond in time, emitting previous config.
+background.js:2 [SignalR] WebSocket connected to wss://notifications.bitwarden.com/hub?access_token=[REDACTED]
+background.js:2 [SignalR] Using HubProtocol 'messagepack'.
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+background.js:2  Cannot find menu item with id root
+write @ background.js:2
+background.js:2  Cannot find menu item with id autofill-identity
+write @ background.js:2
+background.js:2  Cannot find menu item with id copy-password
+write @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+background.js:2  Uncaught Error: No tab with id: 1288928624.
+Unchecked runtime.lastError: No tab with id: 1288928624.
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+background.js:2 Using WebPush for notifications
+background.js:2 [SignalR] Connection disconnected.
+background.js:2  Issue with web push, falling back to SignalR NotAllowedError: Registration failed - permission denied
+write @ background.js:2
+background.js:2 [SignalR] WebSocket connected to wss://notifications.bitwarden.com/hub?access_token=[REDACTED]
+background.js:2 [SignalR] Using HubProtocol 'messagepack'.
+background.js:2 Using WebPush for notifications
+background.js:2 [SignalR] Connection disconnected.
+background.js:2  Issue with web push, falling back to SignalR NotAllowedError: Registration failed - permission denied
+write @ background.js:2
+background.js:2 [SignalR] WebSocket connected to wss://notifications.bitwarden.com/hub?access_token=[REDACTED]
+background.js:2 [SignalR] Using HubProtocol 'messagepack'.
+background.js:2 Using WebPush for notifications
+background.js:2 [SignalR] Connection disconnected.
+background.js:2  Issue with web push, falling back to SignalR NotAllowedError: Registration failed - permission denied
+write @ background.js:2
+background.js:2 [SignalR] WebSocket connected to wss://notifications.bitwarden.com/hub?access_token=[REDACTED]
+background.js:2 [SignalR] Using HubProtocol 'messagepack'.
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+error @ background.js:2
+(anonymous) @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+error @ background.js:2
+(anonymous) @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+error @ background.js:2
+(anonymous) @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+error @ background.js:2
+(anonymous) @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+error @ background.js:2
+(anonymous) @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+error @ background.js:2
+(anonymous) @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+error @ background.js:2
+(anonymous) @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+error @ background.js:2
+(anonymous) @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+error @ background.js:2
+(anonymous) @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+error @ background.js:2
+(anonymous) @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+error @ background.js:2
+(anonymous) @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+error @ background.js:2
+(anonymous) @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'triggerAutofillScriptInjection'. Error: No frame with id 420 in tab with id 1288928496
+write @ background.js:2
+error @ background.js:2
+(anonymous) @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+background.js:2  Cannot find menu item with id root
+write @ background.js:2
+background.js:2  Cannot find menu item with id autofill
+write @ background.js:2
+background.js:2  Cannot find menu item with id autofill-identity
+write @ background.js:2
+background.js:2  Cannot find menu item with id autofill-card
+write @ background.js:2
+background.js:2  Cannot find menu item with id autofill
+write @ background.js:2
+background.js:2  Cannot find menu item with id autofill-identity
+write @ background.js:2
+background.js:2  Cannot find menu item with id autofill-card
+write @ background.js:2
+background.js:2  Cannot find menu item with id root
+write @ background.js:2
+background.js:2  Cannot find menu item with id autofill
+write @ background.js:2
+background.js:2  Cannot find menu item with id autofill-identity
+write @ background.js:2
+background.js:2  Cannot find menu item with id autofill-card
+write @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+background.js:2  Uncaught (in promise) Error: Frame with ID 0 was removed.
+background.js:2  Uncaught (in promise) Error: Frame with ID 0 was removed.
+background.js:2  Uncaught (in promise) Error: Frame with ID 0 was removed.
+background.js:2  Uncaught (in promise) Error: Frame with ID 0 was removed.
+background.js:2  Uncaught (in promise) Error: Frame with ID 0 was removed.
+background.js:2  Uncaught (in promise) Error: Frame with ID 0 was removed.
+background.js:2  Uncaught (in promise) Error: Frame with ID 0 was removed.
+background.js:2  Error: No tab with id: 1288928635.
+write @ background.js:2
+background.js:2 Retrieving application id
+background.js:2 [CipherService] Decrypting 219 ciphers took 56ms
+background.js:2 [SearchService] Building search index of 219 ciphers took 163ms
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+background.js:2  Error: No tab with id: 1288928661.
+write @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+background.js:2  Cannot find menu item with id root
+write @ background.js:2
+background.js:2  Cannot find menu item with id autofill-identity
+write @ background.js:2
+background.js:2  Cannot find menu item with id autofill-card
+write @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+background.js:2  Cannot find menu item with id root
+write @ background.js:2
+background.js:2  Cannot find menu item with id autofill
+write @ background.js:2
+background.js:2  Cannot find menu item with id autofill-identity
+write @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'triggerAutofillScriptInjection'. Error: Cannot access contents of url "file:///C:/Users/Agent/Downloads/Eligibility%20Automation%20%EF%BC%86%20API%20Limitations.pdf". Extension manifest must request permission to access this host.
+write @ background.js:2
+background.js:2  Cannot find menu item with id autofill-card
+write @ background.js:2
+background.js:2  Cannot find menu item with id copy-password
+write @ background.js:2
+background.js:2  Cannot find menu item with id autofill
+write @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+background.js:2  Cannot find menu item with id copy-username
+write @ background.js:2
+background.js:2  Cannot find menu item with id autofill
+write @ background.js:2
+background.js:2  Cannot find menu item with id copy-password
+write @ background.js:2
+background.js:2  Cannot find menu item with id copy-password
+write @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+background.js:2 Using WebPush for notifications
+background.js:2 [SignalR] Connection disconnected.
+background.js:2  Issue with web push, falling back to SignalR NotAllowedError: Registration failed - permission denied
+write @ background.js:2
+background.js:2 [SignalR] WebSocket connected to wss://notifications.bitwarden.com/hub?access_token=[REDACTED]
+background.js:2 [SignalR] Using HubProtocol 'messagepack'.
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+background.js:2  Cannot find menu item with id root
+write @ background.js:2
+background.js:2  Cannot find menu item with id autofill-identity
+write @ background.js:2
+background.js:2  Cannot find menu item with id autofill-card
+write @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+error @ background.js:2
+(anonymous) @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+error @ background.js:2
+(anonymous) @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+main-BFmOknid.js:612 Root element found, rendering full app with authentication...
+index.ts-2a21a9d0.js:1 [Long Running Recorder] Content script initialised
+contentScript.bundle.js:75   POST https://o456514.ingest.us.sentry.io/api/4507249138532352/envelope/?sentry_key=e5d75f765f30b0d67a057b207ff736e1&sentry_version=7&sentry_client=sentry.javascript.react%2F7.119.2 net::ERR_BLOCKED_BY_CLIENT
+(anonymous) @ contentScript.bundle.js:75
+(anonymous) @ contentScript.bundle.js:75
+add @ contentScript.bundle.js:75
+o @ contentScript.bundle.js:75
+_sendEnvelope @ contentScript.bundle.js:75
+sendSession @ contentScript.bundle.js:75
+captureSession @ contentScript.bundle.js:75
+bE @ contentScript.bundle.js:75
+wE @ contentScript.bundle.js:75
+(anonymous) @ contentScript.bundle.js:75
+vO @ contentScript.bundle.js:75
+(anonymous) @ contentScript.bundle.js:75
+(anonymous) @ contentScript.bundle.js:75
+(anonymous) @ contentScript.bundle.js:75
+(anonymous) @ contentScript.bundle.js:75
+index.ts-2a21a9d0.js:3 [Long Running Recorder] Recorder disabled
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+main-BFmOknid.js:429 Loaded layout from DB: (6) [{…}, {…}, {…}, {…}, {…}, {…}]
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+main-BFmOknid.js:509 Querying clients data from Supabase with embedded selects
+main-BFmOknid.js:509 Retrieved 4 clients with related data from database
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+main.js:2414 2025-08-04T20:54:59.952Z: Input was focused, will ask for screenshot analysis
+main.js:2414 2025-08-04T20:55:00.012Z: Input was focused, will ask for screenshot analysis
+main.js:2414 2025-08-04T20:55:00.035Z: PhishingPageManager: Detection suppressed because of password injection
+main-BFmOknid.js:509 Querying clients data from Supabase with embedded selects
+main-BFmOknid.js:509 Retrieved 4 clients with related data from database
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+main-BFmOknid.js:429 Loaded layout from DB: (6) [{…}, {…}, {…}, {…}, {…}, {…}]
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+main-BFmOknid.js:429 Loaded layout from DB: (6) [{…}, {…}, {…}, {…}, {…}, {…}]
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+main-BFmOknid.js:75 [Supabase Client] Attempting to call /auth-logout Edge Function for key: sb-qwvukolqraoucpxjqpmu-auth-token
+main-BFmOknid.js:425 [PublicRoute] User not authenticated and not loading. Rendering public route children.
+main-BFmOknid.js:75   POST https://qwvukolqraoucpxjqpmu.supabase.co/functions/v1/auth-logout 401 (Unauthorized)
+remove @ main-BFmOknid.js:75
+o @ main-BFmOknid.js:75
+removeItem @ main-BFmOknid.js:75
+await in removeItem
+_i @ main-BFmOknid.js:73
+_removeSession @ main-BFmOknid.js:74
+(anonymous) @ main-BFmOknid.js:74
+await in (anonymous)
+_useSession @ main-BFmOknid.js:74
+await in _useSession
+_signOut @ main-BFmOknid.js:74
+(anonymous) @ main-BFmOknid.js:74
+(anonymous) @ main-BFmOknid.js:74
+(anonymous) @ main-BFmOknid.js:73
+main-BFmOknid.js:75  [Supabase Client] Error response from /auth-logout: 401 
+overrideMethod @ hook.js:608
+(anonymous) @ main-BFmOknid.js:75
+Promise.then
+remove @ main-BFmOknid.js:75
+o @ main-BFmOknid.js:75
+removeItem @ main-BFmOknid.js:75
+await in removeItem
+_i @ main-BFmOknid.js:73
+_removeSession @ main-BFmOknid.js:74
+(anonymous) @ main-BFmOknid.js:74
+await in (anonymous)
+_useSession @ main-BFmOknid.js:74
+await in _useSession
+_signOut @ main-BFmOknid.js:74
+(anonymous) @ main-BFmOknid.js:74
+(anonymous) @ main-BFmOknid.js:74
+(anonymous) @ main-BFmOknid.js:73
+main-BFmOknid.js:75  [Supabase Client] Logout error body: {code: 401, message: 'Missing authorization header'}
+overrideMethod @ hook.js:608
+(anonymous) @ main-BFmOknid.js:75
+Promise.then
+(anonymous) @ main-BFmOknid.js:75
+Promise.then
+remove @ main-BFmOknid.js:75
+o @ main-BFmOknid.js:75
+removeItem @ main-BFmOknid.js:75
+await in removeItem
+_i @ main-BFmOknid.js:73
+_removeSession @ main-BFmOknid.js:74
+(anonymous) @ main-BFmOknid.js:74
+await in (anonymous)
+_useSession @ main-BFmOknid.js:74
+await in _useSession
+_signOut @ main-BFmOknid.js:74
+(anonymous) @ main-BFmOknid.js:74
+(anonymous) @ main-BFmOknid.js:74
+(anonymous) @ main-BFmOknid.js:73
+contentScript.bundle.js:75   POST https://o456514.ingest.us.sentry.io/api/4507249138532352/envelope/?sentry_key=e5d75f765f30b0d67a057b207ff736e1&sentry_version=7&sentry_client=sentry.javascript.react%2F7.119.2 net::ERR_BLOCKED_BY_CLIENT
+(anonymous) @ contentScript.bundle.js:75
+(anonymous) @ contentScript.bundle.js:75
+add @ contentScript.bundle.js:75
+o @ contentScript.bundle.js:75
+_sendEnvelope @ contentScript.bundle.js:75
+_flushOutcomes @ contentScript.bundle.js:75
+(anonymous) @ contentScript.bundle.js:75
+contentScript.bundle.js:75   POST https://o456514.ingest.us.sentry.io/api/4507249138532352/envelope/?sentry_key=e5d75f765f30b0d67a057b207ff736e1&sentry_version=7&sentry_client=sentry.javascript.react%2F7.119.2 net::ERR_BLOCKED_BY_CLIENT
+(anonymous) @ contentScript.bundle.js:75
+(anonymous) @ contentScript.bundle.js:75
+add @ contentScript.bundle.js:75
+o @ contentScript.bundle.js:75
+_sendEnvelope @ contentScript.bundle.js:75
+_flushOutcomes @ contentScript.bundle.js:75
+(anonymous) @ contentScript.bundle.js:75
+main-BFmOknid.js:425 [PublicRoute] User not authenticated and not loading. Rendering public route children.
+contentScript.bundle.js:75   POST https://o456514.ingest.us.sentry.io/api/4507249138532352/envelope/?sentry_key=e5d75f765f30b0d67a057b207ff736e1&sentry_version=7&sentry_client=sentry.javascript.react%2F7.119.2 net::ERR_BLOCKED_BY_CLIENT
+(anonymous) @ contentScript.bundle.js:75
+(anonymous) @ contentScript.bundle.js:75
+add @ contentScript.bundle.js:75
+o @ contentScript.bundle.js:75
+_sendEnvelope @ contentScript.bundle.js:75
+sendSession @ contentScript.bundle.js:75
+captureSession @ contentScript.bundle.js:75
+bE @ contentScript.bundle.js:75
+yE @ contentScript.bundle.js:75
+vE @ contentScript.bundle.js:75
+(anonymous) @ contentScript.bundle.js:75
+dk @ contentScript.bundle.js:75
+fk.onpopstate @ contentScript.bundle.js:75
+contentScript.bundle.js:75   POST https://o456514.ingest.us.sentry.io/api/4507249138532352/envelope/?sentry_key=e5d75f765f30b0d67a057b207ff736e1&sentry_version=7&sentry_client=sentry.javascript.react%2F7.119.2 net::ERR_BLOCKED_BY_CLIENT
+(anonymous) @ contentScript.bundle.js:75
+(anonymous) @ contentScript.bundle.js:75
+add @ contentScript.bundle.js:75
+o @ contentScript.bundle.js:75
+_sendEnvelope @ contentScript.bundle.js:75
+sendSession @ contentScript.bundle.js:75
+captureSession @ contentScript.bundle.js:75
+bE @ contentScript.bundle.js:75
+wE @ contentScript.bundle.js:75
+(anonymous) @ contentScript.bundle.js:75
+dk @ contentScript.bundle.js:75
+fk.onpopstate @ contentScript.bundle.js:75
+main-BFmOknid.js:425 [Login Page] Starting 1.25s login delay...
+main-BFmOknid.js:425 [Login Page] Delay finished. Calling login context function...
+main-BFmOknid.js:425 [Login Page] Login successful (no MFA). Navigating...
+main-BFmOknid.js:425 [PublicRoute] User not authenticated and not loading. Rendering public route children.
+main-BFmOknid.js:425  [PublicRoute] User is authenticated, redirecting away from public route to: /dashboard
+overrideMethod @ hook.js:608
+eF @ main-BFmOknid.js:425
+Rx @ main-BFmOknid.js:38
+Rv @ main-BFmOknid.js:40
+Sk @ main-BFmOknid.js:40
+xk @ main-BFmOknid.js:40
+OI @ main-BFmOknid.js:40
+Wf @ main-BFmOknid.js:40
+gk @ main-BFmOknid.js:40
+w @ main-BFmOknid.js:25
+A @ main-BFmOknid.js:25
+main-BFmOknid.js:429 Loaded layout from DB: (6) [{…}, {…}, {…}, {…}, {…}, {…}]
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+error @ background.js:2
+(anonymous) @ background.js:2
+Promise.catch
+(anonymous) @ background.js:2
+background.js:2  Error while processing message in RuntimeBackground 'collectPageDetailsResponse'. Error: Did not autofill.
+    at Pj.<anonymous> (background.js:2:2761427)
+    at Generator.next (<anonymous>)
+    at s (background.js:2:2754927)
+write @ background.js:2
+error @ background.js:2
+(anonymous) @ background.js:2
+Promise.catch
+(anonymous) @ background.js:2
 
 
 

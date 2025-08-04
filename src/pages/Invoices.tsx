@@ -142,7 +142,7 @@ const Invoices: React.FC = () => {
   };
 
   const handleCreateInvoice = () => {
-    navigate('/invoices/create'); // Corrected path
+    navigate('/dashboard/invoices/create');
   };
 
   const handleImportData = () => {
@@ -532,14 +532,14 @@ const renderClientCell = (row: PreviewRow) => {
         <div className="flex space-x-3">
           <button
             onClick={handleImportData}
-            className="inline-flex items-center px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#0078D7]"
+            className="inline-flex items-center px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-secondary"
           >
             <Upload size={16} className="mr-2" />
             Import Data
           </button>
           <button
             onClick={handleCreateInvoice}
-            className="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-[#0078D7] hover:bg-[#0078D7] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#0078D7]"
+            className="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-[#0078D7] hover:bg-[#0078D7] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-secondary"
           >
             <Plus size={16} className="mr-2" />
             Create Invoice
@@ -558,7 +558,7 @@ const renderClientCell = (row: PreviewRow) => {
               placeholder="Search invoices..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md leading-5 bg-white placeholder-gray-500 focus:outline-none focus:placeholder-gray-400 focus:ring-1 focus:ring-[#0078D7] focus:border-[#0078D7] sm:text-sm"
+              className="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md leading-5 bg-white placeholder-gray-500 focus:outline-none focus:placeholder-gray-400 focus:ring-1 focus:ring-secondary focus:border-[#0078D7] sm:text-sm"
             />
           </div>
 
@@ -570,7 +570,7 @@ const renderClientCell = (row: PreviewRow) => {
               <select
                 value={statusFilter}
                 onChange={(e) => setStatusFilter(e.target.value as InvoiceStatus | 'all')}
-                className="block w-full pl-10 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-[#0078D7] focus:border-[#0078D7] sm:text-sm rounded-md"
+                className="block w-full pl-10 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-secondary focus:border-[#0078D7] sm:text-sm rounded-md"
               >
                 <option value="all">All Statuses</option>
                 <option value="draft">Draft</option>
@@ -592,7 +592,7 @@ const renderClientCell = (row: PreviewRow) => {
               <select
                 value={agingFilter}
                 onChange={(e) => setAgingFilter(e.target.value)}
-                className="block w-full pl-10 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-[#0078D7] focus:border-[#0078D7] sm:text-sm rounded-md"
+                className="block w-full pl-10 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-secondary focus:border-[#0078D7] sm:text-sm rounded-md"
               >
                 <option value="all">All Aging Periods</option>
                 <option value="current">Current</option>
@@ -667,7 +667,7 @@ const renderClientCell = (row: PreviewRow) => {
           <div className="flex justify-end space-x-3">
             <button
               onClick={() => setIsDeleteModalOpen(false)}
-              className="px-4 py-2 border border-gray-300 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#0078D7]"
+              className="px-4 py-2 border border-gray-300 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-secondary"
             >
               Cancel
             </button>
@@ -700,7 +700,7 @@ const renderClientCell = (row: PreviewRow) => {
             {file && (
               <button
                 onClick={handleReset}
-                className="inline-flex items-center px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#0078D7]"
+                className="inline-flex items-center px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-secondary"
                 disabled={isProcessing}
               >
                 Reset
@@ -710,7 +710,7 @@ const renderClientCell = (row: PreviewRow) => {
             <div>
               <button
                 onClick={() => !isProcessing && setIsImportModalOpen(false)}
-                className="inline-flex items-center px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#0078D7] mr-3"
+                className="inline-flex items-center px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-secondary mr-3"
                 disabled={isProcessing}
               >
                 Cancel
@@ -720,7 +720,7 @@ const renderClientCell = (row: PreviewRow) => {
                 <button
                   onClick={handleProcessFile}
                   disabled={isProcessing}
-                  className="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-[#0078D7] hover:bg-[#0078D7] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#0078D7]"
+                  className="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-[#0078D7] hover:bg-[#0078D7] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-secondary"
                 >
                   {isProcessing ? (
                     <>
