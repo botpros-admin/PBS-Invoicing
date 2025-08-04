@@ -1,306 +1,38 @@
-main.tsx:18 Root element found, rendering full app with authentication...
-hook.js:608  ⚠️ React Router Future Flag Warning: React Router will begin wrapping state updates in `React.startTransition` in v7. You can use the `v7_startTransition` future flag to opt-in early. For more information, see https://reactrouter.com/v6/upgrading/future#v7_starttransition. Error Component Stack
-    at BrowserRouter (index.tsx:789:3)
-    at NotificationProvider (NotificationContext.tsx:34:81)
-    at AuthProvider (AuthContext.tsx:17:67)
-    at App (<anonymous>)
-    at QueryClientProvider (QueryClientProvider.tsx:30:3)
-overrideMethod @ hook.js:608
-warnOnce @ deprecations.ts:9
-logDeprecation @ deprecations.ts:14
-logV6DeprecationWarnings @ deprecations.ts:26
-(anonymous) @ index.tsx:816
-commitHookEffectListMount @ react-dom.development.js:23189
-commitPassiveMountOnFiber @ react-dom.development.js:24965
-commitPassiveMountEffects_complete @ react-dom.development.js:24930
-commitPassiveMountEffects_begin @ react-dom.development.js:24917
-commitPassiveMountEffects @ react-dom.development.js:24905
-flushPassiveEffectsImpl @ react-dom.development.js:27078
-flushPassiveEffects @ react-dom.development.js:27023
-(anonymous) @ react-dom.development.js:26808
-workLoop @ scheduler.development.js:266
-flushWork @ scheduler.development.js:239
-performWorkUntilDeadline @ scheduler.development.js:533
-hook.js:608  ⚠️ React Router Future Flag Warning: Relative route resolution within Splat routes is changing in v7. You can use the `v7_relativeSplatPath` future flag to opt-in early. For more information, see https://reactrouter.com/v6/upgrading/future#v7_relativesplatpath. Error Component Stack
-    at BrowserRouter (index.tsx:789:3)
-    at NotificationProvider (NotificationContext.tsx:34:81)
-    at AuthProvider (AuthContext.tsx:17:67)
-    at App (<anonymous>)
-    at QueryClientProvider (QueryClientProvider.tsx:30:3)
-overrideMethod @ hook.js:608
-warnOnce @ deprecations.ts:9
-logDeprecation @ deprecations.ts:14
-logV6DeprecationWarnings @ deprecations.ts:37
-(anonymous) @ index.tsx:816
-commitHookEffectListMount @ react-dom.development.js:23189
-commitPassiveMountOnFiber @ react-dom.development.js:24965
-commitPassiveMountEffects_complete @ react-dom.development.js:24930
-commitPassiveMountEffects_begin @ react-dom.development.js:24917
-commitPassiveMountEffects @ react-dom.development.js:24905
-flushPassiveEffectsImpl @ react-dom.development.js:27078
-flushPassiveEffects @ react-dom.development.js:27023
-(anonymous) @ react-dom.development.js:26808
-workLoop @ scheduler.development.js:266
-flushWork @ scheduler.development.js:239
-performWorkUntilDeadline @ scheduler.development.js:533
-index.ts-2a21a9d0.js:1 [Long Running Recorder] Content script initialised
-index.ts-2a21a9d0.js:3 [Long Running Recorder] Recorder disabled
-client.service.ts:82 Querying clients data from Supabase with embedded selects
-fetch.ts:15   POST https://qwvukolqraoucpxjqpmu.supabase.co/rest/v1/rpc/get_all_users_in_organization 400 (Bad Request)
-(anonymous) @ fetch.ts:15
-(anonymous) @ fetch.ts:46
-fulfilled @ fetch.ts:2
-Promise.then
-step @ fetch.ts:2
-(anonymous) @ fetch.ts:2
-__awaiter6 @ fetch.ts:2
-(anonymous) @ fetch.ts:34
-then @ PostgrestBuilder.ts:101
-client.ts:90  Supabase error in Get All Users: {code: '42804', details: 'Returned type character varying(255) does not match expected type text in column 2.', hint: null, message: 'structure of query does not match function result type'}
-overrideMethod @ hook.js:608
-handleSupabaseError @ client.ts:90
-getAllUsers @ auth.service.ts:167
-await in getAllUsers
-fetchFn @ query.ts:457
-run @ retryer.ts:153
-start @ retryer.ts:218
-fetch @ query.ts:576
-executeFetch_fn @ queryObserver.ts:333
-onSubscribe @ queryObserver.ts:104
-subscribe @ subscribable.ts:11
-(anonymous) @ useBaseQuery.ts:100
-subscribeToStore @ react-dom.development.js:16139
-commitHookEffectListMount @ react-dom.development.js:23189
-commitPassiveMountOnFiber @ react-dom.development.js:24965
-commitPassiveMountEffects_complete @ react-dom.development.js:24930
-commitPassiveMountEffects_begin @ react-dom.development.js:24917
-commitPassiveMountEffects @ react-dom.development.js:24905
-flushPassiveEffectsImpl @ react-dom.development.js:27078
-flushPassiveEffects @ react-dom.development.js:27023
-(anonymous) @ react-dom.development.js:26808
-workLoop @ scheduler.development.js:266
-flushWork @ scheduler.development.js:239
-performWorkUntilDeadline @ scheduler.development.js:533
-client.service.ts:98 Retrieved 4 clients with related data from database
-fetch.ts:15   POST https://qwvukolqraoucpxjqpmu.supabase.co/rest/v1/rpc/get_all_users_in_organization 400 (Bad Request)
-(anonymous) @ fetch.ts:15
-(anonymous) @ fetch.ts:46
-fulfilled @ fetch.ts:2
-Promise.then
-step @ fetch.ts:2
-(anonymous) @ fetch.ts:2
-__awaiter6 @ fetch.ts:2
-(anonymous) @ fetch.ts:34
-then @ PostgrestBuilder.ts:101
-setTimeout
-(anonymous) @ utils.ts:357
-sleep @ utils.ts:356
-(anonymous) @ retryer.ts:190
-Promise.catch
-run @ retryer.ts:160
-start @ retryer.ts:218
-fetch @ query.ts:576
-executeFetch_fn @ queryObserver.ts:333
-onSubscribe @ queryObserver.ts:104
-subscribe @ subscribable.ts:11
-(anonymous) @ useBaseQuery.ts:100
-subscribeToStore @ react-dom.development.js:16139
-commitHookEffectListMount @ react-dom.development.js:23189
-commitPassiveMountOnFiber @ react-dom.development.js:24965
-commitPassiveMountEffects_complete @ react-dom.development.js:24930
-commitPassiveMountEffects_begin @ react-dom.development.js:24917
-commitPassiveMountEffects @ react-dom.development.js:24905
-flushPassiveEffectsImpl @ react-dom.development.js:27078
-flushPassiveEffects @ react-dom.development.js:27023
-(anonymous) @ react-dom.development.js:26808
-workLoop @ scheduler.development.js:266
-flushWork @ scheduler.development.js:239
-performWorkUntilDeadline @ scheduler.development.js:533
-client.ts:90  Supabase error in Get All Users: {code: '42804', details: 'Returned type character varying(255) does not match expected type text in column 2.', hint: null, message: 'structure of query does not match function result type'}
-overrideMethod @ hook.js:608
-handleSupabaseError @ client.ts:90
-getAllUsers @ auth.service.ts:167
-await in getAllUsers
-fetchFn @ query.ts:457
-run @ retryer.ts:153
-(anonymous) @ retryer.ts:199
-Promise.then
-(anonymous) @ retryer.ts:195
-Promise.catch
-run @ retryer.ts:160
-start @ retryer.ts:218
-fetch @ query.ts:576
-executeFetch_fn @ queryObserver.ts:333
-onSubscribe @ queryObserver.ts:104
-subscribe @ subscribable.ts:11
-(anonymous) @ useBaseQuery.ts:100
-subscribeToStore @ react-dom.development.js:16139
-commitHookEffectListMount @ react-dom.development.js:23189
-commitPassiveMountOnFiber @ react-dom.development.js:24965
-commitPassiveMountEffects_complete @ react-dom.development.js:24930
-commitPassiveMountEffects_begin @ react-dom.development.js:24917
-commitPassiveMountEffects @ react-dom.development.js:24905
-flushPassiveEffectsImpl @ react-dom.development.js:27078
-flushPassiveEffects @ react-dom.development.js:27023
-(anonymous) @ react-dom.development.js:26808
-workLoop @ scheduler.development.js:266
-flushWork @ scheduler.development.js:239
-performWorkUntilDeadline @ scheduler.development.js:533
-fetch.ts:15   POST https://qwvukolqraoucpxjqpmu.supabase.co/rest/v1/rpc/get_all_users_in_organization 400 (Bad Request)
-(anonymous) @ fetch.ts:15
-(anonymous) @ fetch.ts:46
-fulfilled @ fetch.ts:2
-Promise.then
-step @ fetch.ts:2
-(anonymous) @ fetch.ts:2
-__awaiter6 @ fetch.ts:2
-(anonymous) @ fetch.ts:34
-then @ PostgrestBuilder.ts:101
-setTimeout
-(anonymous) @ utils.ts:357
-sleep @ utils.ts:356
-(anonymous) @ retryer.ts:190
-Promise.catch
-run @ retryer.ts:160
-(anonymous) @ retryer.ts:199
-Promise.then
-(anonymous) @ retryer.ts:195
-Promise.catch
-run @ retryer.ts:160
-start @ retryer.ts:218
-fetch @ query.ts:576
-executeFetch_fn @ queryObserver.ts:333
-onSubscribe @ queryObserver.ts:104
-subscribe @ subscribable.ts:11
-(anonymous) @ useBaseQuery.ts:100
-subscribeToStore @ react-dom.development.js:16139
-commitHookEffectListMount @ react-dom.development.js:23189
-commitPassiveMountOnFiber @ react-dom.development.js:24965
-commitPassiveMountEffects_complete @ react-dom.development.js:24930
-commitPassiveMountEffects_begin @ react-dom.development.js:24917
-commitPassiveMountEffects @ react-dom.development.js:24905
-flushPassiveEffectsImpl @ react-dom.development.js:27078
-flushPassiveEffects @ react-dom.development.js:27023
-(anonymous) @ react-dom.development.js:26808
-workLoop @ scheduler.development.js:266
-flushWork @ scheduler.development.js:239
-performWorkUntilDeadline @ scheduler.development.js:533
-client.ts:90  Supabase error in Get All Users: {code: '42804', details: 'Returned type character varying(255) does not match expected type text in column 2.', hint: null, message: 'structure of query does not match function result type'}code: "42804"details: "Returned type character varying(255) does not match expected type text in column 2."hint: nullmessage: "structure of query does not match function result type"[[Prototype]]: Object
-overrideMethod @ hook.js:608
-handleSupabaseError @ client.ts:90
-getAllUsers @ auth.service.ts:167
-await in getAllUsers
-fetchFn @ query.ts:457
-run @ retryer.ts:153
-(anonymous) @ retryer.ts:199
-Promise.then
-(anonymous) @ retryer.ts:195
-Promise.catch
-run @ retryer.ts:160
-(anonymous) @ retryer.ts:199
-Promise.then
-(anonymous) @ retryer.ts:195
-Promise.catch
-run @ retryer.ts:160
-start @ retryer.ts:218
-fetch @ query.ts:576
-executeFetch_fn @ queryObserver.ts:333
-onSubscribe @ queryObserver.ts:104
-subscribe @ subscribable.ts:11
-(anonymous) @ useBaseQuery.ts:100
-subscribeToStore @ react-dom.development.js:16139
-commitHookEffectListMount @ react-dom.development.js:23189
-commitPassiveMountOnFiber @ react-dom.development.js:24965
-commitPassiveMountEffects_complete @ react-dom.development.js:24930
-commitPassiveMountEffects_begin @ react-dom.development.js:24917
-commitPassiveMountEffects @ react-dom.development.js:24905
-flushPassiveEffectsImpl @ react-dom.development.js:27078
-flushPassiveEffects @ react-dom.development.js:27023
-(anonymous) @ react-dom.development.js:26808
-workLoop @ scheduler.development.js:266
-flushWork @ scheduler.development.js:239
-performWorkUntilDeadline @ scheduler.development.js:533
-fetch.ts:15   POST https://qwvukolqraoucpxjqpmu.supabase.co/rest/v1/rpc/get_all_users_in_organization 400 (Bad Request)
-(anonymous) @ fetch.ts:15
-(anonymous) @ fetch.ts:46
-fulfilled @ fetch.ts:2
-Promise.then
-step @ fetch.ts:2
-(anonymous) @ fetch.ts:2
-__awaiter6 @ fetch.ts:2
-(anonymous) @ fetch.ts:34
-then @ PostgrestBuilder.ts:101
-setTimeout
-(anonymous) @ utils.ts:357
-sleep @ utils.ts:356
-(anonymous) @ retryer.ts:190
-Promise.catch
-run @ retryer.ts:160
-(anonymous) @ retryer.ts:199
-Promise.then
-(anonymous) @ retryer.ts:195
-Promise.catch
-run @ retryer.ts:160
-(anonymous) @ retryer.ts:199
-Promise.then
-(anonymous) @ retryer.ts:195
-Promise.catch
-run @ retryer.ts:160
-start @ retryer.ts:218
-fetch @ query.ts:576
-executeFetch_fn @ queryObserver.ts:333
-onSubscribe @ queryObserver.ts:104
-subscribe @ subscribable.ts:11
-(anonymous) @ useBaseQuery.ts:100
-subscribeToStore @ react-dom.development.js:16139
-commitHookEffectListMount @ react-dom.development.js:23189
-commitPassiveMountOnFiber @ react-dom.development.js:24965
-commitPassiveMountEffects_complete @ react-dom.development.js:24930
-commitPassiveMountEffects_begin @ react-dom.development.js:24917
-commitPassiveMountEffects @ react-dom.development.js:24905
-flushPassiveEffectsImpl @ react-dom.development.js:27078
-flushPassiveEffects @ react-dom.development.js:27023
-(anonymous) @ react-dom.development.js:26808
-workLoop @ scheduler.development.js:266
-flushWork @ scheduler.development.js:239
-performWorkUntilDeadline @ scheduler.development.js:533
-client.ts:90  Supabase error in Get All Users: {code: '42804', details: 'Returned type character varying(255) does not match expected type text in column 2.', hint: null, message: 'structure of query does not match function result type'}code: "42804"details: "Returned type character varying(255) does not match expected type text in column 2."hint: nullmessage: "structure of query does not match function result type"[[Prototype]]: Object
-overrideMethod @ hook.js:608
-handleSupabaseError @ client.ts:90
-getAllUsers @ auth.service.ts:167
-await in getAllUsers
-fetchFn @ query.ts:457
-run @ retryer.ts:153
-(anonymous) @ retryer.ts:199
-Promise.then
-(anonymous) @ retryer.ts:195
-Promise.catch
-run @ retryer.ts:160
-(anonymous) @ retryer.ts:199
-Promise.then
-(anonymous) @ retryer.ts:195
-Promise.catch
-run @ retryer.ts:160
-(anonymous) @ retryer.ts:199
-Promise.then
-(anonymous) @ retryer.ts:195
-Promise.catch
-run @ retryer.ts:160
-start @ retryer.ts:218
-fetch @ query.ts:576
-executeFetch_fn @ queryObserver.ts:333
-onSubscribe @ queryObserver.ts:104
-subscribe @ subscribable.ts:11
-(anonymous) @ useBaseQuery.ts:100
-subscribeToStore @ react-dom.development.js:16139
-commitHookEffectListMount @ react-dom.development.js:23189
-commitPassiveMountOnFiber @ react-dom.development.js:24965
-commitPassiveMountEffects_complete @ react-dom.development.js:24930
-commitPassiveMountEffects_begin @ react-dom.development.js:24917
-commitPassiveMountEffects @ react-dom.development.js:24905
-flushPassiveEffectsImpl @ react-dom.development.js:27078
-flushPassiveEffects @ react-dom.development.js:27023
-(anonymous) @ react-dom.development.js:26808
-workLoop @ scheduler.development.js:266
-flushWork @ scheduler.development.js:239
-performWorkUntilDeadline @ scheduler.development.js:533
+The following has read buttons!!!:
+
+/dashboard:
+<div class="flex items-center space-x-4"><div class="flex items-center space-x-2 bg-white p-2 rounded-md shadow-sm border border-gray-200"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-calendar text-gray-500"><path d="M8 2v4"></path><path d="M16 2v4"></path><rect width="18" height="18" x="3" y="4" rx="2"></rect><path d="M3 10h18"></path></svg><select class="text-sm border-none focus:outline-none focus:ring-0 bg-transparent" aria-label="Select dashboard date range"><option value="7days">Last 7 Days</option><option value="30days">Last 30 Days</option><option value="90days">Last 90 Days</option><option value="ytd">Year to Date</option></select></div><button class="inline-flex items-center px-3 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-[#EF3A4D] hover:bg-[#D93445]" title="Refresh Data"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-refresh-ccw "><path d="M21 12a9 9 0 0 0-9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"></path><path d="M3 3v5h5"></path><path d="M3 12a9 9 0 0 0 9 9 9.75 9.75 0 0 0 6.74-2.74L21 16"></path><path d="M16 16h5v5"></path></svg></button><button class="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-[#EF3A4D] hover:bg-[#D93445]"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-plus mr-2"><path d="M5 12h14"></path><path d="M12 5v14"></path></svg>Add Widget</button></div>
+
+also when clicking Add Widget button there is a PURPLE button that pops up!!!:
+<div class="flex justify-end pt-4 border-t border-gray-200 mt-4"><button type="button" class="mr-2 px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50">Cancel</button><button type="submit" class="px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700">Add Widget</button></div>
+
+on /dashboard/settings/pricing:
+<div class="flex space-x-2"><button class="btn btn-secondary"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-upload mr-2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" x2="12" y1="3" y2="15"></line></svg> Import Schedule</button><button class="btn btn-primary"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-plus mr-2"><path d="M5 12h14"></path><path d="M12 5v14"></path></sag> Create Schedule</button></div> this needs to be like this: <div class="flex space-x-3"><button class="inline-flex items-center px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#0078D7]"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-upload mr-2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" x2="12" y1="3" y2="15"></line></svg>Import Data</button><button class="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-[#0078D7] hover:bg-[#0078D7] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#0078D7]"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-plus mr-2"><path d="M5 12h14"></path><path d="M12 5v14"></path></svg>Create Invoice</button></div>
+
+ALSO /dashboard/settings/payment:
+this page has a DARKER blue?????!!!?!?!!?? wtf??? where is the uniformity?????????:
+<button type="button" class="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-secondary hover:bg-secondary/90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-secondary"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-save mr-2"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path><polyline points="17 21 17 13 7 13 7 21"></polyline><polyline points="7 3 7 8 15 8"></polyline></svg>Save Payment Settings</button>
+
+
+
+
+
+this is NOT good!!!!! we ened it to be the lighter should of blue and eleiminate all of these sheades iof blue from everything!!!!!!!! only 1 shade we should have!!!!!
+
+
+
+also /dashboard/settings/email I think ALL buttons on this page (<button disabled="" class="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-secondary hover:bg-secondary/90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-secondary disabled:opacity-50 disabled:cursor-not-allowed"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-send mr-2"><path d="m22 2-7 20-4-9-9-4Z"></path><path d="M22 2 11 13"></path></svg>Send Test Email</button>,  and <button class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md shadow-sm text-white bg-secondary hover:bg-secondary/90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-secondary"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-plus mr-1"><path d="M5 12h14"></path><path d="M12 5v14"></path></svg>Create Template</button> AND, <button class="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-secondary hover:bg-secondary/90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-secondary"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-save mr-2"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path><polyline points="17 21 17 13 7 13 7 21"></polyline><polyline points="7 3 7 8 15 8"></polyline></svg>Save Email Settings</button> are all darker!!!)
+
+
+
+also: /dashboard/settings/invoice seems to have dark blue on <button class="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-secondary hover:bg-secondary/90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-secondary"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-save mr-2"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path><polyline points="17 21 17 13 7 13 7 21"></polyline><polyline points="7 3 7 8 15 8"></polyline></svg>Save Changes</button>
+
+also regardinghh: /dashboard/settings/security there is dark blue on <button class="px-4 py-2 text-sm font-medium text-white bg-secondary rounded-md hover:bg-secondary/90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-secondary ">Enable Two-Factor Authentication</button>
+(also when this button is clicked the modal that pops up with the Two Factorr QR code has a PURPLE BUTON <button class="px-4 py-2 text-sm font-medium text-white bg-indigo-600 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Continue</button>)
+
+
+also this button is dark blue and shouldn't be!!!:
+<button type="button" class="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-secondary hover:bg-secondary/90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-secondary"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-save mr-2"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path><polyline points="17 21 17 13 7 13 7 21"></polyline><polyline points="7 3 7 8 15 8"></polyline></svg>Save Organization Settings</button>
+
+
+

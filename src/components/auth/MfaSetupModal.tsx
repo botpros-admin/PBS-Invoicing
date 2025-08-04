@@ -89,7 +89,7 @@ const MfaSetupModal: React.FC<MfaSetupModalProps> = ({ qrCodeUrl, secret, onVeri
                 </button>
                 <button
                   onClick={() => setStep('verify')}
-                  className="px-4 py-2 text-sm font-medium text-white bg-indigo-600 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                  className="px-4 py-2 text-sm font-medium text-white bg-secondary hover:bg-secondary/90"
                 >
                   Continue
                 </button>
@@ -120,7 +120,7 @@ const MfaSetupModal: React.FC<MfaSetupModalProps> = ({ qrCodeUrl, secret, onVeri
                       value={verificationCode}
                       onChange={(e) => setVerificationCode(e.target.value.replace(/\D/g, '').substring(0, 6))}
                       placeholder="123456"
-                      className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+                      className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-secondary focus:border-secondary"
                       maxLength={6}
                       autoComplete="one-time-code"
                     />
@@ -143,7 +143,7 @@ const MfaSetupModal: React.FC<MfaSetupModalProps> = ({ qrCodeUrl, secret, onVeri
                     </button>
                     <button
                       type="submit"
-                      className={`px-4 py-2 text-sm font-medium text-white bg-indigo-600 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 flex items-center ${
+                      className={`px-4 py-2 text-sm font-medium text-white bg-secondary hover:bg-secondary/90 flex items-center ${
                         isLoading ? 'opacity-75 cursor-not-allowed' : ''
                       }`}
                       disabled={isLoading}

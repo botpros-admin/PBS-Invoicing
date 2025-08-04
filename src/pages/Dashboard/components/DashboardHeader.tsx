@@ -37,7 +37,7 @@ export const DashboardHeader: React.FC<DashboardHeaderProps> = ({
         {/* Refresh Button */}
         <button
           onClick={handleRefreshAllData}
-          className="inline-flex items-center px-3 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-[#EF3A4D] hover:bg-[#D93445]" // Changed color, removed border-gray-300, changed text-gray-700
+          className="inline-flex items-center px-3 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-secondary hover:bg-secondary/90" // Changed color, removed border-gray-300, changed text-gray-700
           title="Refresh Data"
         >
           <RefreshCcw size={16} />
@@ -45,7 +45,7 @@ export const DashboardHeader: React.FC<DashboardHeaderProps> = ({
         {/* Add Widget Button */}
         <button
           onClick={handleAddWidgetClick}
-          className="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-[#EF3A4D] hover:bg-[#D93445]" // Changed color
+          className="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-secondary hover:bg-secondary/90" // Changed color
         >
           <Plus size={16} className="mr-2" />
           Add Widget

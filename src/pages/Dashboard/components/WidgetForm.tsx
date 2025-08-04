@@ -49,7 +49,7 @@ export const WidgetForm: React.FC<WidgetFormProps> = ({
           value={widgetData.title || ''}
           onChange={handleChange}
           required
-          className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+          className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-secondary focus:border-secondary sm:text-sm"
         />
       </div>
       <div>
@@ -60,7 +60,7 @@ export const WidgetForm: React.FC<WidgetFormProps> = ({
           value={widgetData.type || 'chart'}
           onChange={handleChange}
           required
-          className="mt-1 block w-full px-3 py-2 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+          className="mt-1 block w-full px-3 py-2 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-secondary focus:border-secondary sm:text-sm"
         >
           {/* Only allow chart/table for now, stat is derived */}
           <option value="chart">Chart</option>
@@ -76,7 +76,7 @@ export const WidgetForm: React.FC<WidgetFormProps> = ({
           value={widgetData.size || 'medium'}
           onChange={handleChange}
           required
-          className="mt-1 block w-full px-3 py-2 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+          className="mt-1 block w-full px-3 py-2 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-secondary focus:border-secondary sm:text-sm"
         >
           <option value="small">Small</option>
           <option value="medium">Medium</option>
@@ -93,7 +93,7 @@ export const WidgetForm: React.FC<WidgetFormProps> = ({
             name="chartType" // Corresponds to config property
             value={widgetData.config?.chartType || 'bar'}
             onChange={handleConfigChange}
-            className="mt-1 block w-full px-3 py-2 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+            className="mt-1 block w-full px-3 py-2 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-secondary focus:border-secondary sm:text-sm"
           >
             <option value="bar">Bar</option>
             <option value="line">Line</option>
@@ -124,7 +124,7 @@ export const WidgetForm: React.FC<WidgetFormProps> = ({
         </button>
         <button
           type="submit"
-          className="px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700"
+          className="px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-secondary hover:bg-secondary/90"
         >
           {isEdit ? 'Save Changes' : 'Add Widget'}
         </button>

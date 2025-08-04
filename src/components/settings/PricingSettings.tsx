@@ -69,11 +69,11 @@ const PricingSettings: React.FC = () => {
             Manage default and custom price schedules for your labs and clinics.
           </p>
         </div>
-        <div className="flex space-x-2">
-          <button className="btn btn-secondary">
+        <div className="flex space-x-3">
+          <button className="inline-flex items-center px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-secondary">
             <Upload size={16} className="mr-2" /> Import Schedule
           </button>
-          <button onClick={() => setIsModalOpen(true)} className="btn btn-primary">
+          <button onClick={() => setIsModalOpen(true)} className="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-secondary hover:bg-secondary/90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-secondary">
             <Plus size={16} className="mr-2" /> Create Schedule
           </button>
         </div>
