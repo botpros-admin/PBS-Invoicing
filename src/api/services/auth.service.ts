@@ -6,7 +6,7 @@
  */
 
 import { apiRequest, delay, supabase, handleSupabaseError } from '../client';
-import { User, ID } from '../../types';
+import { User, ID, UserStatus } from '../../types';
 
 /**
  * Interface for login credentials
@@ -137,6 +137,91 @@ export async function getCurrentUser(): Promise<User> {
     console.error('Failed to get current user:', error);
     throw error;
   }
+}
+
+/**
+ * Get all users for the current organization
+ * 
+ * @returns Promise with a list of all users
+ */
+export async function getAllUsers(): Promise<User[]> {
+    try {
+        const { data, error } = await supabase.rpc('get_all_users_in_organization');
+
+        if (error) throw error;
+
+        return data.map((user: any) => ({
+            id: user.id.toString(),
+            organizationId: user.organization_id ? user.organization_id.toString() : undefined,
+            name: `${user.first_name} ${user.last_name}`.trim(),
+            email: user.email,
+            role: user.role,
+            status: user.status,
+            mfaEnabled: user.mfa_enabled,
+            avatar: user.avatar_url,
+            lastLoginAt: user.last_sign_in_at,
+            createdAt: user.created_at,
+            updatedAt: user.updated_at
+        }));
+    } catch (error) {
+        handleSupabaseError(error, 'Get All Users');
+        throw error;
+    }
+}
+
+/**
+ * Update user status
+ * 
+ * @param userId - ID of the user to update
+ * @param status - New status
+ * @returns Promise with the updated user
+ */
+export async function updateUserStatus(userId: ID, status: UserStatus): Promise<User> {
+    try {
+        const { data, error } = await supabase
+            .from('users')
+            .update({ status })
+            .eq('id', userId)
+            .select()
+            .single();
+
+        if (error) throw error;
+
+        return {
+            id: data.id.toString(),
+            organizationId: data.organization_id ? data.organization_id.toString() : undefined,
+            name: `${data.first_name} ${data.last_name}`.trim(),
+            email: data.email,
+            role: data.role,
+            status: data.status,
+            mfaEnabled: data.mfa_enabled,
+            avatar: data.avatar_url,
+            createdAt: data.created_at,
+            updatedAt: data.updated_at
+        };
+    } catch (error) {
+        handleSupabaseError(error, 'Update User Status');
+        throw error;
+    }
+}
+
+/**
+ * Resend invitation to a user
+ * 
+ * @param email - User's email address
+ * @returns Promise with success message
+ */
+export async function resendInvitation(email: string): Promise<{ message: string }> {
+    try {
+        const { data, error } = await supabase.auth.admin.inviteUserByEmail(email);
+
+        if (error) throw error;
+
+        return { message: 'Invitation resent successfully.' };
+    } catch (error) {
+        handleSupabaseError(error, 'Resend Invitation');
+        throw error;
+    }
 }
 
 /**

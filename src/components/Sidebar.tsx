@@ -8,42 +8,25 @@ import {
   LogOut
 } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
+import { UserRole, ClientUserRole } from '../types';
 
 interface SidebarProps {
   collapsed: boolean;
 }
 
 const Sidebar: React.FC<SidebarProps> = ({ collapsed }) => {
-  // Get isAuthenticated as well to handle potential user object lag
   const { user, logout, isAuthenticated } = useAuth(); 
 
   const navItems = [
-    { path: '/dashboard', label: 'Dashboard', icon: <LayoutDashboard size={20} /> },
-    { path: '/dashboard/invoices', label: 'Invoices', icon: <FileText size={20} /> },
-    { path: '/dashboard/reports', label: 'Reports', icon: <BarChart3 size={20} /> },
-    { path: '/dashboard/settings', label: 'Settings', icon: <Settings size={20} /> },
+    { path: '/dashboard', label: 'Dashboard', icon: <LayoutDashboard size={20} />, allowedRoles: ['admin', 'ar_manager', 'staff', 'user'] },
+    { path: '/dashboard/invoices', label: 'Invoices', icon: <FileText size={20} />, allowedRoles: ['admin', 'ar_manager', 'staff', 'user'] },
+    { path: '/dashboard/reports', label: 'Reports', icon: <BarChart3 size={20} />, allowedRoles: ['admin', 'ar_manager'] },
+    { path: '/dashboard/settings', label: 'Settings', icon: <Settings size={20} />, allowedRoles: ['admin'] },
   ];
 
-  // Filter nav items based on user role, considering isAuthenticated
-  const filteredNavItems = navItems.filter(item => {
-    // If context isn't authenticated yet, show nothing (or a loading state if preferred)
-    if (!isAuthenticated) return false; 
-    
-    // If authenticated but user object is momentarily null, assume admin temporarily to avoid flicker
-    // Or, return true for basic items like Dashboard if that's safer
-    const currentRole = user?.role || 'admin'; // Default to admin if user is null but authenticated
-
-    // Admin can access everything
-    if (currentRole === 'admin') return true;
-    
-    // AR Manager can't access settings
-    if (currentRole === 'ar_manager' && item.path === '/dashboard/settings') return false;
-    
-    // Staff can't access settings or reports
-    if (currentRole === 'staff' && (item.path === '/dashboard/settings' || item.path === '/dashboard/reports')) return false;
-    
-    return true;
-  });
+  const filteredNavItems = isAuthenticated && user 
+    ? navItems.filter(item => item.allowedRoles.includes(user.role as any))
+    : [];
 
   return (
     <aside 
@@ -55,17 +38,14 @@ const Sidebar: React.FC<SidebarProps> = ({ collapsed }) => {
       {/* Header Section */}
       <div className={`h-16 border-b border-white/10 flex items-center ${collapsed ? 'justify-center' : 'px-4'}`}>
         {collapsed ? (
-          // Collapsed View: Centered small logo
           <img src="/pbs-logo.png" alt="PBS" className="h-8 w-8" />
         ) : (
-          // Expanded View: Larger logo with text
           <div className="flex items-center space-x-2">
             <img 
               src="https://storage.googleapis.com/prec_bill_sol/precision_billing_solution_tree.png" 
               alt="PBS Logo" 
               className="h-10" 
             />
-            {/* Text appears next to logo on larger screens */}
             <div className="text-left uppercase tracking-wider"> 
               <div className="text-xl font-bold text-white">Precision</div> 
               <div className="text-xs text-gray-300 -mt-1">Billing Solution</div>
@@ -80,7 +60,6 @@ const Sidebar: React.FC<SidebarProps> = ({ collapsed }) => {
             <li key={item.path} className="mb-2 px-2">
               <NavLink
                 to={item.path}
-                // Add the 'end' prop specifically for the dashboard link
                 end={item.path === '/dashboard'} 
                 className={({ isActive }) =>
                   `flex items-center py-3 px-4 rounded-lg transition-colors ${

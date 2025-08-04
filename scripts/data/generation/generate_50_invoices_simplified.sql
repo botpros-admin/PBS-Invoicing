@@ -107,7 +107,7 @@ BEGIN
         -- Create 1-5 invoice items
         FOR j IN 1..(1 + floor(random() * 4)::INTEGER) LOOP
             -- Get next item ID
-            SELECT COALESCE(MAX(id), 0) + 1 INTO item_id FROM public.invoice_items;
+            SELECT COALESCE(MAX(id), 0) + 1 INTO item_id FROM public.invoice_line_items;
             
             -- Select random CPT code
             SELECT id INTO cpt_id FROM public.cpt_codes ORDER BY random() LIMIT 1;
@@ -119,7 +119,7 @@ BEGIN
             dispute_bool := CASE WHEN random() > 0.9 THEN TRUE ELSE FALSE END;
             
             -- Insert invoice item
-            INSERT INTO public.invoice_items (
+            INSERT INTO public.invoice_line_items (
                 id, invoice_id, cpt_code_id, description, date_of_service,
                 quantity, unit_price, total, is_disputed, medical_necessity_provided
             ) 

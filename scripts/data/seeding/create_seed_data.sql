@@ -51,7 +51,7 @@ VALUES
 (2, 3, 3, 'INV-1003', '2025-01-25', '2025-02-25', 'paid', 180.00, 180.00, 180.00, 0.00);
 
 -- Invoice Items
-INSERT INTO invoice_items (
+INSERT INTO invoice_line_items (
   invoice_id, cpt_code_id, description, date_of_service, 
   quantity, unit_price, total, is_disputed
 )

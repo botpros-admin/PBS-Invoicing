@@ -25,6 +25,7 @@ import ImportData from './pages/ImportData';
 import Forbidden from './pages/Forbidden';
 import NotFound from './pages/NotFound';
 import UpdatePassword from './pages/UpdatePassword';
+import PayInvoice from './pages/PayInvoice';
 import ResetPassword from './pages/ResetPassword';
 
 // Presentation Pages
@@ -69,6 +70,7 @@ function App() {
             <Route path="/" element={<LandingPage />} />
             <Route path="/update-password" element={<UpdatePassword />} />
             <Route path="/reset-password" element={<ResetPassword />} />
+            <Route path="/pay-invoice" element={<PayInvoice />} />
 
             
 

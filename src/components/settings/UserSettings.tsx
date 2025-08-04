@@ -1,44 +1,19 @@
-import React, { useState, useCallback } from 'react'; // Import useCallback, remove useEffect
+import React, { useState } from 'react';
+import { useQuery } from '@tanstack/react-query';
 import { CheckCircle, Mail, Plus, User, X, Loader2 } from 'lucide-react';
 // import { MOCK_USERS } from '../../data/mockData'; // Keep for now for display, but invite will use API
 import Modal from '../Modal';
-import { sendInvitation } from '../../api/services/supabaseAuth.service'; // Import the new function
+import { getAllUsers, resendInvitation } from '../../api/services/auth.service'; // Import the new function
 import { User as AppUser, UserRole, UserStatus, ID } from '../../types'; // Import User type and alias it, also UserRole, UserStatus, ID
 
 // Mock data for display purposes until fetching is implemented
-const MOCK_USERS_DISPLAY = [
-  {
-    id: 'user-1',
-    name: 'John Doe',
-    email: 'john@example.com',
-    role: 'Admin',
-    status: 'active',
-    lastLoginAt: '2023-05-15T10:30:00Z', // Corrected property name
-    avatar: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
-  },
-  {
-    id: 'user-2',
-    name: 'Jane Smith',
-    email: 'jane@example.com',
-    role: 'AR Manager',
-    status: 'active',
-    lastLoginAt: '2023-05-14T14:45:00Z', // Corrected property name
-  },
-  {
-    id: 'user-3',
-    name: 'Bob Johnson',
-    email: 'bob@example.com',
-    role: 'Staff',
-    status: 'invited',
-  },
-];
-
-
 const UserSettings: React.FC = () => {
-  // TODO: Replace MOCK_USERS_DISPLAY with actual fetched users state
-  const [users, setUsers] = useState<AppUser[]>(MOCK_USERS_DISPLAY as AppUser[]); // Use AppUser type
+  const { data: users = [], isLoading: isLoadingUsers } = useQuery<AppUser[], Error>({
+    queryKey: ['users'],
+    queryFn: getAllUsers,
+  });
   const [showAddUserForm, setShowAddUserForm] = useState(false);
-  const [editingUser, setEditingUser] = useState<AppUser | null>(null); // Use AppUser type
+  const [editingUser, setEditingUser] = useState<AppUser | null>(null);
   const [showEditModal, setShowEditModal] = useState(false);
   const [inviteLoading, setInviteLoading] = useState(false);
   const [inviteError, setInviteError] = useState<string | null>(null);
@@ -70,7 +45,7 @@ const UserSettings: React.FC = () => {
     }
 
     try {
-      const result = await sendInvitation(email, role);
+      const result = await resendInvitation(email);
 
       if ('error' in result) {
         throw new Error(result.error);
@@ -97,19 +72,6 @@ const UserSettings: React.FC = () => {
     setShowEditModal(true);
   };
 
-  const handleUpdateUser = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    // TODO: Implement actual user update API call
-    if (editingUser) {
-      console.log("Updating user (mock):", editingUser);
-      setUsers(users.map((user: AppUser) => // Add type to map parameter
-        user.id === editingUser.id ? editingUser : user
-      ));
-      setShowEditModal(false);
-      setEditingUser(null); // Clear editing state
-    }
-  };
-
   const handleDeactivateUser = (userId: ID) => { // Use ID type
     // TODO: Implement actual user deactivate/activate API call
     const userToToggle = users.find((u: AppUser) => u.id === userId); // Add type
@@ -120,11 +82,7 @@ const UserSettings: React.FC = () => {
 
     if (confirmed) {
       console.log(`${action.charAt(0).toUpperCase() + action.slice(1)} user (mock):`, userId);
-      setUsers(users.map((user: AppUser) => // Add type
-        user.id === userId
-          ? { ...user, status: user.status === 'active' ? 'inactive' : 'active' } // Assuming status is part of AppUser
-          : user
-      ));
+      // This is a mock implementation and should be replaced with a mutation
     }
   };
 

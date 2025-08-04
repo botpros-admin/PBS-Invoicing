@@ -578,6 +578,10 @@ const renderClientCell = (row: PreviewRow) => {
                 <option value="partial">Partially Paid</option>
                 <option value="paid">Paid in Full</option>
                 <option value="dispute">In Dispute</option>
+                <option value="overdue">Overdue</option>
+                <option value="write_off">Write Off</option>
+                <option value="exhausted">Exhausted</option>
+                <option value="cancelled">Cancelled</option>
               </select>
             </div>
 

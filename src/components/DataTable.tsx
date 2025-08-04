@@ -14,6 +14,7 @@ interface DataTableProps<T> {
   columns: Column<T>[];
   data: T[];
   keyField: keyof T;
+  loading?: boolean;
   onRowClick?: (row: T) => void;
   actions?: (row: T) => React.ReactNode;
   pagination?: {
@@ -33,6 +34,7 @@ const DataTable = <T,>({
   columns,
   data,
   keyField,
+  loading = false,
   onRowClick,
   actions,
   pagination,
@@ -64,21 +66,39 @@ const DataTable = <T,>({
   }, [initialSortField, columns]);
 
   useEffect(() => {
-    if (sortedColumn) {
+    if (sortedColumn && sortedColumn.sortable) {
       const sorted = [...data].sort((a, b) => {
         let aValue, bValue;
+
         if (typeof sortedColumn.accessor === 'function') {
-          const aResult = sortedColumn.accessor(a);
-          const bResult = sortedColumn.accessor(b);
-          aValue = (aResult && typeof aResult === 'object' && 'sortValue' in aResult) ? aResult.sortValue : aResult;
-          bValue = (bResult && typeof bResult === 'object' && 'sortValue' in bResult) ? bResult.sortValue : bResult;
+          // Use the provided sortValue function if it exists
+          if (sortedColumn.sortValue) {
+            aValue = sortedColumn.sortValue(a);
+            bValue = sortedColumn.sortValue(b);
+          } else {
+            // Otherwise, attempt to sort based on the rendered content
+            const aResult = sortedColumn.accessor(a);
+            const bResult = sortedColumn.accessor(b);
+            aValue = (aResult && typeof aResult === 'object' && 'sortValue' in aResult) ? aResult.sortValue : aResult;
+            bValue = (bResult && typeof bResult === 'object' && 'sortValue' in bResult) ? bResult.sortValue : bResult;
+          }
         } else {
-          aValue = a[sortedColumn.accessor];
-          bValue = b[sortedColumn.accessor];
-          if (typeof aValue === 'string') aValue = aValue.toLowerCase();
-          if (typeof bValue === 'string') bValue = bValue.toLowerCase();
+          aValue = a[sortedColumn.accessor as keyof T];
+          bValue = b[sortedColumn.accessor as keyof T];
         }
+
+        // Handle various data types
+        if (typeof aValue === 'string' && typeof bValue === 'string') {
+          aValue = aValue.toLowerCase();
+          bValue = bValue.toLowerCase();
+        }
+
         if (aValue === bValue) return 0;
+        
+        // Consider null or undefined values
+        if (aValue === null || aValue === undefined) return 1;
+        if (bValue === null || bValue === undefined) return -1;
+
         const comparison = aValue < bValue ? -1 : 1;
         return sortDirection === 'asc' ? comparison : -comparison;
       });
@@ -183,7 +203,16 @@ const DataTable = <T,>({
           </tr>
         </thead>
         <tbody className="bg-white divide-y divide-gray-200">
-          {sortedData.length === 0 ? (
+          {loading ? (
+            <tr>
+              <td
+                colSpan={columns.length + (actions ? 1 : 0)}
+                className="px-6 py-4 text-center text-sm text-gray-500"
+              >
+                Loading...
+              </td>
+            </tr>
+          ) : sortedData.length === 0 ? (
             <tr>
               <td
                 colSpan={columns.length + (actions ? 1 : 0)}

@@ -48,6 +48,18 @@ Run `npm run build` to create a production build in the `dist/` directory.
 *   Database interactions from the frontend use the `supabase-js` client initialized in `/src/api/supabase.ts`.
 *   See `/docs/supabase_guide.md` for comprehensive details on setup, credentials, and MCP integration.
 
+### Edge Functions
+
+*   **`invite-user`**: Sends an invitation email to a new user.
+*   **`import-data`**: Parses, validates, and imports billing data from a CSV or Excel file.
+*   **`get-invoice-for-payment`**: Retrieves the total amount due for an invoice for the external payment portal.
+*   **`process-payment`**: Processes a payment using Stripe.
+
+### Data Import
+
+The data import feature expects a CSV or Excel file with the following columns:
+`Invoice #`, `Client`, `Patient`, `Accession #`, `CPT Code`, `Description`, `Date of Service`, `Amount`
+
 ## Authentication
 
 *   Authentication is handled via Supabase Auth.

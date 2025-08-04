@@ -41,7 +41,7 @@ The PBS Invoicing authentication system consists of the following components:
     -   patients
     -   cpt_codes
     -   invoices
-    -   invoice_items
+    -   invoice_line_items
     -   payments
     -   payment_allocations
 

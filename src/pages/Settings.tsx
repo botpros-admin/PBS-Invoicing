@@ -1,15 +1,18 @@
 import React from 'react';
 import { Routes, Route, NavLink } from 'react-router-dom';
+import PricingSettings from '../components/settings/PricingSettings';
 import { 
   Building, 
   Users, 
   CreditCard, 
   Lock,
   Mail,
-  FileText
+  FileText,
+  DollarSign
 } from 'lucide-react';
+import UserManagement from '../components/settings/UserManagement';
 import ClientsClinicsSettings from '../components/settings/ClinicSettings'; // Renamed import
-import UserSettings from '../components/settings/UserSettings';
+// import UserSettings from '../components/settings/UserSettings';
 import PaymentSettings from '../components/settings/PaymentSettings';
 import SecuritySettings from '../components/settings/SecuritySettings';
 import EmailSettings from '../components/settings/EmailSettings';
@@ -19,7 +22,9 @@ const Settings: React.FC = () => {
   
   const tabs = [
     { path: '', label: 'Clients & Clinics', icon: Building, component: ClientsClinicsSettings }, // Index route
-    { path: 'users', label: 'Users & Permissions', icon: Users, component: UserSettings },
+    { path: 'users', label: 'Users & Permissions', icon: Users, component: UserManagement },
+    // { path: 'user-settings', label: 'User Settings', icon: Users, component: UserSettings },
+    { path: 'pricing', label: 'Pricing', icon: DollarSign, component: PricingSettings },
     { path: 'payment', label: 'Payment Settings', icon: CreditCard, component: PaymentSettings },
     { path: 'email', label: 'Email Settings', icon: Mail, component: EmailSettings },
     { path: 'invoice', label: 'Invoice Parameters', icon: FileText, component: InvoiceParameters },

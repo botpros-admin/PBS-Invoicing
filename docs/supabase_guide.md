@@ -267,7 +267,7 @@ psql 'postgresql://postgres:[YOUR-DB-PASSWORD]@[YOUR-DB-HOST]:5432/postgres' -f 
 ### 11.2. Database Query Examples
 
 **Count Invoices:** `SELECT COUNT(*) FROM public.invoices;`
-**Count Invoice Items:** `SELECT COUNT(*) FROM public.invoice_items;`
+**Count Invoice Line Items:** `SELECT COUNT(*) FROM public.invoice_line_items;`
 **Count Payments:** `SELECT COUNT(*) FROM public.payments;`
 **View Enum Types:** `SELECT enum_range(NULL::invoice_status);`
 **Check Table Constraints:** `SELECT constraint_name, check_clause FROM information_schema.check_constraints WHERE constraint_name = 'check_payment_created_by';`

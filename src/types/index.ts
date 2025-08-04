@@ -1,3 +1,33 @@
+// Base User Interface with common fields
+interface BaseUser {
+  id: ID;
+  organizationId?: ID;
+  name: string;
+  email: string;
+  status: UserStatus;
+  mfaEnabled: boolean;
+  lastLoginAt?: Timestamp;
+  createdAt: Timestamp;
+  updatedAt: Timestamp;
+  avatar?: string;
+}
+
+// User (Internal Admin, AR Manager, Staff)
+export interface User extends BaseUser {
+  userType: 'staff';
+  role: UserRole;
+}
+
+// Client User (Portal Access)
+export interface ClientUser extends BaseUser {
+  userType: 'client';
+  clientId: ID;
+  role: ClientUserRole;
+}
+
+// AppUser is a union of the two user types
+export type AppUser = User | ClientUser;
+
 // Base types
 export type ID = string | number;
 export type Timestamp = string; // ISO 8601 string
@@ -17,37 +47,17 @@ export type UserRole = 'super_admin' | 'admin' | 'ar_manager' | 'staff';
 export type UserStatus = 'active' | 'inactive' | 'invited';
 export type ClientUserRole = 'admin' | 'user';
 
-// User (Internal Admin, AR Manager, Staff)
-export interface User {
-  id: ID;
-  organizationId?: ID;
-  name: string;
-  email: string;
-  role: UserRole;
-  status: UserStatus;
-  mfaEnabled: boolean;
-  lastLoginAt?: Timestamp;
-  createdAt: Timestamp;
-  updatedAt: Timestamp;
-  avatar?: string;
-}
-
-// Client User (Portal Access)
-export interface ClientUser {
-  id: ID;
-  clientId: ID;
-  name: string;
-  email: string;
-  role: ClientUserRole;
-  status: UserStatus;
-  mfaEnabled: boolean;
-  lastLoginAt?: Timestamp;
-  createdAt: Timestamp;
-  updatedAt: Timestamp;
-}
-
 // Invoice statuses
-export type InvoiceStatus = 'draft' | 'sent' | 'partial' | 'paid' | 'overdue' | 'dispute' | 'write_off' | 'exhausted';
+export type InvoiceStatus =
+  | 'draft'
+  | 'sent'
+  | 'partial'
+  | 'paid'
+  | 'overdue'
+  | 'dispute'
+  | 'write_off'
+  | 'exhausted'
+  | 'cancelled';
 
 // Payment methods
 export type PaymentMethod = 'credit_card' | 'check' | 'ach' | 'wire' | 'adjustment' | 'write_off' | 'other';

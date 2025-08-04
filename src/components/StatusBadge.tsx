@@ -19,6 +19,14 @@ const StatusBadge: React.FC<StatusBadgeProps> = ({ status, className = '' }) => 
         return 'bg-green-100 text-green-800';
       case 'dispute':
         return 'bg-red-100 text-red-800';
+      case 'overdue':
+        return 'bg-orange-100 text-orange-800';
+      case 'write_off':
+        return 'bg-purple-100 text-purple-800';
+      case 'exhausted':
+        return 'bg-pink-100 text-pink-800';
+      case 'cancelled':
+        return 'bg-gray-200 text-gray-500 line-through';
       default:
         return 'bg-gray-100 text-gray-800';
     }
@@ -36,8 +44,17 @@ const StatusBadge: React.FC<StatusBadgeProps> = ({ status, className = '' }) => 
         return 'Paid in Full';
       case 'dispute':
         return 'In Dispute';
+      case 'overdue':
+        return 'Overdue';
+      case 'write_off':
+        return 'Write Off';
+      case 'exhausted':
+        return 'Exhausted';
+      case 'cancelled':
+        return 'Cancelled';
       default:
-        return status;
+        // Capitalize first letter and replace underscores for any unhandled status
+        return status.charAt(0).toUpperCase() + status.slice(1).replace(/_/g, ' ');
     }
   };
 
