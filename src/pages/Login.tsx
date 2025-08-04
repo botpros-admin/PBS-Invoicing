@@ -403,7 +403,7 @@ const Login: React.FC = () => {
                 </div>
                 <div className="relative flex justify-center text-sm">
                   <span className="px-2 bg-white text-gray-500">
-                    Demo credentials upon request
+                    Admin: admin@email.com / TempPass123!
                   </span>
                 </div>
               </div>
