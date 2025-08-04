@@ -15,6 +15,7 @@ const PricingSettings: React.FC = () => {
   const { data: schedules = [], isLoading } = useQuery<any[], Error>({
     queryKey: ['priceSchedules'],
     queryFn: getPriceSchedules,
+    select: (data) => data,
   });
 
   const handleCreateSchedule = async (scheduleData: any) => {

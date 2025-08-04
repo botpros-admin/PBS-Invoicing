@@ -24,6 +24,7 @@ const UserManagement: React.FC = () => {
   const { data: clients = [], isLoading: isLoadingClients } = useQuery<any[], Error>({
     queryKey: ['clients'],
     queryFn: () => getClients().then(res => res.data),
+    select: (data) => data,
   });
 
   const handleInviteUser = async (inviteData: { email: string; role: string; lab_id?: string; clinic_id?: string }) => {
