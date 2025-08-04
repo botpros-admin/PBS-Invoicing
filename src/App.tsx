@@ -77,38 +77,26 @@ function App() {
             {/* Protected Routes */}
             <Route path="/dashboard" element={
               <ProtectedRoute>
-                <Layout />
+                <Layout>
+                  <Routes>
+                    <Route 
+                      index 
+                      element={
+                        <ErrorBoundary fallback={<p className="text-red-500">Error loading Dashboard.</p>}>
+                          <Dashboard />
+                        </ErrorBoundary>
+                      } 
+                    />
+                    <Route path="invoices" element={<Invoices />} />
+                    <Route path="invoices/create" element={<CreateInvoice />} />
+                    <Route path="invoices/:id" element={<InvoiceDetail />} />
+                    <Route path="reports" element={<Reports />} />
+                    <Route path="import" element={<ImportData />} />
+                    <Route path="settings/*" element={<Settings />} />
+                  </Routes>
+                </Layout>
               </ProtectedRoute>
-            }>
-              {/* Dashboard - available to all authenticated users, wrapped in ErrorBoundary */}
-              <Route 
-                index 
-                element={
-                  <ErrorBoundary fallback={<p className="text-red-500">Error loading Dashboard.</p>}>
-                    <Dashboard />
-                  </ErrorBoundary>
-                } 
-              />
-
-              {/* Invoices */}
-              <Route path="invoices" element={<Invoices />} />
-
-              {/* Create Invoice */}
-              <Route path="invoices/create" element={<CreateInvoice />} />
-              
-              {/* Invoice Details */}
-              <Route path="invoices/:id" element={<InvoiceDetail />} />
-
-              {/* Reports */}
-              <Route path="reports" element={<Reports />} />
-
-              {/* Import Data */}
-              <Route path="import" element={<ImportData />} />
-
-              {/* Settings */}
-              {/* Note: Role checks for settings sub-routes might need to be handled within Settings component */}
-              <Route path="settings/*" element={<Settings />} />
-            </Route>
+            } />
             {/* Special Routes */}
             <Route path="/forbidden" element={<Forbidden />} />
             
