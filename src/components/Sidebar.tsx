@@ -64,8 +64,8 @@ const Sidebar: React.FC<SidebarProps> = ({ collapsed }) => {
                 className={({ isActive }) =>
                   `flex items-center py-3 px-4 rounded-lg transition-colors ${
                     isActive
-                      ? 'bg-gray-700 text-white border-2 border-blue-500 ring-2 ring-blue-300'
-                      : 'text-white hover:bg-white/10'
+                      ? 'bg-gray-500 text-white'
+                      : 'text-white hover:bg-gray-400'
                   }`
                 }
               >

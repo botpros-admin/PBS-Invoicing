@@ -1,19 +1,24 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { useQuery, useQueryClient } from '@tanstack/react-query';
-import { Trash2, Save, Send, ChevronRight, ChevronLeft, FileUp, Info, Loader2, ArrowLeft, Plus, UserPlus } from 'lucide-react';
-import { Invoice, InvoiceItem, InvoiceStatus, Client, Patient, ReasonType } from '../types';
+import { useQuery, useQueryClient, useMutation } from '@tanstack/react-query';
+import { Trash2, Save, Send, ChevronRight, ChevronLeft, Info, Loader2, ArrowLeft, Plus, UserPlus } from 'lucide-react';
+import { Invoice, InvoiceItem, Client, Patient } from '../types';
 import { format } from 'date-fns';
 import { getClients } from '../api/services/client.service';
-import { getPatientsByClient, createPatient } from '../api/services/patient.service';
-import { getCptCodeByCode } from '../api/services/cpt.service';
+import { getPatientsByClient } from '../api/services/patient.service';
 import { createInvoice, updateInvoice, getInvoiceById } from '../api/services/invoice.service';
 import { useNotifications } from '../context/NotificationContext';
-// Assuming a pricing service exists
-// import { getPriceForCptCode } from '../api/services/pricing.service';
 
-// Sub-component for managing a single patient's line items
-const PatientLineItems = ({ patient, items, onAddItem, onRemoveItem, onItemChange, onRemovePatient }) => {
+type ID = string | number;
+
+const PatientLineItems: React.FC<{
+  patient: Patient;
+  items: InvoiceItem[];
+  onAddItem: (patientId: ID) => void;
+  onRemoveItem: (patientId: ID, itemId: ID) => void;
+  onItemChange: (patientId: ID, itemId: ID, field: keyof InvoiceItem, value: any) => void;
+  onRemovePatient: (patientId: ID) => void;
+}> = ({ patient, items, onAddItem, onRemoveItem, onItemChange, onRemovePatient }) => {
   return (
     <div className="border p-4 rounded-md bg-gray-50">
       <div className="flex justify-between items-center mb-4">
@@ -52,8 +57,6 @@ const PatientLineItems = ({ patient, items, onAddItem, onRemoveItem, onItemChang
   );
 };
 
-type ID = string | number;
-
 const CreateInvoice: React.FC = () => {
   const navigate = useNavigate();
   const location = useLocation();
@@ -72,7 +75,38 @@ const CreateInvoice: React.FC = () => {
   });
   const [patientsOnInvoice, setPatientsOnInvoice] = useState<Map<ID, { patient: Patient; items: InvoiceItem[] }>>(new Map());
 
-  // ... (rest of the state and hooks)
+  const { data: clients, isLoading: isLoadingClients } = useQuery<Client[], Error>({
+    queryKey: ['clients'],
+    queryFn: getClients,
+  });
+
+  const { data: patients, isLoading: isLoadingPatients } = useQuery<Patient[], Error>({
+    queryKey: ['patients', invoiceData.clientId],
+    queryFn: () => getPatientsByClient(invoiceData.clientId!),
+    enabled: !!invoiceData.clientId,
+  });
+
+  const handleInvoiceDataChange = (field: keyof Invoice, value: any) => {
+    setInvoiceData(prev => ({ ...prev, [field]: value }));
+  };
+
+  const handleAddPatientToInvoice = (patient: Patient) => {
+    setPatientsOnInvoice(prev => {
+        const newMap = new Map(prev);
+        if (!newMap.has(patient.id)) {
+            newMap.set(patient.id, { patient, items: [] });
+        }
+        return newMap;
+    });
+  };
+
+  const handleRemovePatientFromInvoice = (patientId: ID) => {
+      setPatientsOnInvoice(prev => {
+          const newMap = new Map(prev);
+          newMap.delete(patientId);
+          return newMap;
+      });
+  };
 
   const handleAddItemToPatient = (patientId: ID) => {
     setPatientsOnInvoice(prev => {
@@ -123,9 +157,6 @@ const CreateInvoice: React.FC = () => {
     });
 
     if (field === 'cptCode') {
-      // In a real app, you would call the pricing service here
-      // const price = await getPriceForCptCode(value, invoiceData.clinicId);
-      // For now, we'll just use a mock price
       const mockPrice = Math.floor(Math.random() * 100);
       setPatientsOnInvoice(prev => {
         const newMap = new Map(prev);
@@ -143,14 +174,132 @@ const CreateInvoice: React.FC = () => {
     }
   };
 
-  // ... (other handlers)
+  const handleSaveDraft = () => console.log("Saving draft...");
+  const handleSendInvoice = () => console.log("Sending invoice...");
 
   return (
     <div className="space-y-6 p-4 md:p-6">
-      {/* ... (header) */}
+       <div className="flex items-center space-x-4">
+        <button onClick={() => navigate('/dashboard/invoices')} className="text-gray-500 hover:text-gray-700">
+          <ArrowLeft size={20} />
+        </button>
+        <h1 className="text-2xl font-bold text-gray-900">{editId ? 'Edit Invoice' : 'Create Invoice'}</h1>
+      </div>
       <div className="bg-white shadow-sm rounded-lg overflow-hidden">
-        {/* ... (progress steps) */}
+      <div className="border-b border-gray-200">
+          <nav className="-mb-px flex space-x-8 px-6" aria-label="Tabs">
+              <div className={`border-transparent text-gray-500 whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm ${currentStep >= 1 ? 'border-secondary text-secondary' : ''}`}>
+                  1. Invoice Details
+              </div>
+              <div className={`border-transparent text-gray-500 whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm ${currentStep >= 2 ? 'border-secondary text-secondary' : ''}`}>
+                  2. Select Patients
+              </div>
+              <div className={`border-transparent text-gray-500 whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm ${currentStep >= 3 ? 'border-secondary text-secondary' : ''}`}>
+                  3. Add Items
+              </div>
+          </nav>
+      </div>
         <div className="p-4 sm:p-6">
+        {currentStep === 1 && (
+            <div>
+                <h3 className="text-lg font-medium mb-4 text-gray-800">Invoice Details</h3>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <label htmlFor="client" className="block text-sm font-medium text-gray-700">Client</label>
+                        <select
+                            id="client"
+                            name="client"
+                            value={invoiceData.clientId || ''}
+                            onChange={(e) => handleInvoiceDataChange('clientId', e.target.value)}
+                            className="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-secondary focus:border-secondary sm:text-sm rounded-md"
+                        >
+                            <option value="">Select a client</option>
+                            {clients?.map(client => (
+                                <option key={client.id} value={client.id}>{client.name}</option>
+                            ))}
+                        </select>
+                    </div>
+                    <div>
+                        <label htmlFor="invoiceNumber" className="block text-sm font-medium text-gray-700">Invoice Number</label>
+                        <input
+                            type="text"
+                            name="invoiceNumber"
+                            id="invoiceNumber"
+                            value={invoiceData.invoiceNumber}
+                            onChange={(e) => handleInvoiceDataChange('invoiceNumber', e.target.value)}
+                            className="mt-1 focus:ring-secondary focus:border-secondary block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                        />
+                    </div>
+                    <div>
+                        <label htmlFor="dateCreated" className="block text-sm font-medium text-gray-700">Date Created</label>
+                        <input
+                            type="date"
+                            name="dateCreated"
+                            id="dateCreated"
+                            value={invoiceData.dateCreated}
+                            onChange={(e) => handleInvoiceDataChange('dateCreated', e.target.value)}
+                            className="mt-1 focus:ring-secondary focus:border-secondary block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                        />
+                    </div>
+                    <div>
+                        <label htmlFor="dateDue" className="block text-sm font-medium text-gray-700">Date Due</label>
+                        <input
+                            type="date"
+                            name="dateDue"
+                            id="dateDue"
+                            value={invoiceData.dateDue}
+                            onChange={(e) => handleInvoiceDataChange('dateDue', e.target.value)}
+                            className="mt-1 focus:ring-secondary focus:border-secondary block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                        />
+                    </div>
+                </div>
+            </div>
+        )}
+        {currentStep === 2 && (
+            <div>
+                <h3 className="text-lg font-medium mb-4 text-gray-800">Select Patients</h3>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <h4 className="font-medium mb-2">Available Patients for {clients?.find(c => c.id === invoiceData.clientId)?.name}</h4>
+                        <div className="border rounded-md h-64 overflow-y-auto">
+                            {isLoadingPatients ? (
+                                <div className="flex justify-center items-center h-full">
+                                  <Loader2 className="animate-spin text-secondary" />
+                                </div>
+                            ) : (
+                                <ul>
+                                    {patients?.map(patient => (
+                                        <li key={patient.id} className="flex justify-between items-center p-2 hover:bg-gray-100">
+                                            <span>{patient.first_name} {patient.last_name}</span>
+                                            <button onClick={() => handleAddPatientToInvoice(patient)} className="btn btn-sm btn-secondary">Add</button>
+                                        </li>
+                                    ))}
+                                </ul>
+                            )}
+                        </div>
+                    </div>
+                    <div>
+                        <h4 className="font-medium mb-2">Patients on Invoice</h4>
+                        <div className="border rounded-md h-64 overflow-y-auto bg-gray-50">
+                            {Array.from(patientsOnInvoice.values()).length === 0 ? (
+                              <div className="flex items-center justify-center h-full text-sm text-gray-500">No patients added yet.</div>
+                            ) : (
+                              <ul>
+                                  {Array.from(patientsOnInvoice.values()).map(({ patient }) => (
+                                      <li key={patient.id} className="flex justify-between items-center p-2">
+                                          <span>{patient.first_name} {patient.last_name}</span>
+                                          <button onClick={() => handleRemovePatientFromInvoice(patient.id)} className="text-red-500 hover:text-red-700">
+                                            <Trash2 size={16} />
+                                          </button>
+                                      </li>
+                                  ))}
+                              </ul>
+                            )}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        )}
           {currentStep === 3 && (
             <div>
               <h3 className="text-lg font-medium mb-4 text-gray-800">Manage Patients & Line Items</h3>
@@ -163,19 +312,40 @@ const CreateInvoice: React.FC = () => {
                     onAddItem={handleAddItemToPatient}
                     onRemoveItem={handleRemoveItemFromPatient}
                     onItemChange={handleItemChange}
-                    onRemovePatient={() => {}}
+                    onRemovePatient={handleRemovePatientFromInvoice}
                   />
                 ))}
               </div>
-              <div className="mt-6">
-                <h4 className="font-medium mb-2">Add Patient to Invoice</h4>
-                {/* Patient selection dropdown */}
-              </div>
             </div>
           )}
-          {/* ... (other steps) */}
         </div>
-        {/* ... (footer) */}
+        <div className="p-4 sm:p-6 bg-gray-50 border-t">
+            <div className="flex justify-between">
+                {currentStep > 1 ? (
+                    <button onClick={() => setCurrentStep(s => s - 1)} className="btn btn-secondary flex items-center">
+                        <ChevronLeft size={16} className="mr-1" /> Previous
+                    </button>
+                ) : <div />}
+                {currentStep < 3 ? (
+                    <button 
+                      onClick={() => setCurrentStep(s => s + 1)} 
+                      className="btn btn-primary flex items-center"
+                      disabled={currentStep === 1 && !invoiceData.clientId || currentStep === 2 && patientsOnInvoice.size === 0}
+                    >
+                        Next <ChevronRight size={16} className="ml-1" />
+                    </button>
+                ) : (
+                    <div>
+                        <button onClick={handleSaveDraft} className="btn btn-secondary mr-2">
+                            <Save size={16} className="mr-1" /> Save Draft
+                        </button>
+                        <button onClick={handleSendInvoice} className="btn btn-primary">
+                            <Send size={16} className="mr-1" /> Send Invoice
+                        </button>
+                    </div>
+                )}
+            </div>
+        </div>
       </div>
     </div>
   );
