@@ -1,5 +1,115 @@
-SAME ISSUE when i click the <button class="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-[#0078D7] hover:bg-[#0078D7] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-secondary"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-plus mr-2"><path d="M5 12h14"></path><path d="M12 5v14"></path></svg>Create Invoice</button>
-
-there is just a blank white page!!!!!!
-
-ALSO WHY DID YOU MAKE THE BACKGROUND ACTIVE COLOR IN THE LEFT SIDE NAV BAR LIKE A NAVY BLUE???? IT NEEDS TO BE GRAY JUST LIKE THE REST OG THE LEFT SIDE NAV BAR BACKGROUND IS!!!!!!
+main-mR7cnBMq.js:617 Root element found, rendering full app with authentication...
+contentScript.bundle.js:75   POST https://o456514.ingest.us.sentry.io/api/4507249138532352/envelope/?sentry_key=e5d75f765f30b0d67a057b207ff736e1&sentry_version=7&sentry_client=sentry.javascript.react%2F7.119.2 net::ERR_BLOCKED_BY_CLIENT
+(anonymous) @ contentScript.bundle.js:75
+(anonymous) @ contentScript.bundle.js:75
+add @ contentScript.bundle.js:75
+o @ contentScript.bundle.js:75
+_sendEnvelope @ contentScript.bundle.js:75
+sendSession @ contentScript.bundle.js:75
+captureSession @ contentScript.bundle.js:75
+bE @ contentScript.bundle.js:75
+wE @ contentScript.bundle.js:75
+(anonymous) @ contentScript.bundle.js:75
+vO @ contentScript.bundle.js:75
+(anonymous) @ contentScript.bundle.js:75
+(anonymous) @ contentScript.bundle.js:75
+(anonymous) @ contentScript.bundle.js:75
+(anonymous) @ contentScript.bundle.js:75
+index.ts-2a21a9d0.js:1 [Long Running Recorder] Content script initialised
+index.ts-2a21a9d0.js:3 [Long Running Recorder] Recorder disabled
+main-mR7cnBMq.js:434 Loaded layout from DB: (6) [{…}, {…}, {…}, {…}, {…}, {…}]
+main-mR7cnBMq.js:514 Querying clients data from Supabase with embedded selects
+main-mR7cnBMq.js:514 Retrieved 4 clients with related data from database
+main-mR7cnBMq.js:40  TypeError: f.map is not a function
+    at Yfe (main-mR7cnBMq.js:518:12419)
+    at Rx (main-mR7cnBMq.js:38:16998)
+    at Rv (main-mR7cnBMq.js:40:3139)
+    at Sk (main-mR7cnBMq.js:40:44737)
+    at bk (main-mR7cnBMq.js:40:39727)
+    at ND (main-mR7cnBMq.js:40:39655)
+    at qf (main-mR7cnBMq.js:40:39508)
+    at Gv (main-mR7cnBMq.js:40:35875)
+    at q1 (main-mR7cnBMq.js:40:36678)
+    at ya (main-mR7cnBMq.js:38:3274)
+overrideMethod @ hook.js:608
+Dv @ main-mR7cnBMq.js:40
+r.callback @ main-mR7cnBMq.js:40
+O1 @ main-mR7cnBMq.js:38
+B1 @ main-mR7cnBMq.js:40
+gk @ main-mR7cnBMq.js:40
+SD @ main-mR7cnBMq.js:40
+kD @ main-mR7cnBMq.js:40
+Aa @ main-mR7cnBMq.js:40
+q1 @ main-mR7cnBMq.js:40
+ya @ main-mR7cnBMq.js:38
+(anonymous) @ main-mR7cnBMq.js:40
+setTimeout
+GD @ main-mR7cnBMq.js:40
+s @ main-mR7cnBMq.js:40
+batch @ main-mR7cnBMq.js:40
+Fn @ main-mR7cnBMq.js:40
+setData @ main-mR7cnBMq.js:40
+onSuccess @ main-mR7cnBMq.js:40
+f @ main-mR7cnBMq.js:40
+Promise.then
+g @ main-mR7cnBMq.js:40
+start @ main-mR7cnBMq.js:40
+fetch @ main-mR7cnBMq.js:40
+hc @ main-mR7cnBMq.js:40
+onSubscribe @ main-mR7cnBMq.js:40
+subscribe @ main-mR7cnBMq.js:40
+(anonymous) @ main-mR7cnBMq.js:40
+FP @ main-mR7cnBMq.js:38
+vp @ main-mR7cnBMq.js:40
+ho @ main-mR7cnBMq.js:40
+kD @ main-mR7cnBMq.js:40
+Aa @ main-mR7cnBMq.js:40
+q1 @ main-mR7cnBMq.js:40
+ya @ main-mR7cnBMq.js:38
+(anonymous) @ main-mR7cnBMq.js:40
+main-mR7cnBMq.js:518  Uncaught TypeError: f.map is not a function
+    at Yfe (main-mR7cnBMq.js:518:12419)
+    at Rx (main-mR7cnBMq.js:38:16998)
+    at Rv (main-mR7cnBMq.js:40:3139)
+    at Sk (main-mR7cnBMq.js:40:44737)
+    at bk (main-mR7cnBMq.js:40:39727)
+    at ND (main-mR7cnBMq.js:40:39655)
+    at qf (main-mR7cnBMq.js:40:39508)
+    at Gv (main-mR7cnBMq.js:40:35875)
+    at q1 (main-mR7cnBMq.js:40:36678)
+    at ya (main-mR7cnBMq.js:38:3274)
+Yfe @ main-mR7cnBMq.js:518
+Rx @ main-mR7cnBMq.js:38
+Rv @ main-mR7cnBMq.js:40
+Sk @ main-mR7cnBMq.js:40
+bk @ main-mR7cnBMq.js:40
+ND @ main-mR7cnBMq.js:40
+qf @ main-mR7cnBMq.js:40
+Gv @ main-mR7cnBMq.js:40
+q1 @ main-mR7cnBMq.js:40
+ya @ main-mR7cnBMq.js:38
+(anonymous) @ main-mR7cnBMq.js:40
+setTimeout
+GD @ main-mR7cnBMq.js:40
+s @ main-mR7cnBMq.js:40
+batch @ main-mR7cnBMq.js:40
+Fn @ main-mR7cnBMq.js:40
+setData @ main-mR7cnBMq.js:40
+onSuccess @ main-mR7cnBMq.js:40
+f @ main-mR7cnBMq.js:40
+Promise.then
+g @ main-mR7cnBMq.js:40
+start @ main-mR7cnBMq.js:40
+fetch @ main-mR7cnBMq.js:40
+hc @ main-mR7cnBMq.js:40
+onSubscribe @ main-mR7cnBMq.js:40
+subscribe @ main-mR7cnBMq.js:40
+(anonymous) @ main-mR7cnBMq.js:40
+FP @ main-mR7cnBMq.js:38
+vp @ main-mR7cnBMq.js:40
+ho @ main-mR7cnBMq.js:40
+kD @ main-mR7cnBMq.js:40
+Aa @ main-mR7cnBMq.js:40
+q1 @ main-mR7cnBMq.js:40
+ya @ main-mR7cnBMq.js:38
+(anonymous) @ main-mR7cnBMq.js:40

@@ -75,9 +75,10 @@ const CreateInvoice: React.FC = () => {
   });
   const [patientsOnInvoice, setPatientsOnInvoice] = useState<Map<ID, { patient: Patient; items: InvoiceItem[] }>>(new Map());
 
-  const { data: clients, isLoading: isLoadingClients } = useQuery<Client[], Error>({
+  const { data: clients, isLoading: isLoadingClients } = useQuery<PaginatedResponse<Client>, Error, Client[]>({
     queryKey: ['clients'],
     queryFn: getClients,
+    select: (data) => data.data,
   });
 
   const { data: patients, isLoading: isLoadingPatients } = useQuery<Patient[], Error>({
