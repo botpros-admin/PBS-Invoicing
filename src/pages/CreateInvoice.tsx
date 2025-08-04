@@ -52,6 +52,8 @@ const PatientLineItems = ({ patient, items, onAddItem, onRemoveItem, onItemChang
   );
 };
 
+type ID = string | number;
+
 const CreateInvoice: React.FC = () => {
   const navigate = useNavigate();
   const location = useLocation();
@@ -161,7 +163,7 @@ const CreateInvoice: React.FC = () => {
                     onAddItem={handleAddItemToPatient}
                     onRemoveItem={handleRemoveItemFromPatient}
                     onItemChange={handleItemChange}
-                    onRemovePatient={() => {}} // Placeholder
+                    onRemovePatient={() => {}}
                   />
                 ))}
               </div>
