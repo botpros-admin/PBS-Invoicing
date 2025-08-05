@@ -1,24 +1,272 @@
-I've successfully implemented all the changes requested from the currentIssues file:
-
-  1. Profile/Settings Navigation and Sign Out ✓
-    - Created Profile.tsx and UserSettings.tsx pages
-    - Added routes in App.tsx for /dashboard/profile and /dashboard/user-settings
-    - Updated Header.tsx to use NavLink components for navigation
-    - Logout functionality was already implemented correctly
-  2. Invoice Detail View Returns 404 ✓
-    - Fixed InvoiceDetail.tsx to use real data fetching with getInvoiceById
-    - Added proper loading and error states
-    - Restructured component to handle the actual data structure (patientId instead of patient object)
-  3. Client Performance Report Error ✓
-    - Created migration file to fix the database function ambiguity
-    - Renamed function to get_client_performance_by_range internally
-    - Kept backward compatibility with wrapper function
-  4. Top CPT Codes Report Error ✓
-    - Fixed the column reference from ii.cpt_code_id to ii.cpt_code
-    - Created proper database function in the migration file
-  5. UI Consistency on Dashboard ✓
-    - Updated the refresh button to use icon-only style
-    - Changed from RefreshCcw to RefreshCw icon
-    - Applied the recommended Tailwind classes for consistency
-
-  Migration Note: The database fixes require running the new migration file 20250805140000_fix_report_functions.sql to apply the changes to the database please do this accordingly!!!
+main-BGB3UUnL.js:627 Root element found, rendering full app with authentication...
+contentScript.bundle.js:75   POST https://o456514.ingest.us.sentry.io/api/4507249138532352/envelope/?sentry_key=e5d75f765f30b0d67a057b207ff736e1&sentry_version=7&sentry_client=sentry.javascript.react%2F7.119.2 net::ERR_BLOCKED_BY_CLIENT
+(anonymous) @ contentScript.bundle.js:75
+(anonymous) @ contentScript.bundle.js:75
+add @ contentScript.bundle.js:75
+o @ contentScript.bundle.js:75
+_sendEnvelope @ contentScript.bundle.js:75
+sendSession @ contentScript.bundle.js:75
+captureSession @ contentScript.bundle.js:75
+bE @ contentScript.bundle.js:75
+wE @ contentScript.bundle.js:75
+(anonymous) @ contentScript.bundle.js:75
+vO @ contentScript.bundle.js:75
+(anonymous) @ contentScript.bundle.js:75
+(anonymous) @ contentScript.bundle.js:75
+(anonymous) @ contentScript.bundle.js:75
+(anonymous) @ contentScript.bundle.js:75
+index.ts-2a21a9d0.js:1 [Long Running Recorder] Content script initialised
+index.ts-2a21a9d0.js:3 [Long Running Recorder] Recorder disabled
+main-BGB3UUnL.js:524 Querying clients data from Supabase with embedded selects
+main-BGB3UUnL.js:524 Retrieved 8 clients with related data from database
+main.js:2414 2025-08-05T03:43:55.852Z: Input was focused, will ask for screenshot analysis
+main.js:2414 2025-08-05T03:43:55.913Z: Input was focused, will ask for screenshot analysis
+main.js:2414 2025-08-05T03:43:55.934Z: PhishingPageManager: Detection suppressed because of password injection
+main-BGB3UUnL.js:435 Searching for: admin@email.com
+main-BGB3UUnL.js:72   POST https://qwvukolqraoucpxjqpmu.supabase.co/rest/v1/rpc/global_search 403 (Forbidden)
+(anonymous) @ main-BGB3UUnL.js:72
+(anonymous) @ main-BGB3UUnL.js:72
+o @ main-BGB3UUnL.js:72
+Promise.then
+u @ main-BGB3UUnL.js:72
+(anonymous) @ main-BGB3UUnL.js:72
+L4 @ main-BGB3UUnL.js:72
+(anonymous) @ main-BGB3UUnL.js:72
+then @ main-BGB3UUnL.js:67
+setTimeout
+g @ main-BGB3UUnL.js:435
+w @ main-BGB3UUnL.js:435
+w @ main-BGB3UUnL.js:435
+YM @ main-BGB3UUnL.js:37
+QM @ main-BGB3UUnL.js:37
+JM @ main-BGB3UUnL.js:37
+v1 @ main-BGB3UUnL.js:37
+NP @ main-BGB3UUnL.js:37
+(anonymous) @ main-BGB3UUnL.js:37
+Xx @ main-BGB3UUnL.js:40
+YO @ main-BGB3UUnL.js:37
+ng @ main-BGB3UUnL.js:37
+_x @ main-BGB3UUnL.js:37
+pI @ main-BGB3UUnL.js:37
+simulateInputElementChangedEvent @ bootstrap-autofill-overlay.js:7681
+triggerPostInsertEventsOnElement @ bootstrap-autofill-overlay.js:7603
+handleInsertValueAndTriggerSimulatedEvents @ bootstrap-autofill-overlay.js:7573
+insertValueIntoField @ bootstrap-autofill-overlay.js:7561
+handleFillFieldByOpidAction @ bootstrap-autofill-overlay.js:7508
+fill_by_opid @ bootstrap-autofill-overlay.js:7405
+(anonymous) @ bootstrap-autofill-overlay.js:7425
+setTimeout
+(anonymous) @ bootstrap-autofill-overlay.js:7424
+InsertAutofillContentService.runFillScriptAction @ bootstrap-autofill-overlay.js:7424
+(anonymous) @ bootstrap-autofill-overlay.js:7446
+(anonymous) @ bootstrap-autofill-overlay.js:7389
+insert_autofill_content_service_awaiter @ bootstrap-autofill-overlay.js:7385
+fillForm @ bootstrap-autofill-overlay.js:7438
+(anonymous) @ bootstrap-autofill-overlay.js:7810
+fulfilled @ bootstrap-autofill-overlay.js:7691
+Promise.then
+step @ bootstrap-autofill-overlay.js:7693
+(anonymous) @ bootstrap-autofill-overlay.js:7694
+autofill_init_awaiter @ bootstrap-autofill-overlay.js:7690
+fillForm @ bootstrap-autofill-overlay.js:7802
+fillForm @ bootstrap-autofill-overlay.js:7722
+AutofillInit.handleExtensionMessage @ bootstrap-autofill-overlay.js:7737
+main-BGB3UUnL.js:435  Error performing global search: {code: '42501', details: null, hint: null, message: 'permission denied for table users'}
+overrideMethod @ hook.js:608
+eF @ main-BGB3UUnL.js:435
+await in eF
+(anonymous) @ main-BGB3UUnL.js:435
+p @ main-BGB3UUnL.js:435
+x @ main-BGB3UUnL.js:435
+v @ main-BGB3UUnL.js:435
+setTimeout
+g @ main-BGB3UUnL.js:435
+w @ main-BGB3UUnL.js:435
+w @ main-BGB3UUnL.js:435
+YM @ main-BGB3UUnL.js:37
+QM @ main-BGB3UUnL.js:37
+JM @ main-BGB3UUnL.js:37
+v1 @ main-BGB3UUnL.js:37
+NP @ main-BGB3UUnL.js:37
+(anonymous) @ main-BGB3UUnL.js:37
+Xx @ main-BGB3UUnL.js:40
+YO @ main-BGB3UUnL.js:37
+ng @ main-BGB3UUnL.js:37
+_x @ main-BGB3UUnL.js:37
+pI @ main-BGB3UUnL.js:37
+simulateInputElementChangedEvent @ bootstrap-autofill-overlay.js:7681
+triggerPostInsertEventsOnElement @ bootstrap-autofill-overlay.js:7603
+handleInsertValueAndTriggerSimulatedEvents @ bootstrap-autofill-overlay.js:7573
+insertValueIntoField @ bootstrap-autofill-overlay.js:7561
+handleFillFieldByOpidAction @ bootstrap-autofill-overlay.js:7508
+fill_by_opid @ bootstrap-autofill-overlay.js:7405
+(anonymous) @ bootstrap-autofill-overlay.js:7425
+setTimeout
+(anonymous) @ bootstrap-autofill-overlay.js:7424
+InsertAutofillContentService.runFillScriptAction @ bootstrap-autofill-overlay.js:7424
+(anonymous) @ bootstrap-autofill-overlay.js:7446
+(anonymous) @ bootstrap-autofill-overlay.js:7389
+insert_autofill_content_service_awaiter @ bootstrap-autofill-overlay.js:7385
+fillForm @ bootstrap-autofill-overlay.js:7438
+(anonymous) @ bootstrap-autofill-overlay.js:7810
+fulfilled @ bootstrap-autofill-overlay.js:7691
+Promise.then
+step @ bootstrap-autofill-overlay.js:7693
+(anonymous) @ bootstrap-autofill-overlay.js:7694
+autofill_init_awaiter @ bootstrap-autofill-overlay.js:7690
+fillForm @ bootstrap-autofill-overlay.js:7802
+fillForm @ bootstrap-autofill-overlay.js:7722
+AutofillInit.handleExtensionMessage @ bootstrap-autofill-overlay.js:7737
+main-BGB3UUnL.js:435  Supabase error in Global Search: {code: '42501', details: null, hint: null, message: 'permission denied for table users'}
+overrideMethod @ hook.js:608
+Yr @ main-BGB3UUnL.js:435
+eF @ main-BGB3UUnL.js:435
+await in eF
+(anonymous) @ main-BGB3UUnL.js:435
+p @ main-BGB3UUnL.js:435
+x @ main-BGB3UUnL.js:435
+v @ main-BGB3UUnL.js:435
+setTimeout
+g @ main-BGB3UUnL.js:435
+w @ main-BGB3UUnL.js:435
+w @ main-BGB3UUnL.js:435
+YM @ main-BGB3UUnL.js:37
+QM @ main-BGB3UUnL.js:37
+JM @ main-BGB3UUnL.js:37
+v1 @ main-BGB3UUnL.js:37
+NP @ main-BGB3UUnL.js:37
+(anonymous) @ main-BGB3UUnL.js:37
+Xx @ main-BGB3UUnL.js:40
+YO @ main-BGB3UUnL.js:37
+ng @ main-BGB3UUnL.js:37
+_x @ main-BGB3UUnL.js:37
+pI @ main-BGB3UUnL.js:37
+simulateInputElementChangedEvent @ bootstrap-autofill-overlay.js:7681
+triggerPostInsertEventsOnElement @ bootstrap-autofill-overlay.js:7603
+handleInsertValueAndTriggerSimulatedEvents @ bootstrap-autofill-overlay.js:7573
+insertValueIntoField @ bootstrap-autofill-overlay.js:7561
+handleFillFieldByOpidAction @ bootstrap-autofill-overlay.js:7508
+fill_by_opid @ bootstrap-autofill-overlay.js:7405
+(anonymous) @ bootstrap-autofill-overlay.js:7425
+setTimeout
+(anonymous) @ bootstrap-autofill-overlay.js:7424
+InsertAutofillContentService.runFillScriptAction @ bootstrap-autofill-overlay.js:7424
+(anonymous) @ bootstrap-autofill-overlay.js:7446
+(anonymous) @ bootstrap-autofill-overlay.js:7389
+insert_autofill_content_service_awaiter @ bootstrap-autofill-overlay.js:7385
+fillForm @ bootstrap-autofill-overlay.js:7438
+(anonymous) @ bootstrap-autofill-overlay.js:7810
+fulfilled @ bootstrap-autofill-overlay.js:7691
+Promise.then
+step @ bootstrap-autofill-overlay.js:7693
+(anonymous) @ bootstrap-autofill-overlay.js:7694
+autofill_init_awaiter @ bootstrap-autofill-overlay.js:7690
+fillForm @ bootstrap-autofill-overlay.js:7802
+fillForm @ bootstrap-autofill-overlay.js:7722
+AutofillInit.handleExtensionMessage @ bootstrap-autofill-overlay.js:7737
+main-BGB3UUnL.js:435  Authentication related error detected - checking auth state
+overrideMethod @ hook.js:608
+Yr @ main-BGB3UUnL.js:435
+eF @ main-BGB3UUnL.js:435
+await in eF
+(anonymous) @ main-BGB3UUnL.js:435
+p @ main-BGB3UUnL.js:435
+x @ main-BGB3UUnL.js:435
+v @ main-BGB3UUnL.js:435
+setTimeout
+g @ main-BGB3UUnL.js:435
+w @ main-BGB3UUnL.js:435
+w @ main-BGB3UUnL.js:435
+YM @ main-BGB3UUnL.js:37
+QM @ main-BGB3UUnL.js:37
+JM @ main-BGB3UUnL.js:37
+v1 @ main-BGB3UUnL.js:37
+NP @ main-BGB3UUnL.js:37
+(anonymous) @ main-BGB3UUnL.js:37
+Xx @ main-BGB3UUnL.js:40
+YO @ main-BGB3UUnL.js:37
+ng @ main-BGB3UUnL.js:37
+_x @ main-BGB3UUnL.js:37
+pI @ main-BGB3UUnL.js:37
+simulateInputElementChangedEvent @ bootstrap-autofill-overlay.js:7681
+triggerPostInsertEventsOnElement @ bootstrap-autofill-overlay.js:7603
+handleInsertValueAndTriggerSimulatedEvents @ bootstrap-autofill-overlay.js:7573
+insertValueIntoField @ bootstrap-autofill-overlay.js:7561
+handleFillFieldByOpidAction @ bootstrap-autofill-overlay.js:7508
+fill_by_opid @ bootstrap-autofill-overlay.js:7405
+(anonymous) @ bootstrap-autofill-overlay.js:7425
+setTimeout
+(anonymous) @ bootstrap-autofill-overlay.js:7424
+InsertAutofillContentService.runFillScriptAction @ bootstrap-autofill-overlay.js:7424
+(anonymous) @ bootstrap-autofill-overlay.js:7446
+(anonymous) @ bootstrap-autofill-overlay.js:7389
+insert_autofill_content_service_awaiter @ bootstrap-autofill-overlay.js:7385
+fillForm @ bootstrap-autofill-overlay.js:7438
+(anonymous) @ bootstrap-autofill-overlay.js:7810
+fulfilled @ bootstrap-autofill-overlay.js:7691
+Promise.then
+step @ bootstrap-autofill-overlay.js:7693
+(anonymous) @ bootstrap-autofill-overlay.js:7694
+autofill_init_awaiter @ bootstrap-autofill-overlay.js:7690
+fillForm @ bootstrap-autofill-overlay.js:7802
+fillForm @ bootstrap-autofill-overlay.js:7722
+AutofillInit.handleExtensionMessage @ bootstrap-autofill-overlay.js:7737
+main-BGB3UUnL.js:435 Current auth session state: Promise {<pending>}
+main-BGB3UUnL.js:435 Session in localStorage: missing
+main-BGB3UUnL.js:435  Uncaught (in promise) Error: Authentication error: Your session may have expired. Please try refreshing the page or logging in again.
+    at Yr (main-BGB3UUnL.js:435:40222)
+    at eF (main-BGB3UUnL.js:435:42198)
+    at async main-BGB3UUnL.js:435:42613
+Yr @ main-BGB3UUnL.js:435
+eF @ main-BGB3UUnL.js:435
+await in eF
+(anonymous) @ main-BGB3UUnL.js:435
+p @ main-BGB3UUnL.js:435
+x @ main-BGB3UUnL.js:435
+v @ main-BGB3UUnL.js:435
+setTimeout
+g @ main-BGB3UUnL.js:435
+w @ main-BGB3UUnL.js:435
+w @ main-BGB3UUnL.js:435
+YM @ main-BGB3UUnL.js:37
+QM @ main-BGB3UUnL.js:37
+JM @ main-BGB3UUnL.js:37
+v1 @ main-BGB3UUnL.js:37
+NP @ main-BGB3UUnL.js:37
+(anonymous) @ main-BGB3UUnL.js:37
+Xx @ main-BGB3UUnL.js:40
+YO @ main-BGB3UUnL.js:37
+ng @ main-BGB3UUnL.js:37
+_x @ main-BGB3UUnL.js:37
+pI @ main-BGB3UUnL.js:37
+simulateInputElementChangedEvent @ bootstrap-autofill-overlay.js:7681
+triggerPostInsertEventsOnElement @ bootstrap-autofill-overlay.js:7603
+handleInsertValueAndTriggerSimulatedEvents @ bootstrap-autofill-overlay.js:7573
+insertValueIntoField @ bootstrap-autofill-overlay.js:7561
+handleFillFieldByOpidAction @ bootstrap-autofill-overlay.js:7508
+fill_by_opid @ bootstrap-autofill-overlay.js:7405
+(anonymous) @ bootstrap-autofill-overlay.js:7425
+setTimeout
+(anonymous) @ bootstrap-autofill-overlay.js:7424
+InsertAutofillContentService.runFillScriptAction @ bootstrap-autofill-overlay.js:7424
+(anonymous) @ bootstrap-autofill-overlay.js:7446
+(anonymous) @ bootstrap-autofill-overlay.js:7389
+insert_autofill_content_service_awaiter @ bootstrap-autofill-overlay.js:7385
+fillForm @ bootstrap-autofill-overlay.js:7438
+(anonymous) @ bootstrap-autofill-overlay.js:7810
+fulfilled @ bootstrap-autofill-overlay.js:7691
+Promise.then
+step @ bootstrap-autofill-overlay.js:7693
+(anonymous) @ bootstrap-autofill-overlay.js:7694
+autofill_init_awaiter @ bootstrap-autofill-overlay.js:7690
+fillForm @ bootstrap-autofill-overlay.js:7802
+fillForm @ bootstrap-autofill-overlay.js:7722
+AutofillInit.handleExtensionMessage @ bootstrap-autofill-overlay.js:7737
+main.js:2414 2025-08-05T03:43:57.452Z: PhishingPageManager: Page logo detection updated: {
+    "logoFound": true,
+    "protectedLogoFound": false
+}
+main-BGB3UUnL.js:524 Querying clients data from Supabase with embedded selects
+main-BGB3UUnL.js:524 Retrieved 8 clients with related data from database
+main-BGB3UUnL.js:524 Querying clients data from Supabase with embedded selects
+main-BGB3UUnL.js:524 Retrieved 8 clients with related data from database
