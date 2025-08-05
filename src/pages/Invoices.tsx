@@ -138,7 +138,7 @@ const Invoices: React.FC = () => {
   }, [searchTerm, statusFilter, agingFilter, rowsPerPage]);
 
   const handleRowClick = (invoice: Invoice) => {
-    navigate(`/invoices/${invoice.id}`);
+    navigate(`/dashboard/invoices/${invoice.id}`);
   };
 
   const handleCreateInvoice = () => {
