@@ -233,14 +233,17 @@ export async function getInvoices(filters?: FilterOptions): Promise<PaginatedRes
  */
 export async function getInvoiceById(id: ID): Promise<Invoice> {
   try {
-    // Get invoice with related data
+    // Get invoice with related data, including the patient for each line item
     const { data, error } = await supabase
       .from('invoices')
       .select(`
         *,
         client:clients(*),
         clinic:clinics(*),
-        items:invoice_line_items!invoice_line_items_invoice_id_fkey(*)
+        items:invoice_line_items!invoice_line_items_invoice_id_fkey(
+          *,
+          patient:patients(*)
+        )
       `)
       .eq('id', id)
       .single();
@@ -294,9 +297,9 @@ export async function getInvoiceById(id: ID): Promise<Invoice> {
       items: data.items ? data.items.map((item: any) => ({
         id: item.id.toString(),
         invoiceId: item.invoice_id.toString(),
-        patientId: item.patient_id ? item.patient_id.toString() : '', // Null check added
+        patientId: item.patient_id ? item.patient_id.toString() : '',
         accessionNumber: item.accession_number,
-        cptCodeId: item.cpt_code_id ? item.cpt_code_id.toString() : '', // Null check added
+        cptCodeId: item.cpt_code_id ? item.cpt_code_id.toString() : '',
         cptCode: item.cpt_code || '',
         description: item.description,
         descriptionOverride: item.description_override,
@@ -311,7 +314,16 @@ export async function getInvoiceById(id: ID): Promise<Invoice> {
         medicalNecessityProvided: item.medical_necessity_provided,
         medicalNecessityDocumentPath: item.medical_necessity_document_path,
         createdAt: item.created_at || '',
-        updatedAt: item.updated_at || ''
+        updatedAt: item.updated_at || '',
+        patient: item.patient ? {
+          id: item.patient.id.toString(),
+          first_name: item.patient.first_name,
+          last_name: item.patient.last_name,
+        } : {
+          id: 'unknown',
+          first_name: 'Unknown',
+          last_name: 'Patient',
+        }
       })) : []
     };
     

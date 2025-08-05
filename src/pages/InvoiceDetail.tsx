@@ -71,13 +71,13 @@ const InvoiceDetail: React.FC = () => {
     );
   }
 
-  // Group items by patient ID
+  // Group items by patient
   const itemsByPatient = invoice.items?.reduce((acc, item) => {
-    const patientId = item.patientId || 'unknown';
-    if (!acc[patientId]) {
-      acc[patientId] = [];
+    const patientKey = item.patient ? `${item.patient.first_name} ${item.patient.last_name}` : 'Unknown Patient';
+    if (!acc[patientKey]) {
+      acc[patientKey] = [];
     }
-    acc[patientId].push(item);
+    acc[patientKey].push(item);
     return acc;
   }, {} as Record<string, InvoiceItem[]>) || {};
 
@@ -240,11 +240,11 @@ const InvoiceDetail: React.FC = () => {
               </div>
 
               {/* Invoice Items by Patient */}
-              {Object.entries(itemsByPatient).map(([patientId, items]) => (
-                <div key={patientId} className="space-y-4">
+              {Object.entries(itemsByPatient).map(([patientName, items]) => (
+                <div key={patientName} className="space-y-4">
                   <h3 className="text-lg font-medium text-gray-900 flex items-center">
                     <User size={18} className="mr-2 text-gray-500" />
-                    Patient ID: {patientId}
+                    Patient: {patientName}
                   </h3>
                   <div className="overflow-x-auto">
                     <table className="min-w-full divide-y divide-gray-200">
