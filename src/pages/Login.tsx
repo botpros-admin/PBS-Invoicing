@@ -104,16 +104,17 @@ const Login: React.FC = () => {
         // The useEffect listening to `hasMfa` will handle showing the modal
         // Note: componentIsLoading might be set to false in the MFA useEffect error handler
       } else {
-        // Login successful (no MFA)
-        console.log('[Login Page] Login successful (no MFA). Navigating...');
+        // Login successful (no MFA) - the PublicRoute will handle the redirect
+        console.log('[Login Page] Login successful (no MFA). Auth state updated.');
         if (rememberMe) {
           localStorage.setItem('remembered_email', email);
         } else {
           localStorage.removeItem('remembered_email');
         }
-        // Navigate directly on successful login (no MFA)
-        // No need to set component loading to false, navigation handles unmount.
-        navigate(redirectPath, { replace: true });
+        // No navigate() call here. The useEffect that watches isAuthenticated will handle it,
+        // or the PublicRoute component will redirect automatically.
+        // We can set loading to false as the navigation is no longer this component's responsibility.
+        setComponentIsLoading(false);
       }
       // If login didn't result in navigation (e.g., error, MFA needed but factor fetch failed),
       // ensure loading stops eventually. This might already be handled in error/MFA paths.
