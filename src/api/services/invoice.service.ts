@@ -250,8 +250,8 @@ export async function getInvoiceById(id: ID): Promise<Invoice> {
     
     const invoice: Invoice = {
       id: data.id.toString(),
-      clientId: data.client_id.toString(),
-      clinicId: data.clinic_id.toString(),
+      clientId: data.client_id ? data.client_id.toString() : '',
+      clinicId: data.clinic_id ? data.clinic_id.toString() : '',
       invoiceNumber: data.invoice_number,
       dateCreated: data.date_created,
       dateDue: data.date_due,
@@ -284,7 +284,7 @@ export async function getInvoiceById(id: ID): Promise<Invoice> {
         id: data.clinic.id.toString(),
         name: data.clinic.name,
         address: data.clinic.address || '',
-        clientId: data.clinic.client_id.toString(),
+        clientId: data.clinic.client_id ? data.clinic.client_id.toString() : '',
         isActive: data.clinic.is_active === true,
         createdAt: data.clinic.created_at || '',
         updatedAt: data.clinic.updated_at || '',
