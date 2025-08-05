@@ -27,6 +27,8 @@ import NotFound from './pages/NotFound';
 import UpdatePassword from './pages/UpdatePassword';
 import PayInvoice from './pages/PayInvoice';
 import ResetPassword from './pages/ResetPassword';
+import Profile from './pages/Profile';
+import UserSettings from './pages/UserSettings';
 
 // Presentation Pages
 import ArchitecturePage from './pages/ArchitecturePage'; // Import the new Architecture page
@@ -87,6 +89,8 @@ function App() {
               <Route path="/dashboard/reports" element={<Reports />} />
               <Route path="/dashboard/import" element={<ImportData />} />
               <Route path="/dashboard/settings/*" element={<Settings />} />
+              <Route path="/dashboard/profile" element={<Profile />} />
+              <Route path="/dashboard/user-settings" element={<UserSettings />} />
             </Route>
             {/* Special Routes */}
             <Route path="/forbidden" element={<Forbidden />} />

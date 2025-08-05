@@ -13,7 +13,7 @@ import {
 import { useAuth } from '../context/AuthContext';
 import { useNotifications } from '../context/NotificationContext';
 import NotificationDropdown from './NotificationDropdown';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, NavLink } from 'react-router-dom';
 import debounce from 'lodash/debounce';
 import { SearchResult } from '../types'; // Import from shared types
 import { performGlobalSearch } from '../api/services/search.service'; // Import the search service
@@ -232,24 +232,20 @@ const Header: React.FC<HeaderProps> = ({ toggleSidebar }) => {
 
           {showUserMenu && (
             <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-10 border border-gray-200">
-              <button
-                onClick={() => {
-                  navigate('/profile'); // Consider updating path if needed
-                  setShowUserMenu(false);
-                }}
+              <NavLink
+                to="/dashboard/profile"
+                onClick={() => setShowUserMenu(false)}
                 className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
               >
                 Your Profile
-              </button>
-              <button
-                onClick={() => {
-                  navigate('/dashboard/settings'); // Updated path
-                  setShowUserMenu(false);
-                }}
+              </NavLink>
+              <NavLink
+                to="/dashboard/user-settings"
+                onClick={() => setShowUserMenu(false)}
                 className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
               >
                 Settings
-              </button>
+              </NavLink>
               <button
                 onClick={async () => {
                   try {
