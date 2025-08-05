@@ -21,10 +21,10 @@ const UserManagement: React.FC = () => {
     queryFn: getAllUsers,
   });
 
-  const { data: clients = [], isLoading: isLoadingClients } = useQuery<any[], Error>({
+  const { data: clients = [], isLoading: isLoadingClients } = useQuery<PaginatedResponse<Client>, Error, Client[]>({
     queryKey: ['clients'],
-    queryFn: () => getClients().then(res => res.data),
-    select: (data) => data,
+    queryFn: getClients,
+    select: (data) => data.data,
   });
 
   const handleInviteUser = async (inviteData: { email: string; role: string; lab_id?: string; clinic_id?: string }) => {
