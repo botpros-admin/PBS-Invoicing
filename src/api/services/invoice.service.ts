@@ -294,9 +294,9 @@ export async function getInvoiceById(id: ID): Promise<Invoice> {
       items: data.items ? data.items.map((item: any) => ({
         id: item.id.toString(),
         invoiceId: item.invoice_id.toString(),
-        patientId: item.patient_id.toString(),
+        patientId: item.patient_id ? item.patient_id.toString() : '', // Null check added
         accessionNumber: item.accession_number,
-        cptCodeId: item.cpt_code_id.toString(),
+        cptCodeId: item.cpt_code_id ? item.cpt_code_id.toString() : '', // Null check added
         cptCode: item.cpt_code || '',
         description: item.description,
         descriptionOverride: item.description_override,
