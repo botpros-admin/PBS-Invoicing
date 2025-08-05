@@ -1,42 +1,41 @@
-Root element found, rendering full app with authentication ...
-[PublicRoute] Auth context is loading (user not authenticated), rendering null ...
-
-POST
-https://o456514.ingest.us.sentry.io/api/4507249138532352/envelope/?sentry k_07ff736e1&sentry version=7&sentry clien ...
-net :: ERR_BLOCKED_BY_CLIENT
-[PublicRoute] User not authenticated and not loading. Rendering public route children.
-[Long Running Recorder] Content script initialised
-2025-08-05T06:17:27.102Z: Input was focused, will ask for screenshot analysis
-[Long Running Recorder] Recorder disabled
-2025-08-05T06:17:27.169Z: Input was focused, will ask for screenshot analysis
-2025-08-05T06:17:27.179Z: PhishingPageManager: Detection suppressed because of password injection
-[Login Page] Starting 1.25s login delay ...
-[Login Page] Delay finished. Calling login context function ...
-[Login Page] Login successful (no MFA). Navigating ...
-[PublicRoute] User not authenticated and not loading. Rendering public route children.
-
-[PublicRoute] User is authenticated, redirecting away from public route to: /dashboard
-
-main-Dp41 rhe.js:630
-
-main-Dp41 rhe.js:435
-contentScript.bundle.js:75
-
-main-Dp41 rhe.js:435
-
-index.ts-2a21a9d0.js:1
-
-main. js:2414
-index.ts-2a21a9d0.js:3
-main.js:2414
-main.js:2414
-main-Dp41 rhe.js:435
-
-main-Dp41 rhe.js:435
-main-Dp41 rhe.js:435
-
-main-Dp41 rhe.is:435
-
-main-Dp41 rhe. js:435 Q
-
-A
+main-DtxPM3Kt.js:630 Root element found, rendering full app with authentication...
+main-DtxPM3Kt.js:435 [PublicRoute] Auth context is loading (user not authenticated), rendering null...
+contentScript.bundle.js:75   POST https://o456514.ingest.us.sentry.io/api/4507249138532352/envelope/?sentry_key=e5d75f765f30b0d67a057b207ff736e1&sentry_version=7&sentry_client=sentry.javascript.react%2F7.119.2 net::ERR_BLOCKED_BY_CLIENT
+(anonymous) @ contentScript.bundle.js:75
+(anonymous) @ contentScript.bundle.js:75
+add @ contentScript.bundle.js:75
+o @ contentScript.bundle.js:75
+_sendEnvelope @ contentScript.bundle.js:75
+sendSession @ contentScript.bundle.js:75
+captureSession @ contentScript.bundle.js:75
+bE @ contentScript.bundle.js:75
+wE @ contentScript.bundle.js:75
+(anonymous) @ contentScript.bundle.js:75
+vO @ contentScript.bundle.js:75
+(anonymous) @ contentScript.bundle.js:75
+(anonymous) @ contentScript.bundle.js:75
+(anonymous) @ contentScript.bundle.js:75
+(anonymous) @ contentScript.bundle.js:75
+main-DtxPM3Kt.js:435 [PublicRoute] User not authenticated and not loading. Rendering public route children.
+index.ts-2a21a9d0.js:1 [Long Running Recorder] Content script initialised
+main.js:2414 2025-08-05T06:25:49.129Z: Input was focused, will ask for screenshot analysis
+index.ts-2a21a9d0.js:3 [Long Running Recorder] Recorder disabled
+main.js:2414 2025-08-05T06:25:49.189Z: Input was focused, will ask for screenshot analysis
+main.js:2414 2025-08-05T06:25:49.209Z: PhishingPageManager: Detection suppressed because of password injection
+main-DtxPM3Kt.js:435 [Login Page] Starting 1.25s login delay...
+main-DtxPM3Kt.js:435 [Login Page] Delay finished. Calling login context function...
+main-DtxPM3Kt.js:435 [Login Page] Login successful (no MFA). Auth state updated.
+main-DtxPM3Kt.js:435 [PublicRoute] User not authenticated and not loading. Rendering public route children.
+main-DtxPM3Kt.js:435  [PublicRoute] User is authenticated, redirecting away from public route to: /dashboard
+overrideMethod @ hook.js:608
+nF @ main-DtxPM3Kt.js:435
+Fx @ main-DtxPM3Kt.js:38
+Fv @ main-DtxPM3Kt.js:40
+Sk @ main-DtxPM3Kt.js:40
+bk @ main-DtxPM3Kt.js:40
+kD @ main-DtxPM3Kt.js:40
+Wf @ main-DtxPM3Kt.js:40
+vk @ main-DtxPM3Kt.js:40
+w @ main-DtxPM3Kt.js:25
+E @ main-DtxPM3Kt.js:25
+main-DtxPM3Kt.js:439 Loaded layout from DB: (6) [{…}, {…}, {…}, {…}, {…}, {…}]
