@@ -1,13 +1,14 @@
--- Drop the existing function
-DROP FUNCTION IF EXISTS global_search;
+-- Drop the existing function to ensure a clean slate
+DROP FUNCTION IF EXISTS global_search(search_term TEXT);
 
--- Recreate the function with all ID columns cast to UUID
+-- Recreate the function, casting all ID columns to TEXT to ensure UNION compatibility
 CREATE OR REPLACE FUNCTION global_search(search_term TEXT)
-RETURNS TABLE(id UUID, title TEXT, subtitle TEXT, type TEXT) AS $$
+RETURNS TABLE(id TEXT, title TEXT, subtitle TEXT, type TEXT) AS $$
 BEGIN
     RETURN QUERY
+    -- Search Invoices (id is bigint)
     SELECT
-        i.id::uuid,
+        i.id::text,
         'Invoice #' || i.invoice_number AS title,
         'Client: ' || c.name AS subtitle,
         'invoice' AS type
@@ -21,8 +22,9 @@ BEGIN
 
     UNION ALL
 
+    -- Search Clients (id is bigint)
     SELECT
-        c.id::uuid,
+        c.id::text,
         c.name AS title,
         'Client' AS subtitle,
         'client' AS type
@@ -33,8 +35,22 @@ BEGIN
 
     UNION ALL
 
+    -- Search Clinics (id is bigint)
     SELECT
-        p.id::uuid,
+        cl.id::text,
+        cl.name AS title,
+        'Clinic' AS subtitle,
+        'clinic' AS type
+    FROM
+        clinics cl
+    WHERE
+        cl.name ILIKE '%' || search_term || '%'
+
+    UNION ALL
+
+    -- Search Patients (id is bigint)
+    SELECT
+        p.id::text,
         p.first_name || ' ' || p.last_name AS title,
         'Patient' AS subtitle,
         'patient' AS type
@@ -46,8 +62,9 @@ BEGIN
 
     UNION ALL
 
+    -- Search Users (id is uuid from auth.users)
     SELECT
-        u.id::uuid,
+        u.id::text,
         u.email AS title,
         'User' AS subtitle,
         'user' AS type
