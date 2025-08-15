@@ -34,7 +34,9 @@
 
 #### Three-Level Tenant Architecture 🚧 IN PROGRESS
 - [x] Create `TenantContext.tsx` (needs upgrade)
-- [ ] Implement PBS → Laboratory → Clinic hierarchy
+- [x] Create laboratory types and interfaces
+- [x] Create database migration for 3-level hierarchy
+- [ ] Implement PBS → Laboratory → Clinic UI components
 - [ ] Add sales rep assignment at clinic level
 - [ ] Create parent/child account relationships
 - [ ] Add organization switching for all 3 levels
@@ -339,9 +341,10 @@
 ### Week 1 Priority Tasks
 - [x] Fix RoleManagement capitalization ✅
 - [x] Create UserProfile modal ✅
-- [ ] Implement 3-level hierarchy (PBS → Lab → Clinic)
-- [ ] Build import failure queue UI
-- [ ] Add inline editing for failed imports
+- [x] Create laboratory types and database schema ✅
+- [x] Build import failure queue UI with inline editing ✅
+- [x] Create payment posting queue component ✅
+- [ ] Implement 3-level hierarchy UI (PBS → Lab → Clinic)
 - [ ] Create CPT mapping interface
 - [ ] Add duplicate detection (accession + CPT)
 - [ ] Implement character limits on notes
