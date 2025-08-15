@@ -31,8 +31,7 @@ import UpdatePassword from './pages/UpdatePassword';
 import PayInvoice from './pages/PayInvoice';
 import ResetPassword from './pages/ResetPassword';
 import PasswordResetHandler from './pages/PasswordResetHandler';
-import Profile from './pages/Profile';
-import UserSettings from './pages/UserSettings';
+import EnhancedProfile from './pages/EnhancedProfile';
 
 function App() {
   return (
@@ -68,8 +67,7 @@ function App() {
                 <Route path="/settings/*" element={<Settings />} />
                 <Route path="/import" element={<ImportData />} />
                 <Route path="/labs" element={<Labs />} />
-                <Route path="/profile" element={<Profile />} />
-                <Route path="/user-settings" element={<UserSettings />} />
+                <Route path="/profile/*" element={<EnhancedProfile />} />
               </Route>
 
               {/* Error Routes */}

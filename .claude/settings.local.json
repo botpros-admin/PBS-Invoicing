@@ -22,7 +22,9 @@
       "Bash(true)",
       "Bash(git commit:*)",
       "Bash(pkill:*)",
-      "Bash(taskkill:*)"
+      "Bash(taskkill:*)",
+      "Bash(/bashes)",
+      "Bash(tasklist:*)"
     ],
     "deny": [],
     "ask": [],

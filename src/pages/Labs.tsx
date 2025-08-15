@@ -12,7 +12,8 @@ import {
   AlertCircle,
   FileText,
   TrendingUp,
-  Clock
+  Clock,
+  ChevronDown
 } from 'lucide-react';
 import { supabase } from '../api/supabase';
 import Modal from '../components/Modal';
@@ -56,6 +57,8 @@ const Labs: React.FC = () => {
   const [showModal, setShowModal] = useState(false);
   const [editingLab, setEditingLab] = useState<Lab | null>(null);
   const [searchTerm, setSearchTerm] = useState('');
+  const [sortField, setSortField] = useState<string>('');
+  const [sortDirection, setSortDirection] = useState<'asc' | 'desc'>('asc');
   const { addNotification } = useNotifications();
 
   const [formData, setFormData] = useState<Partial<Lab>>({
@@ -290,11 +293,79 @@ const Labs: React.FC = () => {
     }
   };
 
-  const filteredLabs = labs.filter(lab =>
-    lab.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    lab.code.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    lab.city.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  const handleSort = (field: string) => {
+    if (sortField === field) {
+      setSortDirection(sortDirection === 'asc' ? 'desc' : 'asc');
+    } else {
+      setSortField(field);
+      setSortDirection('asc');
+    }
+  };
+
+  const getSortIcon = (field: string) => {
+    if (sortField !== field) {
+      return <ChevronDown className="ml-1 opacity-0 group-hover:opacity-30" size={16} />;
+    }
+    return (
+      <ChevronDown 
+        className={`ml-1 opacity-100 transition-transform ${
+          sortDirection === 'desc' ? 'rotate-180' : ''
+        }`} 
+        size={16} 
+      />
+    );
+  };
+
+  const filteredLabs = (() => {
+    let filtered = labs.filter(lab =>
+      lab.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      lab.code.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      lab.city.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+
+    // Sorting
+    if (sortField) {
+      filtered.sort((a, b) => {
+        let aValue: any;
+        let bValue: any;
+        
+        switch (sortField) {
+          case 'name':
+            aValue = a.name;
+            bValue = b.name;
+            break;
+          case 'location':
+            aValue = `${a.city}, ${a.state}`;
+            bValue = `${b.city}, ${b.state}`;
+            break;
+          case 'performance':
+            const aStats = labStats[a.id];
+            const bStats = labStats[b.id];
+            aValue = aStats?.avgDailyVolume || 0;
+            bValue = bStats?.avgDailyVolume || 0;
+            break;
+          case 'revenue':
+            const aRevenueStats = labStats[a.id];
+            const bRevenueStats = labStats[b.id];
+            aValue = aRevenueStats?.totalRevenue || 0;
+            bValue = bRevenueStats?.totalRevenue || 0;
+            break;
+          case 'status':
+            aValue = a.status;
+            bValue = b.status;
+            break;
+          default:
+            return 0;
+        }
+        
+        if (aValue < bValue) return sortDirection === 'asc' ? -1 : 1;
+        if (aValue > bValue) return sortDirection === 'asc' ? 1 : -1;
+        return 0;
+      });
+    }
+
+    return filtered;
+  })();
 
   const formatCurrency = (amount: number) => {
     return new Intl.NumberFormat('en-US', {
@@ -415,22 +486,37 @@ const Labs: React.FC = () => {
         <table className="min-w-full divide-y divide-gray-200">
           <thead className="bg-gray-50">
             <tr>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                Lab Info
+              <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer group" onClick={() => handleSort('name')}>
+                <div className="flex items-center">
+                  Lab Info
+                  {getSortIcon('name')}
+                </div>
               </th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                Location
+              <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer group" onClick={() => handleSort('location')}>
+                <div className="flex items-center">
+                  Location
+                  {getSortIcon('location')}
+                </div>
               </th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                Performance
+              <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer group" onClick={() => handleSort('performance')}>
+                <div className="flex items-center">
+                  Performance
+                  {getSortIcon('performance')}
+                </div>
               </th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                Revenue
+              <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer group" onClick={() => handleSort('revenue')}>
+                <div className="flex items-center">
+                  Revenue
+                  {getSortIcon('revenue')}
+                </div>
               </th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                Status
+              <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer group" onClick={() => handleSort('status')}>
+                <div className="flex items-center">
+                  Status
+                  {getSortIcon('status')}
+                </div>
               </th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              <th scope="col" className="relative px-6 py-3">
                 Actions
               </th>
             </tr>
@@ -487,7 +573,7 @@ const Labs: React.FC = () => {
                         ? 'bg-red-100 text-red-800'
                         : 'bg-gray-100 text-gray-800'
                     }`}>
-                      {lab.status}
+                      {lab.status.charAt(0).toUpperCase() + lab.status.slice(1)}
                     </span>
                     {stats?.lastActivityDate && (
                       <div className="text-xs text-gray-500 mt-1 flex items-center">

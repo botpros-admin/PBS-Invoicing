@@ -86,6 +86,8 @@ const Payments: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [statusFilter, setStatusFilter] = useState<string>('all');
   const [typeFilter, setTypeFilter] = useState<string>('all');
+  const [sortField, setSortField] = useState<string>('');
+  const [sortDirection, setSortDirection] = useState<'asc' | 'desc'>('asc');
   const { addNotification } = useNotifications();
   
   // Modal states
@@ -121,7 +123,7 @@ const Payments: React.FC = () => {
 
   useEffect(() => {
     filterPayments();
-  }, [searchTerm, statusFilter, typeFilter, payments]);
+  }, [searchTerm, statusFilter, typeFilter, sortField, sortDirection, payments]);
 
   const fetchPayments = async () => {
     try {
@@ -239,6 +241,29 @@ const Payments: React.FC = () => {
     }
   };
 
+  const handleSort = (field: string) => {
+    if (sortField === field) {
+      setSortDirection(sortDirection === 'asc' ? 'desc' : 'asc');
+    } else {
+      setSortField(field);
+      setSortDirection('asc');
+    }
+  };
+
+  const getSortIcon = (field: string) => {
+    if (sortField !== field) {
+      return <ChevronDown className="ml-1 opacity-0 group-hover:opacity-30" size={16} />;
+    }
+    return (
+      <ChevronDown 
+        className={`ml-1 opacity-100 transition-transform ${
+          sortDirection === 'desc' ? 'rotate-180' : ''
+        }`} 
+        size={16} 
+      />
+    );
+  };
+
   const filterPayments = () => {
     let filtered = [...payments];
     
@@ -259,6 +284,51 @@ const Payments: React.FC = () => {
     // Type filter
     if (typeFilter !== 'all') {
       filtered = filtered.filter(payment => payment.type === typeFilter);
+    }
+    
+    // Sorting
+    if (sortField) {
+      filtered.sort((a, b) => {
+        let aValue: any;
+        let bValue: any;
+        
+        switch (sortField) {
+          case 'payment_number':
+            aValue = a.payment_number;
+            bValue = b.payment_number;
+            break;
+          case 'client_name':
+            aValue = a.client_name || '';
+            bValue = b.client_name || '';
+            break;
+          case 'date_received':
+            aValue = new Date(a.date_received);
+            bValue = new Date(b.date_received);
+            break;
+          case 'amount':
+            aValue = a.amount;
+            bValue = b.amount;
+            break;
+          case 'unapplied_amount':
+            aValue = a.unapplied_amount;
+            bValue = b.unapplied_amount;
+            break;
+          case 'type':
+            aValue = a.type;
+            bValue = b.type;
+            break;
+          case 'status':
+            aValue = a.status;
+            bValue = b.status;
+            break;
+          default:
+            return 0;
+        }
+        
+        if (aValue < bValue) return sortDirection === 'asc' ? -1 : 1;
+        if (aValue > bValue) return sortDirection === 'asc' ? 1 : -1;
+        return 0;
+      });
     }
     
     setFilteredPayments(filtered);
@@ -507,7 +577,7 @@ const Payments: React.FC = () => {
     
     return (
       <span className={`px-2 py-1 text-xs font-semibold rounded-full ${statusStyles[status as keyof typeof statusStyles] || statusStyles.unposted}`}>
-        {status.replace('_', ' ').toUpperCase()}
+        {status.replace('_', ' ').replace(/\b\w/g, l => l.toUpperCase())}
       </span>
     );
   };
@@ -641,28 +711,49 @@ const Payments: React.FC = () => {
         <table className="min-w-full divide-y divide-gray-200">
           <thead className="bg-gray-50">
             <tr>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                Payment #
+              <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer group" onClick={() => handleSort('payment_number')}>
+                <div className="flex items-center">
+                  Payment #
+                  {getSortIcon('payment_number')}
+                </div>
               </th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                Client
+              <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer group" onClick={() => handleSort('client_name')}>
+                <div className="flex items-center">
+                  Client
+                  {getSortIcon('client_name')}
+                </div>
               </th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                Date
+              <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer group" onClick={() => handleSort('date_received')}>
+                <div className="flex items-center">
+                  Date
+                  {getSortIcon('date_received')}
+                </div>
               </th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                Amount
+              <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer group" onClick={() => handleSort('amount')}>
+                <div className="flex items-center">
+                  Amount
+                  {getSortIcon('amount')}
+                </div>
               </th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                Balance
+              <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer group" onClick={() => handleSort('unapplied_amount')}>
+                <div className="flex items-center">
+                  Balance
+                  {getSortIcon('unapplied_amount')}
+                </div>
               </th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                Type
+              <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer group" onClick={() => handleSort('type')}>
+                <div className="flex items-center">
+                  Type
+                  {getSortIcon('type')}
+                </div>
               </th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                Status
+              <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer group" onClick={() => handleSort('status')}>
+                <div className="flex items-center">
+                  Status
+                  {getSortIcon('status')}
+                </div>
               </th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              <th scope="col" className="relative px-6 py-3">
                 Actions
               </th>
             </tr>
@@ -706,7 +797,7 @@ const Payments: React.FC = () => {
                   </div>
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap">
-                  <span className="text-xs text-gray-600 uppercase">
+                  <span className="text-xs text-gray-600 capitalize">
                     {payment.type}
                   </span>
                 </td>

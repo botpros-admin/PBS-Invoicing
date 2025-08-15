@@ -1,126 +1,526 @@
-Here is the transcript of the captions:
-Ashley Zarling: fails and and keep discussing on the upload. We can also talk about the manual creation. I don't think the manual creations can be hard though, because it's all the fields that are in. The Excel, but just in a UI with drop-downs to select a clinic, select a patient, those kinds of things but we can go into that. Um,
-You: Yeah, we can dial that. You know, dial down. Can. I mean, what else, what else do you could do? Think of off the top of your head? You know, that we could talk about or that there might be Things that we could cover.
-Ashley Zarling: I'm well, I think we eventually and we can do it today needing to go back around to So we've talked about the UI for uploading, we've talked about the credit UI, we have talked about all these statuses pending those kinds of things. The thing we have not talked about in a second, go around is the UI on what it looks like to make a payment, your customer you log in. What does that look like? And how, how to dispute get routed? We haven't talked about that again. And then we haven't talked about reporting pretty much at all.
-You: Yep.
-Ashley Zarling: So would you like to go into the because we've kind of talked about what is all of this? Look like from Rhiannon's perspective. But like, what does this look like from a clinics perspective?
-You: Whatever. Whatever is clever. We can we can talk about the
-Ashley Zarling: As far as a login and a payment goes, if that's where you want to go next. Okay.
-You: How a clinic? See. Okay. Is it clinic in a lab? The same thing. Stupid question
-Ashley Zarling: No.
-You: time. Okay. All right.
-Ashley Zarling: Yep.
-You: But a clinic and a clinic can be a lab.
-Ashley Zarling: so, Not usually not not typically in our explanation. So I kind of put out those
-You: Or no.
-Ashley Zarling: parameters in the invoicing system stack to talk about.
-You:
-Ashley Zarling: A client is a lab and a clinic is a clinic or a facility and those are two very separate things because a lab is my customer a clinic or facility is their customer. This system is built for a lab to build their customers. We are just the managers of all of Right. So when we talk about billing access and admin level access, we are the people doing it but it could be a lab doing it. But essentially the the end user, the person receiving and seeing and making the payments is the clinic or the facility and I say facility because some of these are like long-term care facilities for like older people. They're not actually clinics. Some of them are clinics, right? We could even drill down further, Some of them are just collection agencies, so they're agencies, but to make it as simple as possible, we use the word clinic or facility to specify our clients client. So A is our client. B is our client's client. In this system, we're not billing. Our client, we're not sending out bills to the lab, through the system. We could figuratively speaking but we won't. We'll just use QuickBooks and actually use our QuickBooks for us eventually. That would be really nice and instead of all of our customers, but we're looking for a system for the lab to Bill Clinics. So just so you guys understand is like, we're navigating this space. A clinic will order samples and let's say they order those samples knowing the patients are going to cash pay upfront. So they have almost like a menu and so if they order these things, they do the math, they added up, They collect the cash from the patient up front and then we build them for those tests. And essentially, they're acting as an intermediate between the patient and us but they just collect the cash up front because they're a fully cash. Pay clinic. Our newest lab has a ton of this, so it's a bunch of cash, pay only doctors and wellness centers. That like a gym, employs a doctor and that doctor does wellness panels and does checkups on gym members of a certain level. That's all cash pay. That's how this is handled. Instead of a bill going to the patient. A bill goes the clinic. Or the facility. So that's kind of our management of this and that's why we did the subtypes the invoice types because an invoice could be for several reasons and we want to specify out what that is. So underneath the invoice typing, it could be because of a client bill arrangement. We have on file But the same clinic could also have an invoice generated because invalids, they failed to give us information to build the sample properly in a timely fashion. So they could have those two different invoices. And so as we talked yesterday about drafting invoices invoices would need To have the type labeled on them. Are they for skill? Nursing facility arrangements. Are they for a client bill arrangement? Are they for? You know, contractual arrangement issues, they didn't provide us, medical records, medical necessity, those kinds of things. So those are all reasons. Why something like that would be generated. Now, for the invoice typing, Rhiannon.
-You: Yep.
-Ashley Zarling: Right now I have told them each one needed to develop its own invoice. So all of sniff would go on an invoice. All of hospice would go on an invoice. The other thing we could do though is we could just add the category to one invoice. So, the invoice would have sniff and everything below. It's sniff. And then the next section would be invalids and everything below that is invalids and the next section. And it's all just one running invoice with just a splitter saying Everything below. This is for this reason.
-Rhiannon Hobbs: Okay. Yeah, the only thing that I'm thinking of that. Might not be good with that. Is because let's say we have an invoice for sniff and invalid. It's all on one invoice. They might not pay out on that invoice until the invalids accounts are corrected. So, I don't know if it would be beneficial to have them separated because
-Ashley Zarling: Gotcha.
-Rhiannon Hobbs: Yeah, they might just not pay out until there's corrections or whatever.
-Ashley Zarling: Yeah, I got you. So based off of the type Max Every a clinic could get three invoices in one month. Because the invoices are just different types altogether. the other thing we didn't talk about, Is a clinic could have. Two different fee, schedules for the two types. I've never seen it, but it could happen.
-You: Could you give an example?
-Ashley Zarling: Like for an invalid. So they never provided insurance information. A lab could say I want to collect the insurance allowable so they screwed me out of this money. I'm collecting the insurance allowable from them, which is going to be a different amount than the client bill. But I don't, let's not even that's a scenario. I don't think is gonna happen but I guess it could happen. If a clinic was or a lab was really pissed. Most the time though their fee schedule is contractual so I don't think that they would ever bill a different amount for a different reason. Anyways side tangent there. Um, so essentially max if a clinic has Skilled nursing facility patients. We're building them for those skilled nursing facility patients. So that's going to generate an invoice on an upload and then if the invoice type for the same clinic, Maxwell health, they also have five contractual failures, meaning. They didn't provide us with medical records or they didn't, you know, provide us with insurance information. Those would need to generate on to invoices. We know one of those is probably gonna be disputed and they're gonna try to provide us with the invalids and the medical records. The whole point in separating them off is to ensure that the other one just gets cleared and taken care of that. Invoice is off. We know this one's gonna be in dispute back and
-You: Yep, makes sense.
-Ashley Zarling: Does that sound right Rhiannon? Okay. I'm
-You: Yeah. Okay.
-Ashley Zarling: That was the tangent from your question. Max, our clinics and labs the same thing. No, they're not.
-You: Okay. All right. um, All right, we spoke about because we'll have like the two different types. We'll have the draft and finalized. Let me see.
-Ashley Zarling: Um, and this is really important when it comes to the user management Max. So we could almost bubble off like the system. I really wish at a whiteboard and you guys were here, because I would just go to town and I would because I want to know that you guys know what I'm saying, and I'm not just So stop me if you don't know what I'm saying, essentially. Add a new. Like the billing team is going to see everything. Like If this is all the data, Rhiannon has a billing administrator is going to see all of it and then because right now we have 11 labs Each lab is going to see their Section of the data, right? Like each lab is going to be able to view their piece of the data inside of there. So Pls is only going to see Pls data. Maxwell House, only gonna see Maxwell Health, Right? PCL Infinity, they're all going to see their own. And then their clients Are only going to be able to see their invoices, their amount due and their patients underneath every single one. And that's how the three levels of user management works. And then in billing, there's two different levels, one would just be a biller and the other would be administrative and the differences deleting Right. but otherwise people in labs get the same lab access, and that's kind of, as we talk about user management, like billing billing administration, The laboratory itself, the clinic. And those are the levels of user access that we were going to discussing if that makes sense.
-Jermane Mack: Mm-hmm.
-You: Okay. Okay.
-Ashley Zarling: And the main UI is going to be dark blue and red. And then light blue. Because red would have you only access to everything underneath the dark blue. So a lab would be able to come in and see invoices. They become able to come in and see reports and download, but a lab's not coming in and building it invoice or doing like they would have a view only, essentially, of their section of dark blue, But this light blue has a different UI in the sense that they're going to log in. They're going to see a list of their invoices and have that UI that we talked about and I can pull up again where they can come in and dispute or pay They're not going to have reporting. We sure could build a dashboard, you know, where they can just say, like, How many of your payments are cleared? What do you have outstanding those kinds of things? But otherwise I don't think a clinic needs much else.
-You: um, I, I just thought of something. What about like, parent accounts? like,
-Ashley Zarling: Okay, if you want to get real specific care, Max, I will go one step further
-You: Yeah.
-Ashley Zarling: then. So then we're gonna have a parent account would be able to see all their children accounts inside of it. So it would be like another level inside of here
-You: Yeah.
-Ashley Zarling: where they would have the same level of a clinic access. But they would be able to manage their child account invoices. So if a parent account wanted to come in and they wanted to pay all the child accounts they could And see a dashboard on all their child accounts, they could, but it's the same kind of access.
-You: Right? And this would be needed for The, you know the current implementation, right?
-Ashley Zarling: Right.
-You: we'd like, Okay.
-Ashley Zarling: If we couldn't put it out and like we wanted to get like, like you said like good better best like what we would be shooting for is that, but if we couldn't do it, we could implement the system without it and try to figure it out down the road for sure.
-You: All right, here's here's a scenario. What if like that parent company? Sends a large check for like, you know, to cover invoices for like 10 of its Subsidy. So sub locations or Or children.
-Ashley Zarling: Yeah. Children. Yeah. if it sends a check, then we would need to be able to post it to Through the parent to all the children.
-You: How yeah. How though like so like How would we want that to be applied?
-Ashley Zarling: So, when we kind of talked about this last time, Let's go into QuickBooks actually. One. Second.
-You: Sorry, if I'm taking taking you off, course.
-Ashley Zarling: Now I every time we've taken us off course, I feel like we've done the most so take me off course.
-You: Okay.
-Ashley Zarling: That's where we get into the weeds and that's kind of what we need to figure out.
-You: Yep. No, I agree.
-Ashley Zarling: um, So, if I wanted to post a payment, I would come in here to post a payment and The way that QuickBooks manages the parent accounts is by having the parent account name, listed in front of the sub account or the child account. So, for everything, patient's choice, laboratories, this how we're managing them, right now the parent account. As soon as we assign them. Parent account above AIM Wellness, the name now appears patient's point, Left choice laboratory, you know, something, cool and wellness. Like, that is how it appears. Um, and so if I needed to close out payments and receive payments, let's say they send us the amount of three invoices put together when I went into that payment screen that we discussed and like, put in the payment The invoices and I selected a clinic. If I selected the parent, all the sub account invoices would appear If I selected individual clinic only that clinic. So, if I selected, aim wellness, like Patient Choice Laboratory, AIM wellness, only aim wellness But if I selected Patient's choice laboratory, AIM wellness would appear first care management would appear for Statics would appear like everything would appear. That goes underneath, that sub account. For application. A great example of this, we have a group called a medicine. It's a group of home health agencies. There's like a hundred and fifty of them, but they're all a medicine. So if I clicked a medicine Fort Lauderdale only in Madison's Fort Lauderdale would appear but I click a medicine Fort Lauderdale would appear Houston would appear, you know, Douglasville would appear all of them would show up.
-You: You're saying med assist like m e. D a s s t like that's what it what it is.
-Ashley Zarling: A medicis. A m. A d y s i s. There you go.
-You: Uh-huh.
-Ashley Zarling: A Medicis. They were just purchased by United Healthcare.
-You: Gotcha.
-Ashley Zarling: Right there, 3.3 billion dollars and their purchasing a hundred and fifty
-You: Each.
-Ashley Zarling: locations right now. So they're already about 150 locations and their purchasing 150 more. And they utilize one of our labs, so they are a clinic or facility.
-You: Gotcha.
-Ashley Zarling: So patient's Choice Laboratory has a medicine. A medicist is a corporate company that owns hospice careful like groups that drive around and do home health, and hospice care in home for people all over the country. There's 150 of them. There's about to be a hundred and fifty more So then we'd have a medicine and 300 Subclines below that. So, if I click to medicine Baton Rouge, I'd only post to a medisys Baton Rouge, but if I posted to a medicine, I would have the availability for everything.
-You: Yeah. Well will there be like a sublevel to that like would there be more than just like the parent-child hierarchy would there need to be nested like
-Ashley Zarling: I don't want to offer it. i don't know about you, Rhiannon but I wouldn't want to tell clinics like we could sub things further because then they would, And at some point of parent-child relationships on accounts, it would get very messy. Like it goes from an organizational health factor. To a mess.
-You: Yeah.
-Ashley Zarling: If we gave unlimited, like, tiering people be like, oh, then group the Louisiana once together. And then group these three together and the group, those four together, and then it would just say,
-You: yeah, I mean we're not talking unlimited, you know, we do, we do you know want
-Ashley Zarling: Yeah.
-You: to have a limit but I'm just thinking like maybe you know, maybe
-Ashley Zarling: We can offer one more below if we wanted to for Rhiannon in case a weird thing occurs. but,
-You: Yeah, right. I mean
-Ashley Zarling: The only thing I could think we'd we had it once. American health plans is an insurance company and it owns a ton of homes, but those homes weren't all the same kind of home. So some of them were called Ahc and some were called Ahcael. Or ale. And so those two groups we manage slightly different and they were all owned by American health plan. So there was different groupings for sure.
-Rhiannon Hobbs: Well, well just think of the in the grand scheme of things though, but if we're going to market this or whatever to other people to use, then would you want to have that option there for that to be a potential?
-Ashley Zarling: Yeah.
-Rhiannon Hobbs: Because I don't know for us, I wouldn't want that. That's too much, but I don't
-Ashley Zarling: Yeah.
-Rhiannon Hobbs: know for other people.
-Ashley Zarling: Yeah.
-Rhiannon Hobbs: It doesn't have to be the default either. It can be like an option.
-Ashley Zarling: Yeah.
-You: You know, us. A subtle option or even like an administrative. Option. Where it's like, do you want to even allow? you know, you know, a three-tier hierarchy or or whatever, you know, it's, you know, I'm we're just kind of brainstorming thinking out loud Which is great, you know? Because these things we have to We literally have to like, think about these like, as we're Like before we we have like our product, like the what ifs like all of the
-Ashley Zarling: Yeah, put that in forever ago.
-You: potential. You know. Anomalies or things like things that we might not have, you know, like the the Hindsight 2020, you know, things that like well we kind of want to position ourselves. As if like, we're looking back and thinking, Oh man, you know, we have this one situation if only we would, you know, Yeah.
-Ashley Zarling: So essentially in this dark red is admin. Light red. Is lab. Lab is view only. Right. Okay, so here's the problem. We have to create two versions of this one where the lab is. View only but Mack's when it goes into SAS base. A lab would be able to have to purchase this software and have admin level in their bubble. Yeah, but like for are use our labs would be, you only.
-You: Okay.
-Ashley Zarling: but just so you know, for like as far as the changes that go to make this, And then light and dark blue, have the same. View, or have the same. Permissions. As far as what they are allowed to do. Hey. but, They just get to see more or less. Invoices and clients. So, that would be kind of that thought process.
-You: Understood.
-Jermane Mack: So that the dark blue is individual. Clinics. So, that would be if the clinic wants to view its particular invoices.
-Ashley Zarling: Yes. Yes, anyone can be a clinic, but some clinics would have parent accounts above them and that parent account would just be able to view whatever is going on in the sub account and make payments. Because sometimes they're just gonna want to view they like corporate accounts, want to know that they're lower accounts are paying their bills. Sometimes they're not even in a come in to pay the bill. A medicist may come in and say, Hey Charleston, a medicine. You aren't paying your bills and we have you access on this. Your bills are 90 days past due or whatever it might be. So in this case, like, a clinic would only be able to see what's inside of them as a clinic, but some clinics are going to have parent groups of
-Jermane Mack: Eric. Yeah, and then the parent can see all of the clinics associated as the
-Ashley Zarling: them. Yes.
-Jermane Mack: children. Clinics.
-Ashley Zarling: And remit payment and view balances.
-Jermane Mack: Yep, so they can handle multiple clinics at that level with a parent account.
-Ashley Zarling: Yep. Because some corporates do their own accounting in some corporate, don't. It just kind of depends.
-You: Makes sense.
-Ashley Zarling: Okay, so that's a little bit about that. You know, all stemming from that original question of like labs and clients and clinics and kind of what's going on there. Um, if we need to clarify our terms better. So like, every time we say lab, we mean, Light red bubble. And every time we say client, or every time we say clinic or facility, it's a blue bubble. Unlike just keep our terms as clean as possible for you all. So that, that way, you know, I I'll try not to stay client because everyone has clients right? Like, and just try to keep it as clean for you as possible. For the terminology, As you guys are doing this, I will do my best on that.
-You: Yeah, you definitely have an excellent like visual like interface. Like you have a Like, what do you call it? Like someone like a designer's. You know, mind.
-Ashley Zarling: You guys know I was a agility's corporate trainer. That is what I did gotta hit
-You: Yeah.
-Ashley Zarling: the visual learners as well, but it keeps me on track, otherwise, the train sometimes derails. um but like when I worked in the lab as an accessioning manager we had a room that had three whiteboards in it and we just kind of like Went to town to explain what we were talking about all the time. So it's just The background I come from. But yeah. So That's kind of, you know, that piece. Now, as far as like, we've talked a lot about red, right? We've talked a lot about payment, postings, developing invoices, those pieces, so we can then go into blue again.
-You: Okay.
-Ashley Zarling: because Blue is going to be This pay in response. So my thought process on this? They log in. There's going to be a list of invoices. Hopefully, it's not a long list, but there's gonna be a list, those lists in the same way, it's listed because I do like the UI here, a lot, and you're loading invoices screen. I think it's clean. I like how it looks. So they're gonna log in. It's gonna have dashboards invoices. Their invoices are going to say. Outstanding. Paid and partial. In dispute and closed. And that's it. That's what they're gonna have. They're gonna see giraffes. They aren't going to see exhausted. They're gonna see any of those things.
-You: Working on this database that issue. I'm so sorry but yeah, I'm with you I'm
-Ashley Zarling: You're good, you're good.
-You: with you conceptually I'm right there with you.
-Ashley Zarling: So there's specific status that will not be viewable to them. One of those is draft. What if those is exhausted? We're deleted, those are not viewables but they log in anything in a specific list of statuses is viewable to them.
-You: Yep.
-Ashley Zarling: They come in and they're going to have the option. I think we have a button to make things as easy as possible that says, pay all balances in full. They can clip it and we'll take them straight to Stripe and then it pays
-You: Yep.
-Ashley Zarling: everything. Otherwise they have to click the individual invoice and it takes them into this kind of UI. Where it's going to pull up the invoice. Just like, if I opened up, you know, any one of these invoices? It would open up the invoice to them. In their UI. It would instead of like a trash can, right? We talked about this situation where it's like dispute respond and they can check that off. It removes it from the paid balance. And then a box is going to appear underneath the patient here. So underneath the succession number, there's going to be a little note box. That note box is required in order for them to dispute it. So then they can't, they can't save without giving a reason why.
-You: Yeah, they Right. Yeah, we'll have validation logic. If that field isn't, you know, doesn't have Whatever, at least like 10 characters, you know, they can't save.
-Ashley Zarling: Perfect.
-You: Or they can't. Yeah. Yep.
-Ashley Zarling: okay, and then from there, They can edit their payment amount here, but the UI would show the charge if they type in 631. A payment of 631 would be ran by straight like at the end when they say but if they type in six dollars, six dollars would be in and then 31 cents would be the new balance. So if they opened this invoice, The new balance would say, 31 cents. What decides if that payment shows or not is if it's a posted payment. So we said like or an applied payment, we said that these ones would auto apply. So if they do it through the portal and they refresh the payment will auto apply based off of whatever they said they were running with stripe. Otherwise if they mail us in a check for the amount. That payment's not going to show until Rhiannon post it. So there, Yeah. So then they will come through here, they will put in their payment amounts, put in their disputes. The balance would be, whatever the balance column is added up. The total payments would be whatever the Payment column is added up. And then it would say Proceed to check out essentially. Or proceed to payment. And then we process the payment for whatever the total payment is.
-You: Okay.
-Ashley Zarling: When they click dispute or respond, that amount automatically like the payment amount would go to zero because they're not paying on that line. They're disputing it otherwise they could come in here, type in five dollars, ten
-You: Yep.
-Ashley Zarling: dollars, ten dollars. The total balance would be the six plus 10 plus 10, you know, and then the payment would be whatever they're paying. The 631 plus 10, 20 plus 10 20. And then if they were paying out $26, that would show the payment And then maybe we even put a line underneath it saying balance remaining. So total balance, total payment balance remaining after payment. so that way, if they're doing a partial payment, it will show
-You: Okay. I like it.
-Ashley Zarling: So then they go to the payment processing screen. Now. I want that to just be. Card or ACh.
-You: Oh card or AC up? Okay, yep.
-Ashley Zarling: Yeah. Now, Rhiannon there's a world where this would be nuts, but there's a world where someone would do their invoice response in here.
+VXA-QSPX-NVP
+
+
+Participants    Maxwell Ritchie, Ashley Zarling, Jermane Mack, Rhiannon Hobbs
+
+Date    2025-08-15
+
+Rhiannon H. 00:02
+I know how to generate the TCN in Collaborate, though, so you have to just go and print that line manually, and then it will generate a TCN. 
+
+Ashley Z. 00:14
+Okay, I'm glad you know. So we'll circle back. It sounds like this is going to be a whole problem. I did have Miranda start for Blue Cross Blue Shield commercial. We need to start building 83050 on the front end so we don't run into this hole. run around because we know they're going to want it anyways. Sorry, guys. Ryan and I just saw each other some. The first time today. Okay. Well, I see Netlify is back up. Did you guys change anything that we need to review? Or are we just kicking off with where we left off? 
+
+Maxwell R. 00:55
+Yeah. Well, we haven't posted yet because posting online and... Developing locally can have some extra steps that we just, frankly, didn't get to yesterday. 
+
+Maxwell R. 01:10
+Good. 
+
+Maxwell R. 01:11
+But I am literally working on publishing what updates we've made now. Like, while we're going through the meeting, it just takes a while. 
+
+Ashley Z. 01:25
+Yeah, you're good. 
+
+Maxwell R. 01:27
+Update the dependencies and libraries and stuff. There's some... new logic and some new pages. And so, um, yeah. 
+
+Ashley Z. 01:37
+So I definitely get things taking a while. Like you're fine. 
+
+Maxwell R. 01:40
+Yeah. But hopefully, hopefully, I mean, if anything, hopefully I'll have it like soon, like on the web and we can go through it, but we can use, you know, what, what's up, what's up now and kind of pick up from, you know, where we left off yesterday. 
+
+Ashley Z. 01:58
+Yep. So yesterday we talked about security and then we reestablished some parameters for the queue for failures and how we were going to fix those failures. We discussed mostly that front part of invoicing. So like I brought up at the end of yesterday's meeting, we can either I'm happy to pick up on. submitting invoices or we can still talk about potential fails and I keep discussing on the upload we can also talk about the manual creation I don't think the manual creation is going to be hard though because it's all the fields that are in the excel but just in a ui with drop downs to select a clinic select a patient those kinds of things but we can go into that um yeah we can dial down. 
+
+Maxwell R. 02:57
+I mean, what else could you think of off the top of your head, you know, that we could talk about or that there might be things that we could cover? 
+
+Ashley Z. 03:10
+Well, I think we eventually, and we can do it today, need to go back around to, so we've talked about the UI for uploading. We've talked about the credit UI. We have talked about... all these statuses, pending those kinds of things. The thing we have not talked about in a second go around is the UI on what it looks like to make a payment. You're a customer, you log in, what does that look like? And how do disputes get routed? We haven't talked about that again. And then we haven't talked about reporting pretty much at all. So would you like to go into the, because we've kind of talked about what does all of this look like from Rhiannon perspective? But like, what does this look like from a clinic's perspective, as far as a login and a payment goes, if that's where you want to go next? 
+
+Maxwell R. 04:01
+Whatever, whatever's clever. We can talk about the, how a clinic see, okay. Is a clinic and a lab the same thing? Stupid question time. No. Okay. All right. Yep. But a clinic can be a lab. 
+
+Ashley Z. 04:21
+Usually not not typically in our explanation. So I kind of put out those parameters in the invoicing systems deck to talk about a client is a lab and a clinic is a clinic or a facility. And those are two very separate things because a lab is my customer. A clinic or facility is their customer. This system is built for a lab to build their customers. We are just the managers of all of that, right? So when we talk about billing access and admin level access, we are the people doing it, but it could be a lab doing it. But essentially the end user, the person receiving and seeing and making the payments is the clinic or the facility. And I say facility. Because some of these are like long-term care facilities for like older people. They're not actually clinics. Some of them are clinics, right? We could even drill down further. Some of them are just collection agencies. So they're agencies. But to make it as simple as possible, we use the word clinic or facility to specify our client's client. So A is our client. B is our client's client. In this system, we're not billing our client. we're not sending out bills to the lab through the system we could figuratively speaking but we won't we'll just use quickbooks and actually use our quickbooks for us eventually that would be really nice um instead of all of our customers but we're looking for a system for the lab to build clinics so just so you guys understand as like we're navigating this space a clinic will order samples and Let's say they order those samples knowing the patients are going to cash pay up front. So they have almost like a menu. And so if they order these things, they do the math, they add it up, they collect the cash from the patient up front. And then we bill them for those tests. And essentially they're acting as an intermediate between the patient and us, but they just collect the cash up front because they're a fully cash paid clinic. Our newest lab has a ton of this. So it's a bunch of cash pay only doctors. doctors and wellness centers that like a gym employs a doctor and that doctor does wellness panels and does checkups on gym members of a certain level. That's all cash pay. That's how this is handled. Instead of a bill going to the patient, a bill goes for the facility. So that's kind of our management of this. And that's why we did the subtypes, the invoice types, because an invoice could be for several reasons and we want to specify out what that is. So underneath the invoice typing it could be because of a client bill arrangement we have on file but the same clinic could also have an invoice generated because invalids they failed to give us information to build the sample properly in a timely fashion. So they could have those two different invoices and so as we talked yesterday about drafting invoices, invoices would need to have the type labeled on them. Are they for skilled nursing facility arrangements? Are they for a client bill arrangement? Are they for, you know, contractual arrangement issues? They didn't provide us medical records, medical necessity, those kinds of things. So those are all reasons why something like that would be generated. Now for the invoice typing Rhiannon, right now I told them. each one needed to develop its own invoice so all of sniff would go on an invoice all of hospice would go on an invoice the other thing we could do though is we could just add the category to one invoice so the invoice would have sniff and everything below it is sniff and then the next section would be in ballots and everything below that is in ballots and the next section and it's all just one running invoice with just a splitter saying everything below this is for this reason. 
+
+Rhiannon H. 08:37
+Okay, yeah, the only thing that I'm thinking of that might not be good with that is because let's say we have an invoice for SNF and invalids. It's all on one invoice. They might not pay out on that invoice until the invalids accounts are corrected. So I don't know if it's beneficial to have them separated because, yeah. they might just not pay out until there's corrections or whatever. 
+
+Ashley Z. 09:10
+Yeah, I got you. So based off of the type, Max, a clinic could get three invoices in one month because the invoices are just different types altogether. The other thing we didn't talk about is a clinic could have two different fee schedules for the two types. I've never seen it, but it could happen. 
+
+Maxwell R. 09:39
+Could you give an example? 
+
+Ashley Z. 09:41
+Like for an invalid, so they never provided insurance information, a lab could say, I want to collect the insurance allowable. So they screwed me out of this money. I'm collecting the insurance allowable from them, which is going to be a different amount than the client bill. But I don't, let's not even, that's a scenario I don't think is going to happen. But I guess it could happen if a clinic or a lab was really pissed. Most of the time, though, their fee schedule is. contractual so i don't think that they would ever bill a different amount for a different anyways side tangent there um so essentially max if a clinic has skilled nursing facility patients we're billing them for those skilled nursing facility patients so that's going to generate an invoice on an upload and then if the invoice type for the same clinic maxwell health they also have five contractual failures meaning they didn't provide us with medical records or they didn't you know provide us with insurance information those would need to generate on two invoices we know one of those is probably going to be disputed and they're going to try to provide us with the invalids and the medical records the whole point in separating them off is to ensure that the other one just gets cleared and taken care of that invoice is off we know this one's going to be in dispute and back yep makes sense does that sound right riannon okay That was the tangent from your question, Max. Are clinics and labs the same thing? No, they're not. 
+
+Maxwell R. 11:19
+Okay. All right. All right. We spoke about, because we'll have the two different types. We'll have the draft. 
+
+Ashley Z. 11:37
+And finalized um let me see um and this is really important when it comes to the user management max so we could almost bubble off like the system i really wish i had a whiteboard and you guys were here because i would just go to town and i would because i want to know that you guys know what i'm saying and i'm not just so stop me if you don't know what i'm saying Essentially, let's add a new slide. Like the billing team is going to see everything. Like if this is all the data, Rhiannon as a billing administrator is going to see all of it. And then because right now we have 11 labs, each lab is going to see their. section of the data right like each lab is going to be able to view their piece of the data inside of there so pls is only going to see pls data maxwell health's only going to see maxwell health right pcl infinity they're all going to see their own and then their clients are only going to be able to see their invoices their amount due and their patients underneath every single one and that's how the three levels of user management Yeah. works. And then in billing, there's two different levels. One would just be a biller and the other would be administrative and the difference is deleted, right? But otherwise people in labs get the same lab access. And that's kind of, as we talk about user management, like billing, billing administration, the laboratory itself, the clinic, and those are the levels of user access that we for any discussion. if that makes sense and the the main ui is going to be dark blue and red and then light blue because red would have view only access to everything underneath the dark blue So a lab would be able to come in and see invoices. They'd be able to come in and see reports and download. But a lab's not coming in and building an invoice or doing, like they would have a view only essentially of their section of dark blue. 
+
+Maxwell R. 14:14
+Okay. 
+
+Ashley Z. 14:15
+But this light blue has a different UI in the sense that they're going to log in. They're going to see a list of their invoices and have that UI that we talked about. And I can pull up again where they can come in and dispute or pay. they're not going to have reporting. We sure could build a dashboard, you know, where they can just say like. How many of your payments have cleared? What do you have outstanding? Those kinds of things. But otherwise, I don't think a clinic needs my adults. 
+
+Maxwell R. 14:53
+I just thought of something. What about like parent accounts? 
+
+Ashley Z. 14:59
+Okay, if you want to get real specific here, Max, I'm going to go one step further then. So then we're going to have... a parent account would be able to see all their children accounts inside of it. So it would be like another level inside of here where they would have the same level of a clinic access, but they would be able to manage their child account invoices. So if a parent account wanted to come in and they wanted to pay all the child accounts they could and see a dashboard on all their child accounts they could, but it's the same kind of access. 
+
+Maxwell R. 15:36
+Right. And this would be needed for the current implementation, right? 
+
+Ashley Z. 15:44
+Right. 
+
+Ashley Z. 15:46
+Okay. 
+
+Ashley Z. 15:46
+If we couldn't put it out and we wanted to get, like you said, good, better, best, what we would be shooting for is that. But if we couldn't do it, we could implement the system without it and try to figure it out down the road for sure. 
+
+Maxwell R. 16:00
+All right, here's the scenario. What if, like, that parent company... sends a large check for like you know to cover invoices for like 10 of its uh subsidy uh sublocations or or uh children children yeah. 
+
+Ashley Z. 16:24
+If it sends a check then we would need to be able to post it to through the parent to all the children yeah how though like so like. 
+
+Maxwell R. 16:36
+How would we want that to be applied? 
+
+Ashley Z. 16:40
+We kind of talked about this last time. Let's go into QuickBooks, actually. I have them pulled up right now. Give me one second. 
+
+Maxwell R. 16:56
+Sorry if I'm taking you off course. 
+
+Ashley Z. 16:59
+No, every time you've taken us off course, I feel like we've done the most. So take me off course. That's where we get into the weeds and that's kind of what we need to figure out. 
+
+Ashley Z. 17:09
+Yep. 
+
+Ashley Z. 17:12
+So if I wanted to post a payment, I would come in here to post a payment. And the way that QuickBooks manages the parent accounts is by having the parent account name listed in front of the sub account or the child account. So for... everything patients choice laboratories this is how we're managing them right now the parent account as soon as we assign the parent account above aim wellness the name now appears patients choice laboratory you know semicolon aim wellness like that is how it appears um and so if i needed to close out payments and receive payments let's say they send us the amount of three invoices put together when I went into that payment screen that we discussed and like put in the payment the invoices and i selected a clinic if i selected the parent all the sub account invoices would appear if i selected an individual clinic only that clinic so if i selected aim wellness like patient choice laboratory aim wellness only aim wellness but if i selected patients choice laboratory aim wellness would appear first care management would appear four statics would appear like everything would appear that goes underneath that sub account for application a great example of this we have a group called a medicis it's a group of home health agencies um there's like 150 of them but they're all a medicis so if i clicked a medicis fort lauderdale only a medicis fort lauderdale would appear but if i click a medicis fort lauderdale would appear houston would appear you know. 
+
+Ashley Z. 19:01
+Douglasville would appear all of them would show up you're saying med assist like m-e-d-a-s-s-i-s-t like that's what it what it is a medicis a-m-a-d-y-s-i-s there you go a. 
+
+Ashley Z. 19:17
+Medicis they were just purchased by united healthcare right there, $3.3 billion. And they're purchasing 150 locations right now. So they're already about 150 locations and they're purchasing 150 more. And they utilize one of our labs. So they are a clinic or facility. So Patients Choice Laboratory has Amedisys. Amedisys is a corporate company that owns hospice care like groups that drive around and do home health and hospice care in home for people all over the country. There's 150 of them. There's about to be 150 more. So then we'd have Amedisys and 300 sub clients below that. So if I clicked a Metasys Baton Rouge, I'd only post to a Metasys Baton Rouge. But if I posted to a Metasys, I would have the availability for everything. 
+
+Maxwell R. 20:16
+Yeah. Will there be like a sub level to that? Like, would there be more than just like the parent-child hierarchy? Would there need to be nested? 
+
+Ashley Z. 20:28
+I don't want to offer it. I don't know about you, Rhiannon, but I wouldn't want to tell clinics like we could sub things further because then they would. And at some point of parent-child relationships on accounts, it would get very messy. Like it goes from an organizational health factor to a mess. If we gave unlimited like tiering, people would be like, oh, then group the Louisiana ones together and then group these three together and then group those four together. And then, yeah. 
+
+Maxwell R. 21:03
+Yeah. I mean, we're not talking unlimited. You know, we do. We do. 
+
+Ashley Z. 21:07
+You know want to have a limit but i'm just thinking like maybe you know um maybe one more below if we wanted to for rihanna in case a weird thing occurs but yeah right i mean i think we we had it once american health plans is an insurance company and it owns a ton of homes but those homes weren't all the same kind of home So some of them were called AHC and some were called AHC AEL or ALE. And so those two groups we managed slightly different and they were all owned by American Health Plan. So there was different groupings for sure. 
+
+Rhiannon H. 21:51
+Well, just think of it in the grand scheme of things, though. But if we're going to market this or whatever to other people to use, then would you want to have that option there for that to be a potential? 
+
+Ashley Z. 22:05
+Yeah. 
+
+Rhiannon H. 22:07
+Because I don't know. For us, I wouldn't want that. That's too much. But I don't know for other people. 
+
+Maxwell R. 22:13
+Yeah. 
+
+Maxwell R. 22:14
+It doesn't have to be the default either. It can be like an option, you know, a subtle option or even like an administrative option where it's like, do you want to even allow, you know, a three tier? hierarchy or or whatever you know um it's you know i'm we're just kind of brainstorming thinking out loud yeah which is great you know because these things we have to we literally have to like think about these like as we're like before we we we have like our product like the what-ifs like all of the potential you know anomalies or things like things that we might not have you know like the the hindsight site. 2020 you know things that like we kind of want to position ourselves as if like we're looking back and thinking oh man you know we have this one situation if only we would have yeah put that in forever ago yeah. 
+
+Ashley Z. 23:19
+Um yeah so essentially in this dark red is admin light red is lab lab is view only Right. Okay, so here's the problem. We have to create two versions of this one where the lab is view only, but max when it goes into SaaS space, a lab would be able to have to purchase this software and have admin level in their bubble. Yeah. But like for our use, our labs would be view only. 
+
+Ashley Z. 24:02
+Okay. 
+
+Ashley Z. 24:03
+But just so you know, for like, as far as the changes that go to make this sas face and then light and dark blue have the same view or have the same permissions as far as what they are allowed to do paying but they just get to see more or less in voices and clients So that would be kind of that thought process on how that works. 
+
+Jermane M. 24:52
+The dark blue is individual clinics. So that would be if the clinic wants to view its particular invoices. 
+
+Ashley Z. 25:02
+Yes. Any one can be a clinic, but some clinics would have parent accounts above them. And that parent account would just be able to. view whatever's going on in the sub account and make payments. Because sometimes they're just going to want to view. They like corporate accounts want to know that their lower accounts are paying their bills. Sometimes they're not even going to come in to pay the bill. A medicist may come in and say, hey, Charleston, a medicist, you aren't paying your bills. And we have view access on this. Your bills are 90 days past due or whatever it might be. So in this case, like. A clinic would only be able to see what's inside of them as a clinic, but some clinics are going to have parent groups. 
+
+Jermane M. 25:46
+Yeah, and then the parent can see all of the clinics associated as the children clinics. 
+
+Ashley Z. 25:54
+And remit payment and view balances. 
+
+Jermane M. 26:00
+Yep, so they can handle multiple clinics at that level with a parent account. 
+
+Ashley Z. 26:05
+Yep. because some corporates do their own accounting and some corporates don't it just kind of depends make sense okay so that's a little bit about that you know all stemming from that original question of like labs and clients and clinics and kind of what's going on there um if we need to clarify our terms better so like every time we say lab we mean light red bubble and every time we say client or every time we say clinic or facility it's a blue bubble and like just keep our terms as clean as possible for you all so that that way you know i'll try not to say client because everyone has clients right like um and just try to keep it as clean for you as possible for the terminology as you guys are doing this yeah you definitely have an excellent like visual So... 
+
+Maxwell R. 27:07
+Interface. You have a what do you call it? A designer's mind. I was. 
+
+[[[explanation of the image:
+The image appears to be a hand-drawn or simple diagrammatic sketch used as a visual aid during a meeting (likely a Zoom or similar call) to explain the user access hierarchy, permissions, and UI views in a proposed invoicing and billing software system for medical labs and their clients (clinics or facilities). Based on the transcript, Ashley Zarling (the main speaker) is describing this diagram to the team, including "You" (seemingly Max, who asks questions), Rhiannon Hobbs, and Jermane Mack. The diagram uses colored circles (red and blue shades) to represent different user roles, their permissions, and how data visibility flows in a nested, hierarchical structure.
+Key Interpretation of the Diagram
+The circles form a bubble-like hierarchy, resembling a Venn diagram or organizational chart, where larger circles encompass smaller ones to show containment and access scopes. Colors differentiate roles, with shades indicating variations in access level or scope:
+
+Red Circles (UI/View 1): Represent the "lab-side" or higher-level administrative users in the system.
+
+Dark Red: Labeled "Admin". This is the top-level access, likely for the billing team or system managers (e.g., Rhiannon as a billing administrator). They have full permissions, including creating, editing, deleting, uploading invoices, managing statuses (e.g., pending, disputed), posting payments, and viewing all data across all labs and clinics. In the transcript, Ashley says: "Dark red is admin... the billing team is going to see everything."
+Light Red: Labeled "Lab (View Only)". This is for lab users (the labs themselves, like PLS or Maxwell Health). They have read-only access to their own subset of data (e.g., their invoices, reports, and clinics). They can't create or edit invoices but can view statuses and download reports. Ashley notes: "Light red is lab. Lab is view only... each lab is going to see their section of the data." However, she clarifies that in a SaaS (Software as a Service) version for external labs, this could upgrade to full admin-like permissions within their "bubble," but for their internal use, labs are view-only.
+
+
+Blue Circles (UI/View 2): Represent the "clinic-side" or end-user customers (clinics, facilities, or agencies that the labs bill).
+
+Dark Blue and Light Blue: These have the "same permissions" (e.g., viewing invoices, making payments, disputing items) but differ in scope. Dark blue might represent individual clinics with limited visibility (only their own invoices and patients). Light blue "has more clinics under it," indicating parent accounts in a hierarchy—e.g., a corporate parent clinic can see and manage (view balances, pay, dispute) invoices for multiple child/sub-clinics. Ashley explains: "Light and dark blue have the same permissions... but they just get to see more or less invoices and clients." The light blue likely shows a larger bubble encompassing smaller ones to illustrate this nesting.
+Clinics log in to a simpler UI focused on their invoices (e.g., list view with options to pay or dispute). They might have a basic dashboard for outstanding payments but no advanced reporting. Payments can be made via credit card or check, and disputes route back to admins.
+
+
+
+The overall structure is a large red bubble (admin/lab) containing smaller red bubbles (labs) and blue bubbles (clinics). This visually conveys data isolation: Admins see all, labs see their slice, clinics see only theirs (with parents seeing children's data). The diagram emphasizes separation to prevent data leakage (e.g., one lab can't see another's clinics).
+Context from the Transcript
+The discussion revolves around building a custom invoicing system to replace manual processes (e.g., Excel uploads, QuickBooks). Key points tying into the image:
+
+System Purpose: Labs (red) bill clinics (blue) for services like sample testing. Invoices can be for various reasons (e.g., cash-pay arrangements, invalids/failures to provide info, skilled nursing facilities). Invoices are separated by type to avoid payment delays—if mixed, a dispute on one section might hold up the whole invoice.
+User Management and Permissions: Three main levels:
+
+Billing Admin (dark red): Full control.
+Lab (light red): View-only for internal labs; potentially full in SaaS.
+Clinic/Facility (blue): Pay/dispute/view their data; parents can aggregate child accounts.
+
+
+Hierarchies: Parent-child relationships for clinics (e.g., a corporate like Amedisys owning 150+ locations). Parents can pay across children (e.g., apply one check to multiple invoices). The team debates limiting nesting to 1-2 levels to avoid messiness, with options for more if marketing to external users.
+UI Differences: Red UI is more comprehensive (e.g., uploading, reporting). Blue UI is streamlined for payments/disputes. Ashley references QuickBooks for inspiration on handling parents (e.g., prefixing names like "Parent: Child").
+Other Features Discussed: Invoice drafting/finalizing, statuses (pending, disputed), reporting (labs/admins get more), manual creation via dropdowns, and integrations (e.g., with QuickBooks for their own billing).
+]]]
+
+
+Ashley Z. 27:18
+Agility's corporate trainer for a few years. That is what I did. Got to hit the visual learners as well. But it keeps me on track. Otherwise, the train sometimes derails. But when I worked in the lab at as an accessioning manager, we had a room that had three whiteboards in it. And we just kind of like went to town to explain what we were talking about all the time. So it's just the background I come from. But yeah, so that's kind of, you know, that piece. Now, as far as like, we've talked a lot about RED, right? We've talked a lot about payment postings, developing invoices, those pieces, so we can then go into blue again. okay because blue is going to be this pay and respond so my thought process on this they log in there's going to be a list of invoices hopefully it's not a long list but there's going to be a list Those lists in the same way it's listed, because I do like the UI here a lot. And you're loading invoices screen. I think it's clean. I like how it looks. But they're going to log in. It's going to have dashboards invoices. Their invoices are going to say outstanding, paid and partial, in dispute and closed. And that's it. That's what they're going to have. They are going to see drafts. They aren't going to see exhausted. They aren't going to see any of those things. 
+
+Maxwell R. 29:06
+I'm working on this database issue. I'm so sorry. I'm with you. I'm with you conceptually. I'm right there with you. 
+
+Ashley Z. 29:15
+So there's specific statuses that will not be viewable to them. One of those is draft. One of those is exhausted or deleted. Those are not viewable to them. But they log in. Anything in a specific list of statuses is viewable to them. They come in and they're going to have the option. I think we have a button to make things as easy as possible that says. pay all balances in full they can click that and it'll take them straight to stripe and then it pays everything otherwise they have to click the individual invoice and it takes them into this kind of ui where it's going to pull up the invoice just like if i opened up you know any one of these invoices it would open up the invoice to them In their UI, it would, instead of like a trash can, right? We talked about this situation where it's like dispute respond and they can check that off. It removes it from the paid balance and then a box is going to appear underneath the patient here. So underneath the succession number, there's going to be a little note box. That note box is required in order for them to dispute it. 
+
+Maxwell R. 30:37
+Yep. 
+
+Ashley Z. 30:39
+So then they can't save without giving a reason why. 
+
+Maxwell R. 30:42
+Right, yeah. We'll have validation logic if that field doesn't have whatever, at least like 10 characters they can't save. 
+
+Maxwell R. 30:53
+Yeah. 
+
+Maxwell R. 30:55
+Yep. 
+
+Ashley Z. 30:58
+And then from there, they can edit their payment amount here, but the UI would show the charge. if they type in 631 a payment of 631 would be ran by strike like at the end when they save but if they type in six dollars six dollars would be ran and then 31 cents would be the new balance so if they opened this invoice the new balance would say 31 cents what decides if that payment it shows or not. is if it's a posted payment so we said like or an applied payment we said that these ones would auto apply so if they do it through the portal and they refresh the payment will auto apply based off of whatever they said they were running with stripe otherwise if they mail us in a check for the amount that payment's not going to show until rian and post it so they're yeah so then they will come through here they will put in their payment amounts put in their disputes the the balance would be whatever the balance column is added up the total payments would be whatever the payment column is added up and then it would say proceed to checkout essentially or proceed to payment and then we process the payment for whatever the total payment is okay when they click dispute or respond that amount automatically like the payment amount would go to zero because they're not paying on that line they're disputing it Otherwise, they could come in here, type in $5, $10, $10. The total balance would be the 6 plus 10 plus 10, and then the payment would be whatever they're paying. The 631 plus 1020 plus 1020, and then if they were paying out $26, that would show the payment. And then maybe we even put a line underneath it saying balance remaining. So total balance, total payment, balance remaining after payment. So that way, if they're doing a partial payment, it will show. okay i like it so then they go to the payment processing screen now i want that to just be hard. 
+
+Ashley Z. 33:23
+Or ace ach oh card or ac yep okay yep now rihanna there's a world where. 
+
+Ashley Z. 33:33
+This would be nuts. But there's a world where someone would do their invoice response in here and then cut a check. You wouldn't run a card or do an ACH, right? So they would do all of this. Rhiannon, would you see yourself needing a button stating remitted the payment via check, and then it would just populate to say the check number, check amount, check date? And then that would go as a payment waiting to be posted in the queue, but it would not be applied. 
+
+Ashley Z. 34:09
+So you're saying... 
+
+Ashley Z. 34:09
+Until the payment comes into the bank account. 
+
+Rhiannon H. 34:12
+Okay. Honestly... 
+
+Ashley Z. 34:16
+Or do we just want to leave it to card? Like, they have to put a card or do a bank transfer through Stripe. 
+
+Rhiannon H. 34:21
+I think just bank or ACH, because they really don't want to have the option that they input a check in there and... till we've received it because i mean then it's just left that balance is left open because sometimes we might not get the check and then we write the past due and then they're like hey we sent the check and then i'm like well we not haven't received it so. 
+
+Ashley Z. 34:46
+Right okay so then the only option so i'm here max is through stripe or gpi a card or an ach transfer the bank transfer and then from that page if the payment fails it would develop a payment failed response right from stripe or from gpi and as to why If they close out of this page without payment clearing, none of this saves. So that way it doesn't disrupt balances. If everything does save, then it would show up in red UI as an applied payment. And it would show up in their system as all of their balances adjusted. If the invoice is paid in full, then it would move over to closed or paid, and it would still appear in their UI, you know, in this column just as paid. If they put a dispute on it, it would show as disputed. If they put a partial payment on it, and these two might go hand in hand. If there's a dispute and a partial payment, dispute would always show first as the main status because that's the thing that needs to be worked and is waiting for response. But if they just partially pay, then partial payment will show. But if they partially pay a line and dispute a line on the same one, dispute would be the status. And then, I mean, I guess they could view it and close out of it, and then it would still be a due invoice. Brianna, can you think of anything else from... like the blue UI that they would be needing. I can see just a help button where they click it and a phone number and an email appears that we can set from the admin level. So like if you need help, contact the accounting department. Like that's the only other thing I kind of see from their UI. 
+
+Rhiannon H. 37:09
+Yeah, I really can't think of anything other than that that would be needed from that view. But one thing I was going to ask while we're talking about the dispute, is there, I'm sure you guys have already talked about it, but when they dispute it, is there a view that I'd be able to pull? just a mass report of things that they have disputed or where would I be going to view those disputes at? 
+
+Ashley Z. 37:43
+We haven't talked about reporting yet, but it would generate a notification as our game plan, Rhiannon. So up here you would get a notification, Maxwell Health disputed a line, please respond. You'd click it and then it would open up the invoice for you so then you could see their dispute reason. okay thank you and then they only get one chance to dispute it so once a dispute's been logged on that line they if you remove it and keep it on their invoice they can't dispute it again so your option from there is there's two pathways forward you agree with their dispute and you remove it off their invoice so at that point you delete that line as we talked about earlier If a dispute is agreed with Max, it should develop a new invoice then and let them know, hey, a new invoice has been published to your account or an update on an invoice has been published to your account. As we talk about the notifications, notify the client, hey, a new invoice has been updated. Rhiannon agreed. She's taken it back into draft. She agrees with what they've said. She's deleting those lines. and she's re reviewing and sending it it gets resent a new notifications developed for blue and then if she if she doesn't agree with them on the dispute resolution process she's going to keep it on there and then she's going to push out a message via notification is my thought process. Hey, we've kept this on here for X, Y reason. This balance is still due. 
+
+Maxwell R. 39:41
+Yeah, that makes a lot of sense. Okay. 
+
+Ashley Z. 39:45
+And I think we could manage that piece through like the email and notification system, right? So if a dispute is in there and then the dispute is removed, an email or notification goes out letting them know that their dispute was removed. If you is agreed upon, a new invoice is pushed. And those are kind of the only two ways that branches. 
+
+Maxwell R. 40:10
+Yep. 
+
+Ashley Z. 40:11
+She either agrees with them or she doesn't. 
+
+Ashley Z. 40:14
+Yep. 
+
+Ashley Z. 40:20
+So I guess that brings us to the question, Rhiannon. Anytime you change an invoice that's already been published, it should notify the client, right? So if you go in and you it's a published invoice, meaning you sent it out to the client, and you go in and you say oh shoot i got the pricing wrong and you go in and you fix your pricing and you go back it would generate a new notification saying hey there have been changes to your invoice please review yeah i would think so if they get a notification like there's a new invoice anyways because anytime we publish or push a notification will go up So just anytime you change an invoice, meaning you pull something back into draft and reset it out, a notification would be pushed. Okay. 
+
+Maxwell R. 41:21
+I had a question. So, I mean, it kind of relates, Rhiannon, to your question about the reporting. But like... Wouldn't we need like a disputed workflow, like, in order to like, have like the best user experience on both ends for like, for both admin for your reporting for, you know, Rhiannon, as well as well, I guess, in all sides here, right? So like when a clinic, you know, they dispute a line or whatever um instead of like just uh a notification this system basically would like you can think of it like a ticket system where like it'll create a new ticket right and in this ticket um it's basically like a dedicated queue right and so from that same screen you could see like all of the open disputes in one place like you were saying and when you click on one you'd see you know like the clinic's reason you'd and you'd have like those basically agree or disagree buttons like you were saying um yeah and it'd be like a central hub you know specifically for you know disputes um just to make sure that you know. 
+
+Ashley Z. 43:08
+Uh it's more dedicated logic to make sure nothing is missed or um you know i like the ticketing concept i i do like that because it means that they could leave their note and we could leave a response and that response may be we need more information yep so like rihanna if they responded to you please bill to insurance or we get this all the time self self-pay the patient we don't have the patient's self-pay address on file. there's been a response to your dispute, like case management almost, and you would go into that, and you would look at it, and it would say, here's the patient self-pay address, and then you would remove it from the invoice and send it over to the billing team. A, here's the patient self-pay address. This needs to be self-paid. You're absolutely right, Max, on that one. 
+
+Rhiannon H. 44:06
+So, like, the clinic would also have a queue that they could go in and view all of their disputes, is what y'all are saying? Well. 
+
+Maxwell R. 44:14
+It'd be more of a ticket for them with a central place that they could, you know, see specifically. Yeah, yeah, you could call it, I mean, it's a place to see the items. Like, the queuing system. 
+
+Rhiannon H. 44:34
+Yeah, I would think that would be nice because I do get a lot of the time they're like, oh, um. These accounts should have been billed to insurance, and I have to go in and explain a bazillion times why it was disputed. So it would be nice for them to easily go ahead and see, like, why was this? I would just tell them, please go review your queue as to why this account was disputed, so I don't have to go and explain myself for the millionth time, which typically happens. 
+
+Maxwell R. 45:08
+Exactly. 
+
+Ashley Z. 45:09
+Yeah, I think you would just close the case and how... like cmd has all their cases you'd say please review case number like or ticket number blank ticket number 10 yeah that will give you a reason as to why it's still on there if they're calling you and emailing you like hey we told you on this day this answer and we closed the ticket yeah. 
+
+Rhiannon H. 45:31
+That would be nice because i do explain myself almost every single month why Okay. Bye-bye. 
+
+Ashley Z. 45:40
+Well, and the nice thing goes the other way, too. Like, we'll be able to track out all their disputes, because sometimes, Rhiannon, they'll email invalid something that should have went to you. So if they're disputing it, it'll get uploaded there. Yeah, no, that was a great idea, Max. I fully agree with that. 
+
+Maxwell R. 46:02
+Okay. Just a second. 
+
+Ashley Z. 46:26
+So then both of these would have a dispute resolutions queue. We'd have a disputes resolution queue, they would have a disputes queue, that's what their tab would look like. Anytime they put a dispute, a little card essentially or a line appears there. It would assign a case number or a ticket number. It would just be a counter up. Thanks. It would create that line on there so that they can view their note. They can view the patient, the balance, the note, the invoice number it was located on. And then we would have the same view that has the patient, the balance, their note, the invoice number it was located on. The invoice would status to dispute. So if we could hyperlink that number to just click and it would open up the invoice. It would take us to that invoice. Otherwise, we would just be in the view there. and Rhiannon can type in a response and click send it triggers a notification to them and then in her work queue there would be two buttons accept dispute remove dispute accept remove and then a case note for herself that's internal so if she clicks accept she says why if she clicks remove she says why she clicks saved case closed she goes to the next ticket And then I think those tickets should have a timer on a max as far as like a filter to say tickets without a response for 30 days, tickets without a response for, you know, just a filter. So we can filter tickets both by status to see closed versus open tickets and then the amount of time since last response. 
+
+Maxwell R. 48:08
+Yep. 
+
+Jermane M. 48:10
+Yeah. And they never have to go back. more than once right as far as like if you deny a dispute it's basically just denied there's nothing else to it they can't respond to it it's just over correct but there could be uh in between where rihanna asks a question so. 
+
+Ashley Z. 48:28
+When a ticket's created max i'd also really like it to have a section on there that says um contact name contact information so if a person is filling it out they can put their direct name and phone number on it so rihanna could just call them if she has questions but i think she should be able to add a case comment where she can say hey great that this is self-pay could i please have the self-pay address won't they have yeah okay sorry go ahead no you're correct it would be in the file but it might be a direct person's direct line or email not just like a general corporate contact okay so it could we make it like an optional thing if it is that... 
+
+Maxwell R. 49:13
+If the contact number changes or if it is, say, an accountant or somebody leaving that note and the person who actually told her to put that, who you would actually need to speak with in order to dispute this? Yeah. They're the ones that would send it to go there? 
+
+Ashley Z. 49:36
+Billing team at the clinic right so the clinic might have seven billers and we have their invoices email but i need to john because jones the one who deals with this patient he manages that account yeah okay that makes total sense okay and but would they not have their own logins though in my dream world they would in my dream world they would like john would have his own login and then it would have john's case comment on there right so yeah right that but that's just something i often see in ticketing uis is like a preferred method of contact should we have questions yeah i mean i i mean you know making them use it like that's you know not every uh not everyone assimilates right so you do need to you know account for um for that so i know some clinics would just keep their admin login and just give everyone the username and password and they would just have their admin login. 
+
+Maxwell R. 50:37
+Yep. 
+
+Ashley Z. 50:37
+Sorry, my six-year-old also walked up. What's up? 
+
+Ashley Z. 50:40
+Can I get on your house if we go sign? 
+
+Ashley Z. 50:42
+You have to ask. 
+
+Ashley Z. 50:44
+Them? 
+
+Ashley Z. 50:45
+Yeah, is their mom out there or no? No. 
+
+Ashley Z. 50:48
+Can I ask you to ask your mom, though? 
+
+Ashley Z. 50:50
+I'll text Tess. Sorry, my daughter's asking to play with the neighborhood children outside. don't hear you bailey it's snack time go get a snack i said that's amazing you don't hear that too often anymore um the whole reason we moved into this house is for the neighborhood my husband's childhood best friends live on all sides of us so and. 
+
+Jermane M. 51:17
+All their kids are our kids h that's perfect can actually go outside and play with kids that's like foreign yes we're called the commune. 
+
+Ashley Z. 51:31
+We have a trampoline. They have a riding lawnmower. They use our trampoline. We use their riding lawnmower. It's been great. 
+
+Maxwell R. 51:38
+That's awesome. That is like a foreign world compared to where we are. It's just terrible. Yeah. 
+
+Ashley Z. 51:46
+Michael won't even let me put up a six-foot fence. He's like, then I can't see our neighbors. And I was like, but then our neighbors can't see us. But fine, whatever. So we actually don't have a fenced-in yard. Our yard's just open to the whole neighborhood. and they come and play anyways my daughter's but if i don't let my daughter go over there and play what she's gonna do right now in the background is she has a window open in our porch and she's just gonna yell at them and they're gonna yell back at her until one of the parents say it's she's screaming right now my mom just texted your guys's mom go ask her because they're in that yard so anyways um Okay, yeah. No, I like that dispute. I think that keeps it very clean as far as you know it's being managed, followed up on, and worked. So I'm good with that. 
+
+Maxwell R. 52:43
+Yeah, and it kind of future-proofs it in a sense for like the SAS model. 
+
+Ashley Z. 52:50
+Well, and Dr. Bitta Clinic sends over like 10,000 disputes. If that was just in the queue, you would have no way to track which ones you've looked at and you're still looking into. Versus the ones you haven't touched yet. So you're absolutely right. That would give you some sense of. I mean I would hope it wouldn't happen. But some sense of sanity in that time. Yeah. 
+
+Maxwell R. 53:15
+That makes sense. Definitely makes sense. Okay. 
+
+Ashley Z. 53:19
+Went down disputes. I don't know. I mean. 
+
+Maxwell R. 53:31
+I could keep going. Keep it going. Yeah, whatever makes the most sense to go through, like whether it's chronological or if you wanted to touch on some points that maybe you thought of. 
+
+Ashley Z. 53:46
+I mean, reporting is the only thing we haven't talked about, which I think reporting needs to be able to happen on a few levels as far as like report development goes. 
+
+Ashley Z. 53:53
+Yep. 
+
+Ashley Z. 53:54
+And I think Rhiannon going to be able to speak to this as well. If I screw up, she'll stop me. 
+
+Maxwell R. 53:59
+Perfect. 
+
+Ashley Z. 54:02
+Administration needs to be able to report on all of these levels, meaning administration needs to be able to pull. I think there's a few different types of reports. A financial report, meaning a report that just shows an invoice listing with the clinics that it's assigned to, the amount outstanding. the current status you know those those few columns right so like beginning start start amount payments balance all three of those columns the status and the aging is it 30 days 60 days 90 days whatever like that kind of information needs to be in there and i can see that being one level of just being able to pull invoices and invoicing data and quickbooks does that well what quickbooks does not do well is the other type of reporting we need which is the ability to pull the lines so the ability to pull a report and have the actual service line information so an invoice report So I could say pull the service line details of an invoice into a report. And in that, it would contain almost everything as if it spit back out to the import file. Yeah. 
+
+Maxwell R. 55:25
+It's almost like generating an invoice that it was before, but just with whatever context. 
+
+Ashley Z. 55:33
+But with the payment information. So the only thing it would spit back out the export file, but with a few extra columns of just start, balance, payments, remainder, age on all those. 
+
+Maxwell R. 55:49
+I was wondering how, I don't even know if this is the case. Probably it isn't, or maybe it is. I don't know. But it's like, how would payment be applied? Is it just in general, or is it like toward a... Are things covered like it's based on a percentage, right? It's not based on like if a line item, because I know we kind of talked about, you know, like I think it is at a line item level, right? So like how are payments applied and are they applied toward line items? And, you know, does that make sense? 
+
+Ashley Z. 56:29
+Well, so payments are applied towards line items. So you would be closing out individual lines. And an invoice is only closed when all of the lines are closed. 
+
+Maxwell R. 56:39
+Okay. 
+
+Rhiannon H. 56:44
+But at Agility, there was one thing that was extremely irritating that I remember, is that let's say there was a partial payment and it covered everything up until a line item. Let's say it was like $10.53, but there was only $3.23 remaining. for that amount they applied we wouldn't be able to apply that three dollars and 23 cents to that ten dollar line item because it didn't complete it in full so we just had that floating balance there as unapplied but we have that still balance left on the invoice and it was really hard to keep track of. 
+
+Ashley Z. 57:29
+Yeah. 
+
+Maxwell R. 57:30
+And so that's where it's really important that each line has its own accounting so that way rhiannon could post three dollars to a ten dollar line and there would be a seven dollar balance dinner yeah well first it's just like amazing that that's the case that they that that they had that type of an issue because it has to do with the gowning um but yeah no that totally makes sense that totally makes sense and it's even crazier that agility was horrible it really was there was no way like when we're talking about these ports and stuff like things weren't good they were i mean either they're using something completely different than what it ought to be used for the way it was set up yeah so then it was a bug and they just like couldn't ever fix it or just chose not to fix it i. 
+
+Rhiannon H. 58:20
+Don't know they think they like ran out of money or whatever but it made it our lives extremely hard because you know A clinic would be like, well, what's our remaining balance? We pull it out. But we didn't know that there was that floating balance there unless we went into the actual clinic and then manually put it on the report to send it out to them. So it was just like there could be that $10 sitting there that was unapplied but could be applied to an invoice. We just couldn't do it. 
+
+Maxwell R. 58:52
+No wonder everything, all their reporting, everything was, you couldn't trust it. 
+
+Rhiannon H. 58:58
+No. And the dashboard in the accounting software did not work. It was not accurate whatsoever. It was just broken the whole time I was there. 
+
+Maxwell R. 59:10
+Yeah. 
+
+Ashley Z. 59:11
+But the project ran out of money. So they said like, push out whatever you have done. This was back when we were building the RCM. And so RCM, I mean, we paid out, I think over $2 million to that company. And what we got at the end was a broken piece of credentialing software. and a broken piece of accounting software and never produced a new RCM out of it. And $2 million was gone. 
+
+Maxwell R. 59:35
+That's that. is crazy. Like, if I went to a client and said, hey, listen, guys, I got this broken software. It's halfway done. Here you go. Give me some more money. Like, I couldn't even... I can't even think how that could work. 
+
+Ashley Z. 59:59
+No one was a dedicated point person to the software being completed. So they were talking to like, there was multiple issues between the software company and agility. Like they would meet with Ashley one week and Bernardo another week and me another week and never together. So you could see how as an it company that could get really like, but this person said they wanted this. And so whatever was spit out at the end was truly horrible, but we never had the budget to fix it. 
+
+Maxwell R. 1:00:27
+But there's always ways to account for if this person wants this and that person wants that, you can find a median. You know, it just requires you'll have to like really think critically on it. Probably, you know, it could go into rabbit holes, you know, and like we end up conversing a lot longer on things that we might have thought, you know, and end up in, you know, just like different tunnels just talking about things. But like that's all part of the development. process like you have to really uncover things and kind of figure out and think you know you have to use like the six hats of thinking you have to you know use the hindsight 2020 rule like you have to really in order to like to avoid that you have to you have to do that anyway that is crazy that they did that but definitely we Thank you. 
+
+Ashley Z. 1:01:23
+Able to have a balance. Like the general, like the LIS, when we logged in and worked accounts, the amount that was posted on those accounts was never correct. And it was never correct for the eight years I was there. And it was always a ticket out. So like when we talk about these accounting, like being able to post balances and stuff to lines, these are things we never had. And we do have now in CMD, which is very irritating, but very nice. It won't let us post anything unless it's absolutely perfect. Otherwise it triggers a ton of errors. where we come from a background of being able to post anything and it didn't matter because balances weren't real like it just didn't exist so get into like being when we talk about making this lab accounting software and not just accounting software um that's where it has to get into the line level so payments are posted on a line level they're reconciled on the line level they're disputed on a line level yep yeah otherwise that makes. 
+
+Maxwell R. 1:02:21
+That makes so much sense like there was it would be so much easier and we would just use yeah no i and i get i get more like you know of the the sas approach and why you want to go that route you know because it's it sounds like if everyone else is like trying to make something it's just you know it's just not meant to do to do that and sounds like no one else is really i mean I'm sure there's stuff out there, right? But what is it, like millions of dollars to use? 
+
+Ashley Z. 1:02:56
+No, there's nothing out there on the market that isn't fully bundled into an RCM. So you either have to sign up to utilize the full. There's not a single piece of lab accounting software out there that you can just purchase. 
+
+Ashley Z. 1:03:07
+Yeah, that's crazy. 
+
+Ashley Z. 1:03:10
+That's great. Yeah, that we come in and there's a couple models we could utilize. Like we could say the amount, we could say. the software's free use it but the amount in the invoice generated we get a percentage of that right or we come in and say it's certain amount um and that's like the two approaches to that um and we'll have to really iron that out but we could say like one percent of everything built through the system there's a one percent charge um or we could go the route of like it's 200 bucks a whatever but we have to kind of run the math on that. But I think it's a useful product to billing companies and to laboratories because it does not exist. And everyone right now is frankly using a broken version of another piece of accounting software or even worse, they are using Excel files. So the lab that we picked up and we're we're billing for right now Rhiannon, they did all their invoicing like a million dollars a month on Excel files. 
+
+Rhiannon H. 1:04:15
+I would cry. 
+
+Ashley Z. 1:04:18
+So they built them out on an excel file and then if they made a payment they had to go into that file key in that payment and then remit a new excel file manually i would cry i hate and that sounded perfect manually generate invoice numbers so you would have to make sure you and another employee didn't generate the same invoice number things like that it was horrible a million dollars a month and that's how they're routing it it's just there's so much stuff that doesn't make sense it's crazy yeah it's it's a field because clinics and hospitals get so much dedication in the billing space as far as software goes and labs do not Almost no software is set up for the lab-specific needs, unfortunately. And if you want to purchase a piece of software like QuadEx, you have to use the QuadEx overseas billing team. You don't just get access to QuadEx as your own thing. 
+
+Maxwell R. 1:05:21
+What's QuadEx? 
+
+Ashley Z. 1:05:22
+QuadEx is a lab billing software company. But you have to use their billing company. 
+
+Maxwell R. 1:05:31
+Yep. It's bundled, like you said. 
+
+Ashley Z. 1:05:34
+Yeah but if you're a small lab and your daughter does all your billing for you you don't want to purchase quodx even though quodx is probably your best lab piece because your daughter's doing your billing which i come across all the time just met with the lab owner that her two daughters do all their billing she's like i would love to bring you on but i can't fire my daughters and this is their job great so um yeah that's kind of the the thought process behind, you know, payment posting does get down so minute for that reason. And if we're going through everything to build this, it has to really work at that level, like more than anything else. Like if notifications are broken, fine. Like if other things are broken, okay. But like the most important thing that must work is this line level accounting. Sorry, Bailey. Tess has not texted me back. I apologize. You can go play in our backyard and yell at them over the fence, but you can't cross the alley. Okay? Anyways. Do we want to wait until you get what you have rolled out and then go over it and see how it looks? 
+
+Maxwell R. 1:07:00
+Yeah. Yeah, that sounds good. Was there... Anything else on reporting that you were thinking of that you just want to throw out there? 
+
+Ashley Z. 1:07:13
+Just those two levels are really important. The ability to report out on an invoice level and then the ability to report out on the line level. And then in the dream reporting software, we would have the ability to like, I like this. So there's nothing wrong here, like AR aging, status distribution, client performance. Monthly trends is great. I don't know that we even need top CPT codes, but those things are good. You know, average payments, information, stuff like that would be cool. I would like probably reference... I'll share my screen again here. I'd probably reference like the CMD dashboard. There's things I really like in that dashboard about like average payments. So like... payments received yeah daily average payment those kinds of things i like that so like i like what you have going on in here is what i'm saying um but the biggest thing would be the ability to kind of go in and pull a report and say there'd be two or three report types that would offer different fields so you would check a box and say invoice report or check a box and say service line level report and then that report you should be able to even to pull either as a admin level, at a lab level, at a parent level, at a client level. So like a drop down with a multi-select, so say select all, or you could go in and deselect specific clinics or select specific clinics on that drop down. You'd be able to add those clinics to the list and then once those clinics are added, you could pull a report for them. The other piece would be the sales rep. So the sales rep needs housed as a piece of data inside of clinics, the ability to pull a report for a sales rep. on either of those levels. So here's all your list of invoices sales rep, or here's a list of all your line items with their balances. The only other thing I can think of that we haven't discussed is how to handle chargebacks. But I can just think that in that case we would delete the payment and then the, the, account would have to revert back to whatever the balances are without that payment and the invoice region. Okay. Because the reverse payment or a stop payment wouldn't be seen in here, a chargeback. A chargeback would be seen in the bank account. 
+
+Ashley Z. 1:09:54
+Okay. 
+
+Ashley Z. 1:09:54
+So either we'd have to post a negative payment of the chargeback and reapply all those balances or the ability to delete the payment in the first place. And I just say that because Max, Jermaine, we went through all that mess up in QuickBooks of our chargeback. and quickbooks was like no no no this has went out and they didn't have the ability to delete that in my system okay should be able to say that but it took a month for that ticket to fully resolve out to show that the five thousand dollars didn't get paid twice on my books that's crazy bailey. 
+
+Ashley Z. 1:10:37
+No, she's outside. hey bailey tess tess said yes love go get shoes on that's fair go wash your hands and then you can go okay well. 
+
+Rhiannon H. 1:10:58
+Guys i think that's all i can think on reporting what are you thinking riannon um i can't really think of anything off the top of my head because I mean, the only thing that I would need is to like a report to pull what payments have been made for those clinics. And then the accounts, the aging on the clinics and invoices, 30, 60, 90. And then the invoice. 
+
+Ashley Z. 1:11:27
+I guess that's a good point. So we just sent the reports for all the invoices. We'd like a report as well for all the payments. So you could pull essentially the payment queue in a report where it would have the list of all the payments. the check numbers and then whether they're applied unapplied it would say payment amount applied unapplied columns so if everything's applied but it would also show that everything's implied from people yeah makes sense that was a good point um. 
+
+Maxwell R. 1:11:55
+Okay that's what i can think of right now all right so i'm gonna try to uh i'm gonna work on um what changes you know know, whatever we can. And then I'll try to push this out either, you know, hopefully today, if not, you know, some point early next week. 
+
+Maxwell R. 1:12:15
+Yeah. 
+
+Maxwell R. 1:12:16
+And yeah. 
+
+Ashley Z. 1:12:17
+We're booked for next week again still. Yep. So Thursday, Friday, we're booked next week for these meetings again. 
+
+Maxwell R. 1:12:24
+Yep. Perfect. Perfect. 
+
+Ashley Z. 1:12:25
+Rhiannon and I have a one-on-one and we meet on Monday. So we'll pull this up just like the Netlify link on Monday. And it's there. Great. If it's not, great. No pressure. 
+
+Maxwell R. 1:12:34
+Awesome. Perfect. Perfect. all right guys so thank you so much uh that was great have a beautiful weekend guys talk to you later bye. 
+
