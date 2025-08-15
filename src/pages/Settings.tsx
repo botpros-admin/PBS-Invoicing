@@ -18,6 +18,7 @@ import SecuritySettings from '../components/settings/SecuritySettings';
 import EmailSettings from '../components/settings/EmailSettings';
 import InvoiceParameters from '../components/settings/InvoiceParameters';
 import RoleManagement from '../components/settings/RoleManagement'; // Import the new component
+import CPTCodeMapping from '../components/CPTCodeMapping';
 
 const Settings: React.FC = () => {
   
@@ -25,6 +26,7 @@ const Settings: React.FC = () => {
     { path: '', label: 'Clients & Clinics', icon: Building, component: ClientsClinicsSettings }, // Index route
     { path: 'users', label: 'User Assignments', icon: Users, component: UserManagement },
     { path: 'roles', label: 'Roles & Permissions', icon: Shield, component: RoleManagement },
+    { path: 'cpt', label: 'CPT Codes', icon: FileText, component: () => <CPTCodeMapping mode="management" /> },
     { path: 'pricing', label: 'Pricing', icon: DollarSign, component: PricingSettings },
     { path: 'payment', label: 'Payment Settings', icon: CreditCard, component: PaymentSettings },
     { path: 'email', label: 'Email Settings', icon: Mail, component: EmailSettings },
