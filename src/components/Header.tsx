@@ -14,6 +14,7 @@ import { useAuth } from '../context/AuthContext';
 import { useNotifications } from '../context/NotificationContext';
 import NotificationDropdown from './NotificationDropdown';
 import UserProfileModal from './modals/UserProfileModal';
+import OrganizationHierarchy from './OrganizationHierarchy';
 import { useNavigate, NavLink } from 'react-router-dom';
 import debounce from 'lodash/debounce';
 import { SearchResult } from '../types'; // Import from shared types
@@ -199,6 +200,9 @@ const Header: React.FC<HeaderProps> = ({ toggleSidebar }) => {
 
       {/* Right Side */}
       <div className="flex items-center space-x-4">
+        {/* Organization Switcher */}
+        <OrganizationHierarchy mode="switcher" />
+        
         <div className="relative" ref={notificationRef}>
           <button
             onClick={() => setShowNotifications(!showNotifications)}

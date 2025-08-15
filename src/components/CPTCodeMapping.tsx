@@ -13,7 +13,7 @@ import {
   AlertCircle,
   FileText
 } from 'lucide-react';
-import { supabase } from '../lib/supabaseClient';
+import { supabase } from '../api/supabase';
 import { CPTMapping, FeeScheduleItem } from '../types/laboratory';
 import { useNotifications } from '../context/NotificationContext';
 import { useTenant } from '../context/TenantContext';
@@ -81,7 +81,7 @@ const CPTCodeMapping: React.FC<CPTCodeMappingProps> = ({ onSelect, mode = 'looku
           )
         `)
         .eq('tenant_id', currentTenant.id)
-        .eq('active', true)
+        .eq('is_active', true)
         .order('input_code');
 
       if (error) throw error;

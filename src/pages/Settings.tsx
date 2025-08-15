@@ -19,11 +19,13 @@ import EmailSettings from '../components/settings/EmailSettings';
 import InvoiceParameters from '../components/settings/InvoiceParameters';
 import RoleManagement from '../components/settings/RoleManagement'; // Import the new component
 import CPTCodeMapping from '../components/CPTCodeMapping';
+import OrganizationHierarchy from '../components/OrganizationHierarchy';
 
 const Settings: React.FC = () => {
   
   const tabs = [
-    { path: '', label: 'Clients & Clinics', icon: Building, component: ClientsClinicsSettings }, // Index route
+    { path: '', label: 'Organization Hierarchy', icon: Building, component: () => <OrganizationHierarchy mode="management" /> }, // Index route
+    { path: 'clinics', label: 'Clients & Clinics', icon: Building, component: ClientsClinicsSettings },
     { path: 'users', label: 'User Assignments', icon: Users, component: UserManagement },
     { path: 'roles', label: 'Roles & Permissions', icon: Shield, component: RoleManagement },
     { path: 'cpt', label: 'CPT Codes', icon: FileText, component: () => <CPTCodeMapping mode="management" /> },
@@ -67,17 +69,19 @@ const Settings: React.FC = () => {
           {/* Use Routes for nested routing */}
           <Routes>
             {/* Index route for /settings */}
-            <Route index element={<ClientsClinicsSettings />} />
+            <Route index element={<OrganizationHierarchy mode="management" />} />
             {/* Explicitly define each route */}
+            <Route path="clinics" element={<ClientsClinicsSettings />} />
             <Route path="users" element={<UserManagement />} />
             <Route path="roles" element={<RoleManagement />} />
+            <Route path="cpt" element={<CPTCodeMapping mode="management" />} />
             <Route path="pricing" element={<PricingSettings />} />
             <Route path="payment" element={<PaymentSettings />} />
             <Route path="email" element={<EmailSettings />} />
             <Route path="invoice" element={<InvoiceParameters />} />
             <Route path="security" element={<SecuritySettings />} />
             {/* Catch-all fallback to default tab */}
-            <Route path="*" element={<ClientsClinicsSettings />} />
+            <Route path="*" element={<OrganizationHierarchy mode="management" />} />
           </Routes>
         </div>
       </div>

@@ -20,7 +20,9 @@
       "Bash(supabase migration new:*)",
       "Bash(git add:*)",
       "Bash(true)",
-      "Bash(git commit:*)"
+      "Bash(git commit:*)",
+      "Bash(pkill:*)",
+      "Bash(taskkill:*)"
     ],
     "deny": [],
     "ask": [],
