@@ -3,104 +3,84 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 // Authentication & Context
 import { AuthProvider } from './context/AuthContext';
 import { NotificationProvider } from './context/NotificationContext';
+import { TenantProvider } from './context/TenantContext';
 
 // Route Protection
 import ProtectedRoute from './components/ProtectedRoute';
 
 // Layout
 import Layout from './components/Layout';
-import PublicRoute from './components/PublicRoute'; // Import PublicRoute
-import ErrorBoundary from './components/ErrorBoundary'; // Import ErrorBoundary
+import PublicRoute from './components/PublicRoute';
+import ErrorBoundary from './components/ErrorBoundary';
 
 // Pages
 import Login from './pages/Login';
 import LandingPage from './pages/LandingPage';
-import Dashboard from './pages/Dashboard/index'; // Changed to default import and updated path
+import Dashboard from './pages/Dashboard/index';
 import Invoices from './pages/Invoices';
 import CreateInvoice from './pages/CreateInvoice';
 import InvoiceDetail from './pages/InvoiceDetail';
 import Reports from './pages/Reports';
 import Settings from './pages/Settings';
 import ImportData from './pages/ImportData';
+import Labs from './pages/Labs';
+import Payments from './pages/Payments';
 import Forbidden from './pages/Forbidden';
 import NotFound from './pages/NotFound';
 import UpdatePassword from './pages/UpdatePassword';
 import PayInvoice from './pages/PayInvoice';
 import ResetPassword from './pages/ResetPassword';
+import PasswordResetHandler from './pages/PasswordResetHandler';
 import Profile from './pages/Profile';
 import UserSettings from './pages/UserSettings';
 
-// Presentation Pages
-import ArchitecturePage from './pages/ArchitecturePage'; // Import the new Architecture page
-import PricingPage from './pages/PricingPage'; // Import the new Pricing page
-
 function App() {
-  // --- Temporarily Commented Out Ghost State Detection ---
-  /*
-  useEffect(() => {
-    // Set a timer to detect if we're stuck in a ghost state
-    const ghostStateTimer = setTimeout(() => {
-      const hasAuthSession = !!localStorage.getItem('pbs_invoicing_auth');
-      const hasLoadedContent = document.querySelectorAll('.dashboard-card, .invoice-list-item, .settings-panel').length > 0;
-      
-      // If we have auth but no content loaded, we might be in a ghost state
-      if (hasAuthSession && !hasLoadedContent && window.location.pathname !== '/login') {
-        console.warn("Detected possible ghost state - no content loaded despite having session");
-        console.log("Attempting route refresh");
-        
-        // Force page refresh to recover
-        window.location.reload();
-      }
-    }, 5000);  // Check after 5 seconds
-    
-    return () => clearTimeout(ghostStateTimer);
-  }, []);
-  */
-  // --- End Ghost State Detection Comment Out ---
-
   return (
-    <AuthProvider>
-      <NotificationProvider>
-        <Router>
-          <Routes>
-            {/* Public Routes */}
-            <Route path="/login" element={
-              <PublicRoute>
-                <Login />
-              </PublicRoute>
-            } />
-            <Route path="/" element={<LandingPage />} />
-            <Route path="/update-password" element={<UpdatePassword />} />
-            <Route path="/reset-password" element={<ResetPassword />} />
-            <Route path="/pay-invoice" element={<PayInvoice />} />
+    <Router future={{
+      v7_startTransition: true,
+      v7_relativeSplatPath: true
+    }}>
+      <AuthProvider>
+        <TenantProvider>
+          <NotificationProvider>
+            <ErrorBoundary>
+              <Routes>
+              {/* Public Routes */}
+              <Route path="/" element={<PublicRoute><LandingPage /></PublicRoute>} />
+              <Route path="/login" element={<PublicRoute><Login /></PublicRoute>} />
+              <Route path="/reset-password" element={<PublicRoute><ResetPassword /></PublicRoute>} />
+              <Route path="/auth/reset" element={<PasswordResetHandler />} />
+              <Route path="/update-password" element={<UpdatePassword />} />
+              <Route path="/pay/:invoiceId" element={<PayInvoice />} />
 
-            
+              {/* Protected Routes with Layout - Fixed structure */}
+              <Route element={
+                <ProtectedRoute>
+                  <Layout />
+                </ProtectedRoute>
+              }>
+                <Route path="/dashboard" element={<Dashboard />} />
+                <Route path="/invoices" element={<Invoices />} />
+                <Route path="/invoices/create" element={<CreateInvoice />} />
+                <Route path="/invoices/:id" element={<InvoiceDetail />} />
+                <Route path="/payments" element={<Payments />} />
+                <Route path="/reports" element={<Reports />} />
+                <Route path="/settings/*" element={<Settings />} />
+                <Route path="/import" element={<ImportData />} />
+                <Route path="/labs" element={<Labs />} />
+                <Route path="/profile" element={<Profile />} />
+                <Route path="/user-settings" element={<UserSettings />} />
+              </Route>
 
-            {/* Protected Routes */}
-            <Route element={<ProtectedRoute><Layout /></ProtectedRoute>}>
-              <Route path="/dashboard" element={
-                <ErrorBoundary fallback={<p className="text-red-500">Error loading Dashboard.</p>}>
-                  <Dashboard />
-                </ErrorBoundary>
-              } />
-              <Route path="/dashboard/invoices" element={<Invoices />} />
-              <Route path="/dashboard/invoices/create" element={<CreateInvoice />} />
-              <Route path="/dashboard/invoices/:id" element={<InvoiceDetail />} />
-              <Route path="/dashboard/reports" element={<Reports />} />
-              <Route path="/dashboard/import" element={<ImportData />} />
-              <Route path="/dashboard/settings/*" element={<Settings />} />
-              <Route path="/dashboard/profile" element={<Profile />} />
-              <Route path="/dashboard/user-settings" element={<UserSettings />} />
-            </Route>
-            {/* Special Routes */}
-            <Route path="/forbidden" element={<Forbidden />} />
-            
-            {/* Catch-all route - redirect to 404 */}
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </Router>
-      </NotificationProvider>
-    </AuthProvider>
+              {/* Error Routes */}
+              <Route path="/forbidden" element={<Forbidden />} />
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+            </ErrorBoundary>
+          </NotificationProvider>
+        </TenantProvider>
+      </AuthProvider>
+    </Router>
   );
 }
 

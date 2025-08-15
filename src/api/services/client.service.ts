@@ -35,14 +35,10 @@ export async function getClients(filters?: FilterOptions): Promise<PaginatedResp
   try {
     // Use withAuthRetry to handle token refresh if needed
     return await withAuthRetry(async () => {
-      // Initialize query with embedded selects to avoid N+1 queries
+      // Initialize query
       let query = supabase
         .from('clients')
-        .select(`
-          *,
-          clinics(*),
-          invoice_parameters(*)
-        `, { count: 'exact' });
+        .select('*', { count: 'exact' });
       
       // Apply filters
       if (filters?.search) {
@@ -102,47 +98,24 @@ export async function getClients(filters?: FilterOptions): Promise<PaginatedResp
         return {
           id: client.id.toString(),
           name: client.name,
-          address: client.address || '',
+          code: client.code,
+          address: `${client.address_line1 || ''}${client.address_line2 ? ' ' + client.address_line2 : ''}`,
+          addressLine1: client.address_line1,
+          addressLine2: client.address_line2,
+          city: client.city,
+          state: client.state,
+          zipCode: client.zip_code,
+          phone: client.phone,
+          email: client.email,
+          contactPerson: client.contact_person,
+          billingTerms: client.billing_terms,
+          isActive: client.is_active,
           logoUrl: client.logo_url,
           organizationId: client.organization_id?.toString() || '',
           createdAt: client.created_at,
           updatedAt: client.updated_at,
-          clinics: client.clinics?.map((clinic: any) => ({
-            id: clinic.id.toString(),
-            name: clinic.name,
-            address: clinic.address || '',
-            logoUrl: clinic.logo_url,
-            clientId: client.id.toString(),
-            isActive: clinic.is_active === true,
-            parentClinicId: clinic.parent_clinic_id?.toString(),
-            salesRep: clinic.sales_rep,
-            preferredContactMethod: clinic.preferred_contact_method,
-            billToAddress: clinic.bill_to_address,
-            notes: clinic.notes,
-            contractDocumentPath: clinic.contract_document_path,
-            createdAt: clinic.created_at,
-            updatedAt: clinic.updated_at,
-            contacts: [] // Clinic contacts will be loaded when needed
-          })) || [],
-          invoiceParameters: client.invoice_parameters?.length > 0 ? {
-            id: client.invoice_parameters[0].id.toString(),
-            clientId: client.id.toString(),
-            showLogo: client.invoice_parameters[0].show_logo,
-            logoPosition: client.invoice_parameters[0].logo_position,
-            headerStyle: client.invoice_parameters[0].header_style,
-            footerStyle: client.invoice_parameters[0].footer_style,
-            companyName: client.invoice_parameters[0].company_name,
-            companyAddress: client.invoice_parameters[0].company_address,
-            companyEmail: client.invoice_parameters[0].company_email,
-            companyPhone: client.invoice_parameters[0].company_phone,
-            customMessage: client.invoice_parameters[0].custom_message,
-            primaryColor: client.invoice_parameters[0].primary_color,
-            highlightColor: client.invoice_parameters[0].highlight_color,
-            fontFamily: client.invoice_parameters[0].font_family,
-            fontSize: client.invoice_parameters[0].font_size,
-            createdAt: client.invoice_parameters[0].created_at,
-            updatedAt: client.invoice_parameters[0].updated_at
-          } : undefined
+          clinics: [], // Not implemented yet
+          invoiceParameters: null // Not implemented yet
         };
       });
       

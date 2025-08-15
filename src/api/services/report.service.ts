@@ -249,11 +249,11 @@ export async function getTopCptCodes(dateFilter: DateFilter, limit: number = 10)
     const { fromDate, toDate } = dateFilter;
 
     // Use the database function for top CPT codes calculation
+    // Note: limit is handled in the database function (fixed at 20)
     const { data, error } = await supabase
       .rpc('get_top_cpt_codes', {
         from_date: fromDate,
-        to_date: toDate,
-        limit_count: limit
+        to_date: toDate
       });
 
     if (error) throw error;

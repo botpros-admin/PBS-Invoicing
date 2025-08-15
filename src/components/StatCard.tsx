@@ -62,15 +62,15 @@ const StatCard: React.FC<StatCardProps> = ({
 
   return (
     <div
-      className={`bg-white rounded-lg ${className}`} // Removed default shadow/padding
+      className={`bg-white rounded-lg h-full flex flex-col justify-center ${className}`} // Added h-full and flex layout
       onClick={handleClick}
       // Add appropriate padding if needed when used outside WidgetWrapper, or rely on parent padding
     >
       <div className="flex justify-between items-start">
-        <div>
+        <div className="w-full">
           {/* Title removed - handled by WidgetWrapper */}
-          {/* Format the main value, or render directly if it's already a string */}
-          <p className="text-3xl font-semibold text-gray-900"> {/* Removed mt-1 */}
+          {/* Format the main value with fixed height to prevent shifts */}
+          <p className="text-3xl font-semibold text-gray-900 h-[40px] flex items-center font-mono"> {/* Added fixed height and monospace */}
             {valueType === 'string' ? value : formatNumber(value, valueType)}
           </p>
 

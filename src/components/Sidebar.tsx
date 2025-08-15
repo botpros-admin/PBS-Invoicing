@@ -5,6 +5,9 @@ import {
   FileText, 
   BarChart3, 
   Settings,
+  Building2,
+  Upload,
+  DollarSign,
   LogOut
 } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
@@ -19,9 +22,12 @@ const Sidebar: React.FC<SidebarProps> = ({ collapsed }) => {
 
   const navItems = [
     { path: '/dashboard', label: 'Dashboard', icon: <LayoutDashboard size={20} />, allowedRoles: ['admin', 'ar_manager', 'staff', 'user'] },
-    { path: '/dashboard/invoices', label: 'Invoices', icon: <FileText size={20} />, allowedRoles: ['admin', 'ar_manager', 'staff', 'user'] },
-    { path: '/dashboard/reports', label: 'Reports', icon: <BarChart3 size={20} />, allowedRoles: ['admin', 'ar_manager'] },
-    { path: '/dashboard/settings', label: 'Settings', icon: <Settings size={20} />, allowedRoles: ['admin'] },
+    { path: '/invoices', label: 'Invoices', icon: <FileText size={20} />, allowedRoles: ['admin', 'ar_manager', 'staff', 'user'] },
+    { path: '/payments', label: 'Payments', icon: <DollarSign size={20} />, allowedRoles: ['admin', 'ar_manager', 'staff'] },
+    { path: '/labs', label: 'Labs', icon: <Building2 size={20} />, allowedRoles: ['admin', 'ar_manager'] },
+    { path: '/reports', label: 'Reports', icon: <BarChart3 size={20} />, allowedRoles: ['admin', 'ar_manager'] },
+    { path: '/import', label: 'Import Data', icon: <Upload size={20} />, allowedRoles: ['admin', 'ar_manager'] },
+    { path: '/settings', label: 'Settings', icon: <Settings size={20} />, allowedRoles: ['admin'] },
   ];
 
   const filteredNavItems = isAuthenticated && user 

@@ -8,22 +8,23 @@ import {
   Lock,
   Mail,
   FileText,
-  DollarSign
+  DollarSign,
+  Shield
 } from 'lucide-react';
 import UserManagement from '../components/settings/UserManagement';
 import ClientsClinicsSettings from '../components/settings/ClinicSettings'; // Renamed import
-// import UserSettings from '../components/settings/UserSettings';
 import PaymentSettings from '../components/settings/PaymentSettings';
 import SecuritySettings from '../components/settings/SecuritySettings';
 import EmailSettings from '../components/settings/EmailSettings';
 import InvoiceParameters from '../components/settings/InvoiceParameters';
+import RoleManagement from '../components/settings/RoleManagement'; // Import the new component
 
 const Settings: React.FC = () => {
   
   const tabs = [
     { path: '', label: 'Clients & Clinics', icon: Building, component: ClientsClinicsSettings }, // Index route
-    { path: 'users', label: 'Users & Permissions', icon: Users, component: UserManagement },
-    // { path: 'user-settings', label: 'User Settings', icon: Users, component: UserSettings },
+    { path: 'users', label: 'User Assignments', icon: Users, component: UserManagement },
+    { path: 'roles', label: 'Roles & Permissions', icon: Shield, component: RoleManagement },
     { path: 'pricing', label: 'Pricing', icon: DollarSign, component: PricingSettings },
     { path: 'payment', label: 'Payment Settings', icon: CreditCard, component: PaymentSettings },
     { path: 'email', label: 'Email Settings', icon: Mail, component: EmailSettings },
@@ -41,7 +42,7 @@ const Settings: React.FC = () => {
             {tabs.map((tab) => (
               <NavLink
                 key={tab.path}
-                to={tab.path} // Relative path for nested routes
+                to={`/settings${tab.path ? '/' + tab.path : ''}`} // Use absolute paths
                 end={tab.path === ''} // Ensure index route matches exactly
                 className={({ isActive }) =>
                   `py-4 px-6 text-sm font-medium border-b-2 whitespace-nowrap ${
@@ -63,17 +64,19 @@ const Settings: React.FC = () => {
         <div className="p-6">
           {/* Use Routes for nested routing */}
           <Routes>
-            {tabs.map((tab) => (
-              <Route 
-                key={tab.path}
-                path={tab.path} 
-                index={tab.path === ''} // Mark the default tab as index
-                element={<tab.component />} 
-              />
-            ))}
-            {/* Optional: Add a catch-all or default route within settings if needed */}
+            {/* Index route for /settings */}
+            <Route index element={<ClientsClinicsSettings />} />
+            {/* Explicitly define each route */}
+            <Route path="users" element={<UserManagement />} />
+            <Route path="roles" element={<RoleManagement />} />
+            <Route path="pricing" element={<PricingSettings />} />
+            <Route path="payment" element={<PaymentSettings />} />
+            <Route path="email" element={<EmailSettings />} />
+            <Route path="invoice" element={<InvoiceParameters />} />
+            <Route path="security" element={<SecuritySettings />} />
+            {/* Catch-all fallback to default tab */}
+            <Route path="*" element={<ClientsClinicsSettings />} />
           </Routes>
-          {/* Outlet is not needed here as we are defining the full nested routes */}
         </div>
       </div>
     </div>

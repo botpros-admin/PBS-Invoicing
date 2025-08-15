@@ -259,8 +259,8 @@ const Invoices: React.FC = () => {
     { header: 'Client', accessor: (row: Invoice) => ({ display: row.client?.name || '', sortValue: (row.client?.name || '').toLowerCase() }), sortable: true },
     { header: 'Date', accessor: (row: Invoice) => ({ display: format(new Date(row.dateCreated), 'MMM d, yyyy'), sortValue: new Date(row.dateCreated).getTime() }), sortable: true },
     { header: 'Due Date', accessor: (row: Invoice) => ({ display: format(new Date(row.dateDue), 'MMM d, yyyy'), sortValue: new Date(row.dateDue).getTime() }), sortable: true },
-    { header: 'Amount', accessor: (row: Invoice) => ({ display: `${row.total.toFixed(2)}`, sortValue: row.total }), sortable: true, className: 'text-right' },
-    { header: 'Balance', accessor: (row: Invoice) => ({ display: `${row.balance.toFixed(2)}`, sortValue: row.balance }), sortable: true, className: 'text-right' },
+    { header: 'Amount', accessor: (row: Invoice) => ({ display: `${(row.total ?? 0).toFixed(2)}`, sortValue: row.total ?? 0 }), sortable: true, className: 'text-right' },
+    { header: 'Balance', accessor: (row: Invoice) => ({ display: `${(row.balance ?? 0).toFixed(2)}`, sortValue: row.balance ?? 0 }), sortable: true, className: 'text-right' },
     { header: 'Status', accessor: (row: Invoice) => ({ display: <StatusBadge status={row.status} />, sortValue: row.status }), sortable: true },
     { header: 'Aging', accessor: (row: Invoice) => {
         const aging = calculateAging(row);

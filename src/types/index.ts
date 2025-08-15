@@ -305,8 +305,19 @@ export interface Client {
   id: ID;
   organizationId?: ID;
   name: string;
-  logoUrl?: string;
+  code?: string;
   address?: string;
+  addressLine1?: string;
+  addressLine2?: string;
+  city?: string;
+  state?: string;
+  zipCode?: string;
+  phone?: string;
+  email?: string;
+  contactPerson?: string;
+  billingTerms?: number;
+  isActive?: boolean;
+  logoUrl?: string;
   paymentRemitInfo?: string;
   paymentAddress?: string;
   wiringInfo?: string;
@@ -322,7 +333,7 @@ export interface Client {
   
   // Populated (not in DB)
   clinics?: Clinic[];
-  invoiceParameters?: InvoiceParameters;
+  invoiceParameters?: InvoiceParameters | null;
   users?: ClientUser[];
 }
 

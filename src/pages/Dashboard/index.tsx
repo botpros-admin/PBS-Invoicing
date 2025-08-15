@@ -69,12 +69,12 @@ const WidgetWrapper: React.FC<{
   // Determine if this widget is the drop target
   const isDropTarget = over?.id === widget.id && active?.id !== widget.id;
 
-  // Determine grid dimensions based on widget size
+  // Determine grid dimensions based on widget size with fixed heights
   const gridClass = widget.size === 'large' 
-    ? 'col-span-1 sm:col-span-2 lg:col-span-4 row-span-2' // Large: 4 columns wide, 2 rows tall
+    ? 'col-span-1 sm:col-span-2 lg:col-span-4 row-span-2 min-h-[400px]' // Large: 4 columns wide, 2 rows tall
     : widget.size === 'medium'
-    ? 'col-span-1 sm:col-span-1 lg:col-span-2 row-span-2' // Medium: 2 columns wide, 2 rows tall
-    : 'col-span-1 row-span-1'; // Small: 1 column wide, 1 row tall
+    ? 'col-span-1 sm:col-span-1 lg:col-span-2 row-span-2 min-h-[400px]' // Medium: 2 columns wide, 2 rows tall
+    : 'col-span-1 row-span-1 min-h-[200px]'; // Small: 1 column wide, 1 row tall
 
   return (
     <div 
@@ -87,7 +87,7 @@ const WidgetWrapper: React.FC<{
       }} 
       className={`bg-white rounded-lg shadow ${gridClass} ${
         isDropTarget ? 'ring-2 ring-blue-500 ring-opacity-70' : ''
-      } transition-all duration-200`}
+      } transition-opacity duration-200`}
     >
       <div className="flex items-center justify-between mb-2 p-2 border-b border-gray-200 bg-gray-50 rounded-t-lg">
         <div className="flex items-center space-x-2">
@@ -127,6 +127,8 @@ export const Dashboard: React.FC = () => {
     agingData, isLoadingAging, isErrorAging, agingError,
     statusData, isLoadingStatus, isErrorStatus, statusError,
     topClientsData, isLoadingTopClients, isErrorTopClients, topClientsError,
+    volumeMetrics, isLoadingVolume, isErrorVolume, volumeError,
+    labMetrics, isLoadingLabs, isErrorLabs, labsError,
   } = useDashboardQueries(defaultDateRange);
 
   // Manage widgets using the custom hook - remove initialWidgets pass
@@ -236,6 +238,8 @@ export const Dashboard: React.FC = () => {
       case 'aging': return { data: agingData, isLoading: isLoadingAging, isError: isErrorAging, error: agingError };
       case 'status': return { data: statusData, isLoading: isLoadingStatus, isError: isErrorStatus, error: statusError };
       case 'clients': return { data: topClientsData, isLoading: isLoadingTopClients, isError: isErrorTopClients, error: topClientsError };
+      case 'volume': return { data: volumeMetrics, isLoading: isLoadingVolume, isError: isErrorVolume, error: volumeError };
+      case 'labs': return { data: labMetrics, isLoading: isLoadingLabs, isError: isErrorLabs, error: labsError };
       default: return { data: undefined, isLoading: false, isError: false, error: null }; // Handle unknown/custom sources
     }
   };
@@ -256,6 +260,8 @@ export const Dashboard: React.FC = () => {
       agingData?: AgingBucket[]; 
       statusData?: StatusDistribution[]; 
       topClientsData?: TopClient[]; 
+      volumeMetrics?: any; // Adding volume metrics
+      labMetrics?: any[]; // Adding lab metrics
       value?: string | number;
       change?: number;
       link?: string;
@@ -271,6 +277,8 @@ export const Dashboard: React.FC = () => {
       if (widget.config.dataSource === 'aging') rendererProps.agingData = agingData;
       if (widget.config.dataSource === 'status') rendererProps.statusData = statusData;
       if (widget.config.dataSource === 'clients') rendererProps.topClientsData = topClientsData;
+      if (widget.config.dataSource === 'volume') rendererProps.volumeMetrics = volumeMetrics;
+      if (widget.config.dataSource === 'labs') rendererProps.labMetrics = labMetrics;
     }
     // Add specific data for stat widgets (value, change, link)
     else if (isStat && dashboardStats) {
@@ -310,12 +318,13 @@ export const Dashboard: React.FC = () => {
             items={widgets.map(w => w.id)}
             strategy={rectSortingStrategy} // Use rect strategy for grid layouts
           >
-            {/* Grid layout for widgets */}
+            {/* Grid layout for widgets with fixed minimum heights to prevent layout shifts */}
             <div 
-              className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 transition-all grid-flow-dense"
+              className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 grid-flow-dense"
               style={{ 
                 position: 'relative',
-                gridAutoRows: 'minmax(150px, auto)' // Set a minimum row height with automatic sizing
+                gridAutoRows: 'minmax(200px, auto)', // Increased minimum to prevent shifts
+                minHeight: '400px' // Reserve space for grid container
               }}
             >
               {widgets

@@ -1,90 +1,5 @@
 import React, { useState } from 'react';
 import { Save } from 'lucide-react';
-import MfaManagementSection from '../auth/MfaManagementSection';
-import { useAuth } from '../../context/AuthContext';
-import { isAuthError } from '../../context/enhanced-auth-error-handling';
-
-const ChangePasswordForm: React.FC = () => {
-  const { updateUserPassword } = useAuth();
-  const [newPassword, setNewPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
-  const [error, setError] = useState<string | null>(null);
-  const [success, setSuccess] = useState<string | null>(null);
-  const [loading, setLoading] = useState(false);
-
-  const handlePasswordChange = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setError(null);
-    setSuccess(null);
-
-    if (newPassword !== confirmPassword) {
-      setError("New passwords do not match.");
-      return;
-    }
-    if (newPassword.length < 6) {
-      setError("Password must be at least 6 characters long.");
-      return;
-    }
-
-    setLoading(true);
-    const { error: authError } = await updateUserPassword(newPassword);
-
-    if (authError) {
-      if (isAuthError(authError)) {
-        setError("Invalid or incorrect password provided.");
-      } else {
-        setError("An unexpected error occurred. Please try again.");
-      }
-    } else {
-      setSuccess("Password updated successfully!");
-      setNewPassword('');
-      setConfirmPassword('');
-    }
-    setLoading(false);
-  };
-
-  return (
-    <div>
-        <h2 className="text-lg font-medium text-gray-900 mb-4">Change Your Password</h2>
-        <div className="bg-gray-50 p-6 rounded-lg">
-            <form onSubmit={handlePasswordChange} className="space-y-4">
-                <div>
-                    <label className="block text-sm font-bold text-gray-700">New Password</label>
-                    <input
-                        type="password"
-                        value={newPassword}
-                        onChange={(e) => setNewPassword(e.target.value)}
-                        className="w-full p-2 border rounded mt-1 form-input"
-                        required
-                    />
-                </div>
-                <div>
-                    <label className="block text-sm font-bold text-gray-700">Confirm New Password</label>
-                    <input
-                        type="password"
-                        value={confirmPassword}
-                        onChange={(e) => setConfirmPassword(e.target.value)}
-                        className="w-full p-2 border rounded mt-1 form-input"
-                        required
-                    />
-                </div>
-                {error && <p className="text-sm text-red-500">{error}</p>}
-                {success && <p className="text-sm text-green-500">{success}</p>}
-                <div>
-                    <button
-                        type="submit"
-                        className="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-primary hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary disabled:opacity-50"
-                        disabled={loading}
-                    >
-                        {loading ? 'Updating...' : 'Update Password'}
-                    </button>
-                </div>
-            </form>
-        </div>
-    </div>
-  )
-}
-
 
 const SecuritySettings: React.FC = () => {
   const [requireMfa, setRequireMfa] = useState(false);
@@ -94,12 +9,6 @@ const SecuritySettings: React.FC = () => {
   
   return (
     <div className="space-y-8">
-      {/* Personal Password Management */}
-      <ChangePasswordForm />
-
-      {/* Personal MFA Management */}
-      <MfaManagementSection />
-
       {/* Organization-wide Settings */}
       <div>
         <h2 className="text-lg font-medium text-gray-900 mb-4">Organization-wide Authentication Settings</h2>

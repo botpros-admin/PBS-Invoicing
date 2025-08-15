@@ -9,6 +9,12 @@ import {
   StatusDistribution,
   TopClient
 } from '../../../api/services/dashboard.service';
+import { 
+  fetchVolumeMetrics, 
+  fetchLabMetrics,
+  VolumeMetrics,
+  LabMetric 
+} from '../../../api/services/volumeMetrics.service';
 import { DateRange } from '../../../types';
 import { useNotifications } from '../../../context/NotificationContext'; // Corrected import name
 import { useEffect, useRef } from 'react'; // Import useRef
@@ -61,6 +67,30 @@ export const useDashboardQueries = (defaultDateRange: DateRange) => {
     staleTime: 15 * 60 * 1000,
   });
 
+  const {
+    data: volumeMetrics,
+    isLoading: isLoadingVolume,
+    isError: isErrorVolume,
+    error: volumeError,
+  } = useQuery<VolumeMetrics, Error>({
+    queryKey: ['volumeMetrics', defaultDateRange],
+    queryFn: () => fetchVolumeMetrics(defaultDateRange),
+    staleTime: 30 * 1000, // Refresh every 30 seconds
+    refetchInterval: 30 * 1000, // Auto-refresh
+  });
+
+  const {
+    data: labMetrics,
+    isLoading: isLoadingLabs,
+    isError: isErrorLabs,
+    error: labsError,
+  } = useQuery<LabMetric[], Error>({
+    queryKey: ['labMetrics', defaultDateRange],
+    queryFn: () => fetchLabMetrics(defaultDateRange),
+    staleTime: 30 * 1000,
+    refetchInterval: 30 * 1000,
+  });
+
   // --- Error Handling Effect ---
   useEffect(() => {
     const checkAndNotify = (error: Error | null | undefined, type: string) => {
@@ -74,16 +104,20 @@ export const useDashboardQueries = (defaultDateRange: DateRange) => {
     checkAndNotify(agingError, 'Aging');
     checkAndNotify(statusError, 'Status');
     checkAndNotify(topClientsError, 'Top Clients');
+    checkAndNotify(volumeError, 'Volume Metrics');
+    checkAndNotify(labsError, 'Lab Metrics');
 
     // Note: The dependency array still includes the error objects.
     // If a *new* error object instance occurs for the same query, it will be notified.
     // If the same error object instance persists across renders, it won't be re-notified.
-  }, [statsError, agingError, statusError, topClientsError, addNotification]);
+  }, [statsError, agingError, statusError, topClientsError, volumeError, labsError, addNotification]);
 
   return {
     dashboardStats, isLoadingStats, isErrorStats, statsError,
     agingData, isLoadingAging, isErrorAging, agingError,
     statusData, isLoadingStatus, isErrorStatus, statusError,
     topClientsData, isLoadingTopClients, isErrorTopClients, topClientsError,
+    volumeMetrics, isLoadingVolume, isErrorVolume, volumeError,
+    labMetrics, isLoadingLabs, isErrorLabs, labsError,
   };
 };

@@ -46,6 +46,25 @@ export interface DisputeResolution {
 }
 
 /**
+ * Helper function to calculate invoice total from items
+ */
+function calculateInvoiceTotal(items: any[]): number {
+  if (!items || items.length === 0) return 0;
+  return items.reduce((sum, item) => {
+    // Use line_total if available (from DB), otherwise calculate
+    const itemTotal = item.line_total ?? item.total ?? (item.quantity * item.unit_price) ?? 0;
+    return sum + itemTotal;
+  }, 0);
+}
+
+/**
+ * Helper function to calculate invoice balance
+ */
+function calculateInvoiceBalance(total: number, paidAmount: number): number {
+  return (total ?? 0) - (paidAmount ?? 0);
+}
+
+/**
  * Fetch a paginated list of invoices
  * 
  * @param filters - Filter, sort and pagination options
@@ -59,14 +78,13 @@ export async function getInvoices(filters?: FilterOptions): Promise<PaginatedRes
       .select(`
         *,
         client:clients(*),
-        clinic:clinics(*),
-        items:invoice_line_items!invoice_line_items_invoice_id_fkey(*)
+        items:invoice_items(*)
       `, { count: 'exact' });
     
     // Apply filters
     if (filters?.search) {
       const search = `%${filters.search}%`;
-      query = query.or(`invoice_number.ilike.${search},clients.name.ilike.${search}`); 
+      query = query.or(`invoice_number.ilike.${search}`); 
     }
     
     if (filters?.status && filters.status.length > 0) {
@@ -74,11 +92,11 @@ export async function getInvoices(filters?: FilterOptions): Promise<PaginatedRes
     }
     
     if (filters?.dateFrom) {
-      query = query.gte('date_created', filters.dateFrom);
+      query = query.gte('created_at', filters.dateFrom);
     }
     
     if (filters?.dateTo) {
-      query = query.lte('date_created', filters.dateTo);
+      query = query.lte('created_at', filters.dateTo);
     }
     
     if (filters?.clientId && filters.clientId.length > 0) {
@@ -99,7 +117,7 @@ export async function getInvoices(filters?: FilterOptions): Promise<PaginatedRes
           column = 'clients.name';
           break;
         case 'dateCreated':
-          column = 'date_created';
+          column = 'created_at';
           break;
         case 'dateDue':
           column = 'date_due';
@@ -114,15 +132,15 @@ export async function getInvoices(filters?: FilterOptions): Promise<PaginatedRes
           column = 'status';
           break;
         default:
-          column = 'date_created';
+          column = 'created_at';
       }
       
       query = query.order(column, { 
         ascending: direction === 'asc',
       });
     } else {
-      // Default sort by date_created desc
-      query = query.order('date_created', { ascending: false });
+      // Default sort by created_at desc
+      query = query.order('created_at', { ascending: false });
     }
     
     // Apply pagination
@@ -142,22 +160,28 @@ export async function getInvoices(filters?: FilterOptions): Promise<PaginatedRes
     
     // Transform to frontend Invoice type
     const invoices: Invoice[] = data.map((inv: any) => {
+      // Calculate total from items if not present or is null
+      // Use total_amount if available (newer schema), otherwise total
+      const calculatedTotal = inv.total_amount ?? inv.total ?? calculateInvoiceTotal(inv.items || []);
+      const paidAmount = inv.paid_amount ?? inv.amount_paid ?? 0;
+      const calculatedBalance = inv.balance_due ?? inv.balance ?? calculateInvoiceBalance(calculatedTotal, paidAmount);
+      
       const invoice: Invoice = {
         id: inv.id ? inv.id.toString() : '',
         clientId: inv.client_id ? inv.client_id.toString() : '',
         clinicId: inv.clinic_id ? inv.clinic_id.toString() : '',
         invoiceNumber: inv.invoice_number,
-        dateCreated: inv.date_created,
+        dateCreated: inv.created_at,
         dateDue: inv.date_due,
         status: inv.status,
         invoiceType: inv.invoice_type,
         reasonType: inv.reason_type,
         icn: inv.icn,
         notes: inv.notes,
-        subtotal: inv.subtotal,
-        total: inv.total,
-        amountPaid: inv.amount_paid,
-        balance: inv.balance,
+        subtotal: inv.subtotal ?? calculatedTotal,
+        total: calculatedTotal,
+        amountPaid: paidAmount,
+        balance: calculatedBalance,
         writeOffAmount: inv.write_off_amount,
         writeOffReason: inv.write_off_reason,
         createdAt: inv.created_at,
@@ -233,17 +257,13 @@ export async function getInvoices(filters?: FilterOptions): Promise<PaginatedRes
  */
 export async function getInvoiceById(id: ID): Promise<Invoice> {
   try {
-    // Get invoice with related data, including the patient for each line item
+    // Get invoice with related data
     const { data, error } = await supabase
       .from('invoices')
       .select(`
         *,
         client:clients(*),
-        clinic:clinics(*),
-        items:invoice_line_items!invoice_line_items_invoice_id_fkey(
-          *,
-          patient:patients(*)
-        )
+        items:invoice_items(*)
       `)
       .eq('id', id)
       .single();
@@ -251,22 +271,28 @@ export async function getInvoiceById(id: ID): Promise<Invoice> {
     if (error) throw error;
     if (!data) throw new Error(`Invoice with ID ${id} not found`);
     
+    // Calculate total from items if not present or is null
+    // Use total_amount if available (newer schema), otherwise total
+    const calculatedTotal = data.total_amount ?? data.total ?? calculateInvoiceTotal(data.items || []);
+    const paidAmount = data.paid_amount ?? data.amount_paid ?? 0;
+    const calculatedBalance = data.balance_due ?? data.balance ?? calculateInvoiceBalance(calculatedTotal, paidAmount);
+    
     const invoice: Invoice = {
       id: data.id.toString(),
       clientId: data.client_id ? data.client_id.toString() : '',
       clinicId: data.clinic_id ? data.clinic_id.toString() : '',
       invoiceNumber: data.invoice_number,
-      dateCreated: data.date_created,
+      dateCreated: data.created_at,
       dateDue: data.date_due,
       status: data.status,
       invoiceType: data.invoice_type,
       reasonType: data.reason_type,
       icn: data.icn,
       notes: data.notes,
-      subtotal: data.subtotal,
-      total: data.total,
-      amountPaid: data.amount_paid,
-      balance: data.balance,
+      subtotal: data.subtotal ?? calculatedTotal,
+      total: calculatedTotal,
+      amountPaid: paidAmount,
+      balance: calculatedBalance,
       writeOffAmount: data.write_off_amount,
       writeOffReason: data.write_off_reason,
       createdAt: data.created_at,
@@ -352,7 +378,7 @@ export async function createInvoice(invoiceData: Partial<Invoice>): Promise<Invo
         client_id: invoiceData.clientId ? parseInt(invoiceData.clientId.toString()) : null,
         clinic_id: invoiceData.clinicId ? parseInt(invoiceData.clinicId.toString()) : null,
         invoice_number: invoiceNumber,
-        date_created: invoiceData.dateCreated || today,
+        created_at: invoiceData.dateCreated || today,
         date_due: dueDate,
         status: 'draft',
         invoice_type: invoiceData.invoiceType,
@@ -389,7 +415,7 @@ export async function updateInvoice(id: ID, invoiceData: Partial<Invoice>): Prom
     if (invoiceData.clientId !== undefined) updateData.client_id = parseInt(invoiceData.clientId.toString());
     if (invoiceData.clinicId !== undefined) updateData.clinic_id = parseInt(invoiceData.clinicId.toString());
     if (invoiceData.invoiceNumber !== undefined) updateData.invoice_number = invoiceData.invoiceNumber;
-    if (invoiceData.dateCreated !== undefined) updateData.date_created = invoiceData.dateCreated;
+    if (invoiceData.dateCreated !== undefined) updateData.created_at = invoiceData.dateCreated;
     if (invoiceData.dateDue !== undefined) updateData.date_due = invoiceData.dateDue;
     if (invoiceData.status !== undefined) updateData.status = invoiceData.status;
     if (invoiceData.invoiceType !== undefined) updateData.invoice_type = invoiceData.invoiceType;

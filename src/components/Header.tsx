@@ -13,6 +13,7 @@ import {
 import { useAuth } from '../context/AuthContext';
 import { useNotifications } from '../context/NotificationContext';
 import NotificationDropdown from './NotificationDropdown';
+import UserProfileModal from './modals/UserProfileModal';
 import { useNavigate, NavLink } from 'react-router-dom';
 import debounce from 'lodash/debounce';
 import { SearchResult } from '../types'; // Import from shared types
@@ -29,6 +30,7 @@ const Header: React.FC<HeaderProps> = ({ toggleSidebar }) => {
   const { unreadCount } = useNotifications();
   const [showNotifications, setShowNotifications] = useState(false);
   const [showUserMenu, setShowUserMenu] = useState(false);
+  const [showProfileModal, setShowProfileModal] = useState(false);
   const userMenuRef = useRef<HTMLDivElement>(null);
   const notificationRef = useRef<HTMLDivElement>(null);
   const searchRef = useRef<HTMLDivElement>(null);
@@ -232,13 +234,15 @@ const Header: React.FC<HeaderProps> = ({ toggleSidebar }) => {
 
           {showUserMenu && (
             <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-10 border border-gray-200">
-              <NavLink
-                to="/dashboard/profile"
-                onClick={() => setShowUserMenu(false)}
+              <button
+                onClick={() => {
+                  setShowUserMenu(false);
+                  setShowProfileModal(true);
+                }}
                 className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
               >
                 Your Profile
-              </NavLink>
+              </button>
               <NavLink
                 to="/dashboard/user-settings"
                 onClick={() => setShowUserMenu(false)}
@@ -265,6 +269,12 @@ const Header: React.FC<HeaderProps> = ({ toggleSidebar }) => {
           )}
         </div>
       </div>
+
+      {/* User Profile Modal */}
+      <UserProfileModal 
+        isOpen={showProfileModal} 
+        onClose={() => setShowProfileModal(false)} 
+      />
     </header>
   );
 };

@@ -1,0 +1,341 @@
+MEET - BOT PROCESS/ INVOICE APP - RECORDING EXTENSION
+
+
+Date    2025-08-13
+
+Speaker 0 00:01
+I can even run over on this meeting if you guys want to. I had to just check there. I didn't have another meeting after this. Okay, sorry. I'm posting or I'm pulling up QuickBooks right now for us. MedScan just laid off, while I'm doing this, MedScan just laid off more of their IT team. The last two people that were there just posted on LinkedIn. I'm like, how did you not know? They tell you like, oh. stay we'll take care of you and then the last two are gone I was like so there's no one there's maybe Rick I don't know and if Rick was even let go of I don't know that he would do anything because he's so old I think he was just retired I don't think anyone would ever know. 
+
+Speaker 1 00:53
+Yeah, Rick seemed like he was just chillin like. 
+
+Speaker 0 01:00
+Next of Silicon Valley in the dot-com bubble and he has just been coasting on out Okay, you guys can see my screen right so in this system making a payment so you can click receive payment so like let's say I was on the phone with first care management over the phone and they were like hey we got the card in front of us we want to pay you you can process a card within and then if they have multiple invoices you can select multiple invoices and process those out as well in here or you can just record a payment so like if we get cash check other and this system's fine I don't think it's everything that we really want. So if I go back to a Canva doc here and let's go to Collaboratemd because I think Collaboratemd is probably closer to what we're looking for, especially when we're talking about like reconciling partial payments and things like that. So we would be talking more like a queue, a queue where all of the payment information comes in. And anything paid by card through the system, I think, should just be auto-published. So if we had two payments, three payment statuses, unposted, posted, on hold, or question, or in dispute. A third other status, and we can come around to that. Then in here, anything that you guys process through the system, so someone pays via logging into the portal or through the public link of just typing in the account number, I think that goes auto-applied, right? Like a checkmark would appear or a status would appear saying it's applied and things are good. I think anything else we should be able to put in payment info for things that are not auto, like not through the system. So an example of that would be like, I could come into the system in the payments queue and put in like new payment, just like create an invoice. I could click create a payment. And they're the same kind of thing that we saw at a QuickBooks where I can go in and click run card. So I could run the card then, or I could click just receive payment and I could type in the payment information. Then it would go into the payments queue as non-applied. And then I can go in and click the invoices to apply it to or the lines inside of an invoice to apply it to. So the way I kind of see that here would be a drop-down function where like... you would have like the line here with the payment information. So like you would go in to post the payment, then it will say, let's grab a text. It would say, you know, $100 or whatever to be posted. and then here you would have your invoices that could apply to with the check boxes so you'd have like one two three invoices you could apply it to like quickbooks with the outstanding balance so let's go back over here invoices so like here i can check all of these but i think something we need to have is a little drop down function where you would have a sub panel here so you could select or deselect individual payments or lines so if someone does it over the phone obviously the system is going to auto cue that right so the system you go and you do your payment let's say you dispute three lines those three lines would no longer be on the payment you'd process out to pay whatever but we would need the ability to do that as well manually So I think we take that dispute screen and that payment screen and we put that same screen, that same UI into the payment posting itself. So that way in the payment posting, I take a call from Maxwell, from Maxwell Health and Maxwell says, you know, Max says, hey, I'm a paying this, but I'm not paying the line for John Doe. I'm not paying that. Here's the reason. I take that interaction over the phone. so then i could come in that same payment posting or that same payment ui that we have for clinics to come in and dispute not dispute let me pull up that spreadsheet that same ui would need to be present in the payment posting module so i can do that manually from my end here so this take this pay respond invoice screen and from this is the client end make one available in the internal there would be a box above it's a client information then it would say payment details so we did get a check in the mail for 250 dollars how would you Rhiannon like to apply that and just apply it until the total balance down here um would be you know equal to the total payment and i don't think you should be able to save until those balances are equal. 
+
+Speaker 2 06:54
+Okay. 
+
+Speaker 0 06:55
+Because the thing we have to mush in here, which is unfortunate, is if everyone paid through the portal, I don't think we'd have to do a payment posting system. But we get ACHs, we get checks, we get cards over the phone. So this is just accounting for those things. Yeah, like if I log in and I see a lab posted or put in a check for $664, I just need a UI in order to post that. from our end and i think it could look exactly the same except for as the pay respond for the clinic side except for two pieces which would be the payment information so like methodology received like up here was it check cash or other so method or other okay yep here it's ach cash check credit card yep and then be able to record that payment. So here's the amount received. So then I could do like 150. And then here, you can see like, they're like, well, put 80 bucks here and 70 bucks here, like QuickBooks auto did that I don't think you guys need to, I think we would just put in 150. And then at the bottom, it would say amount to apply 150 applied 150, then you're good. But if like those two didn't line up, then you would have a problem. I don't want to be able to post anything without clearing every penny. So that way we don't have someone make a missed post where they post $25 of $150 and a new statement goes out with the wrong amount. 
+
+Speaker 1 08:28
+So how does that work when they're disputing? Do you want it to automatically remove the item or mark it as... 
+
+Speaker 0 08:37
+Yeah, so the thought process here is this would probably be a person who's not coming in and utilizing the portal to dispute. So this would have to be available for Rhiannon to do. So Rhiannon would come in, she would see this and then like click, click, click down the invoice that she wants to apply. And then she would have to come in and click dispute herself. 
+
+Speaker 1 08:59
+Okay. Would that be on the drop down? 
+
+Speaker 0 09:02
+Disputed. Sorry. 
+
+Speaker 1 09:03
+That would be on the additional drop down that you would want per claim. Yeah. 
+
+Speaker 0 09:08
+What I'm thinking here is you would have the invoice and then maybe a little arrow and you could click it and it would drop down into that like invoice level. 
+
+Speaker 1 09:16
+Individual line item. Yeah. 
+
+Speaker 0 09:18
+Yeah, because you'd want to be able to expand and collapse that because you might be able to just click one invoice. Hey, we want to pay invoice one nine five eight. And then you wouldn't need the UI to display everything. But let's say they're like, hey, we want to pay one nine five eight, but we're not paying for the molecular UCI for John Doe. So then Rhiannon would come in here. She would be able to click, click, click. OK, it's six thirty one plus ten twenty two plus ten twenty two. You know, she would be able this the new balance would be different the payment she could receive the payment right in here if she's on the phone but if she's not on the phone and we receive a check then she'd be able to even down to the new payment amount she could do five dollars on this line that's 631 because let's say they send us a $5 check and then it would just show that the next time would be charges. Payments would show $5 and there would be a balance of $1.31. 
+
+Speaker 1 10:13
+Got it. Yeah. And then they have that leftover balance. And with that balance, you said you wouldn't want them to save until the balance and payment are identical. 
+
+Speaker 0 10:24
+Well, so if so, if we're coming in and putting in a payment information. So let me show you one in here. So if I came in and I created a payment in CMD and I put it in for a dollar, I cannot close out this screen until the unapplied is zero and the applied is one dollar. So Jermaine, if I receive a check and it's five hundred dollars, I could plug in five hundred dollars, check number, check date, and then go in, assign it to the clinic. all the invoices would appear okay now it's my job to assign out the five hundred dollars let's say i assign it out and ten dollars is not applied got it when i click save payment i don't want it to be able to process like that right i want it to tell me hey there's a problem here these did not go. 
+
+Speaker 1 11:22
+Together yep yeah so then they have to assign so you're saying when you get a check or any form of payment. You want them to have to apply the entire payment without leaving a balance. 
+
+Speaker 0 11:37
+Correct. I don't want them to be able to leave the screen with a balance on it. And this is just in consideration of receiving checks and ACHs. Because if someone comes in themselves, like if this is the user interface and I'm going to pay it myself, I'm going to do whatever I'm going to do. And then I'm going to run the card. Stripe's going to run it there. No one else needs to come in and edit those payments, those lines at that point. point you can make that apply to the invoice the exception is going to be here's a great example i have a lab right now that has cards on file so they just have an auto trigger for their cards on file already so i'm going to see that appear in their bank account how am i going to reconcile that because it's not being ran through your system with stripe so i would just need the ability to come in add a payment and then post that payment so like the ui of that would look like you know let's go back over here login it's really funny the last time i went in here max i was like oh no they made a login screen what is the login information and then i looked slightly down i was like that's so nice okay so um like here it would it would be like a similar ui where you'd have the payment number or the check number or whatever we can do a payment number the client name the check date the amount the balance so the balance would be zero if everything's been posted it would be something if it hasn't been posted right status unapplied applied on hold that'd be it um and then i don't think we need aging for those so then you would click create payment. and you would come in and then in the ui you would type in some similar to collaborate just like the fields wise you would come in you would put in the payment from so is it from maxwell health the payment amount 150 and then the check amount and you click save and then a new payment would appear in the queue where did it go there we go a new payment would appear in the queue here as unapplied and then you would click it and all of the invoices would appear underneath you could click the invoices you could expand or collapse individual invoices to dispute lines or post partial payments then at the bottom you would click you know save and apply and you can save and apply that and then what that would do is now you would have new invoices with new balances if if partial payments occurred. 
+
+Speaker 2 14:26
+Would you want us to change the name of that button to create payment rather than create invoice? 
+
+Speaker 0 14:32
+Yeah, yeah, because this would be a separate screen, right? So we'd have invoices, so we'd have dashboard, invoices, payments, reports, settings. 
+
+Speaker 2 14:40
+Yep. 
+
+Speaker 0 14:42
+So it would be create a payment, yep. 
+
+Speaker 2 14:44
+Okay, got it, okay. 
+
+Speaker 0 14:48
+And then, I mean, sky's the limit. We could do a payment import, right? But I think that... that could be like later because the payment import what you would do then would be you'd be able to download a list of transactions from the page But I don't know. 
+
+Speaker 2 15:06
+Yeah, they don't have to. All the fields would have to map perfectly. 
+
+Speaker 0 15:10
+Correct. Correct. So I think for now, you just do it like that. The goal would be then you could identify who's still sending checks. And you could be like, please, please, please utilize our system. Because you would see that they're sending checks in or they're sending ACHs in or whatever the exception is. But everyone else, dude, I've integrated into the system. It wouldn't cause a problem. But you onboard a new client. They haven't integrated yet. They're stuck in their ways of sending checks. Then you, you know, resolve that out. The other thing it has to be able to do is when a payment is reconciled on the clinic level, it's going to trigger a receipt, right? So they're going to pay their payment and then they're going to get a receipt back. Hey, you paid this invoice of this amount. It needs to be able to trigger a receipt here as well. So in the payment queue, so not invoices queue, but the payment queue in these three buttons, you should be able to always click. print receipt so even if it's three months later and someone says hey i need to see a receipt like you can print the receipt got it a ch or whatever as well talked. 
+
+Speaker 2 16:19
+A lot there thoughts questions on the payment queue um yeah just a second here um no that's excellent um really trying to just get my notes here organized Okay Jermaine did you have anything? 
+
+Speaker 1 16:43
+No, not for what I've seen so far. 
+
+Speaker 0 16:46
+I don't have anything about the payment queue the other thing is With the save button for any of these once they've been saved there would have to be in these three buttons an unlock or edit field. Like you should be able to go in and view payments at any point, but there should be a button to edit it in case we have a trainee, they posted a payment to the wrong account, they posted it to the wrong whatever. We either need to be able to delete it and restart the payment or edit the payment and change the information. 
+
+Speaker 1 17:26
+That would mean we would need to incorporate a history, right, of the saved changes. 
+
+Speaker 0 17:31
+That have occurred previously i mean in the best version of the software yes i don't think that's required though okay yeah unless we just want to create delete like delete as a status delete it it wouldn't apply to reports anymore if the status is deleted and then they can build out a new one anytime there's an error or a mistake that might be really frustrating as far as like the queue getting big unless we have it status auto filtered you know to not show any deleted ones and then that in and of itself would create a history right it would create a history because you could see any deleted invoices or payments on both yeah but so you won't you wouldn't need a history where like you can see um when those changes were made and by who no i mean oh shoot i guess hip-hop because with hipaa you're supposed to keep a a log of people who have accessed patient data so potentially yeah we would need to keep a background even if it doesn't show everything that's changed just the user name and date date and time stamp a background log and that doesn't even need a ui if you guys could just hold that we could build out a ui for it right like a button that says history and it shows every person that's accessed log in the daytime history button at the top but also because we just have to have the ability during a hipaa audit which i've never been through one before so i'm really just speaking from like the general legalities of it they would have to be able to say like okay we want to see everyone who touched your main max account and i have to be able to go in and see any time someone's touched Germain Max account in any system and spit out a log. and where where that mostly happens is not in auditing it's in legal so like jermaine you're suing me because your information got out and you think it's from me i have to be able to show every time a person's access which is especially critical you know for for legal and. 
+
+Speaker 1 19:48
+Not just security which in this case with invoicing and all that we want to try to at least maintain all the HIPAA violation possibilities. So that when we are pitching this to other companies, they're capable of having that security. 
+
+Speaker 2 20:05
+Can we have a side tangent into security really quick can i ask a couple questions before yes please no and we definitely need to absolutely security is like super important um okay but just to make sure that i've i've got the flow right okay so you know we get a check or whatever right and so then you know um rhiannon is going to go into that new payment screen um and she'll click create payment and then she'll essentially enter the client name and the check details and then the next screen it'll automatically show all of the clients you know open invoices for her basically to apply that check to right okay And then as far as like handling disputes. So, for example, let's say when she's applying a payment and she unchecked a line item. Right. Because the client is disputing it. So what happens to that specific charge? Like, does it just stay? on the invoice right as an unpaid balance for us basically for it to be dealt with later yes it would trigger a notification so a notification would appear even if it's internal or external it doesn't matter a notification would trigger saying there has been a dispute on maxwell health please. 
+
+Speaker 0 21:52
+View you would click on it and then you would go in and see the dispute but one thing you have to let's go back to this ui screen here so the new payment amount that needs to be like Rhiannon needs to be able to type in $5, $10, $10 and develop balances instead of paying charges in full. She also should be able to click dispute. If disputes click, a text box appears. She doesn't have to fill that out, but a text box should appear. So if I'm on the phone with Maxwell Health and they say, I'm not paying John Doe's UTI, I can click dispute. I can write in the reason why and say, okay, so you want this bill to insurance? Yes, I want this bill to insurance. Okay. I put this in the dispute process. It's still going to be on your invoice until it's resolved. But I've triggered the dispute process. Someone internally will review. That's going to happen over the phone. The same thing that would have happened in the portal. 
+
+Speaker 2 22:45
+Okay. All right. You had mentioned that... Alex be quiet. You said that every payment... You can't save until each penny is applied. So... so if the payment if the payment amount and the applied amount don't match should the save button like just be blocked out you know like you can't save it or like should we have a warning like that kind of yeah i mean i think at the bottom should just be in red like balance. 
+
+Speaker 0 23:19
+Does not equal you know and then we can do the save button grayed out that's fine yeah because here i mean a confusing piece here really quick is this says new payment amount so when i say the payment has to be balanced to the penny i don't mean this right this column can be whatever it is it's the total of this column equaling the check amount yep and so nope keep going no i'm sorry go ahead go ahead i'll let you finish five dollars let's say for some reason they write us a 25 check rihanna could come in and put six dollars 31 cents She could come in and put $20 and put it until it equals $25. Here, down here, we would have an interface essentially that would show the remaining balance to be posted. 
+
+Speaker 2 24:12
+31 cents? 
+
+Speaker 0 24:14
+Yeah, you would put unapplied payment, applied payment instead of total balance, total payment. And so that way when those are, when unapplied is zero, so there's no further balance to apply. So that's kind of in Collaboratemd MD, right? when we had made that fake amount let's go view a payment again you can see here oh this is a zero pay that's not helpful one second you can see here the applied amount is for 48.52 and the unapplied is zero if i was to screw up this payment the unapplied would have a balance and it would trigger a thing saying hey payment does not equal payment posted does not equal the payment received please correct and it wouldn't allow me i could click save payment but then like a little pop-up comes up that's like you can't do that. 
+
+Speaker 2 25:06
+Um okay so it triggers a stop point okay that makes sense okay so then for all right so for fixing mistakes it sounds like we need just a simple like edit or a delete button like you were saying or a payment and then to confirm for now uh we don't need to track a history or a log That would be something. Log notice. Right. 
+
+Speaker 0 25:37
+Yeah. 
+
+Speaker 2 25:39
+Okay. So, and also you'd mentioned some, like, some payments would need to be auto-published. Well. 
+
+Speaker 0 25:47
+So that's just the status routing, right? So, like, the status, if we talk about the three statuses on the invoice, the status would already say applied if it was paid through Precision Building Solution Portal. Like, no one needs to go in because the person already did that. 
+
+Speaker 2 26:04
+They already went in and applied all their payment okay okay so the whole the whole manual system is only for like payments that happen outside the portal like checks and or phone call payments if that's even something it is. 
+
+Speaker 0 26:20
+Something unfortunately yeah so like i'll get a call from a clinic saying hey i want to pay my balance what is it so then i would come in here you know that workflow and then as far as like it would say like check number, client, payment date, right? Amount and then status. So everything will sit unapplied unless it went through your portal. Because in your portal, the clinics already went through, they put in their payment, they put in their information, Stripe would auto-populate the payment number. So the payment number would be there already. They've already assigned their client. They've already went through and said how much they're paying on every line. and When they did that, it developed a total amount, and that's the amount that Stripe charged, right? So it's fully already balanced. No one needs to go in and edit that. 
+
+Speaker 2 27:11
+Yep. All right. And I'm assuming we'd also want, like, a print receipt button for, you know, any of these, like, manual payments. Or, yeah, really, right. 
+
+Speaker 0 27:23
+Yeah, so if someone comes back, this would happen, like, during a sale, right? So someone selling Maxwell Health is selling. They're like, hey, we need proof that we've closed out our balances with you. It's like, well, you probably should have kept that on file for yourself, but I can go and do all these printings myself. So, yeah, that would have to be there. And then outside of that, I mean, I really see it just like a duplicate UI of this in the sense like you could create a payment. It would have statuses, right? And then you could edit payment. So you could come in and do a payment edit. And then the only other thing I can think is like a potential delete button on invoices and on payments. But then I kind of only want that to be at like an admin level access. I don't think anyone's be able to like come in and delete payments. No. 
+
+Speaker 2 28:15
+Absolutely. That would be admin level. 
+
+Speaker 0 28:18
+But otherwise, yeah, I mean, I really like the UI for the invoices that you've built out, Max. So I say like, do that. But we need less fields, right? Like. it would just show the payment amount and then the status is it unapplied is it applied is it on hold and like an on hold would be maybe someone stop check on something like we need to go figure out it's just the default status if there's a problem rhiannon runs into something she comes back to me and then in the okay off chance a credit is developed that's the only other payment type I could think of. So let's say you overpaid $250. I should be able to record a payment and the payment method should just be like account credit. And then I can record an account credit of $250. So ACH, check card, cash account credit. Those are the five methods of payment I could see coming through. 
+
+Speaker 2 29:20
+Okay. Just a second. Okay. 
+
+Speaker 3 29:36
+Okay credit account okay Thank you. 
+
+Speaker 4 30:50
+Okay all right yeah i i can't really think anything else but you know of course i'll probably you know as we get into this more we'll think of some more things yeah um well so riannon will be joining us tomorrow. 
+
+Speaker 0 31:07
+I'll still be going through and like doing all of the info. But like I said, I think she brings things to the table just by like working in everyday problems. I don't see. And things like, like honestly, I've been voiced out one time in QuickBooks for, on behalf of our clients, I invoice for myself all the time, but like, so she's the one who really like knows the problems. 
+
+Speaker 1 31:30
+Have you gone over this with her already? Like this process? Not. Beta. 
+
+Speaker 0 31:36
+This most recent edition, but the one before. 
+
+Speaker 1 31:40
+Okay. 
+
+Speaker 0 31:41
+In our one-on-one, I'd walked her through what I had and just asked her for, like, a temp check. Like, am I generally going in the right direction for you here? And she said yes. And that's when she brought up, like, okay, like, what. And she's asking me very specific questions if this software is up and working, of course. So she's like, okay, well, how many lines can I upload? That's when, like, problems like that come up. And so. That's when she brings those kinds of things to my attention. 
+
+Speaker 2 32:09
+Okay. 
+
+Speaker 0 32:10
+It's a place you want us to really dive into, Max, because that's kind of the payment thought process. We did the invoice thought process. We talked a little bit about users. We could go back to users. We could talk more about clinics. We could talk about reporting. We could talk about the dashboard. But where do you kind of want to lead us next as far as your workflow process? 
+
+Speaker 2 32:33
+Yeah. um you know funny enough it does kind of tie into security i do want to touch on that um but yeah there's there's a lot that we're gonna just have to just constantly go over um you know um so okay let's say like um just another quick question i thought of um is like along the lines of like if when a client or if a client overpays uh how would that work right like would the system like have to force rhiannon or whoever to make a new um like an account credit you know um with the leftover amount before she can actually save that payment yeah okay and then the on the other side of that so once like a client has a credit on their account, right? How would one of your people use it? Like would like, for example, when let's say Rhiannon, she's applying, you know, payments to a new invoice, should account credit simply appear like as a payment method with like their available available credit balance, like 250 available? 
+
+Speaker 0 33:58
+Yeah, I would say that account credit It should be a payment. So like in here, it would say like payment number and it could be an auto generated number, whatever. Client name, date, amount, type. Yeah, type something we should actually have on here. Did it? So instead of like where aging is, it should say, did it come through the portal? Is it manual check manual? You know, there should be a type here. 
+
+Speaker 2 34:27
+Oh, but then it would say type. A column. Yes. Titled type. 
+
+Speaker 0 34:31
+Okay. Yeah. Yeah. So that way you can see what the payments are. So if you were looking for a payment, you would know, oh, I can't find this here because it's not, you know, and then it should say credit. So Rhiannon would have to develop a credit line. Overpayments, to be clear, would happen in two scenarios. One, a retroactive. So they paid all their invoices. And then for some reason, let's say. they gave us insurance information down the road. We billed insurance, insurance paid them, we would credit them, whatever they. paid us so like at that point we would just go in and develop a credit for them and it would apply um or they send us a check for 500 they owe 400. that's a good point how would we handle that i think if there's ever an outstanding amount that's a difference we could have a button at the bottom to bypass and that bypass would say credit account balance And then you would click credit and it would create that payment. It would create that payment line. So then you would come in here and there would be a new payment developed and it's that account balance. Or it's that payment difference. Because then in the case that like you owe $400, you sent us $500. The bypass at the bottom can only, you know, exist that way. It can't exist in the negative, right? So it would only be able to exist in that direction. So I posted $400. but the payments for 500 there would be a little button to the side saying develop account credit you click that and the ui would automatically create randomized new payment number but for the same client same date as the check a credit balance of the hundred dollar difference and then you'd have to go in and you could post that hundred dollar difference when a new invoice is generated so it would just kind of sit there and hang out as a credit because you'd have nothing to post it to. The only thing we would have to route is if anything is a type credit and there's a credit unposted, I think it should appear in the client. So like on the client level, you log in and it shows you they have a credit so we can show, but that would be my only thing would be, should we show the payment balance like remaining? So when you log into a client or pull a report for a client, it would say, this is how much they have in invoices. They have $400 in invoices. This is how much they have in payments. this is their credit and so the credit would be routed a little bit different but i think it's still a payment type as far as a manually posted payment in that regard because it's going by all other typings other than that one display it will be handled like a payment it can be applied impartial it can go on certain lines and not on others yeah it. 
+
+Speaker 2 37:24
+Can i mean we can categorize it anyway. It's just like, the question is, it's kind of like, um, I, you know, it's weird with that, with those types of things. Like, so it, so it would be considered a payment you're saying? 
+
+Speaker 0 37:45
+In the. 
+
+Speaker 2 37:47
+Like the credit itself? 
+
+Speaker 0 37:49
+In the payment postings. Oh my goodness. That would mess with reporting though, right? Cause you'd pull a report. 
+
+Speaker 2 37:57
+That's what I'm saying. Yeah. That's what I'm thinking. Like. I mean, maybe its own field, you know, I mean, and we can apply it back to a, you know. 
+
+Speaker 0 38:10
+The thing is Rhiannon has to be able to apply it to specific patients. So that's why I'm saying it's like kind of handled in that way, because I would call a client, I'd call Maxwell Health and say, Hey, Max, you have a hundred dollar credit. Which patients would you like it applied to? Like it wouldn't just be applied in general to a balance because they might dispute those lines. They may not actually want to pay you those lines and they may want to dispute them. So it would have to be able to be applied in the same way payments are applied. So we could have a credit screen that's just like, hey, there's credits here. How do you want to apply them and copy the UI? I just don't want to remake the wheel if the wheel exists. But I understand what you're saying. We don't want it in reporting to appear as a payment because it's not a payment. It's a credit. I might have to think on that one. 
+
+Speaker 2 39:00
+Yeah. And I mean, we're really just, you know, we're brainstorming. And that's, you know, reporting is a huge, you know, function of this for, you know, the business operational end. And so that has to be, you know, all in order and everything. We have to like kind of discuss what all the features and what the UI data structure is. 
+
+Speaker 0 39:32
+But yeah really quick this is how quickbooks is handling it so let's just look at it so if i received 150 and i posted 90 it's going to tell me i have a credit at the bottom of 60 so i can record this and close but if i wanted to create a new payment let's go see where that's at or a new credit let's go into it's probably going to be underneath customers would be my guess if i wanted to go and credit someone Would it not be handled under your payment? Because maybe it's handled under customers in general. So we go into first care management, new credit memo. So they house credits underneath the clinic level, not the payment level. How would you, you would, you'd have to post those credits somehow. So they would have to come into the posting queue. that's why i kind of want them routed into the payment posting queue but then they would just be excluded from reports as a payment and excluded from dashboards as a payment jermaine. 
+
+Speaker 1 40:59
+You got any uh thoughts on that yeah for that i'm not 100 sure um you said that quickbooks is storing them on a basically a client level right a clinic level yep so if i created a credit memo here i would have to create a credit on an invoice level. 
+
+Speaker 0 41:28
+So on the clinic level i would create like credit would be my product or service right and it would create a credit for them that's how they're handling it. 
+
+Speaker 2 41:42
+Okay. Maybe we could do like a best of both worlds scenario. Just kind of, you know, again, thinking out loud here, but no. Well, okay. So, you know, let's, all right. So let's say that we copy like the whole QuickBooks, excuse me, data model, you know, that they have. And so that way a credit is its own separate thing. It's not a payment. It lives on the clinic's account. And when something like an overpayment happens, for example, then the system, it'll help the user. It helps Rhiannon to create a formal account credit. uh you know for the difference right and then also we create like the workflow that you would want her to have so like the the payment uh queue the the the posting queue right it becomes like uh kind of like an application process so like the queue it shows like a list right of like all the um the whatever the amount that needs to be applied and it'll have like the different the types you know and like the available account credits and this way it looks like a single like list of tasks and then she can like just basically grab like an unapplied check or and you know and she can post it where she can grab an available credit and apply it to an invoice from the same UI modal, basically from the same screen. And so it's all in the same interface. And that way, the reporting is clean. And because payments and the credits will be tracked separately. right yeah and then that way for riannon it's like more optimal it's optimized because she has like one singular it's not like you have to bounce around and i think that's where it becomes confusing with. 
+
+Speaker 0 44:23
+These little like nuance circumstances right so i think that yeah no i i agree that that sounds good the other thing i was thinking while you were talking is like should we attempt to bypass all of this and just do a true credit so credit occurs and it appears on the next invoice so on the invoice creation screen it would say add credit to invoice so it can't be published to specific lines and then it would just show them at the end hey this balance has been credited this much to payments starting oldest to newest or whatever or on this invoice The hardest part for us is we then have to decide in the UI, are we just going to go the first line down? Like that's where, cause we're doing accounting on a CPT code level. So if there was a hundred dollars, do we just start with, you know, Alex and go to Ben and go, you know, and go our way down. And that's how they're applied versus. So essentially what we're deciding is, I'm sorry, I'm just speaking, thinking out loud here. We're deciding if the clinic gets to decide how credits are posted. where if we're just going to say this is how credits are posted credits are posted on the next invoice generated alphabetically but then if you developed a credit and then you had outstanding balances historic i don't know how that would that wouldn't work okay so no max i agree i think like even if we handle them like same screen two separate columns they're completely handled separately here's the payment postings here's the credits and manage them separately. I would love to do it the first way and just tell clinics to suck it, and this is how it's going to go. But then we have to route it to decide which patients, which CPT codes, which balances go first. And I just think that's messy. The whole point in creating the software is not creating accounting software, it's creating laboratory accounting software. So your thought process is better, for sure. 
+
+Speaker 2 46:26
+Yeah, I mean, but maybe again, we could automate, you know, like... what you're saying as well so like you know um and i know we're really just we're kind of just we're throwing ideas out there um but i yeah i get what you mean because then it's like uh those line items this like the specific line items you know they the It has to be applied to like at a line item level. So yes, that's where it kind of gets, I guess, a little tricky. 
+
+Speaker 0 47:15
+I know accounting software has worked for us so far. In one big regard is because if we want to apply a payment or credit, it's applied to the invoice level, not the line item level. And we're doing accounting at a line item level, not an invoice. 
+
+Speaker 2 47:29
+Yeah. Who has control of like the system or the user? like like so based on what's everything or software we use well like to apply like money to the specific cpt codes and to do the uh historic balances like is that something It seems like the user would have to have control. 
+
+Speaker 0 48:05
+Yes. 
+
+Speaker 2 48:06
+Like Rhiannon would be the one. Yeah. 
+
+Speaker 0 48:09
+I think so. Because otherwise, the system, we would just have to plug in an auto default to say, apply this credit to the oldest invoice line one moving down until the credit has been maxed and regenerate invoice on any invoices touched. 
+
+Speaker 2 48:23
+Yeah. And we just do like an application queue for... 
+
+Speaker 0 48:27
+Right. 
+
+Speaker 2 48:28
+Yeah. Okay. Yeah, it makes sense. I mean... That way it's, yeah, it makes sense. 
+
+Speaker 0 48:44
+So if a credit's created at a client level, it wouldn't even touch the payments queue for posting. You create a credit and the system handles the credit from there. And if there's no outstanding balances, it would just apply on the newest invoice. So that's sitting there in a queue for the application waiting to run until there's an invoice. And we could like run it nightly. Like once a night, it goes through and looks for any credits, any invoices. If there's not an outstanding balance, do nothing. If there is an outstanding balance, run XYZ. Like look at the oldest invoice, go lines one through whatever until you've applied the full credit, generate new invoice and email it out. with a client and then we'd have to have an email routing saying hey your invoice blank was credited here is the new version of that invoice with the credit the outstanding balance yep so i auto-apply the credit number yeah rather than having to physically apply credit because then we might just take care of this whole like second queue thing all together And a credit is something that lives on the account level that triggers the application to run nightly. And we could just have a little. blurb that says like credits ran nightly yeah or you can do it we're not running the ui 24 7. unless it's like an amazon thing where they can just check the box and apply credit yes and then it would auto apply but then i'm concerned if they check the box they go in and check the box and click apply credit right are they going to get mad when they see the way it's applied okay Right. They come in, they click apply credit of $5. Like, you know, all websites have, if you have a credit balance, you click apply credit. They're going to now see it applied to John Doe here, here, here, here. And then they're going to be like, well, I don't want it to apply to John Doe. 
+
+Speaker 1 50:49
+Yeah. Yeah. 
+
+Speaker 0 50:51
+Yeah. 
+
+Speaker 1 50:51
+They want it to be truly like Amazon where you can use your credit exactly how you want it to. On the specific lines. Yeah. Yeah. 
+
+Speaker 0 50:58
+Yeah. 
+
+Speaker 2 51:00
+So, okay. Yeah. So to kind of, to go, uh, or was there anything else that you wanted to mention about that? 
+
+Speaker 0 51:11
+No. So, you know, where I'm kind of landing and you tell me if like this makes sense, if you post and you don't post the full thing, a credit is auto applied at the client level. So when you go and click in the clinic, there's a credit there. You could also go and click in the clinic and add a credit. And that credit would just have probably three things. The date, the credit amount and the reason so overpayment reverse payment from insurance like whatever the reason is yeah probably an open field yep um because we're never going to predict all the reasons a credit's going to be formed so i'm thinking just a little open field with a character limit yeah And then there would just be a little credit log that's underneath. Yeah. That's underneath each clinic that shows them the credit and outstanding amount, like unapplied credit. So it would show like back in July, you had a $60 credit Maxwell health. We applied all of it. Just like a little ledger. 
+
+Speaker 2 52:19
+Right. Yeah. Explain, explain. Yeah. Yep. Yeah. 
+
+Speaker 0 52:23
+And then. you so you can add them from the client level they can be triggered at a payment level if you overpay but otherwise keep it as simple as possible and just have that that run nightly to just check for credits and regenerate invoices before emails go out so we'd want to make sure it's like in that order yeah because if we had it set up that on the 31st all invoices go out you'd want that to run before new invoices are sent. 
+
+Speaker 2 52:56
+Is there any other trigger delay logic that we would need to consider? You have to have D and E before you can be at G. Is there anything outside of just a time limit that maybe... you know, might need to be checked first or just. 
+
+Speaker 0 53:29
+Yeah. I mean, I think everything would have to be in a specific status, right? Like they can't be in exhausted or on hold or, you know, those kinds of issues in order to go out. Like, I just think it would be a status thing thing. So if they're in the status to trigger to send that they send that night, but it would run this logic right before to check for credits. okay okay which we have even fully i know you guys had it built in originally but we haven't fully talked about like the emailing ui either about like setting that up so you can set up multiple emails and yeah if you go into settings yeah and then there's like an email. 
+
+Speaker 2 54:26
+And then so if you go into like you so basically like you can create templates. 
+
+Speaker 3 54:30
+Yeah. 
+
+Speaker 2 54:31
+If you click create template. So here you can like literally like, you know, you can add rules. You can like create HTML and you can use variables. So all of the fields that are within the actual the web app, you'll have, I mean, obviously you'll pull them. you'll just query them in the database and then it'll have access to whatever that is but each yes yeah right so you can just run like through chat gbt what you want your email to look like and just really just feed it the variables it'll probably spit out a perfect uh whatever kind of email template you want and then um yeah you could probably just run it through chat gpt uh agent and hit it it has set all this up but um but no but the so there's there are rules and stuff that you could and this would have um perfect it's called the cron job it's what what you were explaining about like. having timed automations to like it'll just check you know it'll either be like a trigger automation where it checks it'll fetch or push data depending on if xyz so like if you know so we're gonna do an oauth i'm assuming with microsoft which is going to be connected you know either okay so here's another thing here's another question all right so along these lines. 
+
+Speaker 0 56:05
+Are we using a no reply email are using a like a uh a billing like i want a no reply email and then in that email we'll just put if you have any questions or please go to this email this is no reply yep okay yeah yep and so yeah and you could just add that in the in the yeah yeah my thought process there is just that like we don't need people responding and then having to figure out how to deal with those responses it should just go nowhere it should be a reply email and then if they really want to reach out to us they should contact the accounting at precision building solution email so we can put that in yeah i'm good with that okay i think anyone we sold it to would be pretty used to that as well. 
+
+Speaker 2 57:04
+Like long long term yep okay yep i gotcha from like a sass model yeah yeah yeah well yeah right and that's why like the the a lot of this stuff is kind of structured this way um is so that in due time we can like convert it you know yeah without having to fully overhaul it yeah yeah i mean there's definitely some some overhaul that we would have to do but yeah exactly it wouldn't be as much of of a process but yeah. 
+
+Speaker 0 57:47
+Yeah we'll see well in long run i kind of want to set these up to be a very specific way so that when i engage with you all to build medical records requesting software. and invalid information requesting software that the client would expect the same thing kind of across the board so there would be like a no reply email for all of those triggers hey you have a medical record request please upload it hey you have invalid accounts please correct them yeah so it's kind of a there's an expected experience from the client and as far as a clinic goes they know what to expect from the software it'd be a no reply email for all those things with a portal to log into. And then long-term the goal would be as we build out all these different products with you, that each one of these products are housed underneath the same canopy. And so you could log into one system and this, this would be the selling point for a lab, right? It's your, it is your billing success system essentially for outside of insurance carriers to say like it does your client management for all things. billing and so a client could log in they would see their accounts that are on invalid they would see their invoices out due and they would see their medical record requests that are required you know i'm thinking if like maybe um as. 
+
+Speaker 2 59:10
+You're saying that it might be best to always refer the client uh or you know the clinic to the to to their portal rather than send information through an email, just refer them to the portal via email such that you aren't transmitting via email. If someone's email, if someone leaves a company, if someone's email gets hacked, well, no, because then if that's the case, we're probably not having access to log in too. 
+
+Speaker 0 59:53
+Yeah. My thought process is kind of like in this regard. It wouldn't just say like payment, you know, this is when payment is received. So let's go to like invoice notification. It would just say, hey, please log into your portal. to resolve the outstanding balance yep so it's just essentially an email notification system delivering notifications hey a receipt's available in your portal hey a payment dispute responses in your portal just like it's a notification to let them know what's going on but outside of that correct everything's handled within the portal and we want to redirect to the portal back as much as possible because when we go to sell this as a accounting software what we're going to say is hey we have accounting software we also have medical records request management in here you know uh so you've already onboarded your clinic with accounting why wouldn't you also xyz and so that way everything's taken care of for them at once and we can turn on and off the modules to say maxwell laboratory purchased the software but they only have purchased accounting that's what they're going to see or they have purchased accounting and in valids that's what they're going to see they're going to see you know all those things okay so just patient chart requests and those kinds of things and then the nice thing is long long long term we could build out apis where if a medical records request is put in to a clinic if a clinic chose to api we could use shadowbox because that has all of the apis already built in for all the emrs they have like 14 emrs that they utilize that we could put in a request and it would do a call onto their EMR and never have to touch a person. So you would put in a request, it would do a call to their EMR for billing, whether that's a copy of the patient's insurance card or a patient chart, and it would send back. Like the long term, long, long, long term would be API calls for the patient record management systems. 
+
+Speaker 2 1:01:52
+Two things. What a shadow box and what's an EMR? 
+
+Speaker 0 1:01:57
+Electronic medical record system is an EMR. 
+
+Speaker 2 1:01:59
+Yep. 
+
+Speaker 0 1:02:00
+Yep. So that's where like we have LISs, clinics have EMRs. 
+
+Speaker 2 1:02:06
+But wouldn't we just be using like HL7? 
+
+Speaker 0 1:02:12
+No. So HL7 is just for specific parts of industry. So you would do, you could do an HL7, I guess. Most EMRs are built out to have an HL7 put in. The thought would be though that you have an API call into the EMR. to fulfill requests and it could send data back and forth yeah and you can send hl7 data back and forth via api yeah okay yes yes so the thought process then in a second i'm getting a call from the lab um. 
+
+Speaker 2 1:02:50
+Do you gotta go i do have a meeting here at uh in 20 minutes and i I do need to get some stuff together. 
+
+Speaker 0 1:03:00
+Um so i know we're meeting tomorrow yeah is there anything else that uh real quick you wanted to mention and then we can kind of touch on it you know tomorrow no let's let's come back to security tomorrow and let's discuss security because it's something i'm nervous about in full transparency just everyone's trying to hack health care companies so i just want to make sure it's safe so yeah We'll pick up tomorrow on security then. 
+
+Speaker 5 1:03:31
+Awesome. 
+
+Speaker 0 1:03:32
+Okay. Talk to you guys later. 
+
+Speaker 5 1:03:33
+Bye. Bye. 
+

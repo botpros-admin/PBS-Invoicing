@@ -74,28 +74,28 @@ export async function getDashboardStats(dateRange: DateRange = '30days'): Promis
     // Fetch current period data
     const { data: invoicesData, error: invoicesError } = await supabase
       .from('invoices')
-      .select('id, total, status, amount_paid, date_due, date_created')
-      .gte('date_created', startDate)
-      .lte('date_created', endDate);
+      .select('id, total_amount, status, paid_amount, due_date, created_at')
+      .gte('created_at', startDate)
+      .lte('created_at', endDate);
 
     if (invoicesError) throw invoicesError;
 
     // Fetch previous period data for comparison
     const { data: previousInvoicesData, error: previousInvoicesError } = await supabase
       .from('invoices')
-      .select('id, total, status, amount_paid, date_due, date_created')
-      .gte('date_created', previousStartDate.toISOString().split('T')[0])
-      .lte('date_created', previousEndDate.toISOString().split('T')[0]);
+      .select('id, total_amount, status, paid_amount, due_date, created_at')
+      .gte('created_at', previousStartDate.toISOString().split('T')[0])
+      .lte('created_at', previousEndDate.toISOString().split('T')[0]);
 
     if (previousInvoicesError) throw previousInvoicesError;
 
     // Calculate statistics
-    const totalInvoiced = invoicesData.reduce((sum, invoice) => sum + (invoice.total || 0), 0);
-    const previousTotalInvoiced = previousInvoicesData.reduce((sum, invoice) => sum + (invoice.total || 0), 0);
+    const totalInvoiced = invoicesData.reduce((sum, invoice) => sum + (invoice.total_amount || 0), 0);
+    const previousTotalInvoiced = previousInvoicesData.reduce((sum, invoice) => sum + (invoice.total_amount || 0), 0);
     const totalInvoicedChange = previousTotalInvoiced ? ((totalInvoiced - previousTotalInvoiced) / previousTotalInvoiced) * 100 : 0;
 
-    const totalPaid = invoicesData.reduce((sum, invoice) => sum + (invoice.amount_paid || 0), 0);
-    const previousTotalPaid = previousInvoicesData.reduce((sum, invoice) => sum + (invoice.amount_paid || 0), 0);
+    const totalPaid = invoicesData.reduce((sum, invoice) => sum + (invoice.paid_amount || 0), 0);
+    const previousTotalPaid = previousInvoicesData.reduce((sum, invoice) => sum + (invoice.paid_amount || 0), 0);
     const totalPaidChange = previousTotalPaid ? ((totalPaid - previousTotalPaid) / previousTotalPaid) * 100 : 0;
 
     const outstandingBalance = totalInvoiced - totalPaid;
@@ -103,14 +103,14 @@ export async function getDashboardStats(dateRange: DateRange = '30days'): Promis
     const outstandingBalanceChange = previousOutstandingBalance ? ((outstandingBalance - previousOutstandingBalance) / previousOutstandingBalance) * 100 : 0;
 
     const overdueInvoices = invoicesData.filter(invoice => 
-      new Date(invoice.date_due) < new Date() && 
+      new Date(invoice.due_date) < new Date() && 
       invoice.status !== 'paid' && 
-      invoice.total > invoice.amount_paid
+      invoice.total_amount > invoice.paid_amount
     ).length;
     const previousOverdueInvoices = previousInvoicesData.filter(invoice => 
-      new Date(invoice.date_due) < previousEndDate && 
+      new Date(invoice.due_date) < previousEndDate && 
       invoice.status !== 'paid' && 
-      invoice.total > invoice.amount_paid
+      invoice.total_amount > invoice.paid_amount
     ).length;
     const overdueInvoicesChange = previousOverdueInvoices ? ((overdueInvoices - previousOverdueInvoices) / previousOverdueInvoices) * 100 : 0;
 
@@ -172,13 +172,13 @@ export interface AgingBucket {
 }
 
 // Define an explicit type for the data returned by the RPC function
-// based on its RETURNS TABLE definition (bigint -> number, date -> string)
+// based on its RETURNS TABLE definition
 interface AgingOverviewData {
-  id: number;
-  total: number;
-  amount_paid: number;
-  date_due: string;
-  status: string; // Assuming invoice_status maps to string
+  id: string;
+  total_amount: number;
+  paid_amount: number;
+  due_date: string;
+  status: string;
 }
 
 export async function getAgingOverview(): Promise<AgingBucket[]> {
@@ -196,36 +196,36 @@ export async function getAgingOverview(): Promise<AgingBucket[]> {
     
     // Calculate aging buckets using the typed data
     const current = typedData.filter((invoice: AgingOverviewData) =>
-      new Date(invoice.date_due) >= today
-    ).reduce((sum: number, invoice: AgingOverviewData) => sum + (invoice.total - invoice.amount_paid), 0);
+      new Date(invoice.due_date) >= today
+    ).reduce((sum: number, invoice: AgingOverviewData) => sum + (invoice.total_amount - invoice.paid_amount), 0);
     
     const days1to30 = typedData.filter((invoice: AgingOverviewData) => {
-      const dueDate = new Date(invoice.date_due);
+      const dueDate = new Date(invoice.due_date);
       const diffTime = Math.abs(today.getTime() - dueDate.getTime());
       const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
       return dueDate < today && diffDays <= 30;
-    }).reduce((sum: number, invoice: AgingOverviewData) => sum + (invoice.total - invoice.amount_paid), 0);
+    }).reduce((sum: number, invoice: AgingOverviewData) => sum + (invoice.total_amount - invoice.paid_amount), 0);
     
     const days31to60 = typedData.filter((invoice: AgingOverviewData) => {
-      const dueDate = new Date(invoice.date_due);
+      const dueDate = new Date(invoice.due_date);
       const diffTime = Math.abs(today.getTime() - dueDate.getTime());
       const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
       return diffDays > 30 && diffDays <= 60;
-    }).reduce((sum: number, invoice: AgingOverviewData) => sum + (invoice.total - invoice.amount_paid), 0);
+    }).reduce((sum: number, invoice: AgingOverviewData) => sum + (invoice.total_amount - invoice.paid_amount), 0);
     
     const days61to90 = typedData.filter((invoice: AgingOverviewData) => {
-      const dueDate = new Date(invoice.date_due);
+      const dueDate = new Date(invoice.due_date);
       const diffTime = Math.abs(today.getTime() - dueDate.getTime());
       const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
       return diffDays > 60 && diffDays <= 90;
-    }).reduce((sum: number, invoice: AgingOverviewData) => sum + (invoice.total - invoice.amount_paid), 0);
+    }).reduce((sum: number, invoice: AgingOverviewData) => sum + (invoice.total_amount - invoice.paid_amount), 0);
     
     const over90 = typedData.filter((invoice: AgingOverviewData) => {
-      const dueDate = new Date(invoice.date_due);
+      const dueDate = new Date(invoice.due_date);
       const diffTime = Math.abs(today.getTime() - dueDate.getTime());
       const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
       return diffDays > 90;
-    }).reduce((sum: number, invoice: AgingOverviewData) => sum + (invoice.total - invoice.amount_paid), 0);
+    }).reduce((sum: number, invoice: AgingOverviewData) => sum + (invoice.total_amount - invoice.paid_amount), 0);
     
     return [
       { label: 'Current', value: current },
@@ -257,8 +257,8 @@ export async function getStatusDistribution(dateRange: DateRange = '30days'): Pr
     const { data, error } = await supabase
       .from('invoices')
       .select('id, status')
-      .gte('date_created', startDate)
-      .lte('date_created', endDate);
+      .gte('created_at', startDate)
+      .lte('created_at', endDate);
     
     if (error) throw error;
     if (!data) return [];
@@ -278,10 +278,10 @@ export async function getStatusDistribution(dateRange: DateRange = '30days'): Pr
       statusCounts[status] = (statusCounts[status] || 0) + 1;
     });
     
-    // Convert to percentage
+    // Convert to percentage with proper capitalization
     const total = data.length;
     const statusDistribution: StatusDistribution[] = Object.entries(statusCounts).map(([name, count]) => ({
-      name,
+      name: name.charAt(0).toUpperCase() + name.slice(1), // Capitalize first letter
       value: total > 0 ? Math.round((count / total) * 100) : 0
     }));
     
@@ -311,9 +311,9 @@ export async function getTopClientsByRevenue(dateRange: DateRange = '30days', li
     // Get invoices with client info in the date range
     const { data, error } = await supabase
       .from('invoices')
-      .select('id, total, status, client_id, client:clients(id, name)')
-      .gte('date_created', startDate)
-      .lte('date_created', endDate);
+      .select('id, total_amount, status, client_id, client:clients(id, name)')
+      .gte('created_at', startDate)
+      .lte('created_at', endDate);
     
     if (error) throw error;
     if (!data) return [];
@@ -330,7 +330,7 @@ export async function getTopClientsByRevenue(dateRange: DateRange = '30days', li
     // Define the expected structure for validation (client is now guaranteed by !inner join)
     interface ValidatedInvoice {
       id: string;
-      total: number | null;
+      total_amount: number | null;
       status: string | null;
       client_id: string | number; // Changed from clientId
       client: { id: string; name: string }; 
@@ -368,10 +368,10 @@ export async function getTopClientsByRevenue(dateRange: DateRange = '30days', li
       
       clientMap[clientId].invoices.push({
         id: validatedInvoice.id,
-        total: validatedInvoice.total || 0,
+        total: validatedInvoice.total_amount || 0,
         status: validatedInvoice.status || 'draft'
       });
-      clientMap[clientId].totalValue += validatedInvoice.total || 0;
+      clientMap[clientId].totalValue += validatedInvoice.total_amount || 0;
       if (validatedInvoice.status === 'disputed') {
         clientMap[clientId].disputedInvoices += 1;
       }

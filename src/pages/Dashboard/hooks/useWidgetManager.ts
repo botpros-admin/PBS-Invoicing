@@ -6,24 +6,26 @@ import { supabase } from '../../../api/supabase'; // Import supabase client
 import { DragEndEvent } from '@dnd-kit/core';
 import { arrayMove } from '@dnd-kit/sortable';
 import debounce from 'lodash/debounce'; // Using lodash debounce
+import { useQueryClient } from '@tanstack/react-query';
 
 // Define a default layout structure including potential stat cards
 // This will be used if no layout is found in the database.
 // NOTE: Actual stat card data (value, change) needs to be merged in the Dashboard component.
 const defaultLayout: Widget[] = [
-    // Stat Cards using IDs from dashboard.service.ts
-    { id: 'total-invoiced', type: 'stat', title: 'Total Invoiced', size: 'small', position: 0, config: { dateRange: '30days' } },
-    { id: 'total-paid', type: 'stat', title: 'Total Paid', size: 'small', position: 1, config: { dateRange: '30days' } },
-    { id: 'outstanding-balance', type: 'stat', title: 'Outstanding Balance', size: 'small', position: 2, config: { dateRange: '30days' } },
-    { id: 'overdue-invoices', type: 'stat', title: 'Overdue Invoices', size: 'small', position: 3, config: { dateRange: '30days' } },
-    // Original dynamic widgets
-    { id: 'aging-overview', type: 'chart', title: 'AR Aging Overview', size: 'medium', position: 4, config: { dateRange: '30days', chartType: 'bar', dataSource: 'aging' } },
-    { id: 'status-distribution', type: 'chart', title: 'Invoice Status Distribution', size: 'medium', position: 5, config: { dateRange: '30days', chartType: 'bar', dataSource: 'status' } },
-    { id: 'top-clients', type: 'table', title: 'Top Clients by Revenue', size: 'large', position: 6, config: { dateRange: '30days', dataSource: 'clients' } }
+    // Stat Cards using IDs from dashboard.service.ts - with default blue color
+    { id: 'total-invoiced', type: 'stat', title: 'Total Invoiced', size: 'small', position: 0, config: { dateRange: '30days', color: '#0078D7' } },
+    { id: 'total-paid', type: 'stat', title: 'Total Paid', size: 'small', position: 1, config: { dateRange: '30days', color: '#0078D7' } },
+    { id: 'outstanding-balance', type: 'stat', title: 'Outstanding Balance', size: 'small', position: 2, config: { dateRange: '30days', color: '#0078D7' } },
+    { id: 'overdue-invoices', type: 'stat', title: 'Overdue Invoices', size: 'small', position: 3, config: { dateRange: '30days', color: '#0078D7' } },
+    // Original dynamic widgets - with default blue color
+    { id: 'aging-overview', type: 'chart', title: 'AR Aging Overview', size: 'medium', position: 4, config: { dateRange: '30days', chartType: 'bar', dataSource: 'aging', color: '#0078D7' } },
+    { id: 'status-distribution', type: 'chart', title: 'Invoice Status Distribution', size: 'medium', position: 5, config: { dateRange: '30days', chartType: 'bar', dataSource: 'status', color: '#0078D7' } },
+    { id: 'top-clients', type: 'table', title: 'Top Clients by Revenue', size: 'large', position: 6, config: { dateRange: '30days', dataSource: 'clients', color: '#0078D7' } }
 ];
 
 
 export const useWidgetManager = (defaultDateRange: DateRange) => {
+  const queryClient = useQueryClient();
   const { addNotification } = useNotifications();
   const [widgets, setWidgets] = useState<Widget[]>([]); // Initialize empty, load from DB
   const [isLoadingLayout, setIsLoadingLayout] = useState(true); // Loading state
@@ -34,7 +36,7 @@ export const useWidgetManager = (defaultDateRange: DateRange) => {
     type: 'chart',
     title: '',
     size: 'medium',
-    config: { dateRange: defaultDateRange } // Initialize with default date range
+    config: { dateRange: defaultDateRange, color: '#0078D7' } // Initialize with default date range and color
   });
 
   const handleEditWidgetClick = (widget: Widget) => {
@@ -45,8 +47,8 @@ export const useWidgetManager = (defaultDateRange: DateRange) => {
   // Removed original handleDeleteWidgetClick as it's redefined in the return object
 
   const handleAddWidgetClick = () => {
-    // Reset form state with the current default date range
-    setNewWidget({ type: 'chart', title: '', size: 'medium', config: { dateRange: defaultDateRange } });
+    // Reset form state with the current default date range and color
+    setNewWidget({ type: 'chart', title: '', size: 'medium', config: { dateRange: defaultDateRange, color: '#0078D7' } });
     setShowAddWidgetModal(true);
   };
 
@@ -68,6 +70,8 @@ export const useWidgetManager = (defaultDateRange: DateRange) => {
     addNotification({ type: 'system', message: 'Widget added successfully.' });
     // Trigger save after adding
     saveLayoutDebounced(updatedWidgets); // Pass the calculated state
+    // Invalidate queries to refresh data for new widget
+    queryClient.invalidateQueries();
   };
 
    const handleUpdateWidgetSubmit = () => {
@@ -121,6 +125,7 @@ export const useWidgetManager = (defaultDateRange: DateRange) => {
     }, 1500), // Debounce time in ms (e.g., 1.5 seconds)
     [addNotification] // Dependencies for useCallback
   );
+
 
   // Effect to load layout on initial mount
   useEffect(() => {

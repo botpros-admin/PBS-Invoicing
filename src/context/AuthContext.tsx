@@ -3,13 +3,29 @@ import { AppUser, User, ClientUser } from '../types';
 import { supabase } from '../api/supabase';
 import { Session, User as SupabaseUser } from '@supabase/supabase-js';
 
+interface Permission {
+  resource: string;
+  actions: string[];
+}
+
+interface Role {
+  id: string;
+  name: string;
+  permissions: Permission[];
+}
+
 interface AuthContextType {
   user: AppUser | null;
   session: Session | null;
+  role: Role | null;
+  permissions: Permission[];
   isAuthenticated: boolean;
   isLoading: boolean;
+  hasPermission: (resource: string, action: string) => boolean;
+  hasAnyPermission: (resource: string) => boolean;
   login: (email: string, password: string) => Promise<{ error?: Error }>;
   logout: () => Promise<void>;
+  refreshPermissions: () => Promise<void>;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -17,8 +33,60 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [user, setUser] = useState<AppUser | null>(null);
   const [session, setSession] = useState<Session | null>(null);
+  const [role, setRole] = useState<Role | null>(null);
+  const [permissions, setPermissions] = useState<Permission[]>([]);
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(true);
+
+  const fetchUserRole = async (roleId: string): Promise<Role | null> => {
+    if (!roleId) return null;
+    
+    const { data, error } = await supabase
+      .from('roles')
+      .select('*')
+      .eq('id', roleId)
+      .single();
+    
+    if (error || !data) return null;
+    return data;
+  };
+
+  const hasPermission = (resource: string, action: string): boolean => {
+    const permission = permissions.find(p => p.resource === resource);
+    return permission?.actions.includes(action) || false;
+  };
+
+  const hasAnyPermission = (resource: string): boolean => {
+    return permissions.some(p => p.resource === resource && p.actions.length > 0);
+  };
+
+  const refreshPermissions = async () => {
+    if (!user) return;
+    
+    let roleId: string | null = null;
+    
+    if (user.userType === 'staff') {
+      const { data } = await supabase
+        .from('users')
+        .select('role_id')
+        .eq('id', user.id)
+        .single();
+      roleId = data?.role_id;
+    } else {
+      const { data } = await supabase
+        .from('client_users')
+        .select('role_id')
+        .eq('id', user.id)
+        .single();
+      roleId = data?.role_id;
+    }
+    
+    if (roleId) {
+      const userRole = await fetchUserRole(roleId);
+      setRole(userRole);
+      setPermissions(userRole?.permissions || []);
+    }
+  };
 
   useEffect(() => {
     const fetchUserProfile = async (supabaseUser: SupabaseUser): Promise<AppUser | null> => {
@@ -29,6 +97,14 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
         .single();
 
       if (staffProfile) {
+        // Fetch role and permissions - check if role_id exists
+        const roleId = (staffProfile as any).role_id;
+        if (roleId) {
+          const userRole = await fetchUserRole(roleId);
+          setRole(userRole);
+          setPermissions(userRole?.permissions || []);
+        }
+        
         return {
           userType: 'staff',
           id: staffProfile.id,
@@ -50,6 +126,14 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
         .single();
 
       if (clientProfile) {
+        // Fetch role and permissions - check if role_id exists
+        const roleId = (clientProfile as any).role_id;
+        if (roleId) {
+          const userRole = await fetchUserRole(roleId);
+          setRole(userRole);
+          setPermissions(userRole?.permissions || []);
+        }
+        
         return {
           userType: 'client',
           id: clientProfile.id,
@@ -68,13 +152,27 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     };
 
     const setSessionData = async (currentSession: Session | null) => {
+      console.log('[AuthContext] Setting session data:', currentSession?.user?.email);
       setSession(currentSession);
       if (currentSession?.user) {
+        // Set user context for database operations (audit triggers and RLS)
+        try {
+          await supabase.rpc('set_user_context', { user_id: currentSession.user.id });
+          console.log('[AuthContext] User context set for database operations');
+        } catch (error) {
+          console.warn('[AuthContext] Could not set user context:', error);
+          // Continue anyway - the database has fallbacks
+        }
+        
         const profile = await fetchUserProfile(currentSession.user);
+        console.log('[AuthContext] User profile fetched:', profile?.email);
         setUser(profile);
         setIsAuthenticated(!!profile);
       } else {
+        console.log('[AuthContext] No session, clearing user data');
         setUser(null);
+        setRole(null);
+        setPermissions([]);
         setIsAuthenticated(false);
       }
       setIsLoading(false);
@@ -92,7 +190,18 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   }, []);
 
   const login = async (email: string, password: string) => {
-    const { error } = await supabase.auth.signInWithPassword({ email, password });
+    const { data, error } = await supabase.auth.signInWithPassword({ email, password });
+    
+    // Set user context immediately after successful login
+    if (!error && data?.user) {
+      try {
+        await supabase.rpc('set_user_context', { user_id: data.user.id });
+        console.log('[AuthContext] User context set after login');
+      } catch (contextError) {
+        console.warn('[AuthContext] Could not set user context after login:', contextError);
+      }
+    }
+    
     return { error: error || undefined };
   };
 
@@ -101,7 +210,19 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   };
 
   return (
-    <AuthContext.Provider value={{ user, session, isAuthenticated, isLoading, login, logout }}>
+    <AuthContext.Provider value={{ 
+      user, 
+      session, 
+      role,
+      permissions,
+      isAuthenticated, 
+      isLoading, 
+      hasPermission,
+      hasAnyPermission,
+      login, 
+      logout,
+      refreshPermissions 
+    }}>
       {children}
     </AuthContext.Provider>
   );
