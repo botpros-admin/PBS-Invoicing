@@ -12,9 +12,10 @@
     "test:ui": "vitest --ui",
     "test:coverage": "vitest --coverage",
     "test:watch": "vitest --watch",
-    "db:backup": "node scripts/backup-database.js",
-    "db:restore": "node scripts/restore-database.js",
-    "db:backup:prod": "NODE_ENV=production node scripts/backup-database.js",
+    "db:backup": "node scripts/backup-database.cjs",
+    "db:restore": "node scripts/restore-database.cjs",
+    "db:backup:prod": "NODE_ENV=production node scripts/backup-database.cjs",
+    "db:check": "node scripts/production-readiness.cjs",
     "db:migrate": "npx supabase migration up",
     "db:migrate:prod": "npx supabase migration up --project-ref $SUPABASE_PROJECT_REF"
   },

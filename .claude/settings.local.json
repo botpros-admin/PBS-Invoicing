@@ -31,7 +31,9 @@
       "Bash(powershell:*)",
       "Bash(npm test:*)",
       "Bash(npm run test:coverage:*)",
-      "Bash(sed:*)"
+      "Bash(sed:*)",
+      "Bash(npm run:*)",
+      "Bash(touch:*)"
     ],
     "deny": [],
     "ask": [],
