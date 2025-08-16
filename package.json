@@ -11,7 +11,12 @@
     "test": "vitest",
     "test:ui": "vitest --ui",
     "test:coverage": "vitest --coverage",
-    "test:watch": "vitest --watch"
+    "test:watch": "vitest --watch",
+    "db:backup": "node scripts/backup-database.js",
+    "db:restore": "node scripts/restore-database.js",
+    "db:backup:prod": "NODE_ENV=production node scripts/backup-database.js",
+    "db:migrate": "npx supabase migration up",
+    "db:migrate:prod": "npx supabase migration up --project-ref $SUPABASE_PROJECT_REF"
   },
   "dependencies": {
     "@dnd-kit/core": "^6.3.1",
