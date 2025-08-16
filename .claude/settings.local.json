@@ -24,7 +24,14 @@
       "Bash(pkill:*)",
       "Bash(taskkill:*)",
       "Bash(/bashes)",
-      "Bash(tasklist:*)"
+      "Bash(tasklist:*)",
+      "Bash(move:*)",
+      "Bash(ren:*)",
+      "Bash(npx tsc:*)",
+      "Bash(powershell:*)",
+      "Bash(npm test:*)",
+      "Bash(npm run test:coverage:*)",
+      "Bash(sed:*)"
     ],
     "deny": [],
     "ask": [],

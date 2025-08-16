@@ -176,7 +176,7 @@ export const useInvoiceStore = create<InvoiceState>()(
           try {
             const { data, error } = await supabase
               .from('invoices')
-              .select('*, clients!inner(name), invoice_items(*)')
+              .select('*, clients!inner(name), invoice_items!fk_invoice_items_invoice(*)')
               .eq('id', id)
               .single();
             

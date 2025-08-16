@@ -5,9 +5,13 @@ import App from './App';
 import './index.css';
 import './styles/global.css';
 import { initActivityTracking } from './utils/activityTracker';
+import ApiErrorInterceptor from './utils/apiErrorInterceptor';
 
 // Initialize activity tracking to prevent session timeouts
 initActivityTracking();
+
+// Initialize global error handling
+ApiErrorInterceptor.setup();
 
 // Create a client
 const queryClient = new QueryClient();

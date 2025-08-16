@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import DOMPurify from 'dompurify';
 import {
   Mail,
   Save,
@@ -398,7 +399,16 @@ const EmailSettings: React.FC = () => {
       '<span style="background-color: #e0f2fe; color: #0369a1; padding: 0 4px; border-radius: 2px;">{{$1}}</span>'
     );
 
-    return { __html: processedHtml };
+    // Sanitize the HTML to prevent XSS attacks
+    const sanitizedHtml = DOMPurify.sanitize(processedHtml, {
+      ALLOWED_TAGS: ['div', 'span', 'p', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 
+                     'strong', 'em', 'u', 'a', 'ul', 'ol', 'li', 'br', 'hr',
+                     'table', 'thead', 'tbody', 'tr', 'th', 'td', 'img'],
+      ALLOWED_ATTR: ['style', 'class', 'href', 'src', 'alt', 'width', 'height'],
+      ALLOW_DATA_ATTR: false
+    });
+
+    return { __html: sanitizedHtml };
   };
 
   return (

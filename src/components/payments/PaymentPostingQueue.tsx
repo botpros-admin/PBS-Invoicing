@@ -80,7 +80,7 @@ const PaymentPostingQueue: React.FC = () => {
       setLoading(true);
       const { data, error } = await supabase
         .from('payments')
-        .select('*, clients(name)')
+        .select('*, clients!fk_invoices_client(name)')
         .order('payment_date', { ascending: false });
 
       if (error) throw error;
@@ -105,7 +105,7 @@ const PaymentPostingQueue: React.FC = () => {
         .from('invoices')
         .select(`
           *,
-          invoice_items(*)
+          invoice_items!fk_invoice_items_invoice(*)
         `)
         .eq('client_id', clinicId)
         .eq('is_paid', false)

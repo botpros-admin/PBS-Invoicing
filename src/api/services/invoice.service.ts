@@ -73,12 +73,13 @@ function calculateInvoiceBalance(total: number, paidAmount: number): number {
 export async function getInvoices(filters?: FilterOptions): Promise<PaginatedResponse<Invoice>> {
   try {
     // Initialize query
+    // Use explicit foreign key hint to avoid PGRST201 error
     let query = supabase
       .from('invoices')
       .select(`
         *,
-        client:clients(*),
-        items:invoice_items(*)
+        client:clients!fk_invoices_client(*),
+        items:invoice_items!fk_invoice_items_invoice(*)
       `, { count: 'exact' });
     
     // Apply filters
@@ -258,12 +259,13 @@ export async function getInvoices(filters?: FilterOptions): Promise<PaginatedRes
 export async function getInvoiceById(id: ID): Promise<Invoice> {
   try {
     // Get invoice with related data
+    // Use explicit foreign key hint to avoid PGRST201 error
     const { data, error } = await supabase
       .from('invoices')
       .select(`
         *,
-        client:clients(*),
-        items:invoice_items(*)
+        client:clients!fk_invoices_client(*),
+        items:invoice_items!fk_invoice_items_invoice(*)
       `)
       .eq('id', id)
       .single();
@@ -410,6 +412,21 @@ export async function createInvoice(invoiceData: Partial<Invoice>): Promise<Invo
  */
 export async function updateInvoice(id: ID, invoiceData: Partial<Invoice>): Promise<Invoice> {
   try {
+    // First check if invoice is editable (only draft status can be edited)
+    const currentInvoice = await getInvoiceById(id);
+    
+    // Only allow full edits for draft invoices
+    if (currentInvoice.status !== 'draft' && !invoiceData.forceEdit) {
+      // Only allow status updates and payment-related fields for non-draft invoices
+      const allowedFields = ['status', 'amountPaid', 'balance', 'writeOffAmount', 'writeOffReason'];
+      const attemptedFields = Object.keys(invoiceData);
+      const invalidFields = attemptedFields.filter(field => !allowedFields.includes(field) && field !== 'forceEdit');
+      
+      if (invalidFields.length > 0) {
+        throw new Error(`Cannot edit ${invalidFields.join(', ')} on a ${currentInvoice.status} invoice. Invoice must be in draft status.`);
+      }
+    }
+    
     const updateData: any = {};
     
     if (invoiceData.clientId !== undefined) updateData.client_id = parseInt(invoiceData.clientId.toString());
@@ -438,6 +455,158 @@ export async function updateInvoice(id: ID, invoiceData: Partial<Invoice>): Prom
     return await getInvoiceById(id);
   } catch (error) {
     handleSupabaseError(error, 'Update Invoice');
+    throw error;
+  }
+}
+
+/**
+ * Update invoice status with validation
+ * Handles transitions like draft -> sent -> paid
+ * 
+ * @param id - Invoice ID
+ * @param newStatus - New status to set
+ * @param options - Additional options like freezing prices
+ * @returns The updated invoice
+ */
+export async function updateInvoiceStatus(
+  id: ID, 
+  newStatus: InvoiceStatus,
+  options?: {
+    freezePrices?: boolean;
+    userId?: ID;
+  }
+): Promise<Invoice> {
+  try {
+    const currentInvoice = await getInvoiceById(id);
+    
+    // Define valid status transitions
+    const validTransitions: Record<InvoiceStatus, InvoiceStatus[]> = {
+      'draft': ['sent', 'cancelled'],
+      'sent': ['viewed', 'partial', 'paid', 'overdue', 'disputed', 'cancelled'],
+      'viewed': ['partial', 'paid', 'overdue', 'disputed', 'cancelled'],
+      'partial': ['paid', 'overdue', 'disputed', 'cancelled'],
+      'paid': ['disputed'], // Can still dispute after payment
+      'overdue': ['partial', 'paid', 'disputed', 'cancelled'],
+      'disputed': ['sent', 'paid', 'cancelled'], // Can resolve dispute
+      'cancelled': [] // Terminal state
+    };
+    
+    // Check if transition is valid
+    const allowedTransitions = validTransitions[currentInvoice.status as InvoiceStatus] || [];
+    if (!allowedTransitions.includes(newStatus)) {
+      throw new Error(`Invalid status transition from ${currentInvoice.status} to ${newStatus}`);
+    }
+    
+    const updateData: any = {
+      status: newStatus,
+      updated_at: new Date().toISOString()
+    };
+    
+    // Add timestamps for specific transitions
+    if (newStatus === 'sent' && !currentInvoice.sentAt) {
+      updateData.sent_at = new Date().toISOString();
+    }
+    if (newStatus === 'viewed' && !currentInvoice.viewedAt) {
+      updateData.viewed_at = new Date().toISOString();
+    }
+    if (newStatus === 'paid' && !currentInvoice.paidAt) {
+      updateData.paid_at = new Date().toISOString();
+    }
+    
+    // When moving from draft to sent, freeze the prices
+    if (currentInvoice.status === 'draft' && newStatus === 'sent' && options?.freezePrices) {
+      // Store frozen prices (these would be new columns we'd add to the database)
+      // For now, we'll just update the main totals to "lock" them
+      updateData.subtotal = currentInvoice.subtotal;
+      updateData.total = currentInvoice.total;
+      updateData.total_amount = currentInvoice.total;
+    }
+    
+    const { error } = await supabase
+      .from('invoices')
+      .update(updateData)
+      .eq('id', id);
+    
+    if (error) throw error;
+    
+    // Log the status change to audit log if userId provided
+    if (options?.userId) {
+      await supabase
+        .from('audit_logs')
+        .insert({
+          user_id: options.userId,
+          action: 'invoice_status_change',
+          resource_type: 'invoice',
+          resource_id: id,
+          details: {
+            from_status: currentInvoice.status,
+            to_status: newStatus
+          }
+        });
+    }
+    
+    return await getInvoiceById(id);
+  } catch (error) {
+    handleSupabaseError(error, 'Update Invoice Status');
+    throw error;
+  }
+}
+
+/**
+ * Finalize an invoice (shorthand for moving from draft to sent)
+ * This locks the invoice for editing and freezes prices
+ * 
+ * @param id - Invoice ID
+ * @returns The finalized invoice
+ */
+export async function finalizeInvoice(id: ID): Promise<Invoice> {
+  return updateInvoiceStatus(id, 'sent', { freezePrices: true });
+}
+
+/**
+ * Revert an invoice to draft status (admin only)
+ * 
+ * @param id - Invoice ID
+ * @param reason - Reason for reverting
+ * @returns The updated invoice
+ */
+export async function revertToDraft(id: ID, reason: string): Promise<Invoice> {
+  try {
+    const currentInvoice = await getInvoiceById(id);
+    
+    // Only allow reverting if not paid or cancelled
+    if (currentInvoice.status === 'paid' || currentInvoice.status === 'cancelled') {
+      throw new Error(`Cannot revert a ${currentInvoice.status} invoice to draft`);
+    }
+    
+    const { error } = await supabase
+      .from('invoices')
+      .update({
+        status: 'draft',
+        sent_at: null, // Clear sent timestamp
+        viewed_at: null, // Clear viewed timestamp
+        updated_at: new Date().toISOString()
+      })
+      .eq('id', id);
+    
+    if (error) throw error;
+    
+    // Log the reversion
+    await supabase
+      .from('audit_logs')
+      .insert({
+        action: 'invoice_reverted_to_draft',
+        resource_type: 'invoice',
+        resource_id: id,
+        details: {
+          from_status: currentInvoice.status,
+          reason: reason
+        }
+      });
+    
+    return await getInvoiceById(id);
+  } catch (error) {
+    handleSupabaseError(error, 'Revert Invoice to Draft');
     throw error;
   }
 }

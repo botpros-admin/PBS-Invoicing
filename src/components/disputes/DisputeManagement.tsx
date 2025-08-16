@@ -130,7 +130,7 @@ const DisputeManagement: React.FC = () => {
         .select(`
           *,
           invoices(invoice_number),
-          clients(name),
+          clients!fk_invoices_client(name),
           invoice_line_items(
             patient_first_name,
             patient_last_name,

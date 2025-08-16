@@ -127,7 +127,7 @@ export class InvoicePDFGenerator {
       .from('invoices')
       .select(`
         *,
-        clients(
+        clients!fk_invoices_client(
           name,
           address_line1,
           address_line2,

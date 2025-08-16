@@ -1,3 +1,19 @@
+// Import database types for consistency
+import type { Database } from './database.generated';
+
+// Re-export database types for convenience
+export type DbTables = Database['public']['Tables'];
+export type DbOrganization = DbTables['organizations']['Row'];
+export type DbUserProfile = DbTables['user_profiles']['Row'];
+export type DbClient = DbTables['clients']['Row'];
+export type DbClinic = DbTables['clinics']['Row'];
+export type DbPatient = DbTables['patients']['Row'];
+export type DbInvoice = DbTables['invoices']['Row'];
+export type DbInvoiceItem = DbTables['invoice_items']['Row'];
+export type DbPayment = DbTables['payments']['Row'];
+export type DbPaymentAllocation = DbTables['payment_allocations']['Row'];
+export type DbCptCode = DbTables['cpt_codes']['Row'];
+
 // Base User Interface with common fields
 interface BaseUser {
   id: ID;
@@ -100,18 +116,14 @@ export interface ClinicPricingOverride {
   updatedAt: Timestamp;
 }
 
-// Invoice Item
-export interface InvoiceItem {
-  id: ID;
+// Invoice Item - Enhanced from database type
+export interface InvoiceItem extends Omit<DbInvoiceItem, 'invoice_id' | 'cpt_code_id' | 'cpt_code' | 'description_override' | 'date_of_service' | 'unit_price' | 'is_disputed' | 'dispute_reason' | 'dispute_resolved_at' | 'dispute_resolution_notes' | 'medical_necessity_provided' | 'medical_necessity_document_path' | 'created_at' | 'updated_at'> {
   invoiceId: ID;
   cptCodeId: ID;
-  cptCode: string; // For display
-  description: string;
+  cptCode: string;
   descriptionOverride?: string;
   dateOfService: DateString;
-  quantity: number;
   unitPrice: number;
-  total: number;
   isDisputed: boolean;
   disputeReason?: string;
   disputeResolvedAt?: Timestamp;
@@ -144,12 +156,18 @@ export interface Invoice {
   writeOffReason?: string;
   createdAt: Timestamp;
   updatedAt: Timestamp;
+  sentAt?: Timestamp;
+  viewedAt?: Timestamp;
+  paidAt?: Timestamp;
   
   // Populated fields (not in DB)
   items?: InvoiceItem[];
   client?: Client;
   clinic?: Clinic;
   patient?: Patient;
+  
+  // Admin override flag (not in DB)
+  forceEdit?: boolean;
 }
 
 // Payment
@@ -221,16 +239,12 @@ export interface InvoiceHistory {
   clientUser?: ClientUser;
 }
 
-// Patient
-export interface Patient {
-  id: ID;
+// Patient - Using database type with camelCase conversion
+export interface Patient extends Omit<DbPatient, 'client_id' | 'first_name' | 'last_name' | 'middle_name' | 'accession_number' | 'created_at' | 'updated_at'> {
   clientId: ID;
-  first_name: string; // Match DB schema
-  last_name: string;  // Match DB schema
-  middle_name?: string; // Add optional middle_name from DB schema
-  dob?: DateString;
-  sex?: 'male' | 'female' | 'other' | 'unknown';
-  mrn?: string; // Add mrn from DB schema
+  firstName: string;
+  lastName: string;
+  middleName?: string;
   accessionNumber?: string;
   createdAt: Timestamp;
   updatedAt: Timestamp;

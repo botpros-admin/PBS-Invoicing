@@ -9,18 +9,23 @@ import {
   DollarSign,
   FileText,
   AlertCircle,
-  Loader2
+  Loader2,
+  Lock,
+  CheckCircle
 } from 'lucide-react';
 import { InvoiceService } from '../services/invoiceService';
 import { supabase } from '../../../api/supabase';
 import { useAuth } from '../../../context/AuthContext';
 import { useTenant } from '../../../context/TenantContext';
+import StatusBadge from '../../../components/StatusBadge';
+import { getInvoiceById, updateInvoiceStatus, finalizeInvoice } from '../../../api/services/invoice.service';
 import type { 
   Client, 
   CPTCode, 
   CreateInvoiceInput, 
   CreateInvoiceItemInput 
 } from '../../../types/database';
+import type { Invoice, InvoiceStatus } from '../../../types';
 
 interface InvoiceFormProps {
   invoiceId?: string;
@@ -39,7 +44,10 @@ export const InvoiceForm: React.FC<InvoiceFormProps> = ({
   
   const [isLoading, setIsLoading] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
+  const [isFinalizing, setIsFinalizing] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
+  const [existingInvoice, setExistingInvoice] = useState<Invoice | null>(null);
+  const [invoiceStatus, setInvoiceStatus] = useState<InvoiceStatus>('draft');
   
   // Form data
   const [clients, setClients] = useState<Client[]>([]);
@@ -58,16 +66,52 @@ export const InvoiceForm: React.FC<InvoiceFormProps> = ({
       description: '',
       service_date: new Date().toISOString().split('T')[0],
       quantity: 1,
+      units: 1,
       unit_price: 0
     }
   ]);
 
-  // Load clients and CPT codes
+  // Load clients and CPT codes, and existing invoice if editing
   useEffect(() => {
     if (currentOrganization) {
       loadData();
+      if (invoiceId) {
+        loadExistingInvoice();
+      }
     }
-  }, [currentOrganization]);
+  }, [currentOrganization, invoiceId]);
+
+  const loadExistingInvoice = async () => {
+    if (!invoiceId) return;
+    
+    try {
+      const invoice = await getInvoiceById(invoiceId);
+      setExistingInvoice(invoice);
+      setInvoiceStatus(invoice.status);
+      
+      // Populate form fields with existing invoice data
+      setSelectedClientId(invoice.clientId.toString());
+      setInvoiceDate(invoice.dateCreated);
+      setDueDate(invoice.dateDue);
+      setNotes(invoice.notes || '');
+      
+      // Load invoice items
+      if (invoice.items && invoice.items.length > 0) {
+        setItems(invoice.items.map(item => ({
+          accession_number: item.accessionNumber,
+          cpt_code_id: item.cptCodeId.toString(),
+          description: item.description,
+          service_date: item.dateOfService,
+          quantity: item.quantity,
+          units: item.units || 1,
+          unit_price: item.unitPrice
+        })));
+      }
+    } catch (error: any) {
+      console.error('Error loading invoice:', error);
+      setErrors({ general: 'Failed to load invoice' });
+    }
+  };
 
   const loadData = async () => {
     if (!currentOrganization) return;
@@ -118,6 +162,7 @@ export const InvoiceForm: React.FC<InvoiceFormProps> = ({
         description: '',
         service_date: new Date().toISOString().split('T')[0],
         quantity: 1,
+        units: 1,
         unit_price: 0
       }
     ]);
@@ -168,8 +213,37 @@ export const InvoiceForm: React.FC<InvoiceFormProps> = ({
     return Object.keys(newErrors).length === 0;
   };
 
+  const handleFinalize = async () => {
+    if (!invoiceId || !existingInvoice) return;
+    
+    setIsFinalizing(true);
+    setErrors({});
+    
+    try {
+      await finalizeInvoice(invoiceId);
+      setInvoiceStatus('sent');
+      
+      // Reload the invoice to get updated data
+      await loadExistingInvoice();
+      
+      // Show success message
+      setErrors({ success: 'Invoice has been finalized and is ready to send.' });
+    } catch (error: any) {
+      console.error('Error finalizing invoice:', error);
+      setErrors({ general: error.message || 'Failed to finalize invoice' });
+    } finally {
+      setIsFinalizing(false);
+    }
+  };
+
   const handleSave = async (sendAfterSave = false) => {
     if (!validateForm() || !currentOrganization || !user) return;
+    
+    // Check if trying to edit a non-draft invoice without admin rights
+    if (invoiceStatus !== 'draft' && !sendAfterSave) {
+      setErrors({ general: 'Only draft invoices can be edited. Please contact an administrator.' });
+      return;
+    }
     
     setIsSaving(true);
     setErrors({});
@@ -219,7 +293,8 @@ export const InvoiceForm: React.FC<InvoiceFormProps> = ({
 
   const calculateTotal = () => {
     return items.reduce((total, item) => {
-      return total + (item.quantity * item.unit_price);
+      const units = item.units || 1;
+      return total + (item.quantity * units * item.unit_price);
     }, 0);
   };
 
@@ -235,15 +310,35 @@ export const InvoiceForm: React.FC<InvoiceFormProps> = ({
     <div className="max-w-6xl mx-auto p-6">
       <div className="bg-white rounded-lg shadow-sm">
         <div className="px-6 py-4 border-b border-gray-200">
-          <h2 className="text-xl font-semibold text-gray-900">
-            {invoiceId ? 'Edit Invoice' : 'Create New Invoice'}
-          </h2>
+          <div className="flex items-center justify-between">
+            <h2 className="text-xl font-semibold text-gray-900">
+              {invoiceId ? 'Edit Invoice' : 'Create New Invoice'}
+            </h2>
+            {invoiceId && existingInvoice && (
+              <div className="flex items-center space-x-4">
+                <StatusBadge status={invoiceStatus} />
+                {invoiceStatus !== 'draft' && (
+                  <div className="flex items-center text-sm text-gray-500">
+                    <Lock className="h-4 w-4 mr-1" />
+                    <span>Read-only</span>
+                  </div>
+                )}
+              </div>
+            )}
+          </div>
         </div>
 
         {errors.general && (
           <div className="mx-6 mt-4 p-4 bg-red-50 rounded-lg flex items-start">
             <AlertCircle className="h-5 w-5 text-red-600 mt-0.5 mr-3" />
             <p className="text-sm text-red-800">{errors.general}</p>
+          </div>
+        )}
+        
+        {errors.success && (
+          <div className="mx-6 mt-4 p-4 bg-green-50 rounded-lg flex items-start">
+            <CheckCircle className="h-5 w-5 text-green-600 mt-0.5 mr-3" />
+            <p className="text-sm text-green-800">{errors.success}</p>
           </div>
         )}
 
@@ -257,9 +352,10 @@ export const InvoiceForm: React.FC<InvoiceFormProps> = ({
               <select
                 value={selectedClientId}
                 onChange={(e) => setSelectedClientId(e.target.value)}
+                disabled={invoiceStatus !== 'draft'}
                 className={`w-full px-3 py-2 border rounded-md focus:ring-blue-500 focus:border-blue-500 ${
                   errors.client ? 'border-red-500' : 'border-gray-300'
-                }`}
+                } ${invoiceStatus !== 'draft' ? 'bg-gray-100 cursor-not-allowed' : ''}`}
               >
                 <option value="">Select a client</option>
                 {clients.map(client => (
@@ -281,7 +377,8 @@ export const InvoiceForm: React.FC<InvoiceFormProps> = ({
                 type="date"
                 value={invoiceDate}
                 onChange={(e) => setInvoiceDate(e.target.value)}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+                disabled={invoiceStatus !== 'draft'}
+                className={`w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 ${invoiceStatus !== 'draft' ? 'bg-gray-100 cursor-not-allowed' : ''}`}
               />
             </div>
 
@@ -293,9 +390,10 @@ export const InvoiceForm: React.FC<InvoiceFormProps> = ({
                 type="date"
                 value={dueDate}
                 onChange={(e) => setDueDate(e.target.value)}
+                disabled={invoiceStatus !== 'draft'}
                 className={`w-full px-3 py-2 border rounded-md focus:ring-blue-500 focus:border-blue-500 ${
                   errors.dueDate ? 'border-red-500' : 'border-gray-300'
-                }`}
+                } ${invoiceStatus !== 'draft' ? 'bg-gray-100 cursor-not-allowed' : ''}`}
               />
               {errors.dueDate && (
                 <p className="mt-1 text-sm text-red-600">{errors.dueDate}</p>
@@ -381,6 +479,9 @@ export const InvoiceForm: React.FC<InvoiceFormProps> = ({
                       Qty
                     </th>
                     <th className="px-3 py-2 text-left text-xs font-medium text-gray-500 uppercase">
+                      Units
+                    </th>
+                    <th className="px-3 py-2 text-left text-xs font-medium text-gray-500 uppercase">
                       Unit Price
                     </th>
                     <th className="px-3 py-2 text-left text-xs font-medium text-gray-500 uppercase">
@@ -449,6 +550,16 @@ export const InvoiceForm: React.FC<InvoiceFormProps> = ({
                       <td className="px-3 py-2">
                         <input
                           type="number"
+                          value={item.units || 1}
+                          onChange={(e) => updateItem(index, 'units', parseInt(e.target.value) || 1)}
+                          className="w-20 px-2 py-1 border border-gray-300 rounded"
+                          min="1"
+                          title="Units (e.g., miles for mileage, hours for time-based)"
+                        />
+                      </td>
+                      <td className="px-3 py-2">
+                        <input
+                          type="number"
                           value={item.unit_price}
                           onChange={(e) => updateItem(index, 'unit_price', parseFloat(e.target.value) || 0)}
                           className="w-24 px-2 py-1 border border-gray-300 rounded"
@@ -457,7 +568,7 @@ export const InvoiceForm: React.FC<InvoiceFormProps> = ({
                         />
                       </td>
                       <td className="px-3 py-2 text-right">
-                        ${(item.quantity * item.unit_price).toFixed(2)}
+                        ${((item.quantity * (item.units || 1) * item.unit_price)).toFixed(2)}
                       </td>
                       <td className="px-3 py-2">
                         <button
@@ -474,7 +585,7 @@ export const InvoiceForm: React.FC<InvoiceFormProps> = ({
                 </tbody>
                 <tfoot>
                   <tr className="bg-gray-50">
-                    <td colSpan={6} className="px-3 py-2 text-right font-medium">
+                    <td colSpan={7} className="px-3 py-2 text-right font-medium">
                       Total:
                     </td>
                     <td className="px-3 py-2 text-right font-semibold">
@@ -508,46 +619,76 @@ export const InvoiceForm: React.FC<InvoiceFormProps> = ({
             type="button"
             onClick={onCancel || (() => navigate('/billing/invoices'))}
             className="px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50"
-            disabled={isSaving}
+            disabled={isSaving || isFinalizing}
           >
             Cancel
           </button>
-          <button
-            type="button"
-            onClick={() => handleSave(false)}
-            className="inline-flex items-center px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-md hover:bg-blue-700 disabled:opacity-50"
-            disabled={isSaving}
-          >
-            {isSaving ? (
-              <>
-                <Loader2 className="h-4 w-4 mr-2 animate-spin" />
-                Saving...
-              </>
-            ) : (
-              <>
-                <Save className="h-4 w-4 mr-2" />
-                Save Draft
-              </>
-            )}
-          </button>
-          <button
-            type="button"
-            onClick={() => handleSave(true)}
-            className="inline-flex items-center px-4 py-2 text-sm font-medium text-white bg-green-600 rounded-md hover:bg-green-700 disabled:opacity-50"
-            disabled={isSaving}
-          >
-            {isSaving ? (
-              <>
-                <Loader2 className="h-4 w-4 mr-2 animate-spin" />
-                Saving...
-              </>
-            ) : (
-              <>
-                <Send className="h-4 w-4 mr-2" />
-                Save & Send
-              </>
-            )}
-          </button>
+          
+          {/* Only show save draft button for draft invoices */}
+          {invoiceStatus === 'draft' && (
+            <button
+              type="button"
+              onClick={() => handleSave(false)}
+              className="inline-flex items-center px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-md hover:bg-blue-700 disabled:opacity-50"
+              disabled={isSaving || isFinalizing}
+            >
+              {isSaving ? (
+                <>
+                  <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+                  Saving...
+                </>
+              ) : (
+                <>
+                  <Save className="h-4 w-4 mr-2" />
+                  Save Draft
+                </>
+              )}
+            </button>
+          )}
+          
+          {/* Show finalize button for draft invoices */}
+          {invoiceStatus === 'draft' && invoiceId && (
+            <button
+              type="button"
+              onClick={handleFinalize}
+              className="inline-flex items-center px-4 py-2 text-sm font-medium text-white bg-amber-600 rounded-md hover:bg-amber-700 disabled:opacity-50"
+              disabled={isSaving || isFinalizing}
+            >
+              {isFinalizing ? (
+                <>
+                  <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+                  Finalizing...
+                </>
+              ) : (
+                <>
+                  <CheckCircle className="h-4 w-4 mr-2" />
+                  Finalize Invoice
+                </>
+              )}
+            </button>
+          )}
+          
+          {/* Show send button for sent/finalized invoices */}
+          {(invoiceStatus === 'sent' || invoiceStatus === 'draft') && (
+            <button
+              type="button"
+              onClick={() => handleSave(true)}
+              className="inline-flex items-center px-4 py-2 text-sm font-medium text-white bg-green-600 rounded-md hover:bg-green-700 disabled:opacity-50"
+              disabled={isSaving || isFinalizing}
+            >
+              {isSaving ? (
+                <>
+                  <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+                  Sending...
+                </>
+              ) : (
+                <>
+                  <Send className="h-4 w-4 mr-2" />
+                  {invoiceStatus === 'draft' ? 'Save & Send' : 'Send Invoice'}
+                </>
+              )}
+            </button>
+          )}
         </div>
       </div>
     </div>

@@ -235,8 +235,6 @@ CREATE INDEX IF NOT EXISTS idx_pricing_rules_org ON pricing_rules(organization_i
 -- ================================================
 CREATE TABLE IF NOT EXISTS payments (
   id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
-  organization_id UUID NOT NULL REFERENCES organizations(id) ON DELETE CASCADE,
-  payment_number TEXT NOT NULL,
   client_id UUID NOT NULL REFERENCES clients(id) ON DELETE RESTRICT,
   payment_date DATE NOT NULL DEFAULT CURRENT_DATE,
   amount DECIMAL(12,2) NOT NULL,
@@ -247,11 +245,9 @@ CREATE TABLE IF NOT EXISTS payments (
   deposited_at TIMESTAMP WITH TIME ZONE,
   created_by UUID REFERENCES auth.users(id),
   created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
-  updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
-  UNIQUE(organization_id, payment_number)
+  updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
-CREATE INDEX IF NOT EXISTS idx_payments_organization_id ON payments(organization_id);
 CREATE INDEX IF NOT EXISTS idx_payments_client_id ON payments(client_id);
 CREATE INDEX IF NOT EXISTS idx_payments_payment_date ON payments(payment_date);
 CREATE INDEX IF NOT EXISTS idx_payments_status ON payments(status);
@@ -261,7 +257,6 @@ CREATE INDEX IF NOT EXISTS idx_payments_status ON payments(status);
 -- ================================================
 CREATE TABLE IF NOT EXISTS payment_allocations (
   id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
-  organization_id UUID NOT NULL REFERENCES organizations(id) ON DELETE CASCADE,
   payment_id UUID NOT NULL REFERENCES payments(id) ON DELETE CASCADE,
   invoice_id UUID NOT NULL REFERENCES invoices(id) ON DELETE CASCADE,
   allocated_amount DECIMAL(12,2) NOT NULL,
@@ -277,9 +272,7 @@ CREATE TABLE IF NOT EXISTS payment_allocations (
 -- ================================================
 CREATE TABLE IF NOT EXISTS account_credits (
   id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
-  organization_id UUID NOT NULL REFERENCES organizations(id) ON DELETE CASCADE,
   client_id UUID NOT NULL REFERENCES clients(id) ON DELETE RESTRICT,
-  credit_number TEXT NOT NULL,
   amount DECIMAL(12,2) NOT NULL,
   reason TEXT NOT NULL,
   credit_date DATE NOT NULL DEFAULT CURRENT_DATE,
@@ -291,8 +284,7 @@ CREATE TABLE IF NOT EXISTS account_credits (
   notes TEXT,
   created_by UUID REFERENCES auth.users(id),
   created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
-  updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
-  UNIQUE(organization_id, credit_number)
+  updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
 -- ================================================

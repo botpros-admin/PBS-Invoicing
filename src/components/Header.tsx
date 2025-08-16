@@ -86,14 +86,14 @@ const Header: React.FC<HeaderProps> = ({ toggleSidebar }) => {
 
     // Navigate based on result type
     if (result.type === 'invoice') {
-      navigate(`/dashboard/invoices/${result.id}`); // Updated path
+      navigate(`/invoices/${result.id}`); // Fixed path
     } else if (result.type === 'client' || result.type === 'clinic') {
-      navigate(`/dashboard/settings`); // Updated path
+      navigate(`/settings`); // Fixed path
     } else if (result.type === 'patient') {
        // TODO: Determine appropriate navigation for patient
        console.log("Navigate to patient related view for:", result.id);
     } else if (result.type === 'user') {
-      navigate('/dashboard/settings'); // Updated path
+      navigate('/settings'); // Fixed path
     }
   };
 

@@ -309,9 +309,10 @@ export async function getTopClientsByRevenue(dateRange: DateRange = '30days', li
     const { startDate, endDate } = getDateRangeValues(dateRange);
     
     // Get invoices with client info in the date range
+    // Use explicit foreign key hint to avoid PGRST201 error
     const { data, error } = await supabase
       .from('invoices')
-      .select('id, total_amount, status, client_id, client:clients(id, name)')
+      .select('id, total_amount, status, client_id, client:clients!fk_invoices_client(id, name)')
       .gte('created_at', startDate)
       .lte('created_at', endDate);
     

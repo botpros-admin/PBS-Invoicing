@@ -130,11 +130,11 @@ const Invoices: React.FC = () => {
   }, [searchTerm, statusFilter, agingFilter, rowsPerPage]);
 
   const handleRowClick = (invoice: Invoice) => {
-    navigate(`/dashboard/invoices/${invoice.id}`);
+    navigate(`/invoices/${invoice.id}`);
   };
 
   const handleCreateInvoice = () => {
-    navigate('/dashboard/invoices/create');
+    navigate('/invoices/create');
   };
 
   const handleImportData = () => setIsImportModalOpen(true);
@@ -282,10 +282,10 @@ const Invoices: React.FC = () => {
         <MoreHorizontal size={20} />
       </button>
       <div className={`dropdown-menu absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-10 ${openDropdownId === invoice.id ? 'block' : 'hidden'}`}>
-        <button onClick={() => navigate(`/dashboard/invoices/${invoice.id}`)} className="flex items-center w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+        <button onClick={() => navigate(`/invoices/${invoice.id}`)} className="flex items-center w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
           <FileText size={16} className="mr-2 text-blue-500" /> View Details
         </button>
-        <button onClick={() => navigate(`/create-invoice?edit=${invoice.id}`)} className="flex items-center w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+        <button onClick={() => navigate(`/invoices/create?edit=${invoice.id}`)} className="flex items-center w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
           <Edit size={16} className="mr-2 text-[#0078D7]" /> Edit Invoice
         </button>
         <button onClick={() => { setSelectedInvoice(invoice); setIsDeleteModalOpen(true); }} className="flex items-center w-full px-4 py-2 text-sm text-red-600 hover:bg-gray-100">

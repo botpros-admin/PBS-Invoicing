@@ -52,7 +52,7 @@ const InvoiceDetail: React.FC = () => {
       <div className="space-y-6">
         <div className="flex items-center justify-between">
           <button
-            onClick={() => navigate('/dashboard/invoices')}
+            onClick={() => navigate('/invoices')}
             className="flex items-center text-gray-600 hover:text-gray-900"
           >
             <ArrowLeft size={20} className="mr-2" />
@@ -96,7 +96,7 @@ const InvoiceDetail: React.FC = () => {
   };
 
   const handleEdit = () => {
-    navigate(`/dashboard/invoices/edit/${id}`);
+    navigate(`/invoices/edit/${id}`);
   };
 
   const handleDisputeItem = (item: InvoiceItem) => {
@@ -117,7 +117,7 @@ const InvoiceDetail: React.FC = () => {
       <div className="flex items-center justify-between">
         <div className="flex items-center space-x-4">
           <button
-            onClick={() => navigate('/dashboard/invoices')}
+            onClick={() => navigate('/invoices')}
             className="flex items-center text-gray-600 hover:text-gray-900"
           >
             <ArrowLeft size={20} className="mr-2" />

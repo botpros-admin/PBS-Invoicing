@@ -23,6 +23,21 @@ export default defineConfig(({ mode }) => {
       strictPort: false,
       host: true, // Allows access from the local network
       proxy: {},
+      cors: {
+        origin: process.env.NODE_ENV === 'production' 
+          ? ['https://your-production-domain.com'] // Replace with your actual domain
+          : true, // Allow all origins in development
+        credentials: true,
+        methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+      },
+      headers: {
+        // Security headers
+        'X-Content-Type-Options': 'nosniff',
+        'X-Frame-Options': 'DENY',
+        'X-XSS-Protection': '1; mode=block',
+        'Referrer-Policy': 'strict-origin-when-cross-origin',
+        'Permissions-Policy': 'geolocation=(), microphone=(), camera=()',
+      },
     },
     build: {
       // Explicitly set the entry point

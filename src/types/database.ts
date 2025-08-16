@@ -106,6 +106,7 @@ export interface InvoiceItem {
   description: string;
   service_date: string;
   quantity: number;
+  units?: number; // Units field for mileage, time-based charges, etc.
   unit_price: number;
   line_total: number; // Generated column
   pricing_rule_id?: string;
@@ -244,6 +245,7 @@ export interface CreateInvoiceItemInput {
   description: string;
   service_date: string;
   quantity: number;
+  units?: number; // Units field for mileage, time-based charges, etc.
   unit_price: number;
   notes?: string;
 }

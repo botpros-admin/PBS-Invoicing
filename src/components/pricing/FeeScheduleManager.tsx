@@ -103,7 +103,7 @@ const FeeScheduleManager: React.FC = () => {
         .from('fee_schedules')
         .select(`
           *,
-          clients(name),
+          clients!fk_invoices_client(name),
           fee_schedule_items(
             id,
             cpt_code,
