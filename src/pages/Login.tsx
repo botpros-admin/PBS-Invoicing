@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom'; // Removed useLocation
 import { useAuth } from '../context/AuthContext';
-import { Lock, Mail, LogIn, AlertCircle } from 'lucide-react';
+import { Lock, Mail, LogIn, AlertCircle, Building2, Users, Shield, TestTube, Activity } from 'lucide-react';
 import { supabase } from '../api/supabase'; // Import supabase client
 import MfaVerificationModal from '../components/auth/MfaVerificationModal';
 import DnaSpinner from '../components/common/DnaSpinner';
@@ -10,6 +10,7 @@ import { formatAuthError } from '../utils/authErrors'; // Keep error formatting
 const Login: React.FC = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [userType, setUserType] = useState<'pbs' | 'client' | 'admin'>('pbs'); // User type selector
   const [componentIsLoading, setComponentIsLoading] = useState(false); // Local loading state for submit button
   const [error, setError] = useState<string | null>(null);
   const [showMfaModal, setShowMfaModal] = useState(false);
@@ -25,12 +26,33 @@ const Login: React.FC = () => {
   // const location = useLocation(); // Remove unused location
   const redirectPath = searchParams.get('redirect') || '/dashboard';
 
+  // Demo credentials for different user types
+  const demoCredentials = {
+    pbs: [
+      { email: 'admin@pbsmedical.com', password: 'TempPass123!', role: 'PBS Administrator' },
+      { email: 'billing@pbsmedical.com', password: 'TempPass123!', role: 'Billing Specialist' },
+      { email: 'claims@pbsmedical.com', password: 'TempPass123!', role: 'Claims Processor' }
+    ],
+    client: [
+      { email: 'john.smith@questdiagnostics.com', password: 'ClientPass123!', role: 'Client Admin (Quest)' },
+      { email: 'sarah.jones@labcorp.com', password: 'ClientPass123!', role: 'Billing Manager (LabCorp)' },
+      { email: 'mike.chen@northclinic.com', password: 'ClientPass123!', role: 'Clinic Admin' }
+    ],
+    admin: [
+      { email: 'superadmin@pbsmedical.com', password: 'SuperAdmin123!', role: 'Super Administrator' }
+    ]
+  };
+
   // Handle remembered email on mount
   useEffect(() => {
     const storedEmail = localStorage.getItem('remembered_email');
+    const storedUserType = localStorage.getItem('remembered_user_type');
     if (storedEmail) {
       setEmail(storedEmail);
       setRememberMe(true);
+    }
+    if (storedUserType) {
+      setUserType(storedUserType as 'pbs' | 'client' | 'admin');
     }
     // Clear any previous component-level errors on mount
     setError(null);
@@ -108,8 +130,10 @@ const Login: React.FC = () => {
         console.log('[Login Page] Login successful (no MFA). Auth state updated.');
         if (rememberMe) {
           localStorage.setItem('remembered_email', email);
+          localStorage.setItem('remembered_user_type', userType);
         } else {
           localStorage.removeItem('remembered_email');
+          localStorage.removeItem('remembered_user_type');
         }
         // No navigate() call here. The useEffect that watches isAuthenticated will handle it,
         // or the PublicRoute component will redirect automatically.
@@ -293,6 +317,60 @@ const Login: React.FC = () => {
                 onSubmit={handleSubmit}
                 data-bitwarden-watching="false" // Keep if relevant
               >
+                {/* User Type Selector */}
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    Select User Type
+                  </label>
+                  <div className="grid grid-cols-3 gap-2">
+                    <button
+                      type="button"
+                      onClick={() => setUserType('pbs')}
+                      className={`flex flex-col items-center p-3 rounded-lg border-2 transition-all ${
+                        userType === 'pbs'
+                          ? 'border-blue-500 bg-blue-50'
+                          : 'border-gray-200 hover:border-gray-300'
+                      }`}
+                      disabled={componentIsLoading || showMfaModal}
+                    >
+                      <Building2 className={`w-5 h-5 mb-1 ${userType === 'pbs' ? 'text-blue-600' : 'text-gray-500'}`} />
+                      <span className={`text-xs font-medium ${userType === 'pbs' ? 'text-blue-900' : 'text-gray-700'}`}>
+                        PBS Staff
+                      </span>
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => setUserType('client')}
+                      className={`flex flex-col items-center p-3 rounded-lg border-2 transition-all ${
+                        userType === 'client'
+                          ? 'border-green-500 bg-green-50'
+                          : 'border-gray-200 hover:border-gray-300'
+                      }`}
+                      disabled={componentIsLoading || showMfaModal}
+                    >
+                      <Users className={`w-5 h-5 mb-1 ${userType === 'client' ? 'text-green-600' : 'text-gray-500'}`} />
+                      <span className={`text-xs font-medium ${userType === 'client' ? 'text-green-900' : 'text-gray-700'}`}>
+                        Client Portal
+                      </span>
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => setUserType('admin')}
+                      className={`flex flex-col items-center p-3 rounded-lg border-2 transition-all ${
+                        userType === 'admin'
+                          ? 'border-purple-500 bg-purple-50'
+                          : 'border-gray-200 hover:border-gray-300'
+                      }`}
+                      disabled={componentIsLoading || showMfaModal}
+                    >
+                      <Shield className={`w-5 h-5 mb-1 ${userType === 'admin' ? 'text-purple-600' : 'text-gray-500'}`} />
+                      <span className={`text-xs font-medium ${userType === 'admin' ? 'text-purple-900' : 'text-gray-700'}`}>
+                        Super Admin
+                      </span>
+                    </button>
+                  </div>
+                </div>
+
                 {/* Email Input */}
                 <div>
                   <label htmlFor="email" className="block text-sm font-medium text-gray-700">
@@ -404,9 +482,42 @@ const Login: React.FC = () => {
                 </div>
                 <div className="relative flex justify-center text-sm">
                   <span className="px-2 bg-white text-gray-500">
-                    Admin: admin@email.com / TempPass123!
+                    Demo Credentials
                   </span>
                 </div>
+              </div>
+              
+              <div className="mt-4 space-y-2">
+                {demoCredentials[userType].map((cred, index) => (
+                  <button
+                    key={index}
+                    type="button"
+                    onClick={() => {
+                      setEmail(cred.email);
+                      setPassword(cred.password);
+                    }}
+                    className="w-full text-left px-3 py-2 text-xs bg-gray-50 hover:bg-gray-100 rounded-md transition-colors group"
+                    disabled={componentIsLoading || showMfaModal}
+                  >
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <span className="font-medium text-gray-700 group-hover:text-gray-900">{cred.role}</span>
+                        <div className="text-gray-500">
+                          {cred.email} / {cred.password}
+                        </div>
+                      </div>
+                      <LogIn className="w-3 h-3 text-gray-400 group-hover:text-gray-600" />
+                    </div>
+                  </button>
+                ))}
+              </div>
+              
+              <div className="mt-3 text-center">
+                <p className="text-xs text-gray-500">
+                  {userType === 'pbs' && 'Access the PBS billing system dashboard'}
+                  {userType === 'client' && 'Access your client portal for claims and reports'}
+                  {userType === 'admin' && 'Full system administration access'}
+                </p>
               </div>
             </div>
           </div>

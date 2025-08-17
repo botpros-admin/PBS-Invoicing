@@ -32,6 +32,14 @@ import PayInvoice from './pages/PayInvoice';
 import ResetPassword from './pages/ResetPassword';
 import PasswordResetHandler from './pages/PasswordResetHandler';
 import EnhancedProfile from './pages/EnhancedProfile';
+// New restructured pages
+import BillingHub from './pages/BillingHub';
+import MyAccount from './pages/MyAccount';
+import TeamManagement from './pages/TeamManagement';
+import ServiceCenter from './pages/ServiceCenter';  // Universal for labs, clinics, facilities
+import Analytics from './pages/Analytics';
+import DataOperations from './pages/DataOperations';
+import ClientPortal from './pages/ClientPortal';  // Client portal for external clients
 
 function App() {
   return (
@@ -59,6 +67,21 @@ function App() {
                 </ProtectedRoute>
               }>
                 <Route path="/dashboard" element={<Dashboard />} />
+                
+                {/* New Operational Sections */}
+                <Route path="/billing/*" element={<BillingHub />} />
+                <Route path="/service-center/*" element={<ServiceCenter />} />
+                <Route path="/team/*" element={<TeamManagement />} />
+                <Route path="/analytics/*" element={<Analytics />} />
+                <Route path="/data/*" element={<DataOperations />} />
+                
+                {/* Client Portal - External client access */}
+                <Route path="/client-portal/*" element={<ClientPortal />} />
+                
+                {/* Personal Settings (accessed via user dropdown) */}
+                <Route path="/account/*" element={<MyAccount />} />
+                
+                {/* Legacy routes - will be deprecated */}
                 <Route path="/invoices" element={<Invoices />} />
                 <Route path="/invoices/create" element={<CreateInvoice />} />
                 <Route path="/invoices/:id" element={<InvoiceDetail />} />

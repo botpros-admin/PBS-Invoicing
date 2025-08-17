@@ -1,0 +1,511 @@
+// Enterprise Multi-Tenant Prisma Schema for PBS Invoicing
+// Supports: Billing Companies -> Healthcare Providers -> Users/Data
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+// ========================================
+// CORE TENANT MANAGEMENT TABLES
+// ========================================
+
+model BillingCompany {
+  id                String   @id @default(cuid())
+  name              String
+  subdomain         String   @unique // For tenant routing (e.g., acme.pbsinvoicing.com)
+  domain            String?  @unique // Custom domain support
+  logo              String?
+  address           Json?    // Structured address
+  phone             String?
+  email             String?
+  taxId             String?  @unique
+  
+  // Subscription & Billing
+  subscriptionTier  String   @default("basic") // basic, professional, enterprise
+  subscriptionStatus String  @default("active") // active, suspended, cancelled
+  billingEmail      String?
+  
+  // Configuration
+  settings          Json     @default("{}")
+  features          String[] @default([]) // Feature flags
+  
+  // Multi-tenant isolation
+  isActive          Boolean  @default(true)
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+  
+  // Relationships
+  providers         HealthcareProvider[]
+  users             User[]
+  pricingRules      PricingRule[]
+  companySettings   CompanySettings[]
+  patients          Patient[]
+  invoices          Invoice[]
+  payments          Payment[]
+  
+  @@map("billing_companies")
+  @@index([subdomain])
+  @@index([isActive])
+}
+
+model HealthcareProvider {
+  id                String   @id @default(cuid())
+  name              String
+  npi               String?  // National Provider Identifier
+  taxId             String?
+  
+  // Address & Contact
+  address           Json?
+  phone             String?
+  email             String?
+  website           String?
+  
+  // Provider Type & Specialization
+  providerType      String   // hospital, clinic, practice, laboratory
+  specialties       String[] @default([])
+  
+  // Billing Configuration
+  billingAddress    Json?
+  clearinghouse     String?
+  
+  // Multi-tenant relationships
+  billingCompanyId  String
+  billingCompany    BillingCompany @relation(fields: [billingCompanyId], references: [id], onDelete: Cascade)
+  
+  // Status & Metadata
+  isActive          Boolean  @default(true)
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+  
+  // Relationships
+  users             User[]
+  patients          Patient[]
+  invoices          Invoice[]
+  payments          Payment[]
+  providerSettings  ProviderSettings[]
+  
+  @@map("healthcare_providers")
+  @@index([billingCompanyId])
+  @@index([npi])
+  @@index([isActive])
+  @@unique([billingCompanyId, npi]) // NPI unique within billing company
+}
+
+// ========================================
+// ENHANCED USER MANAGEMENT
+// ========================================
+
+model User {
+  id                String   @id @default(cuid())
+  supabaseId        String   @unique // Link to Supabase auth
+  email             String   @unique
+  firstName         String
+  lastName          String
+  phone             String?
+  
+  // Multi-tenant relationships
+  billingCompanyId  String
+  billingCompany    BillingCompany @relation(fields: [billingCompanyId], references: [id], onDelete: Cascade)
+  providerId        String?
+  provider          HealthcareProvider? @relation(fields: [providerId], references: [id], onDelete: SetNull)
+  
+  // Role-based access control
+  role              UserRole @default(USER)
+  permissions       String[] @default([])
+  
+  // User status
+  isActive          Boolean  @default(true)
+  lastLoginAt       DateTime?
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+  
+  // Relationships
+  createdInvoices   Invoice[] @relation("InvoiceCreatedBy")
+  createdPayments   Payment[] @relation("PaymentCreatedBy")
+  auditLogs         AuditLog[]
+  
+  @@map("users")
+  @@index([billingCompanyId])
+  @@index([providerId])
+  @@index([supabaseId])
+  @@index([email])
+}
+
+enum UserRole {
+  SUPER_ADMIN     // System-wide admin
+  COMPANY_ADMIN   // Billing company admin
+  PROVIDER_ADMIN  // Healthcare provider admin
+  BILLING_MANAGER // Billing operations
+  USER            // Standard user
+  READ_ONLY       // View-only access
+}
+
+// ========================================
+// TENANT-AWARE DATA TABLES
+// ========================================
+
+model Patient {
+  id                String   @id @default(cuid())
+  
+  // Patient Information
+  mrn               String   // Medical Record Number
+  firstName         String
+  lastName          String
+  dateOfBirth       DateTime
+  gender            String?
+  ssn               String?  // Encrypted in application
+  
+  // Contact Information
+  address           Json?
+  phone             String?
+  email             String?
+  emergencyContact  Json?
+  
+  // Insurance Information
+  primaryInsurance  Json?
+  secondaryInsurance Json?
+  
+  // Multi-tenant isolation
+  billingCompanyId  String
+  billingCompany    BillingCompany @relation(fields: [billingCompanyId], references: [id], onDelete: Cascade)
+  providerId        String
+  provider          HealthcareProvider @relation(fields: [providerId], references: [id], onDelete: Cascade)
+  
+  // Metadata
+  isActive          Boolean  @default(true)
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+  
+  // Relationships
+  invoices          Invoice[]
+  
+  @@map("patients")
+  @@index([billingCompanyId])
+  @@index([providerId])
+  @@index([mrn, providerId]) // MRN unique within provider
+  @@unique([providerId, mrn])
+}
+
+model Invoice {
+  id                String   @id @default(cuid())
+  invoiceNumber     String
+  
+  // Invoice Details
+  serviceDate       DateTime
+  billingDate       DateTime @default(now())
+  dueDate           DateTime?
+  
+  // Amounts
+  subtotal          Decimal  @db.Decimal(10, 2)
+  tax               Decimal  @db.Decimal(10, 2) @default(0)
+  total             Decimal  @db.Decimal(10, 2)
+  paidAmount        Decimal  @db.Decimal(10, 2) @default(0)
+  
+  // Status
+  status            InvoiceStatus @default(DRAFT)
+  
+  // Multi-tenant isolation
+  billingCompanyId  String
+  billingCompany    BillingCompany @relation(fields: [billingCompanyId], references: [id], onDelete: Cascade)
+  providerId        String
+  provider          HealthcareProvider @relation(fields: [providerId], references: [id], onDelete: Cascade)
+  
+  // Relationships
+  patientId         String
+  patient           Patient @relation(fields: [patientId], references: [id])
+  createdById       String
+  createdBy         User @relation("InvoiceCreatedBy", fields: [createdById], references: [id])
+  
+  // Metadata
+  notes             String?
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+  
+  // Related data
+  lineItems         InvoiceLineItem[]
+  payments          Payment[]
+  
+  @@map("invoices")
+  @@index([billingCompanyId])
+  @@index([providerId])
+  @@index([patientId])
+  @@index([status])
+  @@index([serviceDate])
+  @@unique([providerId, invoiceNumber])
+}
+
+enum InvoiceStatus {
+  DRAFT
+  PENDING
+  SENT
+  PAID
+  PARTIAL
+  OVERDUE
+  CANCELLED
+}
+
+model InvoiceLineItem {
+  id                String   @id @default(cuid())
+  
+  // Line Item Details
+  description       String
+  quantity          Int      @default(1)
+  unitPrice         Decimal  @db.Decimal(10, 2)
+  total             Decimal  @db.Decimal(10, 2)
+  
+  // Medical Coding
+  cptCode           String?
+  modifier          String?
+  diagnosisCode     String?
+  
+  // Multi-tenant isolation (inherited from invoice)
+  billingCompanyId  String
+  providerId        String
+  
+  // Relationships
+  invoiceId         String
+  invoice           Invoice @relation(fields: [invoiceId], references: [id], onDelete: Cascade)
+  
+  // Metadata
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+  
+  @@map("invoice_line_items")
+  @@index([invoiceId])
+  @@index([cptCode])
+}
+
+model Payment {
+  id                String   @id @default(cuid())
+  
+  // Payment Details
+  amount            Decimal  @db.Decimal(10, 2)
+  paymentDate       DateTime @default(now())
+  paymentMethod     PaymentMethod
+  referenceNumber   String?
+  
+  // Payment Source
+  source            PaymentSource
+  insuranceInfo     Json?     // Insurance-specific data
+  
+  // Multi-tenant isolation
+  billingCompanyId  String
+  billingCompany    BillingCompany @relation(fields: [billingCompanyId], references: [id], onDelete: Cascade)
+  providerId        String
+  provider          HealthcareProvider @relation(fields: [providerId], references: [id], onDelete: Cascade)
+  
+  // Relationships
+  invoiceId         String
+  invoice           Invoice @relation(fields: [invoiceId], references: [id])
+  createdById       String
+  createdBy         User @relation("PaymentCreatedBy", fields: [createdById], references: [id])
+  
+  // Metadata
+  notes             String?
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+  
+  @@map("payments")
+  @@index([billingCompanyId])
+  @@index([providerId])
+  @@index([invoiceId])
+  @@index([paymentDate])
+}
+
+enum PaymentMethod {
+  CASH
+  CHECK
+  CREDIT_CARD
+  ACH
+  WIRE_TRANSFER
+  INSURANCE
+  OTHER
+}
+
+enum PaymentSource {
+  PATIENT
+  PRIMARY_INSURANCE
+  SECONDARY_INSURANCE
+  GOVERNMENT
+  OTHER
+}
+
+// ========================================
+// CONFIGURATION & SETTINGS
+// ========================================
+
+model CompanySettings {
+  id                String   @id @default(cuid())
+  key               String
+  value             Json
+  category          String   // billing, ui, integrations, etc.
+  
+  // Multi-tenant isolation
+  billingCompanyId  String
+  billingCompany    BillingCompany @relation(fields: [billingCompanyId], references: [id], onDelete: Cascade)
+  
+  // Metadata
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+  
+  @@map("company_settings")
+  @@unique([billingCompanyId, key])
+  @@index([billingCompanyId, category])
+}
+
+model ProviderSettings {
+  id                String   @id @default(cuid())
+  key               String
+  value             Json
+  category          String
+  
+  // Multi-tenant isolation
+  billingCompanyId  String
+  providerId        String
+  provider          HealthcareProvider @relation(fields: [providerId], references: [id], onDelete: Cascade)
+  
+  // Metadata
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+  
+  @@map("provider_settings")
+  @@unique([providerId, key])
+  @@index([providerId, category])
+}
+
+model PricingRule {
+  id                String   @id @default(cuid())
+  name              String
+  description       String?
+  
+  // Rule Configuration
+  ruleType          PricingRuleType
+  criteria          Json     // Flexible criteria definition
+  action            Json     // Pricing action to take
+  
+  // Scope
+  cptCodes          String[] @default([])
+  diagnosisCodes    String[] @default([])
+  
+  // Multi-tenant isolation
+  billingCompanyId  String
+  billingCompany    BillingCompany @relation(fields: [billingCompanyId], references: [id], onDelete: Cascade)
+  
+  // Status
+  isActive          Boolean  @default(true)
+  effectiveDate     DateTime @default(now())
+  expirationDate    DateTime?
+  
+  // Metadata
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+  
+  @@map("pricing_rules")
+  @@index([billingCompanyId])
+  @@index([isActive])
+  @@index([effectiveDate])
+}
+
+enum PricingRuleType {
+  FIXED_PRICE
+  PERCENTAGE_DISCOUNT
+  PERCENTAGE_MARKUP
+  INSURANCE_FEE_SCHEDULE
+  MEDICARE_FEE_SCHEDULE
+  CUSTOM
+}
+
+// ========================================
+// REFERENCE DATA (SHARED ACROSS TENANTS)
+// ========================================
+
+model CPTCode {
+  id                String   @id @default(cuid())
+  code              String   @unique
+  description       String
+  category          String?
+  
+  // Reference data
+  rvu               Decimal? @db.Decimal(8, 2) // Relative Value Unit
+  medicare2024      Decimal? @db.Decimal(10, 2)
+  
+  // Status
+  isActive          Boolean  @default(true)
+  effectiveDate     DateTime?
+  terminationDate   DateTime?
+  
+  // Metadata
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+  
+  @@map("cpt_codes")
+  @@index([code])
+  @@index([category])
+}
+
+model DiagnosisCode {
+  id                String   @id @default(cuid())
+  code              String   @unique
+  description       String
+  category          String?
+  
+  // ICD-10 specific
+  codeType          String   @default("ICD10") // ICD10, ICD9, etc.
+  
+  // Status
+  isActive          Boolean  @default(true)
+  effectiveDate     DateTime?
+  terminationDate   DateTime?
+  
+  // Metadata
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+  
+  @@map("diagnosis_codes")
+  @@index([code])
+  @@index([category])
+  @@index([codeType])
+}
+
+// ========================================
+// AUDIT & LOGGING
+// ========================================
+
+model AuditLog {
+  id                String   @id @default(cuid())
+  
+  // Audit Details
+  action            String   // CREATE, UPDATE, DELETE, LOGIN, etc.
+  entityType        String   // Invoice, Payment, User, etc.
+  entityId          String?
+  oldValues         Json?
+  newValues         Json?
+  
+  // Multi-tenant context
+  billingCompanyId  String?
+  providerId        String?
+  userId            String?
+  user              User?    @relation(fields: [userId], references: [id])
+  
+  // Request context
+  ipAddress         String?
+  userAgent         String?
+  requestId         String?
+  
+  // Metadata
+  createdAt         DateTime @default(now())
+  
+  @@map("audit_logs")
+  @@index([billingCompanyId])
+  @@index([providerId])
+  @@index([userId])
+  @@index([action])
+  @@index([entityType])
+  @@index([createdAt])
+}

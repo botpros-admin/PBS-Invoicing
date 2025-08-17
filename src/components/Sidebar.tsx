@@ -8,7 +8,10 @@ import {
   Building2,
   Upload,
   DollarSign,
-  LogOut
+  LogOut,
+  Wallet,
+  User,
+  Users
 } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import { UserRole, ClientUserRole } from '../types';
@@ -21,17 +24,32 @@ const Sidebar: React.FC<SidebarProps> = ({ collapsed }) => {
   const { user, logout, isAuthenticated } = useAuth(); 
 
   const navItems = [
+    // Core operational tasks only - no personal settings!
     { path: '/dashboard', label: 'Dashboard', icon: <LayoutDashboard size={20} />, allowedRoles: ['admin', 'ar_manager', 'staff', 'user'] },
-    { path: '/invoices', label: 'Invoices', icon: <FileText size={20} />, allowedRoles: ['admin', 'ar_manager', 'staff', 'user'] },
-    { path: '/payments', label: 'Payments', icon: <DollarSign size={20} />, allowedRoles: ['admin', 'ar_manager', 'staff'] },
-    { path: '/labs', label: 'Labs', icon: <Building2 size={20} />, allowedRoles: ['admin', 'ar_manager'] },
-    { path: '/reports', label: 'Reports', icon: <BarChart3 size={20} />, allowedRoles: ['admin', 'ar_manager'] },
-    { path: '/import', label: 'Import Data', icon: <Upload size={20} />, allowedRoles: ['admin', 'ar_manager'] },
-    { path: '/settings', label: 'Settings', icon: <Settings size={20} />, allowedRoles: ['admin'] },
+    
+    // Billing operations
+    { path: '/billing', label: 'Billing Hub', icon: <Wallet size={20} />, allowedRoles: ['admin', 'ar_manager', 'staff'], isNew: true },
+    
+    // Service operations (universal for labs, clinics, facilities)
+    { path: '/service-center', label: 'Service Center', icon: <Users size={20} />, allowedRoles: ['admin', 'ar_manager', 'staff'], isNew: true },
+    
+    // Team operations (task management, not settings!)
+    { path: '/team', label: 'Team Operations', icon: <Users size={20} />, allowedRoles: ['admin', 'ar_manager'] },
+    
+    // Analytics & reporting
+    { path: '/analytics', label: 'Analytics', icon: <BarChart3 size={20} />, allowedRoles: ['admin', 'ar_manager'] },
+    
+    // Data import/export operations
+    { path: '/data', label: 'Data Operations', icon: <Upload size={20} />, allowedRoles: ['admin', 'ar_manager'], isNew: true },
+    
+    // Note: ALL personal settings, profile, and system configuration 
+    // should be accessed via the user dropdown menu (top right), NOT the sidebar!
   ];
 
   const filteredNavItems = isAuthenticated && user 
-    ? navItems.filter(item => item.allowedRoles.includes(user.role as any))
+    ? navItems.filter(item => 
+        item.allowedRoles.includes(user.role as any) && !item.hidden
+      )
     : [];
 
   return (
@@ -76,7 +94,16 @@ const Sidebar: React.FC<SidebarProps> = ({ collapsed }) => {
                 }
               >
                 <span className="mr-3">{item.icon}</span>
-                {!collapsed && <span>{item.label}</span>}
+                {!collapsed && (
+                  <div className="flex items-center justify-between flex-1">
+                    <span className={item.isLegacy ? 'opacity-70' : ''}>{item.label}</span>
+                    {item.isNew && (
+                      <span className="ml-2 px-2 py-0.5 text-xs bg-green-500 text-white rounded-full">
+                        NEW
+                      </span>
+                    )}
+                  </div>
+                )}
               </NavLink>
             </li>
           ))}
