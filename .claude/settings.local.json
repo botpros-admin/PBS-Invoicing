@@ -33,7 +33,8 @@
       "Bash(npm run test:coverage:*)",
       "Bash(sed:*)",
       "Bash(npm run:*)",
-      "Bash(touch:*)"
+      "Bash(touch:*)",
+      "Bash(cat:*)"
     ],
     "deny": [],
     "ask": [],

@@ -1,7 +1,7 @@
 -- Create payment_credits table for overpayment tracking
 CREATE TABLE IF NOT EXISTS payment_credits (
   id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
-  payment_id UUID REFERENCES payments(id) ON DELETE CASCADE,
+  payment_id BIGINT REFERENCES payments(id) ON DELETE CASCADE,
   client_id UUID REFERENCES clients(id) ON DELETE CASCADE,
   amount DECIMAL(10, 2) NOT NULL CHECK (amount > 0),
   remaining_amount DECIMAL(10, 2) NOT NULL CHECK (remaining_amount >= 0),
@@ -46,7 +46,7 @@ CREATE POLICY "Users can view credits for their organization"
   USING (
     client_id IN (
       SELECT id FROM clients 
-      WHERE organization_id = auth.jwt() -> 'app_metadata' ->> 'organization_id'
+      WHERE organization_id = (auth.jwt() -> 'app_metadata' ->> 'organization_id')::uuid
     )
   );
 
@@ -56,7 +56,7 @@ CREATE POLICY "Users can create credits for their organization"
   WITH CHECK (
     client_id IN (
       SELECT id FROM clients 
-      WHERE organization_id = auth.jwt() -> 'app_metadata' ->> 'organization_id'
+      WHERE organization_id = (auth.jwt() -> 'app_metadata' ->> 'organization_id')::uuid
     )
   );
 
@@ -66,7 +66,7 @@ CREATE POLICY "Users can update credits for their organization"
   USING (
     client_id IN (
       SELECT id FROM clients 
-      WHERE organization_id = auth.jwt() -> 'app_metadata' ->> 'organization_id'
+      WHERE organization_id = (auth.jwt() -> 'app_metadata' ->> 'organization_id')::uuid
     )
   );
 
@@ -81,7 +81,7 @@ CREATE POLICY "Users can view credit applications for their organization"
       SELECT id FROM payment_credits 
       WHERE client_id IN (
         SELECT id FROM clients 
-        WHERE organization_id = auth.jwt() -> 'app_metadata' ->> 'organization_id'
+        WHERE organization_id = (auth.jwt() -> 'app_metadata' ->> 'organization_id')::uuid
       )
     )
   );
@@ -94,7 +94,7 @@ CREATE POLICY "Users can create credit applications for their organization"
       SELECT id FROM payment_credits 
       WHERE client_id IN (
         SELECT id FROM clients 
-        WHERE organization_id = auth.jwt() -> 'app_metadata' ->> 'organization_id'
+        WHERE organization_id = (auth.jwt() -> 'app_metadata' ->> 'organization_id')::uuid
       )
     )
   );
