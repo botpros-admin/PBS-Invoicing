@@ -50,7 +50,8 @@
       "Bash(psql:*)",
       "Bash(start http://localhost:5176)",
       "Bash(start http://localhost:5175)",
-      "Bash(start http://localhost:5177)"
+      "Bash(start http://localhost:5177)",
+      "Bash(timeout:*)"
     ],
     "deny": [],
     "ask": [],

@@ -114,10 +114,6 @@ function extractErrorMessage(error: any): string {
  * This function is deprecated and will always throw an error
  */
 export function createFallbackUserObject(authUser: unknown, email: string): never {
-    `SECURITY ALERT: Authentication/database error for user ${email}. ` +
-    `For HIPAA compliance, no fallback access is permitted.`
-  );
-  
   // For all users, throw error to fail securely - no fallbacks for HIPAA
   throw new Error('Authentication failed: Unable to verify user role. For security reasons, login has been rejected.');
 }

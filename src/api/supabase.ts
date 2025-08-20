@@ -85,11 +85,16 @@ export const supabase = createBrowserClient<Database>(
         fetch(`${functionsUrl}/functions/v1/auth-logout`, { method: 'POST' })
           .then(response => {
             if (!response.ok) {
-              response.json().then(body => 
+              response.json().then(body => {
+                // Error handling removed console.log
+              });
             } else {
+              // Success handling removed console.log
             }
           })
-          .catch(err => 
+          .catch(err => {
+            // Error catch removed console.log
+          });
       },
     },
   }

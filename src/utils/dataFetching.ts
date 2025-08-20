@@ -6,7 +6,7 @@
  */
 
 import { supabase } from '../api/supabase';
-import { logSessionState } from './sessionDebug';
+// Removed sessionDebug import - file deleted for security
 
 /**
  * Fetch data with automatic authentication retry
@@ -34,7 +34,7 @@ export async function fetchWithAuthRetry<T>(
       if (attempts <= maxRetries) {
         
         // Log current session state before refresh attempt
-        logSessionState();
+        // Session logging removed for security
         
         // Try to refresh the token
         const { data, error: refreshError } = await supabase.auth.refreshSession();

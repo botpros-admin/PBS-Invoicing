@@ -23,14 +23,7 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
   const { isAuthenticated, isLoading, isPermissionsLoading, user, hasPermission } = useAuth();
   const location = useLocation();
   
-  // Debug logging
-    '[ProtectedRoute] Path:', location.pathname,
-    'isLoading:', isLoading,
-    'isPermissionsLoading:', isPermissionsLoading,
-    'isAuthenticated:', isAuthenticated,
-    'User:', user?.email,
-    'RequiredPermission:', requiredPermission
-  );
+  // Debug logging removed for production
 
   // Show loading spinner while authentication or permissions are loading
   if (isLoading || isPermissionsLoading) {
@@ -54,8 +47,6 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
 
   // Check permission-based access
   if (requiredPermission && !hasPermission(requiredPermission.resource, requiredPermission.action)) {
-      `[ProtectedRoute] Access denied: User lacks permission '${requiredPermission.action}' on resource '${requiredPermission.resource}'`
-    );
     return <Navigate to="/forbidden" replace />;
   }
 

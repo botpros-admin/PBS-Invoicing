@@ -7,7 +7,6 @@
 
 import { supabase } from '../api/supabase';
 import { PBS_AUTH_KEY, LAST_ACTIVITY_KEY, updateLastActivity } from './activityTracker';
-import { logSessionState } from './sessionDebug';
 
 // No hardcoded admin emails for HIPAA compliance
 
@@ -30,9 +29,6 @@ export async function diagnoseAuthState(): Promise<{
   issues: string[];
   recommendation: string;
 }> {
-  // Log current state for developer debugging
-  logSessionState();
-  
   const issues: string[] = [];
   const storedSession = localStorage.getItem(PBS_AUTH_KEY);
   let hasValidTokens = false;

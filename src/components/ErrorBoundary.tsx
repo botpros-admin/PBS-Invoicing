@@ -37,11 +37,6 @@ class ErrorBoundary extends Component<Props, State> {
       correlationId
     });
     
-      error: error.toString(),
-      componentStack: errorInfo.componentStack,
-      correlationId
-    });
-    
     // Call optional error callback
     if (this.props.onError) {
       this.props.onError(error, errorInfo);
