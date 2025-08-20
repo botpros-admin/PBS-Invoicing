@@ -22,6 +22,7 @@ import {
 import DataTable from '../components/DataTable';
 import StatusBadge from '../components/StatusBadge';
 import Modal from '../components/Modal';
+import PermissionGuard from '../components/common/PermissionGuard';
 import { Invoice, InvoiceStatus, FilterOptions, PaginatedResponse, ID } from '../types';
 import { format, differenceInDays } from 'date-fns';
 import { getInvoices } from '../api/services/invoice.service';
@@ -285,12 +286,16 @@ const Invoices: React.FC = () => {
         <button onClick={() => navigate(`/invoices/${invoice.id}`)} className="flex items-center w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
           <FileText size={16} className="mr-2 text-blue-500" /> View Details
         </button>
-        <button onClick={() => navigate(`/invoices/create?edit=${invoice.id}`)} className="flex items-center w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
-          <Edit size={16} className="mr-2 text-[#0078D7]" /> Edit Invoice
-        </button>
-        <button onClick={() => { setSelectedInvoice(invoice); setIsDeleteModalOpen(true); }} className="flex items-center w-full px-4 py-2 text-sm text-red-600 hover:bg-gray-100">
-          <Trash2 size={16} className="mr-2" /> Delete Invoice
-        </button>
+        <PermissionGuard resource="invoices" action="update" userType="staff">
+          <button onClick={() => navigate(`/invoices/create?edit=${invoice.id}`)} className="flex items-center w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+            <Edit size={16} className="mr-2 text-[#0078D7]" /> Edit Invoice
+          </button>
+        </PermissionGuard>
+        <PermissionGuard resource="invoices" action="delete" userType="staff">
+          <button onClick={() => { setSelectedInvoice(invoice); setIsDeleteModalOpen(true); }} className="flex items-center w-full px-4 py-2 text-sm text-red-600 hover:bg-gray-100">
+            <Trash2 size={16} className="mr-2" /> Delete Invoice
+          </button>
+        </PermissionGuard>
       </div>
     </div>
   );
@@ -308,12 +313,16 @@ const Invoices: React.FC = () => {
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between space-y-3 sm:space-y-0">
         <h1 className="text-2xl font-bold text-gray-900">Invoices</h1>
         <div className="flex space-x-3">
-          <button onClick={handleImportData} className="inline-flex items-center px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-secondary">
-            <Upload size={16} className="mr-2" /> Import Data
-          </button>
-          <button onClick={handleCreateInvoice} className="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-[#0078D7] hover:bg-[#0078D7] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-secondary">
-            <Plus size={16} className="mr-2" /> Create Invoice
-          </button>
+          <PermissionGuard resource="invoices" action="create" userType="staff">
+            <button onClick={handleImportData} className="inline-flex items-center px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-secondary">
+              <Upload size={16} className="mr-2" /> Import Data
+            </button>
+          </PermissionGuard>
+          <PermissionGuard resource="invoices" action="create" userType="staff">
+            <button onClick={handleCreateInvoice} className="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-[#0078D7] hover:bg-[#0078D7] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-secondary">
+              <Plus size={16} className="mr-2" /> Create Invoice
+            </button>
+          </PermissionGuard>
         </div>
       </div>
 

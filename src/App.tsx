@@ -3,7 +3,9 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 // Authentication & Context
 import { AuthProvider } from './context/AuthContext';
 import { NotificationProvider } from './context/NotificationContext';
+import { RealtimeNotificationProvider } from './context/RealtimeNotificationContext';
 import { TenantProvider } from './context/TenantContext';
+import { ToastProvider } from './context/ToastContext';
 
 // Route Protection
 import ProtectedRoute from './components/ProtectedRoute';
@@ -33,10 +35,10 @@ import ResetPassword from './pages/ResetPassword';
 import PasswordResetHandler from './pages/PasswordResetHandler';
 import EnhancedProfile from './pages/EnhancedProfile';
 // New restructured pages
-import BillingHub from './pages/BillingHub';
+import BillingHub from './pages/BillingHub/SimplifiedBillingHub';
 import MyAccount from './pages/MyAccount';
 import TeamManagement from './pages/TeamManagement';
-import ServiceCenter from './pages/ServiceCenter';  // Universal for labs, clinics, facilities
+import ServiceCenter from './pages/ServiceCenter/SimplifiedServiceCenter';  // Universal for labs, clinics, facilities
 import Analytics from './pages/Analytics';
 import DataOperations from './pages/DataOperations';
 import ClientPortal from './pages/ClientPortal';  // Client portal for external clients
@@ -50,7 +52,9 @@ function App() {
       <AuthProvider>
         <TenantProvider>
           <NotificationProvider>
-            <ErrorBoundary>
+            <RealtimeNotificationProvider>
+              <ToastProvider>
+                <ErrorBoundary>
               <Routes>
               {/* Public Routes */}
               <Route path="/" element={<PublicRoute><LandingPage /></PublicRoute>} />
@@ -98,6 +102,8 @@ function App() {
               <Route path="*" element={<NotFound />} />
             </Routes>
             </ErrorBoundary>
+            </ToastProvider>
+            </RealtimeNotificationProvider>
           </NotificationProvider>
         </TenantProvider>
       </AuthProvider>

@@ -1,6 +1,6 @@
 import React, { Component, ErrorInfo, ReactNode } from "react";
 import { AlertTriangle, RefreshCw, Home } from 'lucide-react';
-import { errorHandler, AppError } from '../utils/errorHandler';
+import { logError, ApiError } from '../utils/errorHandler';
 
 interface Props {
   children: ReactNode;
@@ -29,13 +29,18 @@ class ErrorBoundary extends Component<Props, State> {
   }
 
   public componentDidCatch(error: Error, errorInfo: ErrorInfo) {
-    // Log to error handler
-    const appError = errorHandler.handle(error);
+    // Log the error with context
+    const correlationId = `err_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+    
+    logError(error, 'ErrorBoundary', {
+      componentStack: errorInfo.componentStack,
+      correlationId
+    });
     
     console.error("ErrorBoundary caught an error:", {
       error: error.toString(),
       componentStack: errorInfo.componentStack,
-      correlationId: appError.correlationId
+      correlationId
     });
     
     // Call optional error callback
@@ -72,10 +77,10 @@ class ErrorBoundary extends Component<Props, State> {
       const { error, errorCount } = this.state;
       const tooManyErrors = errorCount > 3;
       
-      // Determine if it's an AppError for better messaging
-      const isAppError = error instanceof AppError;
-      const errorMessage = isAppError ? error.message : 'An unexpected error has occurred.';
-      const correlationId = isAppError ? (error as AppError).correlationId : undefined;
+      // Determine if it's an ApiError for better messaging
+      const isApiError = error && 'code' in error && 'status' in error;
+      const errorMessage = error?.message || 'An unexpected error has occurred.';
+      const correlationId = `err_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
 
       return (
         <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4">

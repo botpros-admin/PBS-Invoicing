@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Outlet } from 'react-router-dom';
-import Sidebar from './Sidebar';
+import NestedSidebar from './NestedSidebar';
 import Header from './Header';
 
 const Layout: React.FC = () => {
@@ -12,7 +12,7 @@ const Layout: React.FC = () => {
 
   return (
     <div className="flex h-screen bg-gray-50">
-      <Sidebar collapsed={sidebarCollapsed} />
+      <NestedSidebar collapsed={sidebarCollapsed} />
       
       <div className={`flex flex-col flex-1 ${sidebarCollapsed ? 'ml-16' : 'ml-64'} transition-all duration-300 ease-in-out`}>
         <Header toggleSidebar={toggleSidebar} />

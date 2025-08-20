@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { useQueryClient } from '@tanstack/react-query';
 import { useNotifications } from '../../context/NotificationContext';
+import { useAuth } from '../../context/AuthContext';
+import { ActivityFeed } from '../../components/admin/ActivityFeed';
 import { DateRange } from '../../types';
 import { Widget } from './types';
 import { AgingBucket, StatusDistribution, TopClient } from '../../api/services/dashboard.service'; // Import data types
@@ -117,6 +119,7 @@ const WidgetWrapper: React.FC<{
 export const Dashboard: React.FC = () => {
   const queryClient = useQueryClient();
   const { addNotification } = useNotifications();
+  const { user } = useAuth();
   // const { user } = useAuth(); // Removed unused variable
 
   const [defaultDateRange, setDefaultDateRange] = useState<DateRange>('30days');
@@ -366,6 +369,13 @@ export const Dashboard: React.FC = () => {
             ) : null}
           </DragOverlay>
         </DndContext>
+      )}
+
+      {/* Activity Feed for Admins */}
+      {user && ['admin', 'superadmin'].includes(user.role || '') && (
+        <div className="mt-6">
+          <ActivityFeed />
+        </div>
       )}
 
       {/* Add Widget Modal */}

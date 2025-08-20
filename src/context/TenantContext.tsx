@@ -19,19 +19,10 @@ export interface TenantHierarchy {
   clinic?: Organization;
 }
 
-export interface Permission {
-  id: string;
-  name: string;
-  resource: string;
-  action: string;
-  scope: 'own' | 'organization' | 'all';
-}
-
 interface TenantContextType {
   currentTenant: 'billing' | 'lab' | 'clinic' | null;
   currentOrganization: Organization | null;
   organizations: Organization[];
-  permissions: Permission[];
   hierarchy: TenantHierarchy;
   isLoading: boolean;
   error: string | null;
@@ -39,7 +30,6 @@ interface TenantContextType {
   // Actions
   switchOrganization: (orgId: string) => Promise<void>;
   refreshOrganizations: () => Promise<void>;
-  hasPermission: (resource: string, action: string) => boolean;
   canAccessModule: (moduleName: string) => boolean;
   getAccessibleOrganizations: () => Organization[];
 }
@@ -63,22 +53,18 @@ export const TenantProvider: React.FC<TenantProviderProps> = ({ children }) => {
   const [currentTenant, setCurrentTenant] = useState<'billing' | 'lab' | 'clinic' | null>(null);
   const [currentOrganization, setCurrentOrganization] = useState<Organization | null>(null);
   const [organizations, setOrganizations] = useState<Organization[]>([]);
-  const [permissions, setPermissions] = useState<Permission[]>([]);
   const [hierarchy, setHierarchy] = useState<TenantHierarchy>({});
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  // Fetch user's organizations and permissions
   useEffect(() => {
     if (user && session) {
       fetchUserOrganizations();
-      fetchUserPermissions();
     } else {
       // Reset state when user logs out
       setCurrentTenant(null);
       setCurrentOrganization(null);
       setOrganizations([]);
-      setPermissions([]);
       setHierarchy({});
       setIsLoading(false);
     }
@@ -89,7 +75,6 @@ export const TenantProvider: React.FC<TenantProviderProps> = ({ children }) => {
       setIsLoading(true);
       setError(null);
 
-      // Fetch organizations the user has access to
       const { data: userProfiles, error: orgsError } = await supabase
         .from('user_profiles')
         .select(`
@@ -103,7 +88,6 @@ export const TenantProvider: React.FC<TenantProviderProps> = ({ children }) => {
       const orgs = userProfiles?.map(up => up.organizations).filter(Boolean) as Organization[] || [];
       setOrganizations(orgs);
 
-      // Set default organization (first one or from user preferences)
       if (orgs.length > 0 && !currentOrganization) {
         await selectOrganization(orgs[0]);
       }
@@ -116,42 +100,9 @@ export const TenantProvider: React.FC<TenantProviderProps> = ({ children }) => {
     }
   };
 
-  const fetchUserPermissions = async () => {
-    try {
-      // Fetch user's role and permissions
-      const { data: roleData, error: roleError } = await supabase
-        .from('user_roles')
-        .select(`
-          roles(
-            id,
-            name,
-            permissions
-          )
-        `)
-        .eq('user_id', session?.user?.id);
-
-      if (roleError) throw roleError;
-
-      // Parse permissions from role (handle multiple roles)
-      const rolePermissions: Permission[] = roleData?.[0]?.roles?.permissions?.map((p: any) => ({
-        id: p.id || crypto.randomUUID(),
-        name: p.name,
-        resource: p.resource,
-        action: p.action,
-        scope: p.scope || 'own'
-      })) || [];
-
-      setPermissions(rolePermissions);
-    } catch (err) {
-      console.error('Error fetching permissions:', err);
-      // Continue without permissions - UI will handle accordingly
-    }
-  };
-
   const selectOrganization = async (org: Organization) => {
     setCurrentOrganization(org);
     
-    // Determine tenant type based on organization type
     if (org.type === 'billing_company') {
       setCurrentTenant('billing');
     } else if (org.type === 'lab') {
@@ -160,7 +111,6 @@ export const TenantProvider: React.FC<TenantProviderProps> = ({ children }) => {
       setCurrentTenant('clinic');
     }
 
-    // Build hierarchy
     await buildHierarchy(org);
   };
 
@@ -169,7 +119,6 @@ export const TenantProvider: React.FC<TenantProviderProps> = ({ children }) => {
 
     try {
       if (org.type === 'clinic' && org.parent_id) {
-        // Clinic - fetch parent lab and billing company
         const { data: lab } = await supabase
           .from('organizations')
           .select('*')
@@ -193,7 +142,6 @@ export const TenantProvider: React.FC<TenantProviderProps> = ({ children }) => {
         }
         newHierarchy.clinic = org;
       } else if (org.type === 'lab' && org.parent_id) {
-        // Lab - fetch parent billing company
         const { data: billing } = await supabase
           .from('organizations')
           .select('*')
@@ -205,7 +153,6 @@ export const TenantProvider: React.FC<TenantProviderProps> = ({ children }) => {
         }
         newHierarchy.lab = org;
       } else if (org.type === 'billing_company') {
-        // Billing company - top level
         newHierarchy.billingCompany = org;
       }
 
@@ -226,21 +173,7 @@ export const TenantProvider: React.FC<TenantProviderProps> = ({ children }) => {
     await fetchUserOrganizations();
   };
 
-  const hasPermission = (resource: string, action: string): boolean => {
-    // Super admin check
-    if (permissions.some(p => p.name === 'super_admin')) {
-      return true;
-    }
-
-    // Check specific permission
-    return permissions.some(p => 
-      p.resource === resource && 
-      p.action === action
-    );
-  };
-
   const canAccessModule = (moduleName: string): boolean => {
-    // Module access rules based on tenant type
     const moduleAccess: Record<string, ('billing' | 'lab' | 'clinic')[]> = {
       dashboard: ['billing', 'lab', 'clinic'],
       billing: ['billing', 'lab'],
@@ -257,17 +190,14 @@ export const TenantProvider: React.FC<TenantProviderProps> = ({ children }) => {
   };
 
   const getAccessibleOrganizations = (): Organization[] => {
-    // Filter organizations based on current user's access level
     if (currentTenant === 'billing') {
-      return organizations; // Can see all
+      return organizations;
     } else if (currentTenant === 'lab') {
-      // Can see own lab and child clinics
       return organizations.filter(org => 
         org.id === currentOrganization?.id || 
         org.parent_id === currentOrganization?.id
       );
     } else if (currentTenant === 'clinic') {
-      // Can only see own clinic
       return organizations.filter(org => org.id === currentOrganization?.id);
     }
     return [];
@@ -277,13 +207,11 @@ export const TenantProvider: React.FC<TenantProviderProps> = ({ children }) => {
     currentTenant,
     currentOrganization,
     organizations,
-    permissions,
     hierarchy,
     isLoading,
     error,
     switchOrganization,
     refreshOrganizations,
-    hasPermission,
     canAccessModule,
     getAccessibleOrganizations
   };
@@ -292,14 +220,5 @@ export const TenantProvider: React.FC<TenantProviderProps> = ({ children }) => {
     <TenantContext.Provider value={value}>
       {children}
     </TenantContext.Provider>
-  );
-};
-
-// Enhanced Auth Provider that includes Tenant Context
-export const EnhancedAuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  return (
-    <TenantProvider>
-      {children}
-    </TenantProvider>
   );
 };

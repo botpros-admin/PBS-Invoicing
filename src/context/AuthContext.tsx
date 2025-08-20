@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
-import { AppUser, User, ClientUser } from '../types';
+import { AppUser } from '../types';
 import { supabase } from '../api/supabase';
 import { Session, User as SupabaseUser } from '@supabase/supabase-js';
 
@@ -21,6 +21,7 @@ interface AuthContextType {
   permissions: Permission[];
   isAuthenticated: boolean;
   isLoading: boolean;
+  isPermissionsLoading: boolean;
   hasPermission: (resource: string, action: string) => boolean;
   hasAnyPermission: (resource: string) => boolean;
   login: (email: string, password: string) => Promise<{ error?: Error }>;
@@ -37,6 +38,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   const [permissions, setPermissions] = useState<Permission[]>([]);
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [isPermissionsLoading, setIsPermissionsLoading] = useState<boolean>(true);
 
   const fetchUserRole = async (roleId: string): Promise<Role | null> => {
     if (!roleId) return null;
@@ -47,137 +49,154 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
       .eq('id', roleId)
       .single();
     
-    if (error || !data) return null;
+    if (error) {
+      console.error('Error fetching user role:', error);
+      return null;
+    }
     return data;
   };
 
   const hasPermission = (resource: string, action: string): boolean => {
+    if (isLoading || isPermissionsLoading) return false;
     const permission = permissions.find(p => p.resource === resource);
     return permission?.actions.includes(action) || false;
   };
 
   const hasAnyPermission = (resource: string): boolean => {
+    if (isLoading || isPermissionsLoading) return false;
     return permissions.some(p => p.resource === resource && p.actions.length > 0);
   };
 
-  const refreshPermissions = async () => {
-    if (!user) return;
-    
-    let roleId: string | null = null;
-    
-    if (user.userType === 'staff') {
-      const { data } = await supabase
-        .from('users')
-        .select('role_id')
-        .eq('id', user.id)
-        .single();
-      roleId = data?.role_id;
+  const clearUserState = () => {
+    setUser(null);
+    setRole(null);
+    setPermissions([]);
+    setIsAuthenticated(false);
+  };
+
+  const fetchUserProfile = async (supabaseUser: SupabaseUser): Promise<AppUser | null> => {
+    // First try to fetch from users table (PBS staff)
+    const { data: staffProfile, error: staffError } = await supabase
+      .from('users')
+      .select('*')
+      .eq('auth_id', supabaseUser.id)
+      .single();
+
+    if (staffProfile && !staffError) {
+      // This is a PBS staff member
+      console.log('[AuthContext] Found PBS staff profile:', staffProfile.email);
+      
+      // Fetch role if role_id exists
+      if (staffProfile.role_id) {
+        const roleData = await fetchUserRole(staffProfile.role_id);
+        if (roleData) {
+          setRole(roleData);
+          // Parse permissions from JSONB
+          const parsedPermissions: Permission[] = [];
+          if (roleData.permissions && typeof roleData.permissions === 'object') {
+            Object.entries(roleData.permissions as any).forEach(([resource, actions]) => {
+              if (Array.isArray(actions)) {
+                parsedPermissions.push({ resource, actions });
+              }
+            });
+          }
+          setPermissions(parsedPermissions);
+        }
+      } else {
+        // Fallback to role field for backward compatibility
+        console.warn(`Staff user ${staffProfile.email} has no role_id, using legacy role field:`, staffProfile.role);
+        setRole(null);
+        setPermissions([]);
+      }
+
+      return {
+        userType: 'staff',
+        id: staffProfile.id,
+        name: `${staffProfile.first_name || ''} ${staffProfile.last_name || ''}`.trim() || staffProfile.email,
+        email: staffProfile.email,
+        role: (staffProfile.role as any) || 'staff',
+        status: staffProfile.status || 'active',
+        mfaEnabled: staffProfile.mfa_enabled || false,
+        createdAt: staffProfile.created_at,
+        updatedAt: staffProfile.updated_at,
+        organizationId: staffProfile.organization_id,
+      };
+    }
+
+    // If not found in users table, try client_users table
+    const { data: clientProfile, error: clientError } = await supabase
+      .from('client_users')
+      .select('*, clients!inner(*)')
+      .eq('auth_id', supabaseUser.id)
+      .single();
+
+    if (clientProfile && !clientError) {
+      // This is a client portal user
+      console.log('[AuthContext] Found client portal user:', clientProfile.email);
+      
+      // Client users have limited permissions
+      setRole({ id: 'client', name: 'client', permissions: [] });
+      setPermissions([
+        { resource: 'invoices', actions: ['read'] },
+        { resource: 'payments', actions: ['read', 'create'] },
+        { resource: 'reports', actions: ['read'] }
+      ]);
+
+      return {
+        userType: 'client',
+        id: clientProfile.id,
+        name: `${clientProfile.first_name || ''} ${clientProfile.last_name || ''}`.trim() || clientProfile.email,
+        email: clientProfile.email,
+        role: 'user' as any,
+        status: clientProfile.status || 'active',
+        mfaEnabled: false,
+        createdAt: clientProfile.created_at,
+        updatedAt: clientProfile.updated_at,
+        organizationId: clientProfile.clients?.organization_id,
+        clientId: clientProfile.client_id,
+      };
+    }
+
+    // No profile found in either table
+    console.error('[AuthContext] No profile found in users or client_users for:', supabaseUser.email);
+    return null;
+  };
+
+  const setSessionData = async (currentSession: Session | null) => {
+    console.log('[AuthContext] Setting session data for user:', currentSession?.user?.email);
+    setSession(currentSession);
+    if (currentSession?.user) {
+      setIsPermissionsLoading(true);
+      // Commented out set_user_context as it's not essential and causing 404 errors
+      // This function would be used for advanced RLS scenarios but isn't required
+      // try {
+      //   await supabase.rpc('set_user_context', { user_uuid: currentSession.user.id });
+      //   console.log('[AuthContext] User context set for database operations');
+      // } catch (error) {
+      //   console.warn('[AuthContext] Could not set user context:', error);
+      // }
+      
+      const profile = await fetchUserProfile(currentSession.user);
+      
+      if (profile) {
+        console.log('[AuthContext] User profile fetched:', profile?.email, 'with role:', profile.role);
+        setUser(profile);
+        setIsAuthenticated(true);
+      } else {
+        console.error(`[AuthContext] CRITICAL: No profile found for authenticated user ${currentSession.user.email}. Logging out.`);
+        clearUserState();
+        await supabase.auth.signOut();
+      }
+      setIsPermissionsLoading(false);
     } else {
-      const { data } = await supabase
-        .from('client_users')
-        .select('role_id')
-        .eq('id', user.id)
-        .single();
-      roleId = data?.role_id;
+      console.log('[AuthContext] No session, clearing user data');
+      clearUserState();
+      setIsPermissionsLoading(false);
     }
-    
-    if (roleId) {
-      const userRole = await fetchUserRole(roleId);
-      setRole(userRole);
-      setPermissions(userRole?.permissions || []);
-    }
+    setIsLoading(false);
   };
 
   useEffect(() => {
-    const fetchUserProfile = async (supabaseUser: SupabaseUser): Promise<AppUser | null> => {
-      const { data: staffProfile } = await supabase
-        .from('users')
-        .select('*')
-        .eq('auth_id', supabaseUser.id)
-        .single();
-
-      if (staffProfile) {
-        // Fetch role and permissions - check if role_id exists
-        const roleId = (staffProfile as any).role_id;
-        if (roleId) {
-          const userRole = await fetchUserRole(roleId);
-          setRole(userRole);
-          setPermissions(userRole?.permissions || []);
-        }
-        
-        return {
-          userType: 'staff',
-          id: staffProfile.id,
-          name: staffProfile.name || supabaseUser.email!,
-          email: supabaseUser.email!,
-          role: staffProfile.role,
-          status: staffProfile.status,
-          mfaEnabled: false,
-          createdAt: staffProfile.created_at,
-          updatedAt: new Date().toISOString(),
-          organizationId: staffProfile.organization_id,
-        };
-      }
-
-      const { data: clientProfile } = await supabase
-        .from('client_users')
-        .select('*')
-        .eq('auth_id', supabaseUser.id)
-        .single();
-
-      if (clientProfile) {
-        // Fetch role and permissions - check if role_id exists
-        const roleId = (clientProfile as any).role_id;
-        if (roleId) {
-          const userRole = await fetchUserRole(roleId);
-          setRole(userRole);
-          setPermissions(userRole?.permissions || []);
-        }
-        
-        return {
-          userType: 'client',
-          id: clientProfile.id,
-          name: clientProfile.name || supabaseUser.email!,
-          email: supabaseUser.email!,
-          role: clientProfile.role,
-          status: clientProfile.status,
-          mfaEnabled: false,
-          createdAt: clientProfile.created_at,
-          updatedAt: new Date().toISOString(),
-          organizationId: clientProfile.organization_id,
-          clientId: clientProfile.client_id,
-        };
-      }
-      return null;
-    };
-
-    const setSessionData = async (currentSession: Session | null) => {
-      console.log('[AuthContext] Setting session data:', currentSession?.user?.email);
-      setSession(currentSession);
-      if (currentSession?.user) {
-        // Set user context for database operations (audit triggers and RLS)
-        try {
-          await supabase.rpc('set_user_context', { user_id: currentSession.user.id });
-          console.log('[AuthContext] User context set for database operations');
-        } catch (error) {
-          console.warn('[AuthContext] Could not set user context:', error);
-          // Continue anyway - the database has fallbacks
-        }
-        
-        const profile = await fetchUserProfile(currentSession.user);
-        console.log('[AuthContext] User profile fetched:', profile?.email);
-        setUser(profile);
-        setIsAuthenticated(!!profile);
-      } else {
-        console.log('[AuthContext] No session, clearing user data');
-        setUser(null);
-        setRole(null);
-        setPermissions([]);
-        setIsAuthenticated(false);
-      }
-      setIsLoading(false);
-    };
-
     supabase.auth.getSession().then(({ data: { session } }) => setSessionData(session));
 
     const { data: authListener } = supabase.auth.onAuthStateChange((_event, session) => {
@@ -192,14 +211,8 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   const login = async (email: string, password: string) => {
     const { data, error } = await supabase.auth.signInWithPassword({ email, password });
     
-    // Set user context immediately after successful login
     if (!error && data?.user) {
-      try {
-        await supabase.rpc('set_user_context', { user_id: data.user.id });
-        console.log('[AuthContext] User context set after login');
-      } catch (contextError) {
-        console.warn('[AuthContext] Could not set user context after login:', contextError);
-      }
+      await setSessionData(data.session);
     }
     
     return { error: error || undefined };
@@ -207,6 +220,15 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
 
   const logout = async () => {
     await supabase.auth.signOut();
+    clearUserState();
+  };
+
+  const refreshPermissions = async () => {
+    if (session?.user) {
+      setIsPermissionsLoading(true);
+      await fetchUserProfile(session.user);
+      setIsPermissionsLoading(false);
+    }
   };
 
   return (
@@ -217,6 +239,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
       permissions,
       isAuthenticated, 
       isLoading, 
+      isPermissionsLoading,
       hasPermission,
       hasAnyPermission,
       login, 

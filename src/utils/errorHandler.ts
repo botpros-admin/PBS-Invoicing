@@ -1,541 +1,186 @@
-/**
- * Comprehensive Error Handling System
- * Centralized error management for the PBS Invoicing application
- */
+import { PostgrestError } from '@supabase/supabase-js';
 
-import { SupabaseClient } from '@supabase/supabase-js';
-import { SecurityConfig } from '../config/security';
-
-/**
- * Error severity levels
- */
-export enum ErrorSeverity {
-  LOW = 'low',
-  MEDIUM = 'medium',
-  HIGH = 'high',
-  CRITICAL = 'critical'
+export interface ApiError extends Error {
+  code?: string;
+  status?: number;
+  details?: any;
 }
 
 /**
- * Error categories for classification
+ * Parse and format Supabase/PostgreSQL errors into user-friendly messages
  */
-export enum ErrorCategory {
-  AUTHENTICATION = 'authentication',
-  AUTHORIZATION = 'authorization',
-  VALIDATION = 'validation',
-  DATABASE = 'database',
-  NETWORK = 'network',
-  BUSINESS_LOGIC = 'business_logic',
-  SYSTEM = 'system',
-  SECURITY = 'security',
-  RATE_LIMIT = 'rate_limit',
-  FILE_UPLOAD = 'file_upload',
-  EXTERNAL_API = 'external_api'
-}
-
-/**
- * Custom error class with enhanced properties
- */
-export class AppError extends Error {
-  public readonly code: string;
-  public readonly severity: ErrorSeverity;
-  public readonly category: ErrorCategory;
-  public readonly isOperational: boolean;
-  public readonly statusCode: number;
-  public readonly details?: any;
-  public readonly timestamp: Date;
-  public readonly correlationId?: string;
-
-  constructor(
-    message: string,
-    code: string,
-    statusCode: number = 500,
-    severity: ErrorSeverity = ErrorSeverity.MEDIUM,
-    category: ErrorCategory = ErrorCategory.SYSTEM,
-    isOperational: boolean = true,
-    details?: any
-  ) {
-    super(message);
-    this.name = 'AppError';
-    this.code = code;
-    this.statusCode = statusCode;
-    this.severity = severity;
-    this.category = category;
-    this.isOperational = isOperational;
-    this.details = details;
-    this.timestamp = new Date();
-    this.correlationId = this.generateCorrelationId();
-
-    // Maintains proper stack trace for where our error was thrown
-    Error.captureStackTrace(this, this.constructor);
-  }
-
-  private generateCorrelationId(): string {
-    return `${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
-  }
-
-  toJSON() {
-    return {
-      name: this.name,
-      message: this.message,
-      code: this.code,
-      statusCode: this.statusCode,
-      severity: this.severity,
-      category: this.category,
-      isOperational: this.isOperational,
-      details: this.details,
-      timestamp: this.timestamp,
-      correlationId: this.correlationId,
-      stack: this.stack
-    };
-  }
-}
-
-/**
- * Predefined error types for common scenarios
- */
-export class ValidationError extends AppError {
-  constructor(message: string, details?: any) {
-    super(
-      message,
-      'VALIDATION_ERROR',
-      400,
-      ErrorSeverity.LOW,
-      ErrorCategory.VALIDATION,
-      true,
-      details
-    );
-  }
-}
-
-export class AuthenticationError extends AppError {
-  constructor(message: string = 'Authentication failed') {
-    super(
-      message,
-      'AUTH_ERROR',
-      401,
-      ErrorSeverity.HIGH,
-      ErrorCategory.AUTHENTICATION,
-      true
-    );
-  }
-}
-
-export class AuthorizationError extends AppError {
-  constructor(message: string = 'Insufficient permissions') {
-    super(
-      message,
-      'AUTHZ_ERROR',
-      403,
-      ErrorSeverity.HIGH,
-      ErrorCategory.AUTHORIZATION,
-      true
-    );
-  }
-}
-
-export class NotFoundError extends AppError {
-  constructor(resource: string) {
-    super(
-      `${resource} not found`,
-      'NOT_FOUND',
-      404,
-      ErrorSeverity.LOW,
-      ErrorCategory.DATABASE,
-      true
-    );
-  }
-}
-
-export class ConflictError extends AppError {
-  constructor(message: string) {
-    super(
-      message,
-      'CONFLICT',
-      409,
-      ErrorSeverity.MEDIUM,
-      ErrorCategory.BUSINESS_LOGIC,
-      true
-    );
-  }
-}
-
-export class RateLimitError extends AppError {
-  constructor(retryAfter?: number) {
-    super(
-      'Rate limit exceeded',
-      'RATE_LIMIT',
-      429,
-      ErrorSeverity.MEDIUM,
-      ErrorCategory.RATE_LIMIT,
-      true,
-      { retryAfter }
-    );
-  }
-}
-
-export class DatabaseError extends AppError {
-  constructor(message: string, originalError?: any) {
-    super(
-      message,
-      'DB_ERROR',
-      500,
-      ErrorSeverity.HIGH,
-      ErrorCategory.DATABASE,
-      true,
-      { originalError }
-    );
-  }
-}
-
-export class NetworkError extends AppError {
-  constructor(message: string, originalError?: any) {
-    super(
-      message,
-      'NETWORK_ERROR',
-      503,
-      ErrorSeverity.HIGH,
-      ErrorCategory.NETWORK,
-      true,
-      { originalError }
-    );
-  }
-}
-
-export class SecurityError extends AppError {
-  constructor(message: string) {
-    super(
-      message,
-      'SECURITY_ERROR',
-      403,
-      ErrorSeverity.CRITICAL,
-      ErrorCategory.SECURITY,
-      false
-    );
-  }
-}
-
-/**
- * Error handler singleton class
- */
-export class ErrorHandler {
-  private static instance: ErrorHandler;
-  private errorLog: AppError[] = [];
-  private readonly maxLogSize = 1000;
-  private errorListeners: ((error: AppError) => void)[] = [];
-
-  private constructor() {}
-
-  static getInstance(): ErrorHandler {
-    if (!ErrorHandler.instance) {
-      ErrorHandler.instance = new ErrorHandler();
-    }
-    return ErrorHandler.instance;
-  }
-
-  /**
-   * Handle and process errors
-   */
-  handle(error: Error | AppError): AppError {
-    let appError: AppError;
-
-    if (error instanceof AppError) {
-      appError = error;
-    } else {
-      // Convert regular errors to AppError
-      appError = this.normalizeError(error);
-    }
-
-    // Log the error
-    this.logError(appError);
-
-    // Notify listeners
-    this.notifyListeners(appError);
-
-    // Handle based on severity
-    this.handleBySeverity(appError);
-
-    return appError;
-  }
-
-  /**
-   * Convert various error types to AppError
-   */
-  private normalizeError(error: any): AppError {
-    // Handle Supabase errors
-    if (error?.code && error?.message) {
-      return this.handleSupabaseError(error);
-    }
-
-    // Handle fetch/network errors
-    if (error instanceof TypeError && error.message.includes('fetch')) {
-      return new NetworkError('Network request failed', error);
-    }
-
-    // Handle syntax errors
-    if (error instanceof SyntaxError) {
-      return new AppError(
-        'Invalid data format',
-        'SYNTAX_ERROR',
-        400,
-        ErrorSeverity.MEDIUM,
-        ErrorCategory.VALIDATION,
-        true,
-        { originalError: error.message }
-      );
-    }
-
-    // Default error handling
-    return new AppError(
-      error?.message || 'An unexpected error occurred',
-      'UNKNOWN_ERROR',
-      500,
-      ErrorSeverity.HIGH,
-      ErrorCategory.SYSTEM,
-      false,
-      { originalError: error }
-    );
-  }
-
-  /**
-   * Handle Supabase-specific errors
-   */
-  private handleSupabaseError(error: any): AppError {
-    const errorMap: Record<string, () => AppError> = {
-      '23505': () => new ConflictError('Duplicate entry exists'),
-      '23503': () => new ValidationError('Referenced record does not exist'),
-      '23502': () => new ValidationError('Required field is missing'),
-      '42501': () => new AuthorizationError('Insufficient database privileges'),
-      '42P01': () => new DatabaseError('Database table does not exist'),
-      'PGRST301': () => new AuthenticationError('JWT token is missing'),
-      'PGRST302': () => new AuthenticationError('JWT token is invalid'),
-      '57014': () => new DatabaseError('Query cancelled due to timeout'),
-    };
-
-    const handler = errorMap[error.code];
-    if (handler) {
-      return handler();
-    }
-
-    // Handle auth errors
-    if (error.message?.toLowerCase().includes('auth')) {
-      return new AuthenticationError(error.message);
-    }
-
-    // Handle rate limit errors
-    if (error.message?.toLowerCase().includes('rate limit')) {
-      return new RateLimitError();
-    }
-
-    return new DatabaseError(error.message || 'Database operation failed', error);
-  }
-
-  /**
-   * Log errors to internal buffer
-   */
-  private logError(error: AppError): void {
-    this.errorLog.push(error);
-
-    // Maintain max log size
-    if (this.errorLog.length > this.maxLogSize) {
-      this.errorLog.shift();
-    }
-
-    // Log to console in development
-    if (process.env.NODE_ENV === 'development') {
-      console.error('[ErrorHandler]', error.toJSON());
-    }
-  }
-
-  /**
-   * Handle errors based on severity
-   */
-  private handleBySeverity(error: AppError): void {
-    switch (error.severity) {
-      case ErrorSeverity.CRITICAL:
-        // In production, you might want to send alerts
-        console.error('CRITICAL ERROR:', error);
-        // Could integrate with monitoring service
-        break;
-      case ErrorSeverity.HIGH:
-        console.error('HIGH SEVERITY ERROR:', error);
-        break;
-      case ErrorSeverity.MEDIUM:
-        console.warn('MEDIUM SEVERITY ERROR:', error);
-        break;
-      case ErrorSeverity.LOW:
-        console.log('LOW SEVERITY ERROR:', error);
+export function parseSupabaseError(error: any): string {
+  // Handle PostgrestError
+  if (error?.code) {
+    switch (error.code) {
+      // Authentication errors
+      case 'invalid_credentials':
+        return 'Invalid email or password. Please try again.';
+      case 'email_not_confirmed':
+        return 'Please confirm your email address before signing in.';
+      case 'user_not_found':
+        return 'No account found with this email address.';
+      
+      // Authorization errors  
+      case '42501':
+        return 'You do not have permission to perform this action.';
+      case 'PGRST301':
+        return 'Your session has expired. Please sign in again.';
+      
+      // Database constraint errors
+      case '23505':
+        return 'This record already exists. Please use a different value.';
+      case '23503':
+        return 'Cannot complete this action due to related records.';
+      case '23502':
+        return 'Required information is missing. Please fill in all required fields.';
+      case '23514':
+        return 'The provided data does not meet the required format.';
+      
+      // Network errors
+      case 'NETWORK_ERROR':
+        return 'Network connection failed. Please check your internet connection.';
+      case 'TIMEOUT':
+        return 'The request took too long. Please try again.';
+      
+      default:
+        if (error.message?.includes('duplicate key')) {
+          return 'This item already exists. Please use a different identifier.';
+        }
+        if (error.message?.includes('violates foreign key')) {
+          return 'This action references data that does not exist.';
+        }
+        if (error.message?.includes('JWT')) {
+          return 'Authentication error. Please sign in again.';
+        }
         break;
     }
   }
 
-  /**
-   * Register error listener
-   */
-  addListener(listener: (error: AppError) => void): void {
-    this.errorListeners.push(listener);
+  // Handle HTTP status codes
+  if (error?.status) {
+    switch (error.status) {
+      case 400:
+        return 'Invalid request. Please check your input and try again.';
+      case 401:
+        return 'You are not authenticated. Please sign in.';
+      case 403:
+        return 'You do not have permission to access this resource.';
+      case 404:
+        return 'The requested resource was not found.';
+      case 409:
+        return 'This action conflicts with existing data.';
+      case 422:
+        return 'The provided data is invalid. Please check and try again.';
+      case 429:
+        return 'Too many requests. Please wait a moment and try again.';
+      case 500:
+        return 'An internal server error occurred. Please try again later.';
+      case 502:
+      case 503:
+        return 'The service is temporarily unavailable. Please try again later.';
+      default:
+        if (error.status >= 400 && error.status < 500) {
+          return 'There was a problem with your request. Please try again.';
+        }
+        if (error.status >= 500) {
+          return 'A server error occurred. Please try again later.';
+        }
+    }
   }
 
-  /**
-   * Remove error listener
-   */
-  removeListener(listener: (error: AppError) => void): void {
-    this.errorListeners = this.errorListeners.filter(l => l !== listener);
-  }
-
-  /**
-   * Notify all registered listeners
-   */
-  private notifyListeners(error: AppError): void {
-    this.errorListeners.forEach(listener => {
-      try {
-        listener(error);
-      } catch (err) {
-        console.error('Error in error listener:', err);
-      }
-    });
-  }
-
-  /**
-   * Get recent errors
-   */
-  getRecentErrors(count: number = 10): AppError[] {
-    return this.errorLog.slice(-count);
-  }
-
-  /**
-   * Get errors by category
-   */
-  getErrorsByCategory(category: ErrorCategory): AppError[] {
-    return this.errorLog.filter(e => e.category === category);
-  }
-
-  /**
-   * Get errors by severity
-   */
-  getErrorsBySeverity(severity: ErrorSeverity): AppError[] {
-    return this.errorLog.filter(e => e.severity === severity);
-  }
-
-  /**
-   * Clear error log
-   */
-  clearLog(): void {
-    this.errorLog = [];
-  }
-
-  /**
-   * Get error statistics
-   */
-  getStatistics() {
-    const stats = {
-      total: this.errorLog.length,
-      bySeverity: {} as Record<ErrorSeverity, number>,
-      byCategory: {} as Record<ErrorCategory, number>,
-      operational: 0,
-      programming: 0
-    };
-
-    // Initialize counters
-    Object.values(ErrorSeverity).forEach(severity => {
-      stats.bySeverity[severity] = 0;
-    });
-    Object.values(ErrorCategory).forEach(category => {
-      stats.byCategory[category] = 0;
-    });
-
-    // Count errors
-    this.errorLog.forEach(error => {
-      stats.bySeverity[error.severity]++;
-      stats.byCategory[error.category]++;
-      if (error.isOperational) {
-        stats.operational++;
-      } else {
-        stats.programming++;
-      }
-    });
-
-    return stats;
-  }
+  // Default fallback
+  return error?.message || 'An unexpected error occurred. Please try again.';
 }
 
 /**
- * Global error handler instance
+ * Create a standardized API error object
  */
-export const errorHandler = ErrorHandler.getInstance();
-
-// React-specific error boundary helper has been moved to components/ErrorBoundary.tsx
-// This keeps the error handler utility pure and framework-agnostic
-
-/**
- * Async error wrapper utility
- */
-export async function asyncErrorHandler<T>(
-  fn: () => Promise<T>,
-  defaultValue?: T
-): Promise<[T | undefined, AppError | null]> {
-  try {
-    const result = await fn();
-    return [result, null];
-  } catch (error) {
-    const appError = errorHandler.handle(error as Error);
-    return [defaultValue, appError];
-  }
+export function createApiError(
+  message: string,
+  code?: string,
+  status?: number,
+  details?: any
+): ApiError {
+  const error = new Error(message) as ApiError;
+  error.code = code;
+  error.status = status;
+  error.details = details;
+  return error;
 }
 
 /**
- * Express/API error middleware helper
+ * Log errors with context for debugging
  */
-export function apiErrorHandler(
-  error: Error | AppError,
-  req: any,
-  res: any,
-  next: any
+export function logError(
+  error: any,
+  context: string,
+  additionalData?: Record<string, any>
 ): void {
-  const appError = errorHandler.handle(error);
+  const errorInfo = {
+    message: error?.message || 'Unknown error',
+    code: error?.code,
+    status: error?.status,
+    stack: error?.stack,
+    context,
+    timestamp: new Date().toISOString(),
+    ...additionalData,
+  };
 
-  // Send appropriate response
-  res.status(appError.statusCode).json({
-    error: {
-      message: appError.message,
-      code: appError.code,
-      correlationId: appError.correlationId,
-      ...(process.env.NODE_ENV === 'development' && {
-        details: appError.details,
-        stack: appError.stack
-      })
-    }
-  });
+  // In development, log to console
+  if (import.meta.env.DEV) {
+    console.error(`[${context}] Error:`, errorInfo);
+  }
+
+  // In production, you might want to send to an error tracking service
+  // Example: Sentry, LogRocket, etc.
+  // if (import.meta.env.PROD) {
+  //   sendToErrorTracker(errorInfo);
+  // }
 }
 
 /**
- * Retry mechanism for transient failures
+ * Retry logic for transient failures
  */
-export async function retryWithBackoff<T>(
-  fn: () => Promise<T>,
+export async function retryOperation<T>(
+  operation: () => Promise<T>,
   maxRetries: number = 3,
-  initialDelay: number = 1000
+  delay: number = 1000,
+  backoff: number = 2
 ): Promise<T> {
-  let lastError: Error;
-
+  let lastError: any;
+  
   for (let i = 0; i < maxRetries; i++) {
     try {
-      return await fn();
-    } catch (error) {
-      lastError = error as Error;
+      return await operation();
+    } catch (error: any) {
+      lastError = error;
       
-      // Don't retry non-operational errors
-      if (error instanceof AppError && !error.isOperational) {
+      // Don't retry on client errors (4xx)
+      if (error?.status >= 400 && error?.status < 500) {
         throw error;
       }
-
-      // Calculate exponential backoff
-      const delay = initialDelay * Math.pow(2, i);
-      await new Promise(resolve => setTimeout(resolve, delay));
+      
+      // Wait before retrying
+      if (i < maxRetries - 1) {
+        await new Promise(resolve => setTimeout(resolve, delay * Math.pow(backoff, i)));
+      }
     }
   }
-
-  throw lastError!;
+  
+  throw lastError;
 }
 
-export default errorHandler;
+/**
+ * Format error messages for form validation
+ */
+export function formatValidationErrors(errors: Record<string, string[]>): string {
+  const messages = Object.entries(errors)
+    .map(([field, fieldErrors]) => {
+      const fieldName = field.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
+      return `${fieldName}: ${fieldErrors.join(', ')}`;
+    })
+    .join('\n');
+  
+  return messages || 'Please check your input and try again.';
+}

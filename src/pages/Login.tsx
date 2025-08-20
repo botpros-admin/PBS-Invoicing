@@ -29,9 +29,9 @@ const Login: React.FC = () => {
   // Demo credentials for different user types
   const demoCredentials = {
     pbs: [
-      { email: 'admin@pbsmedical.com', password: 'TempPass123!', role: 'PBS Administrator' },
-      { email: 'billing@pbsmedical.com', password: 'TempPass123!', role: 'Billing Specialist' },
-      { email: 'claims@pbsmedical.com', password: 'TempPass123!', role: 'Claims Processor' }
+      { email: 'admin@testemail.com', password: 'TempPass123!', role: 'PBS Administrator' },
+      { email: 'billing@testemail.com', password: 'TempPass123!', role: 'Billing Specialist' },
+      { email: 'claims@testemail.com', password: 'TempPass123!', role: 'Claims Processor' }
     ],
     client: [
       { email: 'john.smith@questdiagnostics.com', password: 'ClientPass123!', role: 'Client Admin (Quest)' },
@@ -39,7 +39,8 @@ const Login: React.FC = () => {
       { email: 'mike.chen@northclinic.com', password: 'ClientPass123!', role: 'Clinic Admin' }
     ],
     admin: [
-      { email: 'superadmin@pbsmedical.com', password: 'SuperAdmin123!', role: 'Super Administrator' }
+      { email: 'superadmin@testemail.com', password: 'SuperAdmin123!', role: 'Super Administrator' },
+      { email: 'test@test.com', password: 'Test123456!', role: 'Test User' }
     ]
   };
 

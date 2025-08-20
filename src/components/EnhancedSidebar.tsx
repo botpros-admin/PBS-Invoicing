@@ -19,6 +19,7 @@ import {
 import { useAuth } from '../context/AuthContext';
 import { useTenant } from '../context/TenantContext';
 import { moduleConfig } from '../modules';
+import PermissionGuard from './common/PermissionGuard';
 
 interface SidebarProps {
   collapsed: boolean;

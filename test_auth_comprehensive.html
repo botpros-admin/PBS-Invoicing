@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Comprehensive Supabase Auth Test</title>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+        }
+        .test-section {
+            margin: 20px 0;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        button {
+            margin: 5px;
+            padding: 10px 15px;
+            background: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+        button:hover {
+            background: #45a049;
+        }
+        .error {
+            color: red;
+            font-weight: bold;
+        }
+        .success {
+            color: green;
+            font-weight: bold;
+        }
+        pre {
+            background: #f4f4f4;
+            padding: 10px;
+            border-radius: 3px;
+            overflow-x: auto;
+        }
+        .status {
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 3px;
+        }
+        .status.testing {
+            background: #fff3cd;
+            color: #856404;
+        }
+        .status.success {
+            background: #d4edda;
+            color: #155724;
+        }
+        .status.error {
+            background: #f8d7da;
+            color: #721c24;
+        }
+    </style>
+</head>
+<body>
+    <h1>Comprehensive Supabase Authentication Test</h1>
+    
+    <div class="test-section">
+        <h2>Test Configuration</h2>
+        <div id="config"></div>
+    </div>
+
+    <div class="test-section">
+        <h2>Quick Login Tests</h2>
+        <button onclick="testLogin('admin@pbsmedical.com', 'TempPass123!')">Test PBS Admin</button>
+        <button onclick="testLogin('billing@pbsmedical.com', 'TempPass123!')">Test Billing Staff</button>
+        <button onclick="testLogin('claims@pbsmedical.com', 'TempPass123!')">Test Claims Staff</button>
+        <button onclick="testLogin('superadmin@pbsmedical.com', 'TempPass123!')">Test Super Admin</button>
+        <button onclick="testLogin('client@hospitalnetwork.com', 'TempPass123!')">Test Client (Hospital)</button>
+        <button onclick="testLogin('client@cityclinic.com', 'TempPass123!')">Test Client (Clinic)</button>
+    </div>
+
+    <div class="test-section">
+        <h2>Custom Login Test</h2>
+        <input type="email" id="customEmail" placeholder="Email" value="admin@pbsmedical.com" style="width: 250px; padding: 5px;">
+        <input type="password" id="customPassword" placeholder="Password" value="TempPass123!" style="width: 150px; padding: 5px;">
+        <button onclick="testCustomLogin()">Test Custom Login</button>
+    </div>
+
+    <div class="test-section">
+        <h2>Authentication Status</h2>
+        <div id="status" class="status">Ready to test...</div>
+    </div>
+
+    <div class="test-section">
+        <h2>Test Results</h2>
+        <pre id="result"></pre>
+    </div>
+
+    <div class="test-section">
+        <h2>Current Session</h2>
+        <button onclick="checkSession()">Check Current Session</button>
+        <button onclick="signOut()">Sign Out</button>
+        <pre id="session"></pre>
+    </div>
+
+    <div class="test-section">
+        <h2>Test Summary</h2>
+        <div id="summary"></div>
+    </div>
+
+    <script>
+        // Your Supabase credentials
+        const SUPABASE_URL = 'https://qwvukolqraoucpxjqpmu.supabase.co';
+        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InF3dnVrb2xxcmFvdWNweGpxcG11Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDM1NzI2OTEsImV4cCI6MjA1OTE0ODY5MX0.mhyCdgks_NAvnWWbkT7642Ww_RkwwosruEXLSLmQ_ew';
+        
+        // Test results storage
+        const testResults = {
+            passed: [],
+            failed: []
+        };
+        
+        // Create Supabase client
+        const { createClient } = supabase;
+        const supabaseClient = createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
+            auth: {
+                autoRefreshToken: true,
+                persistSession: true,
+                detectSessionInUrl: true
+            }
+        });
+        
+        // Display configuration
+        document.getElementById('config').innerHTML = `
+            <strong>Supabase URL:</strong> ${SUPABASE_URL}<br>
+            <strong>Using Anon Key:</strong> ${SUPABASE_ANON_KEY.substring(0, 20)}...<br>
+            <strong>Auth Mode:</strong> Email/Password<br>
+            <strong>Test Date:</strong> ${new Date().toLocaleString()}
+        `;
+        
+        async function testLogin(email, password) {
+            updateStatus(`Testing login for ${email}...`, 'testing');
+            
+            try {
+                console.log(`Attempting login for: ${email}`);
+                
+                // Clear any existing session first
+                await supabaseClient.auth.signOut();
+                
+                // Try to sign in
+                const { data, error } = await supabaseClient.auth.signInWithPassword({
+                    email: email,
+                    password: password
+                });
+                
+                if (error) {
+                    console.error('Login error:', error);
+                    updateStatus(`❌ Login failed for ${email}`, 'error');
+                    displayResult({
+                        test: `Login: ${email}`,
+                        status: 'FAILED',
+                        error: error.message,
+                        errorCode: error.status,
+                        errorDetails: error,
+                        timestamp: new Date().toISOString()
+                    });
+                    testResults.failed.push(email);
+                } else {
+                    console.log('Login successful:', data);
+                    updateStatus(`✅ Login successful for ${email}!`, 'success');
+                    displayResult({
+                        test: `Login: ${email}`,
+                        status: 'SUCCESS',
+                        user: {
+                            id: data.user.id,
+                            email: data.user.email,
+                            role: data.user.user_metadata?.role,
+                            fullName: data.user.user_metadata?.full_name,
+                            emailConfirmed: data.user.email_confirmed_at,
+                            lastSignIn: data.user.last_sign_in_at
+                        },
+                        session: {
+                            accessToken: data.session?.access_token ? 'Present' : 'Missing',
+                            refreshToken: data.session?.refresh_token ? 'Present' : 'Missing',
+                            expiresAt: data.session?.expires_at
+                        },
+                        timestamp: new Date().toISOString()
+                    });
+                    testResults.passed.push(email);
+                    
+                    // Auto sign out after 3 seconds
+                    setTimeout(() => {
+                        supabaseClient.auth.signOut();
+                        updateStatus('Signed out after successful test', 'success');
+                    }, 3000);
+                }
+            } catch (err) {
+                console.error('Unexpected error:', err);
+                updateStatus(`❌ Unexpected error for ${email}`, 'error');
+                displayResult({
+                    test: `Login: ${email}`,
+                    status: 'ERROR',
+                    error: err.message,
+                    stack: err.stack,
+                    timestamp: new Date().toISOString()
+                });
+                testResults.failed.push(email);
+            }
+            
+            updateSummary();
+        }
+        
+        function testCustomLogin() {
+            const email = document.getElementById('customEmail').value;
+            const password = document.getElementById('customPassword').value;
+            testLogin(email, password);
+        }
+        
+        async function checkSession() {
+            try {
+                const { data: { session } } = await supabaseClient.auth.getSession();
+                const { data: { user } } = await supabaseClient.auth.getUser();
+                
+                document.getElementById('session').textContent = JSON.stringify({
+                    hasSession: !!session,
+                    user: user ? {
+                        id: user.id,
+                        email: user.email,
+                        role: user.user_metadata?.role,
+                        fullName: user.user_metadata?.full_name
+                    } : null,
+                    sessionDetails: session ? {
+                        expiresAt: session.expires_at,
+                        tokenType: session.token_type
+                    } : null
+                }, null, 2);
+            } catch (err) {
+                document.getElementById('session').textContent = JSON.stringify({
+                    error: err.message
+                }, null, 2);
+            }
+        }
+        
+        async function signOut() {
+            const { error } = await supabaseClient.auth.signOut();
+            if (error) {
+                updateStatus('❌ Sign out failed', 'error');
+            } else {
+                updateStatus('✅ Signed out successfully', 'success');
+                document.getElementById('session').textContent = 'No active session';
+            }
+        }
+        
+        function updateStatus(message, type = 'testing') {
+            const statusEl = document.getElementById('status');
+            statusEl.textContent = message;
+            statusEl.className = `status ${type}`;
+        }
+        
+        function displayResult(data) {
+            document.getElementById('result').textContent = JSON.stringify(data, null, 2);
+        }
+        
+        function updateSummary() {
+            const summaryEl = document.getElementById('summary');
+            summaryEl.innerHTML = `
+                <h3>Test Results Summary</h3>
+                <p class="success">✅ Passed: ${testResults.passed.length} tests</p>
+                <ul>${testResults.passed.map(email => `<li>${email}</li>`).join('')}</ul>
+                <p class="error">❌ Failed: ${testResults.failed.length} tests</p>
+                <ul>${testResults.failed.map(email => `<li>${email}</li>`).join('')}</ul>
+                <hr>
+                <h4>Troubleshooting Guide:</h4>
+                <ol>
+                    <li><strong>500 Error:</strong> Users don't exist or auth.identities missing - Run final_fix_auth.sql</li>
+                    <li><strong>400 Error:</strong> Wrong password - Run reset_passwords_admin.sql</li>
+                    <li><strong>Network Error:</strong> Check Supabase URL and internet connection</li>
+                    <li><strong>Invalid Credentials:</strong> Verify email/password combination</li>
+                    <li><strong>Session Issues:</strong> Clear browser cache and cookies</li>
+                </ol>
+                <h4>Demo Credentials:</h4>
+                <ul>
+                    <li><strong>PBS Admin:</strong> admin@pbsmedical.com / TempPass123!</li>
+                    <li><strong>Billing Staff:</strong> billing@pbsmedical.com / TempPass123!</li>
+                    <li><strong>Claims Staff:</strong> claims@pbsmedical.com / TempPass123!</li>
+                    <li><strong>Super Admin:</strong> superadmin@pbsmedical.com / TempPass123!</li>
+                    <li><strong>Client (Hospital):</strong> client@hospitalnetwork.com / TempPass123!</li>
+                    <li><strong>Client (Clinic):</strong> client@cityclinic.com / TempPass123!</li>
+                </ul>
+            `;
+        }
+        
+        // Initialize summary
+        updateSummary();
+        
+        // Auth state change listener
+        supabaseClient.auth.onAuthStateChange((event, session) => {
+            console.log(`[Auth State Change] Event: ${event}`, session);
+        });
+        
+        // Check initial session
+        checkSession();
+    </script>
+</body>
+</html>

@@ -7,38 +7,58 @@ import DnaSpinner from './common/DnaSpinner';
 interface ProtectedRouteProps {
   children: React.ReactNode;
   allowedRoles?: (UserRole | ClientUserRole)[];
+  requiredPermission?: {
+    resource: string;
+    action: string;
+  };
   redirectTo?: string;
 }
 
 const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
   children,
   allowedRoles = [],
+  requiredPermission,
   redirectTo = '/login',
 }) => {
-  const { isAuthenticated, isLoading, user } = useAuth();
+  const { isAuthenticated, isLoading, isPermissionsLoading, user, hasPermission } = useAuth();
   const location = useLocation();
   
   // Debug logging
-  console.log('[ProtectedRoute] Current path:', location.pathname);
-  console.log('[ProtectedRoute] Loading:', isLoading, 'Authenticated:', isAuthenticated, 'User:', user?.email);
+  console.log(
+    '[ProtectedRoute] Path:', location.pathname,
+    'isLoading:', isLoading,
+    'isPermissionsLoading:', isPermissionsLoading,
+    'isAuthenticated:', isAuthenticated,
+    'User:', user?.email,
+    'RequiredPermission:', requiredPermission
+  );
 
-  if (isLoading) {
+  // Show loading spinner while authentication or permissions are loading
+  if (isLoading || isPermissionsLoading) {
     return (
       <div className="h-screen w-full flex items-center justify-center bg-gray-50">
-        <DnaSpinner text="Verifying authentication..." />
+        <DnaSpinner text="Verifying permissions..." />
       </div>
     );
   }
 
+  // Redirect to login if not authenticated
   if (!isAuthenticated || !user) {
     const currentPath = encodeURIComponent(location.pathname + location.search);
     return <Navigate to={`${redirectTo}?redirect=${currentPath}`} replace />;
   }
 
-  // The new AppUser type has a `role` property for both staff and clients.
-  // We can check it directly.
+  // Check role-based access
   if (allowedRoles.length > 0 && !allowedRoles.includes(user.role as any)) {
     console.warn(`[ProtectedRoute] Access denied: User role '${user.role}' not in allowed roles:`, allowedRoles);
+    return <Navigate to="/forbidden" replace />;
+  }
+
+  // Check permission-based access
+  if (requiredPermission && !hasPermission(requiredPermission.resource, requiredPermission.action)) {
+    console.warn(
+      `[ProtectedRoute] Access denied: User lacks permission '${requiredPermission.action}' on resource '${requiredPermission.resource}'`
+    );
     return <Navigate to="/forbidden" replace />;
   }
 

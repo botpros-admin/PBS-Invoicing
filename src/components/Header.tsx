@@ -12,6 +12,7 @@ import {
 } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import { useNotifications } from '../context/NotificationContext';
+import { NotificationBell } from './notifications/NotificationBell';
 import NotificationDropdown from './NotificationDropdown';
 import OrganizationHierarchy from './OrganizationHierarchy';
 import { useNavigate, NavLink } from 'react-router-dom';
@@ -201,23 +202,8 @@ const Header: React.FC<HeaderProps> = ({ toggleSidebar }) => {
         {/* Organization Switcher */}
         <OrganizationHierarchy mode="switcher" />
         
-        <div className="relative" ref={notificationRef}>
-          <button
-            onClick={() => setShowNotifications(!showNotifications)}
-            className="p-2 rounded-full text-gray-500 hover:text-gray-900 hover:bg-gray-100 focus:outline-none relative"
-          >
-            <Bell size={20} />
-            {unreadCount > 0 && (
-              <span className="absolute top-0 right-0 block h-5 w-5 rounded-full bg-red-500 text-white text-xs font-medium flex items-center justify-center">
-                {unreadCount}
-              </span>
-            )}
-          </button>
-
-          {showNotifications && (
-            <NotificationDropdown onClose={() => setShowNotifications(false)} />
-          )}
-        </div>
+        {/* Real-time Notification Bell */}
+        <NotificationBell />
 
         <div className="relative" ref={userMenuRef}>
           <button
