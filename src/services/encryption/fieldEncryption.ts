@@ -16,7 +16,6 @@ class FieldEncryptionService {
    */
   private generateDefaultKey(): string {
     if (import.meta.env.DEV) {
-      console.warn('Using default encryption key - DO NOT USE IN PRODUCTION');
       return 'dev-key-replace-in-production-with-secure-key-management';
     }
     throw new Error('Encryption key not configured');
@@ -32,7 +31,6 @@ class FieldEncryptionService {
       const encrypted = CryptoJS.AES.encrypt(plainText, this.encryptionKey).toString();
       return encrypted;
     } catch (error) {
-      console.error('Encryption error:', error);
       throw new Error('Failed to encrypt data');
     }
   }
@@ -47,7 +45,6 @@ class FieldEncryptionService {
       const decrypted = CryptoJS.AES.decrypt(cipherText, this.encryptionKey);
       return decrypted.toString(CryptoJS.enc.Utf8);
     } catch (error) {
-      console.error('Decryption error:', error);
       throw new Error('Failed to decrypt data');
     }
   }

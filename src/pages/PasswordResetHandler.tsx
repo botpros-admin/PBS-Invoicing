@@ -17,7 +17,6 @@ const PasswordResetHandler: React.FC = () => {
     const type = hashParams.get('type');
 
     if (type === 'recovery' && accessToken) {
-      console.log('Password recovery token detected');
     } else {
       // No recovery token, redirect to login
       navigate('/login');

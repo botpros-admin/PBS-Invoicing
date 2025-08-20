@@ -87,12 +87,10 @@ const InvoiceDetail: React.FC = () => {
 
   const handleDownload = () => {
     // TODO: Implement PDF download
-    console.log('Download PDF');
   };
 
   const handleEmail = () => {
     // TODO: Implement email functionality
-    console.log('Send email');
   };
 
   const handleEdit = () => {
@@ -106,7 +104,6 @@ const InvoiceDetail: React.FC = () => {
 
   const handleDisputeSubmit = () => {
     // TODO: Implement dispute submission
-    console.log('Submit dispute for item:', selectedItem);
     setIsDisputeModalOpen(false);
     setSelectedItem(null);
   };

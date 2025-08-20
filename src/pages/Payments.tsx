@@ -188,7 +188,6 @@ const Payments: React.FC = () => {
       setFilteredPayments(mockPayments);
       
     } catch (error) {
-      console.error('Error fetching payments:', error);
       addNotification({
         type: 'error',
         message: 'Failed to fetch payments'
@@ -208,7 +207,6 @@ const Payments: React.FC = () => {
       if (error) throw error;
       setClients(data || []);
     } catch (error) {
-      console.error('Error fetching clients:', error);
     }
   };
 
@@ -237,7 +235,6 @@ const Payments: React.FC = () => {
       
       setAvailableInvoices(invoices);
     } catch (error) {
-      console.error('Error fetching invoices:', error);
     }
   };
 
@@ -386,7 +383,6 @@ const Payments: React.FC = () => {
       setShowApplicationModal(true);
       
     } catch (error) {
-      console.error('Error creating payment:', error);
       addNotification({
         type: 'error',
         message: 'Failed to create payment'

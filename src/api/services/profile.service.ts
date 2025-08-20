@@ -79,7 +79,6 @@ class ProfileService {
 
       return { avatarUrl: publicUrl };
     } catch (error) {
-      console.error('Avatar upload error:', error);
       return { error: error as Error };
     }
   }
@@ -110,7 +109,6 @@ class ProfileService {
 
       return {};
     } catch (error) {
-      console.error('Profile update error:', error);
       return { error: error as Error };
     }
   }
@@ -132,7 +130,6 @@ class ProfileService {
 
       return { data: data?.preferences || this.getDefaultPreferences() };
     } catch (error) {
-      console.error('Get preferences error:', error);
       return { error: error as Error };
     }
   }
@@ -156,7 +153,6 @@ class ProfileService {
 
       return {};
     } catch (error) {
-      console.error('Save preferences error:', error);
       return { error: error as Error };
     }
   }
@@ -179,7 +175,6 @@ class ProfileService {
 
       return { data: data || [] };
     } catch (error) {
-      console.error('Get user activity error:', error);
       return { error: error as Error };
     }
   }
@@ -205,7 +200,6 @@ class ProfileService {
 
       return {};
     } catch (error) {
-      console.error('Log activity error:', error);
       return { error: error as Error };
     }
   }
@@ -230,7 +224,6 @@ class ProfileService {
 
       return { data: mockStats };
     } catch (error) {
-      console.error('Get user stats error:', error);
       return { error: error as Error };
     }
   }
@@ -249,7 +242,6 @@ class ProfileService {
             .remove([`avatars/${pathMatch[1]}`]);
 
           if (deleteError) {
-            console.warn('Error deleting old avatar:', deleteError);
           }
         }
       }
@@ -266,7 +258,6 @@ class ProfileService {
 
       return {};
     } catch (error) {
-      console.error('Delete avatar error:', error);
       return { error: error as Error };
     }
   }

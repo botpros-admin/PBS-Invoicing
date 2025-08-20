@@ -54,15 +54,12 @@ const PersonalInfoSection: React.FC = () => {
       const { error } = await profileService.updateProfile(user.id, user.userType, updateData);
       
       if (error) {
-        console.error('Failed to update profile:', error);
         // TODO: Show error notification
       } else {
-        console.log('Profile updated successfully');
         setIsEditing(false);
         // TODO: Show success notification and refresh user context
       }
     } catch (error) {
-      console.error('Profile update error:', error);
     }
   };
 
@@ -92,14 +89,11 @@ const PersonalInfoSection: React.FC = () => {
       const { error, avatarUrl } = await profileService.uploadAvatar(user.id, file);
       
       if (error) {
-        console.error('Avatar upload failed:', error);
         alert('Failed to upload avatar. Please try again.');
       } else if (avatarUrl) {
-        console.log('Avatar uploaded successfully:', avatarUrl);
         // TODO: Update user context with new avatar URL
       }
     } catch (error) {
-      console.error('Avatar upload error:', error);
       alert('An unexpected error occurred. Please try again.');
     } finally {
       setIsUploadingAvatar(false);

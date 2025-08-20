@@ -114,7 +114,6 @@ function extractErrorMessage(error: any): string {
  * This function is deprecated and will always throw an error
  */
 export function createFallbackUserObject(authUser: unknown, email: string): never {
-  console.error(
     `SECURITY ALERT: Authentication/database error for user ${email}. ` +
     `For HIPAA compliance, no fallback access is permitted.`
   );
@@ -138,12 +137,10 @@ export async function safelyLoadUserProfile(
     // Always try to get user profile from database first
     return await getCurrentUserFn();
   } catch (error) {
-    console.error(`Profile load error: ${extractErrorMessage(error)}`);
     
     // Try direct database query first as a last attempt - without making assumptions about admin status
     if (authUser && authUser.email) {
       try {
-        console.warn(`Authentication error for ${authUser.email}. Attempting direct database query as last resort.`);
         
         // Import supabase client for direct query
         const { supabase } = await import('../api/supabase');
@@ -156,7 +153,6 @@ export async function safelyLoadUserProfile(
           .single();
         
         if (data && !queryError) {
-          console.log('User found directly in database:', data.email);
           return {
             id: data.id,
             name: `${data.first_name || ''} ${data.last_name || ''}`.trim() || data.email.split('@')[0],
@@ -170,12 +166,10 @@ export async function safelyLoadUserProfile(
           };
         }
       } catch (directQueryError) {
-        console.error('Failed direct database query:', directQueryError);
       }
     }
     
     // For non-admins or other errors, fail securely
-    console.error(`Authentication failed for user ${authUser?.email || 'unknown'}: ${extractErrorMessage(error)}`);
     throw new Error('Authentication failed: Unable to verify user access. For security reasons, access has been denied.');
   }
 }

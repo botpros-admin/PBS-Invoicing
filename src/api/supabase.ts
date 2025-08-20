@@ -82,17 +82,14 @@ export const supabase = createBrowserClient<Database>(
         document.cookie = cookieString;
 
         // Additionally, trigger the logout function to ensure HttpOnly cookies are cleared server-side
-        console.log(`[Supabase Client] Attempting to call /auth-logout Edge Function for key: ${key}`);
         fetch(`${functionsUrl}/functions/v1/auth-logout`, { method: 'POST' })
           .then(response => {
             if (!response.ok) {
-              console.error(`[Supabase Client] Error response from /auth-logout: ${response.status} ${response.statusText}`);
-              response.json().then(body => console.error('[Supabase Client] Logout error body:', body)).catch(() => {});
+              response.json().then(body => 
             } else {
-              console.log(`[Supabase Client] Successfully called /auth-logout for key: ${key}`);
             }
           })
-          .catch(err => console.error('[Supabase Client] Network error calling /auth-logout function during cookie removal:', err));
+          .catch(err => 
       },
     },
   }
@@ -105,15 +102,10 @@ export const logAuthDebug = async () => {
   console.groupCollapsed('[AUTH DEBUG]');
   try {
     const session = await supabase.auth.getSession();
-    console.log('Current Session:', session.data.session);
     const user = await supabase.auth.getUser();
-    console.log('Current User:', user.data.user);
     // Note: Cannot directly read HttpOnly cookies here
-    console.log('Document Cookies (non-HttpOnly):', typeof document !== 'undefined' ? document.cookie : 'N/A');
   } catch (error) {
-    console.error('Error fetching auth state:', error);
   }
-  console.groupEnd();
 };
 
 // Initial log on load
@@ -121,6 +113,6 @@ export const logAuthDebug = async () => {
 
 // Log state changes
 // supabase.auth.onAuthStateChange((event, session) => {
-//   console.log(`[Auth State Change] Event: ${event}`);
+//   
 //   logAuthDebug();
 // });

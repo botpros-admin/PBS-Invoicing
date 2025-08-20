@@ -69,7 +69,6 @@ export async function checkDuplicate(
 
     return { isDuplicate: false };
   } catch (error) {
-    console.error('Error checking for duplicate:', error);
     throw error;
   }
 }
@@ -143,7 +142,6 @@ export async function batchCheckDuplicates(
 
     return results;
   } catch (error) {
-    console.error('Error batch checking duplicates:', error);
     throw error;
   }
 }
@@ -204,7 +202,6 @@ export async function saveDuplicatesToFailureQueue(
 
     if (error) throw error;
   } catch (error) {
-    console.error('Error saving duplicates to failure queue:', error);
     throw error;
   }
 }
@@ -259,7 +256,6 @@ export async function getDuplicateStatistics(
       mostCommonDuplicates: sortedDuplicates
     };
   } catch (error) {
-    console.error('Error getting duplicate statistics:', error);
     throw error;
   }
 }

@@ -36,7 +36,6 @@ export class ApiErrorInterceptor {
     this.setupUnhandledRejectionHandler();
     
     this.isSetup = true;
-    console.log('[ApiErrorInterceptor] Global error handling initialized');
   }
 
   /**
@@ -46,17 +45,14 @@ export class ApiErrorInterceptor {
     // Monitor auth state changes for auth errors
     supabase.auth.onAuthStateChange((event, session) => {
       if (event === 'SIGNED_OUT') {
-        console.log('[ApiErrorInterceptor] User signed out');
         // Clear any cached data
         this.retryQueue.clear();
       }
       
       if (event === 'TOKEN_REFRESHED') {
-        console.log('[ApiErrorInterceptor] Token refreshed successfully');
       }
       
       if (event === 'USER_UPDATED') {
-        console.log('[ApiErrorInterceptor] User data updated');
       }
     });
   }
@@ -84,7 +80,6 @@ export class ApiErrorInterceptor {
         
         // Log request in development
         if (process.env.NODE_ENV === 'development') {
-          console.log(`[API Request] ${config?.method || 'GET'} ${url}`, { requestId });
         }
         
         // Make the actual request
@@ -122,7 +117,6 @@ export class ApiErrorInterceptor {
     
     // Log error in development
     if (process.env.NODE_ENV === 'development') {
-      console.error(`[API Error] ${status} ${url}`, { requestId, errorBody });
     }
     
     // Handle specific status codes
@@ -179,7 +173,6 @@ export class ApiErrorInterceptor {
       // Calculate exponential backoff
       const delay = this.RETRY_DELAY * Math.pow(2, retryCount);
       
-      console.log(
         `[ApiErrorInterceptor] Network error, retrying in ${delay}ms (attempt ${retryCount + 1}/${this.MAX_RETRIES})`
       );
       
@@ -219,14 +212,11 @@ export class ApiErrorInterceptor {
       const { data, error } = await supabase.auth.refreshSession();
       
       if (error) {
-        console.error('[ApiErrorInterceptor] Failed to refresh session:', error);
         // Redirect to login
         window.location.href = '/login';
       } else if (data.session) {
-        console.log('[ApiErrorInterceptor] Session refreshed successfully');
       }
     } catch (error) {
-      console.error('[ApiErrorInterceptor] Error refreshing session:', error);
       // Redirect to login
       window.location.href = '/login';
     }
@@ -237,7 +227,6 @@ export class ApiErrorInterceptor {
    */
   private static setupUnhandledRejectionHandler(): void {
     window.addEventListener('unhandledrejection', (event) => {
-      console.error('[ApiErrorInterceptor] Unhandled promise rejection:', event.reason);
       
       // Handle the error
       const error = event.reason instanceof Error 
@@ -311,7 +300,6 @@ export class ApiErrorInterceptor {
     
     // Log additional context
     if (context) {
-      console.error('[ApiErrorInterceptor] Error context:', context);
     }
     
     // In production, send to error tracking service
@@ -326,7 +314,6 @@ export class ApiErrorInterceptor {
    */
   static reset(): void {
     this.retryQueue.clear();
-    console.log('[ApiErrorInterceptor] Reset complete');
   }
 }
 

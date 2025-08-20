@@ -80,17 +80,13 @@ class Logger {
     const formattedMessage = this.formatMessage(entry);
     switch (level) {
       case LogLevel.ERROR:
-        console.error(formattedMessage, error);
         this.sendToMonitoring(entry);
         break;
       case LogLevel.WARN:
-        console.warn(formattedMessage);
         break;
       case LogLevel.INFO:
-        console.info(formattedMessage);
         break;
       case LogLevel.DEBUG:
-        console.debug(formattedMessage);
         break;
     }
 
@@ -121,7 +117,6 @@ class Logger {
       }
     } catch (err) {
       // Fail silently - don't let logging errors break the app
-      console.error('Failed to send log to external service:', err);
     }
   }
 

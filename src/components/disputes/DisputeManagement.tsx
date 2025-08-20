@@ -184,7 +184,6 @@ const DisputeManagement: React.FC = () => {
       });
 
     } catch (error) {
-      console.error('Error fetching disputes:', error);
       addNotification('error', 'Failed to load disputes');
     } finally {
       setLoading(false);
@@ -203,7 +202,6 @@ const DisputeManagement: React.FC = () => {
       if (data) setStats(data);
 
     } catch (error) {
-      console.error('Error fetching dispute stats:', error);
     }
   };
 
@@ -299,7 +297,6 @@ const DisputeManagement: React.FC = () => {
       fetchStats();
 
     } catch (error) {
-      console.error('Error responding to dispute:', error);
       addNotification('error', 'Failed to send response');
     }
   };

@@ -79,7 +79,6 @@ export const PaymentForm: React.FC<PaymentFormProps> = ({
         setSelectedClientId(clientId);
       }
     } catch (error: any) {
-      console.error('Error loading clients:', error);
       setErrors({ general: 'Failed to load clients' });
     } finally {
       setIsLoading(false);
@@ -172,7 +171,6 @@ export const PaymentForm: React.FC<PaymentFormProps> = ({
       }, 1500);
       
     } catch (error: any) {
-      console.error('Error saving payment:', error);
       setErrors({ 
         general: error.message || 'Failed to save payment' 
       });

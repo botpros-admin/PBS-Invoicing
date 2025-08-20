@@ -37,7 +37,6 @@ class RequestDeduplicator {
     // Check for pending request
     const pending = this.pendingRequests.get(key);
     if (pending && Date.now() - pending.timestamp < this.cacheTime) {
-      console.log('Request deduplicated:', key);
       return pending.promise;
     }
     
@@ -115,11 +114,9 @@ class QueryCache {
     const cached = this.cache.get(key);
     
     if (cached && Date.now() - cached.timestamp < ttl) {
-      console.log('Cache hit:', key);
       return cached.data as T;
     }
     
-    console.log('Cache miss:', key);
     const data = await fetcher();
     
     this.cache.set(key, {

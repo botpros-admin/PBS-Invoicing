@@ -94,7 +94,6 @@ const ContractUpload: React.FC<ContractUploadProps> = ({
 
       setContracts(data || []);
     } catch (error) {
-      console.error('Error fetching contracts:', error);
       addNotification('error', 'Failed to load contracts');
     } finally {
       setLoading(false);
@@ -224,7 +223,6 @@ const ContractUpload: React.FC<ContractUploadProps> = ({
         onUploadComplete(contract);
       }
     } catch (error) {
-      console.error('Error uploading contract:', error);
       addNotification('error', 'Failed to upload contract');
     } finally {
       setUploading(false);
@@ -291,7 +289,6 @@ const ContractUpload: React.FC<ContractUploadProps> = ({
       });
 
     } catch (error) {
-      console.error('Error downloading contract:', error);
       addNotification('error', 'Failed to download contract');
     }
   };
@@ -305,7 +302,7 @@ const ContractUpload: React.FC<ContractUploadProps> = ({
         .from('contracts')
         .remove([contract.encrypted_url || contract.file_url]);
 
-      if (storageError) console.error('Storage deletion error:', storageError);
+      if (storageError) 
 
       // Delete from database
       const { error: dbError } = await supabase
@@ -326,7 +323,6 @@ const ContractUpload: React.FC<ContractUploadProps> = ({
       addNotification('success', 'Contract deleted successfully');
       setContracts(contracts.filter(c => c.id !== contract.id));
     } catch (error) {
-      console.error('Error deleting contract:', error);
       addNotification('error', 'Failed to delete contract');
     }
   };

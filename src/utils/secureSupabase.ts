@@ -13,7 +13,6 @@ export class SecureSupabaseClient {
     const { data: { session }, error } = await supabase.auth.getSession();
     
     if (error || !session) {
-      console.error('Authentication required for this operation');
       throw new Error('You must be logged in to perform this action');
     }
     
@@ -164,7 +163,6 @@ export class InputSanitizer {
               sanitized[key] = value;
           }
         } catch (error) {
-          console.error(`Validation error for field ${String(key)}:`, error);
           throw new Error(`Invalid input for field ${String(key)}`);
         }
       }

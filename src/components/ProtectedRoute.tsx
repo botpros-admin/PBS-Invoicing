@@ -24,7 +24,6 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
   const location = useLocation();
   
   // Debug logging
-  console.log(
     '[ProtectedRoute] Path:', location.pathname,
     'isLoading:', isLoading,
     'isPermissionsLoading:', isPermissionsLoading,
@@ -50,13 +49,11 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
 
   // Check role-based access
   if (allowedRoles.length > 0 && !allowedRoles.includes(user.role as any)) {
-    console.warn(`[ProtectedRoute] Access denied: User role '${user.role}' not in allowed roles:`, allowedRoles);
     return <Navigate to="/forbidden" replace />;
   }
 
   // Check permission-based access
   if (requiredPermission && !hasPermission(requiredPermission.resource, requiredPermission.action)) {
-    console.warn(
       `[ProtectedRoute] Access denied: User lacks permission '${requiredPermission.action}' on resource '${requiredPermission.resource}'`
     );
     return <Navigate to="/forbidden" replace />;

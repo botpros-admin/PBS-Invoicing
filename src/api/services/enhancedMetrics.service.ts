@@ -136,7 +136,6 @@ export async function fetchEnhancedMetrics(dateRange: DateRange = '30days'): Pro
     };
     
   } catch (error) {
-    console.error('Error fetching enhanced metrics:', error);
     throw error;
   }
 }
@@ -181,7 +180,6 @@ export async function fetchRecentInvoices(limit: number = 10): Promise<RecentInv
     })) || [];
     
   } catch (error) {
-    console.error('Error fetching recent invoices:', error);
     throw error;
   }
 }
@@ -236,7 +234,6 @@ export async function fetchRevenueTrend(dateRange: DateRange = '30days'): Promis
     return trends;
     
   } catch (error) {
-    console.error('Error fetching revenue trend:', error);
     throw error;
   }
 }

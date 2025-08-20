@@ -69,7 +69,6 @@ export const RealtimeNotificationProvider: React.FC<{ children: React.ReactNode 
         .limit(50);
 
       if (error) {
-        console.error('Error fetching notifications:', error);
         toast.error('Failed to load notifications');
       } else {
         setNotifications(data || []);
@@ -77,7 +76,6 @@ export const RealtimeNotificationProvider: React.FC<{ children: React.ReactNode 
         setUnreadCount(unread);
       }
     } catch (err) {
-      console.error('Unexpected error fetching notifications:', err);
     } finally {
       setIsLoading(false);
     }
@@ -96,12 +94,10 @@ export const RealtimeNotificationProvider: React.FC<{ children: React.ReactNode 
         .limit(100);
 
       if (error) {
-        console.error('Error fetching activity log:', error);
       } else {
         setActivityLog(data || []);
       }
     } catch (err) {
-      console.error('Unexpected error fetching activity log:', err);
     }
   }, [user?.id, user?.role, user?.laboratory_id]);
 
@@ -130,7 +126,6 @@ export const RealtimeNotificationProvider: React.FC<{ children: React.ReactNode 
           filter: `user_id=eq.${user.id}`,
         },
         (payload) => {
-          console.log('New notification received:', payload.new);
           const newNotification = payload.new as RealtimeNotification;
           
           // Add to notifications list
@@ -190,7 +185,6 @@ export const RealtimeNotificationProvider: React.FC<{ children: React.ReactNode 
             filter: `laboratory_id=eq.${user.laboratory_id}`,
           },
           (payload) => {
-            console.log('New activity logged:', payload.new);
             const newActivity = payload.new as ActivityLogEntry;
             setActivityLog(prev => [newActivity, ...prev].slice(0, 100)); // Keep last 100
           }
@@ -221,7 +215,6 @@ export const RealtimeNotificationProvider: React.FC<{ children: React.ReactNode 
       });
 
       if (error) {
-        console.error('Error marking notification as read:', error);
         toast.error('Failed to mark notification as read');
       } else {
         setNotifications(prev => 
@@ -230,7 +223,6 @@ export const RealtimeNotificationProvider: React.FC<{ children: React.ReactNode 
         setUnreadCount(prev => Math.max(0, prev - 1));
       }
     } catch (err) {
-      console.error('Unexpected error marking notification as read:', err);
     }
   };
 
@@ -240,7 +232,6 @@ export const RealtimeNotificationProvider: React.FC<{ children: React.ReactNode 
       const { data, error } = await supabase.rpc('mark_all_notifications_read');
 
       if (error) {
-        console.error('Error marking all notifications as read:', error);
         toast.error('Failed to mark all notifications as read');
       } else {
         setNotifications(prev => 
@@ -250,7 +241,6 @@ export const RealtimeNotificationProvider: React.FC<{ children: React.ReactNode 
         toast.success(`Marked ${data} notifications as read`);
       }
     } catch (err) {
-      console.error('Unexpected error marking all as read:', err);
     }
   };
 
@@ -264,7 +254,6 @@ export const RealtimeNotificationProvider: React.FC<{ children: React.ReactNode 
         .eq('user_id', user?.id);
 
       if (error) {
-        console.error('Error deleting notification:', error);
         toast.error('Failed to delete notification');
       } else {
         setNotifications(prev => {
@@ -276,7 +265,6 @@ export const RealtimeNotificationProvider: React.FC<{ children: React.ReactNode 
         });
       }
     } catch (err) {
-      console.error('Unexpected error deleting notification:', err);
     }
   };
 

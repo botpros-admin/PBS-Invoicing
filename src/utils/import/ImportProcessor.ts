@@ -453,13 +453,11 @@ export class ImportProcessor {
       const { data: existing, error } = await query.limit(1);
       
       if (error) {
-        console.error('Duplicate check error:', error);
         return false; // Assume not duplicate on error
       }
       
       return existing && existing.length > 0;
     } catch (error) {
-      console.error('Duplicate check error:', error);
       return false;
     }
   }

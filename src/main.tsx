@@ -15,7 +15,6 @@ const queryClient = new QueryClient();
 const rootElement = document.getElementById('root');
 
 if (rootElement) {
-  console.log('Root element found, rendering full app with authentication...');
   createRoot(rootElement).render(
     <React.StrictMode>
       <QueryClientProvider client={queryClient}>
@@ -24,5 +23,4 @@ if (rootElement) {
     </React.StrictMode>
   );
 } else {
-  console.error('Root element not found!');
 }

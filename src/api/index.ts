@@ -27,7 +27,6 @@ import { getClients } from './services/client.service';
  * @deprecated Use getInvoices from api/services/invoice.service instead
  */
 export const fetchInvoices = async (params?: FilterOptions): Promise<Invoice[]> => {
-  console.log('API: Fetching invoices... (legacy method)');
   const response = await getInvoices(params);
   return response.data;
 };
@@ -36,7 +35,6 @@ export const fetchInvoices = async (params?: FilterOptions): Promise<Invoice[]> 
  * @deprecated Use getInvoiceById from api/services/invoice.service instead
  */
 export const fetchInvoiceById = async (id: string): Promise<Invoice | undefined> => {
-  console.log(`API: Fetching invoice ${id}... (legacy method)`);
   return await getInvoiceById(id);
 };
 
@@ -44,7 +42,6 @@ export const fetchInvoiceById = async (id: string): Promise<Invoice | undefined>
  * @deprecated Use createInvoice from api/services/invoice.service instead
  */
 export const createInvoiceLegacy = async (invoiceData: Omit<Invoice, 'id'>): Promise<Invoice> => {
-  console.log('API: Creating invoice... (legacy method)', invoiceData);
   return await createInvoice(invoiceData as Partial<Invoice>);
 };
 
@@ -52,7 +49,6 @@ export const createInvoiceLegacy = async (invoiceData: Omit<Invoice, 'id'>): Pro
  * @deprecated Use getCurrentUser from api/services/auth.service instead
  */
 export const fetchCurrentUser = async (): Promise<User> => {
-  console.log('API: Fetching current user... (legacy method)');
   const user = await getCurrentUser();
   if (!user) throw new Error('Not authenticated');
   return user;
@@ -62,7 +58,6 @@ export const fetchCurrentUser = async (): Promise<User> => {
  * @deprecated Use getClients from api/services/client.service instead
  */
 export const fetchClients = async (): Promise<Client[]> => {
-  console.log('API: Fetching clients... (legacy method)');
   const response = await getClients();
   return response.data;
 };

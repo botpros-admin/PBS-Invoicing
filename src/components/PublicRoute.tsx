@@ -19,18 +19,15 @@ const PublicRoute: React.FC<PublicRouteProps> = ({
 
   // Priority 1: If user is definitively authenticated, redirect immediately.
   if (isAuthenticated) {
-    console.warn('[PublicRoute] User is authenticated, redirecting away from public route to:', redirectTo);
     return <Navigate to={redirectTo} replace />;
   }
 
   // Priority 2: If still loading the initial state AND not authenticated yet, render nothing to prevent flashes.
   if (isLoading) {
-    console.log('[PublicRoute] Auth context is loading (user not authenticated), rendering null...');
     return null;
   }
 
   // Priority 3: If not loading AND not authenticated, render the children (Login page).
-  console.log('[PublicRoute] User not authenticated and not loading. Rendering public route children.');
   return <>{children}</>;
 };
 

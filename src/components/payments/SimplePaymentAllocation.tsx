@@ -98,7 +98,6 @@ export const SimplePaymentAllocation: React.FC<SimplePaymentAllocationProps> = (
       if (error) throw error;
       setInvoices(data || []);
     } catch (err: any) {
-      console.error('Error loading invoices:', err);
       setError('Failed to load invoices');
     } finally {
       setIsLoading(false);
@@ -154,7 +153,6 @@ export const SimplePaymentAllocation: React.FC<SimplePaymentAllocationProps> = (
             notes: `Overpayment on invoice ${selectedInvoice?.invoice_number}`
           });
         } catch (creditError) {
-          console.error('Error creating credit:', creditError);
           // Continue even if credit creation fails - allocation succeeded
         }
       }
@@ -169,14 +167,13 @@ export const SimplePaymentAllocation: React.FC<SimplePaymentAllocationProps> = (
         })
         .eq('id', paymentId);
 
-      if (postError) console.error('Error posting payment:', postError);
+      if (postError) 
 
       // Success!
       if (onSuccess) {
         onSuccess();
       }
     } catch (err: any) {
-      console.error('Error allocating payment with credit:', err);
       setError(err.message || 'Failed to allocate payment');
     } finally {
       setIsSaving(false);
@@ -272,7 +269,7 @@ export const SimplePaymentAllocation: React.FC<SimplePaymentAllocationProps> = (
             })
             .eq('id', paymentId);
 
-          if (postError) console.error('Error posting payment:', postError);
+          if (postError) 
         }
       }
 
@@ -281,7 +278,6 @@ export const SimplePaymentAllocation: React.FC<SimplePaymentAllocationProps> = (
         onSuccess();
       }
     } catch (err: any) {
-      console.error('Error allocating payment:', err);
       setError(err.message || 'Failed to allocate payment');
     } finally {
       setIsSaving(false);

@@ -101,7 +101,6 @@ export async function getCptCodes(filters?: FilterOptions): Promise<PaginatedRes
       totalPages: count ? Math.ceil(count / limit) : 1
     };
   } catch (error) {
-    console.error('Failed to fetch CPT codes:', error);
     handleSupabaseError(error, 'Fetch CPT Codes');
     throw error;
   }
@@ -137,7 +136,6 @@ export async function getCptCodeById(id: ID): Promise<CptCode> {
     
     return cptCode;
   } catch (error) {
-    console.error(`Failed to fetch CPT code ${id}:`, error);
     handleSupabaseError(error, 'Get CPT Code by ID');
     throw error;
   }
@@ -173,7 +171,6 @@ export async function getCptCodeByCode(code: string): Promise<CptCode> {
     
     return cptCode;
   } catch (error) {
-    console.error(`Failed to fetch CPT code "${code}":`, error);
     handleSupabaseError(error, `Get CPT Code by Code "${code}"`);
     throw error;
   }
@@ -213,7 +210,6 @@ export async function searchCptCodes(searchTerm: string, limit = 10): Promise<Cp
     
     return cptCodes;
   } catch (error) {
-    console.error(`Failed to search CPT codes for "${searchTerm}":`, error);
     handleSupabaseError(error, 'Search CPT Codes');
     throw error;
   }
@@ -267,7 +263,6 @@ export async function getClientPriceForCptCode(cptCodeId: ID, clientId: ID): Pro
       isOverride: false
     };
   } catch (error) {
-    console.error(`Failed to get pricing for CPT code ${cptCodeId} and client ${clientId}:`, error);
     handleSupabaseError(error, 'Get Client Price for CPT Code');
     throw error;
   }
@@ -321,7 +316,6 @@ export async function getClinicPriceForCptCode(cptCodeId: ID, clinicId: ID): Pro
       isOverride: false
     };
   } catch (error) {
-    console.error(`Failed to get pricing for CPT code ${cptCodeId} and clinic ${clinicId}:`, error);
     handleSupabaseError(error, 'Get Clinic Price for CPT Code');
     throw error;
   }

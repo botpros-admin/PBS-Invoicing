@@ -75,7 +75,6 @@ class AuditLogger {
       const { data: { user } } = await supabase.auth.getUser();
       
       if (!user) {
-        console.warn('No user found for audit log');
         return;
       }
 
@@ -99,7 +98,6 @@ class AuditLogger {
         await this.flush();
       }
     } catch (error) {
-      console.error('Failed to log audit entry:', error);
     }
   }
 
@@ -255,12 +253,10 @@ class AuditLogger {
         .insert(records);
 
       if (error) {
-        console.error('Failed to flush audit logs:', error);
         // Re-add to queue if failed
         this.queue.unshift(...toFlush);
       }
     } catch (error) {
-      console.error('Failed to flush audit logs:', error);
       // Re-add to queue if failed
       this.queue.unshift(...toFlush);
     }
@@ -340,7 +336,6 @@ export async function getAuditHistory(
     if (error) throw error;
     return data || [];
   } catch (error) {
-    console.error('Failed to fetch audit history:', error);
     return [];
   }
 }
@@ -372,7 +367,6 @@ export async function getUserActivityHistory(
     if (error) throw error;
     return data || [];
   } catch (error) {
-    console.error('Failed to fetch user activity:', error);
     return [];
   }
 }

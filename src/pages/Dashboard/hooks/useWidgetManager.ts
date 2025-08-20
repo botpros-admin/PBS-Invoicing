@@ -109,16 +109,13 @@ export const useWidgetManager = (defaultDateRange: DateRange) => {
   // Debounced function to save layout to Supabase
   const saveLayoutDebounced = useCallback(
     debounce(async (currentWidgets: Widget[]) => {
-      console.log("Attempting to save layout:", currentWidgets);
       const { error } = await supabase.rpc('update_dashboard_layout', {
         new_layout: currentWidgets,
       });
 
       if (error) {
-        console.error('Error saving dashboard layout:', error);
         addNotification({ type: 'system', message: `Failed to save layout: ${error.message}` }); // Changed type to 'system'
       } else {
-        console.log('Dashboard layout saved successfully.');
         // Optional: add a subtle success notification
         // addNotification({ type: 'success', message: 'Layout saved.' });
       }
@@ -135,7 +132,6 @@ export const useWidgetManager = (defaultDateRange: DateRange) => {
       const { data: { user } } = await supabase.auth.getUser();
 
       if (!user) {
-          console.error("User not authenticated, cannot load layout.");
           // Handle case where user is not logged in - maybe redirect?
           // For now, load default layout but don't save.
           setWidgets(defaultLayout.map(w => ({...w, config: {...w.config, dateRange: defaultDateRange}})));
@@ -150,7 +146,6 @@ export const useWidgetManager = (defaultDateRange: DateRange) => {
         .single();
 
       if (error && error.code !== 'PGRST116') { // Ignore 'resource not found' error
-        console.error('Error loading dashboard layout:', error);
         addNotification({ type: 'system', message: `Failed to load layout: ${error.message}` }); // Changed type to 'system'
         // Load default layout on error
         setWidgets(defaultLayout.map(w => ({...w, config: {...w.config, dateRange: defaultDateRange}})));
@@ -160,10 +155,8 @@ export const useWidgetManager = (defaultDateRange: DateRange) => {
              ...w,
              config: { ...w.config, dateRange: w.config?.dateRange || defaultDateRange }
          }));
-        console.log("Loaded layout from DB:", loadedWidgets);
         setWidgets(loadedWidgets);
       } else {
-        console.log("No saved layout found, using default.");
         // Load default layout if none saved
         setWidgets(defaultLayout.map(w => ({...w, config: {...w.config, dateRange: defaultDateRange}})));
       }

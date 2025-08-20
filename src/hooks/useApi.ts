@@ -100,7 +100,6 @@ export function useApi<T>(
           onError(errorObj);
         }
         
-        console.error('API Error:', errorObj);
         return undefined;
       } finally {
         setIsLoading(false);

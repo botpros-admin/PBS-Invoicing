@@ -165,7 +165,6 @@ export const MonthlySummaryReport: React.FC = () => {
       setSummaries(summaryData);
       setClientSummaries(sortedClients);
     } catch (error) {
-      console.error('Error loading summary data:', error);
     } finally {
       setIsLoading(false);
     }

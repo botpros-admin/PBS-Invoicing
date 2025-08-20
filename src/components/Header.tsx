@@ -52,7 +52,6 @@ const Header: React.FC<HeaderProps> = ({ toggleSidebar }) => {
       }
 
       setIsSearching(true);
-      console.log(`Searching for: ${term}`);
       // Call the API service function
       const results = await performGlobalSearch(term);
 
@@ -92,7 +91,6 @@ const Header: React.FC<HeaderProps> = ({ toggleSidebar }) => {
       navigate(`/settings`); // Fixed path
     } else if (result.type === 'patient') {
        // TODO: Determine appropriate navigation for patient
-       console.log("Navigate to patient related view for:", result.id);
     } else if (result.type === 'user') {
       navigate('/settings'); // Fixed path
     }
@@ -235,7 +233,6 @@ const Header: React.FC<HeaderProps> = ({ toggleSidebar }) => {
                     await logout();
                     navigate('/login');
                   } catch (error) {
-                    console.error('Error logging out:', error);
                   } finally {
                     setShowUserMenu(false);
                   }

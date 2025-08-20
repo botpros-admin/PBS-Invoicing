@@ -108,7 +108,6 @@ export const InvoiceForm: React.FC<InvoiceFormProps> = ({
         })));
       }
     } catch (error: any) {
-      console.error('Error loading invoice:', error);
       setErrors({ general: 'Failed to load invoice' });
     }
   };
@@ -146,7 +145,6 @@ export const InvoiceForm: React.FC<InvoiceFormProps> = ({
       setDueDate(due.toISOString().split('T')[0]);
 
     } catch (error: any) {
-      console.error('Error loading data:', error);
       setErrors({ general: 'Failed to load data' });
     } finally {
       setIsLoading(false);
@@ -229,7 +227,6 @@ export const InvoiceForm: React.FC<InvoiceFormProps> = ({
       // Show success message
       setErrors({ success: 'Invoice has been finalized and is ready to send.' });
     } catch (error: any) {
-      console.error('Error finalizing invoice:', error);
       setErrors({ general: error.message || 'Failed to finalize invoice' });
     } finally {
       setIsFinalizing(false);
@@ -276,7 +273,6 @@ export const InvoiceForm: React.FC<InvoiceFormProps> = ({
         navigate(`/billing/invoices/${invoice.id}`);
       }
     } catch (error: any) {
-      console.error('Error saving invoice:', error);
       
       // Check for duplicate error
       if (error.message?.includes('duplicate')) {

@@ -119,7 +119,6 @@ export async function getPatients(filters?: FilterOptions): Promise<PaginatedRes
       totalPages: count ? Math.ceil(count / limit) : 1
     };
   } catch (error) {
-    console.error('Failed to fetch patients:', error);
     handleSupabaseError(error, 'Fetch Patients');
     throw error;
   }
@@ -174,7 +173,6 @@ export async function getPatientById(id: ID): Promise<Patient> {
     
     return patient;
   } catch (error) {
-    console.error(`Failed to fetch patient ${id}:`, error);
     handleSupabaseError(error, 'Get Patient by ID');
     throw error;
   }
@@ -227,7 +225,6 @@ export async function createPatient(patientData: Partial<Patient>): Promise<Pati
     
     return patient;
   } catch (error) {
-    console.error('Failed to create patient:', error);
     handleSupabaseError(error, 'Create Patient');
     throw error;
   }
@@ -264,7 +261,6 @@ export async function updatePatient(id: ID, patientData: Partial<Patient>): Prom
     // Return the updated patient
     return await getPatientById(id);
   } catch (error) {
-    console.error(`Failed to update patient ${id}:`, error);
     handleSupabaseError(error, 'Update Patient');
     throw error;
   }
@@ -288,7 +284,6 @@ export async function deletePatient(id: ID): Promise<{ message: string }> {
     
     return { message: `Patient ${id} deleted successfully` };
   } catch (error) {
-    console.error(`Failed to delete patient ${id}:`, error);
     handleSupabaseError(error, 'Delete Patient');
     throw error;
   }

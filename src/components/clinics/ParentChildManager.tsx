@@ -155,7 +155,6 @@ const ParentChildManager: React.FC = () => {
       });
 
     } catch (error) {
-      console.error('Error fetching parent accounts:', error);
       addNotification('error', 'Failed to load parent accounts');
     } finally {
       setLoading(false);
@@ -199,7 +198,6 @@ const ParentChildManager: React.FC = () => {
       fetchParentAccounts();
 
     } catch (error) {
-      console.error('Error creating parent account:', error);
       addNotification('error', 'Failed to create parent account');
     }
   };
@@ -230,7 +228,6 @@ const ParentChildManager: React.FC = () => {
       fetchParentAccounts();
 
     } catch (error) {
-      console.error('Error linking clinics:', error);
       addNotification('error', 'Failed to link clinics');
     }
   };
@@ -258,7 +255,6 @@ const ParentChildManager: React.FC = () => {
       fetchParentAccounts();
 
     } catch (error) {
-      console.error('Error unlinking clinic:', error);
       addNotification('error', 'Failed to unlink clinic');
     }
   };
@@ -317,7 +313,6 @@ const ParentChildManager: React.FC = () => {
       fetchParentAccounts();
 
     } catch (error) {
-      console.error('Error posting parent payment:', error);
       addNotification('error', 'Failed to post payment');
     }
   };
@@ -342,7 +337,6 @@ const ParentChildManager: React.FC = () => {
       .order('due_date', { ascending: true });
 
     if (error) {
-      console.error('Error fetching invoices for allocation:', error);
       return [];
     }
 

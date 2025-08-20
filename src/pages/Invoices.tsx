@@ -142,7 +142,6 @@ const Invoices: React.FC = () => {
 
   const handleDeleteInvoice = () => {
     if (selectedInvoice) {
-      console.warn("Delete functionality needs API integration.");
       setIsDeleteModalOpen(false);
       setSelectedInvoice(null);
     }

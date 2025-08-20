@@ -88,7 +88,6 @@ const CPTCodeMapping: React.FC<CPTCodeMappingProps> = ({ onSelect, mode = 'looku
       setMappings(data || []);
       setFilteredMappings(data || []);
     } catch (error) {
-      console.error('Error fetching CPT mappings:', error);
       addNotification('error', 'Failed to load CPT mappings');
     } finally {
       setLoading(false);
@@ -195,7 +194,6 @@ const CPTCodeMapping: React.FC<CPTCodeMappingProps> = ({ onSelect, mode = 'looku
       });
       fetchMappings();
     } catch (error) {
-      console.error('Error adding CPT mapping:', error);
       addNotification('error', 'Failed to add CPT mapping');
     }
   };
@@ -226,7 +224,6 @@ const CPTCodeMapping: React.FC<CPTCodeMappingProps> = ({ onSelect, mode = 'looku
       });
       fetchMappings();
     } catch (error) {
-      console.error('Error updating CPT mapping:', error);
       addNotification('error', 'Failed to update CPT mapping');
     }
   };
@@ -248,7 +245,6 @@ const CPTCodeMapping: React.FC<CPTCodeMappingProps> = ({ onSelect, mode = 'looku
       addNotification('success', 'CPT mapping deleted successfully');
       fetchMappings();
     } catch (error) {
-      console.error('Error deleting CPT mapping:', error);
       addNotification('error', 'Failed to delete CPT mapping');
     }
   };
@@ -284,7 +280,6 @@ const CPTCodeMapping: React.FC<CPTCodeMappingProps> = ({ onSelect, mode = 'looku
         setShowImportModal(false);
         fetchMappings();
       } catch (error) {
-        console.error('Error importing CSV:', error);
         addNotification('error', 'Failed to import CSV');
       }
     };

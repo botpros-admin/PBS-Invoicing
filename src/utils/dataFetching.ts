@@ -25,7 +25,6 @@ export async function fetchWithAuthRetry<T>(
       return await fetchFn();
     } catch (error) {
       attempts++;
-      console.warn(`Data fetch failed (attempt ${attempts}/${maxRetries + 1}):`, error);
       
       // Only retry for auth-related errors
       if (!isAuthError(error)) {
@@ -33,7 +32,6 @@ export async function fetchWithAuthRetry<T>(
       }
       
       if (attempts <= maxRetries) {
-        console.log("Attempting token refresh and retry");
         
         // Log current session state before refresh attempt
         logSessionState();
@@ -42,7 +40,6 @@ export async function fetchWithAuthRetry<T>(
         const { data, error: refreshError } = await supabase.auth.refreshSession();
         
         if (refreshError || !data.session) {
-          console.error("Token refresh failed:", refreshError);
           
           // Count stored refresh attempts
           const retryCount = parseInt(localStorage.getItem('auth_debug_retries') || '0');
@@ -50,14 +47,12 @@ export async function fetchWithAuthRetry<T>(
           
           // If we've tried multiple times, force a new login
           if (retryCount > 2) {
-            console.error("Multiple refresh failures, redirecting to login");
             localStorage.setItem('auth_debug_refresh_failed', 'true');
             window.location.href = '/login';
             throw new Error("Authentication failed, redirecting to login");
           }
         }
         
-        console.log("Token refreshed, retrying data fetch");
       } else {
         throw error;
       }

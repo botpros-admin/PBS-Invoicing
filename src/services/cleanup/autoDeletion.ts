@@ -76,7 +76,6 @@ class AutoDeletionService {
       } catch (error) {
         const errorMessage = `Failed to clean ${policy.table}: ${error}`;
         errors.push(errorMessage);
-        console.error(errorMessage);
       }
     }
 
@@ -150,7 +149,6 @@ class AutoDeletionService {
 
       return count;
     } catch (error) {
-      console.error('Error cleaning import failures:', error);
       throw error;
     }
   }
@@ -181,7 +179,6 @@ class AutoDeletionService {
 
       return count;
     } catch (error) {
-      console.error('Error cleaning expired credits:', error);
       throw error;
     }
   }
@@ -219,7 +216,6 @@ class AutoDeletionService {
 
       return 0;
     } catch (error) {
-      console.error('Error cleaning audit logs:', error);
       throw error;
     }
   }
@@ -263,7 +259,6 @@ class AutoDeletionService {
 
       return results;
     } catch (error) {
-      console.error('Error cleaning orphaned records:', error);
       throw error;
     }
   }
@@ -285,7 +280,6 @@ class AutoDeletionService {
 
       if (error) throw error;
     } catch (error) {
-      console.error('Error archiving records:', error);
       throw error;
     }
   }
@@ -309,7 +303,6 @@ class AutoDeletionService {
         }
       });
     } catch (error) {
-      console.error('Error logging cleanup results:', error);
     }
   }
 

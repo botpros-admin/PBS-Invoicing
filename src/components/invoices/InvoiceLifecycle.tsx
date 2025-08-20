@@ -158,7 +158,6 @@ const InvoiceLifecycle: React.FC<InvoiceLifecycleProps> = ({
       setLineItems(linesData || []);
 
     } catch (error) {
-      console.error('Error fetching invoice data:', error);
       addNotification('error', 'Failed to load invoice data');
     } finally {
       setLoading(false);
@@ -189,7 +188,6 @@ const InvoiceLifecycle: React.FC<InvoiceLifecycleProps> = ({
 
       setLifecycleHistory(history);
     } catch (error) {
-      console.error('Error fetching lifecycle history:', error);
     }
   };
 
@@ -254,7 +252,7 @@ const InvoiceLifecycle: React.FC<InvoiceLifecycleProps> = ({
             tenant_id: currentTenant.id
           });
 
-        if (emailError) console.error('Failed to queue email:', emailError);
+        if (emailError) 
       }
 
       addNotification('success', `Invoice status updated to ${statusConfig[nextStatus].label}`);
@@ -273,7 +271,6 @@ const InvoiceLifecycle: React.FC<InvoiceLifecycleProps> = ({
       setStatusNotes('');
 
     } catch (error) {
-      console.error('Error updating invoice status:', error);
       addNotification('error', 'Failed to update invoice status');
     } finally {
       setLoading(false);
@@ -311,7 +308,6 @@ const InvoiceLifecycle: React.FC<InvoiceLifecycleProps> = ({
       setShowLineItems(false);
 
     } catch (error) {
-      console.error('Error deleting lines:', error);
       addNotification('error', 'Failed to delete lines');
     } finally {
       setLoading(false);
@@ -344,7 +340,6 @@ const InvoiceLifecycle: React.FC<InvoiceLifecycleProps> = ({
       fetchInvoiceData();
 
     } catch (error) {
-      console.error('Error uploading data:', error);
       addNotification('error', 'Failed to upload data');
     } finally {
       setLoading(false);

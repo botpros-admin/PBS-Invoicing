@@ -128,7 +128,6 @@ const Labs: React.FC = () => {
       setLabStats(statsMap);
 
     } catch (error) {
-      console.error('Error fetching labs:', error);
       addNotification({
         type: 'error',
         message: 'Failed to fetch labs'
@@ -178,7 +177,6 @@ const Labs: React.FC = () => {
         lastActivityDate
       };
     } catch (error) {
-      console.error('Error fetching lab stats:', error);
       return null;
     }
   };
@@ -254,7 +252,6 @@ const Labs: React.FC = () => {
       });
       fetchLabs();
     } catch (error) {
-      console.error('Error saving lab:', error);
       addNotification({
         type: 'error',
         message: 'Failed to save lab'
@@ -285,7 +282,6 @@ const Labs: React.FC = () => {
       });
       fetchLabs();
     } catch (error) {
-      console.error('Error deleting lab:', error);
       addNotification({
         type: 'error',
         message: 'Failed to delete lab'

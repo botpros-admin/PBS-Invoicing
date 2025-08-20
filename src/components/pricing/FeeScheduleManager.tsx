@@ -133,7 +133,6 @@ const FeeScheduleManager: React.FC = () => {
       });
 
     } catch (error) {
-      console.error('Error fetching schedules:', error);
       addNotification('error', 'Failed to load fee schedules');
     } finally {
       setLoading(false);
@@ -188,7 +187,6 @@ const FeeScheduleManager: React.FC = () => {
       fetchSchedules();
 
     } catch (error) {
-      console.error('Error creating schedule:', error);
       addNotification('error', 'Failed to create fee schedule');
     }
   };
@@ -277,7 +275,6 @@ const FeeScheduleManager: React.FC = () => {
       fetchSchedules();
 
     } catch (error) {
-      console.error('Error copying schedule:', error);
       addNotification('error', 'Failed to copy fee schedule');
     }
   };
@@ -308,7 +305,6 @@ const FeeScheduleManager: React.FC = () => {
       if (insertError) throw insertError;
 
     } catch (error) {
-      console.error('Error applying percentage increase:', error);
       throw error;
     }
   };
@@ -337,7 +333,6 @@ const FeeScheduleManager: React.FC = () => {
       fetchSchedules();
 
     } catch (error) {
-      console.error('Error deleting schedule:', error);
       addNotification('error', 'Failed to delete fee schedule');
     }
   };
@@ -410,7 +405,6 @@ const FeeScheduleManager: React.FC = () => {
           fetchSchedules();
         }
       } catch (error) {
-        console.error('Error importing CSV:', error);
         addNotification('error', 'Failed to import CSV');
       }
     };

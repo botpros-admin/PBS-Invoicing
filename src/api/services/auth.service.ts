@@ -134,7 +134,6 @@ export async function getCurrentUser(): Promise<User> {
 
     return appUser;
   } catch (error) {
-    console.error('Failed to get current user:', error);
     throw error;
   }
 }

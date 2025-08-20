@@ -333,7 +333,6 @@ export async function repairAuthState(): Promise<{
  */
 export async function fixAndReloadIfNeeded(): Promise<void> {
   try {
-    console.log('Running auth repair utility...');
     const result = await repairAuthState();
     
     // Display result to user
@@ -344,14 +343,12 @@ export async function fixAndReloadIfNeeded(): Promise<void> {
     }
     
     // Log details to console
-    console.log('Auth repair result:', result);
     
     // Reload if needed
     if (result.requiresReload) {
       window.location.reload();
     }
   } catch (e) {
-    console.error('Error in auth repair:', e);
     alert(`Auth repair failed with error: ${(e as Error).message}`);
   }
 }

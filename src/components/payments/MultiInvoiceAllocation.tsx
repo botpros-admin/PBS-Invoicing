@@ -79,7 +79,6 @@ export const MultiInvoiceAllocation: React.FC<MultiInvoiceAllocationProps> = ({
       if (error) throw error;
       setInvoices(data || []);
     } catch (err: any) {
-      console.error('Error loading invoices:', err);
       setError('Failed to load invoices');
     } finally {
       setIsLoading(false);
@@ -185,7 +184,7 @@ export const MultiInvoiceAllocation: React.FC<MultiInvoiceAllocationProps> = ({
           })
           .eq('id', paymentId);
         
-        if (postError) console.error('Error posting payment:', postError);
+        if (postError) 
       }
       
       // Success!
@@ -193,7 +192,6 @@ export const MultiInvoiceAllocation: React.FC<MultiInvoiceAllocationProps> = ({
         onSuccess();
       }
     } catch (err: any) {
-      console.error('Error allocating payment:', err);
       setError(err.message || 'Failed to allocate payment');
     } finally {
       setIsSaving(false);

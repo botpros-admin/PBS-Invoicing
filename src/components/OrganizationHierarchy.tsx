@@ -94,7 +94,6 @@ const OrganizationHierarchy: React.FC<OrganizationHierarchyProps> = ({
       if (bcError) {
         // If tables don't exist, show a helpful message
         if (bcError.code === '42P01') {
-          console.warn('Hierarchy tables not found. Please run the database migration.');
           addNotification('warning', 'Database tables need to be created. Please check setup_hierarchy_tables.md for instructions.');
           setLoading(false);
           // Use mock data for now
@@ -192,7 +191,6 @@ const OrganizationHierarchy: React.FC<OrganizationHierarchyProps> = ({
       setExpandedNodes(new Set([pbsNode.id]));
       
     } catch (error) {
-      console.error('Error fetching hierarchy:', error);
       addNotification('error', 'Failed to load organization hierarchy');
     } finally {
       setLoading(false);
@@ -269,7 +267,6 @@ const OrganizationHierarchy: React.FC<OrganizationHierarchyProps> = ({
       setFormData({ name: '', code: '', salesRep: '', email: '', phone: '', address: '' });
       fetchHierarchy();
     } catch (error) {
-      console.error('Error adding node:', error);
       addNotification('error', 'Failed to add organization');
     }
   };
@@ -297,7 +294,6 @@ const OrganizationHierarchy: React.FC<OrganizationHierarchyProps> = ({
       addNotification('success', `${node.name} deactivated`);
       fetchHierarchy();
     } catch (error) {
-      console.error('Error deleting node:', error);
       addNotification('error', 'Failed to deactivate organization');
     }
   };

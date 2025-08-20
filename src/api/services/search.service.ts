@@ -25,7 +25,6 @@ export async function performGlobalSearch(searchTerm: string): Promise<SearchRes
     return (data as SearchResult[]) || [];
 
   } catch (error) {
-    console.error('Error performing global search:', error);
     handleSupabaseError(error, 'Global Search');
     // Return empty array on error, or re-throw if preferred
     return [];

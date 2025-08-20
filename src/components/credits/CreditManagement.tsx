@@ -132,7 +132,6 @@ const CreditManagement: React.FC = () => {
       });
 
     } catch (error) {
-      console.error('Error fetching credits:', error);
       addNotification('error', 'Failed to load credits');
     } finally {
       setLoading(false);
@@ -151,7 +150,6 @@ const CreditManagement: React.FC = () => {
       setCreditBalances(data || []);
 
     } catch (error) {
-      console.error('Error fetching credit balances:', error);
     }
   };
 
@@ -195,7 +193,6 @@ const CreditManagement: React.FC = () => {
       fetchCreditBalances();
 
     } catch (error) {
-      console.error('Error creating credit:', error);
       addNotification('error', 'Failed to create credit');
     }
   };
@@ -229,7 +226,6 @@ const CreditManagement: React.FC = () => {
       fetchCreditBalances();
 
     } catch (error) {
-      console.error('Error auto-applying credits:', error);
       addNotification('error', 'Failed to auto-apply credits');
     } finally {
       setLoading(false);
@@ -270,7 +266,6 @@ const CreditManagement: React.FC = () => {
       fetchCredits();
 
     } catch (error) {
-      console.error('Error applying credit:', error);
       addNotification('error', 'Failed to apply credit');
     }
   };

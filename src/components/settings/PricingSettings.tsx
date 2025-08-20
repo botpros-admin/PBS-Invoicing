@@ -25,7 +25,6 @@ const PricingSettings: React.FC = () => {
       queryClient.invalidateQueries({ queryKey: ['priceSchedules'] });
       setIsModalOpen(false);
     } catch (error) {
-      console.error('Failed to create price schedule:', error);
     } finally {
       setIsCreating(false);
     }
@@ -38,7 +37,6 @@ const PricingSettings: React.FC = () => {
       queryClient.invalidateQueries({ queryKey: ['priceSchedules'] });
       setSelectedSchedule(null);
     } catch (error) {
-      console.error('Failed to update price schedule:', error);
     } finally {
       setIsUpdating(false);
     }

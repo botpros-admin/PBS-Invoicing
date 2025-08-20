@@ -285,7 +285,6 @@ class ApiClient {
         }
         if (options?.showErrorToast) {
           // TODO: Integrate with toast notification system
-          console.error('API Error:', response.error.userMessage);
         }
         return null;
       }

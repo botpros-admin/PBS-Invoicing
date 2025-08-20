@@ -92,7 +92,6 @@ const PaymentPostingQueue: React.FC = () => {
 
       setPayments(formattedPayments);
     } catch (error) {
-      console.error('Error fetching payments:', error);
       addNotification('error', 'Failed to load payments');
     } finally {
       setLoading(false);
@@ -121,7 +120,6 @@ const PaymentPostingQueue: React.FC = () => {
 
       setInvoices(formattedInvoices);
     } catch (error) {
-      console.error('Error fetching invoices:', error);
       addNotification('error', 'Failed to load invoices');
     }
   };
@@ -219,7 +217,6 @@ const PaymentPostingQueue: React.FC = () => {
       setDisputes({});
       fetchPayments();
     } catch (error) {
-      console.error('Error saving payment:', error);
       addNotification('error', 'Failed to save payment');
     }
   };
@@ -248,7 +245,6 @@ const PaymentPostingQueue: React.FC = () => {
       });
       fetchPayments();
     } catch (error) {
-      console.error('Error creating payment:', error);
       addNotification('error', 'Failed to create payment');
     }
   };

@@ -117,7 +117,6 @@ export class InvoicePDFGenerator {
       return this.doc.output('blob');
 
     } catch (error) {
-      console.error('Error generating PDF:', error);
       throw error;
     }
   }

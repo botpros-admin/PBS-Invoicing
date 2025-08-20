@@ -114,7 +114,6 @@ export const PaymentReconciliationReport: React.FC = () => {
       
       setReconciliations(filtered);
     } catch (error) {
-      console.error('Error loading reconciliation data:', error);
     } finally {
       setIsLoading(false);
     }

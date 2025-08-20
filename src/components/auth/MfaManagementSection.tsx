@@ -33,7 +33,6 @@ const MfaManagementSection: React.FC = () => {
       setIsSetupModalOpen(true);
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Failed to start MFA setup');
-      console.error('MFA enrollment error:', err);
     } finally {
       setIsLoading(false);
     }
@@ -70,7 +69,6 @@ const MfaManagementSection: React.FC = () => {
       setSetupData(null);
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Failed to verify code');
-      console.error('MFA verification error:', err);
     } finally {
       setIsLoading(false);
     }
@@ -110,7 +108,6 @@ const MfaManagementSection: React.FC = () => {
       setSuccessMessage('Two-factor authentication has been disabled');
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Failed to disable MFA');
-      console.error('MFA disable error:', err);
     } finally {
       setIsLoading(false);
     }

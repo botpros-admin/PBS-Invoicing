@@ -72,7 +72,6 @@ export async function apiRequest<T>(
     // Parse JSON response
     return await response.json() as T;
   } catch (error) {
-    console.error('API request failed:', error);
     throw error;
   }
 }
@@ -87,7 +86,6 @@ export async function apiRequest<T>(
  */
 export function handleSupabaseError(error: any, context: string = 'API request'): never {
   // Print more detailed error information to help with debugging
-  console.error(`Supabase error in ${context}:`, error);
   
   // Check for authentication issues
   if (error?.message?.includes('JWT') || 
@@ -98,20 +96,16 @@ export function handleSupabaseError(error: any, context: string = 'API request')
       error?.message?.includes('permission') ||
       error?.message?.includes('access')) {
     
-    console.warn('Authentication related error detected - checking auth state');
     
     // Attempt to check the auth state to help with debugging
     try {
       // Access from the supabase client we re-exported above
       const currentSession = supabase.auth.getSession();
-      console.log('Current auth session state:', currentSession);
       
       // Check localStorage directly
       const rawSession = localStorage.getItem('pbs_invoicing_auth');
-      console.log('Session in localStorage:', rawSession ? 'exists' : 'missing');
       
     } catch (checkError) {
-      console.error('Error while checking auth state:', checkError);
     }
     
     // For auth errors, provide a more specific message
@@ -125,17 +119,14 @@ export function handleSupabaseError(error: any, context: string = 'API request')
       error?.message?.includes('row level security') ||
       error?.message?.includes('RLS')) {
     
-    console.warn('RLS policy error detected');
     
     // Attempt to check the user role
     try {
       import('../context/enhanced-auth-error-handling').then(({ isRlsRecursionError }) => {
         if (isRlsRecursionError(error)) {
-          console.error('RLS recursion error detected - this may affect data loading');
         }
       });
     } catch (checkError) {
-      console.error('Error while checking RLS error:', checkError);
     }
     
     // For permission errors, provide a more helpful message
@@ -166,7 +157,6 @@ export async function withAuthRetry<T>(queryFn: () => Promise<T>): Promise<T> {
     // First attempt
     return await queryFn();
   } catch (error) {
-    console.warn('Query failed, checking if auth refresh is needed:', error);
     
     // Check if this is an auth-related error
     const errorMessage = (error as any)?.message || '';
@@ -176,28 +166,23 @@ export async function withAuthRetry<T>(queryFn: () => Promise<T>): Promise<T> {
                         errorMessage.includes('session');
     
     if (isAuthError) {
-      console.log('Attempting to refresh session before retry...');
       
       try {
         // Attempt to refresh the session
         const { data, error: refreshError } = await supabase.auth.refreshSession();
         
         if (refreshError) {
-          console.error('Session refresh failed:', refreshError);
           throw error; // Re-throw original error if refresh fails
         }
         
         if (data?.session) {
-          console.log('Session refreshed successfully, retrying query...');
           
           // Retry the query with fresh token
           return await queryFn();
         } else {
-          console.error('Session refresh returned no session');
           throw error; // Re-throw original error
         }
       } catch (refreshError) {
-        console.error('Error during session refresh:', refreshError);
         throw error; // Re-throw original error
       }
     }

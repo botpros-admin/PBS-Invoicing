@@ -67,12 +67,10 @@ const PreferencesSection: React.FC = () => {
         const { data, error } = await profileService.getUserPreferences(user.id);
         
         if (error) {
-          console.error('Failed to load preferences:', error);
         } else if (data) {
           setPreferences(data);
         }
       } catch (error) {
-        console.error('Load preferences error:', error);
       } finally {
         setIsLoading(false);
       }
@@ -99,14 +97,11 @@ const PreferencesSection: React.FC = () => {
       const { error } = await profileService.saveUserPreferences(user.id, preferences);
       
       if (error) {
-        console.error('Failed to save preferences:', error);
         // TODO: Show error notification
       } else {
-        console.log('Preferences saved successfully');
         // TODO: Show success notification
       }
     } catch (error) {
-      console.error('Save preferences error:', error);
     } finally {
       setIsSaving(false);
     }

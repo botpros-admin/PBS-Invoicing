@@ -448,7 +448,6 @@ describe('Stripe Webhook Handler', () => {
         const { invoice_id } = event.data.object.metadata || {};
         
         if (!invoice_id) {
-          console.error('No invoice_id in payment intent metadata');
           return false;
         }
         return true;

@@ -45,7 +45,6 @@ class IPWhitelistService {
       // Fallback to WebRTC if available
       return await this.getIPFromWebRTC();
     } catch (error) {
-      console.error('Error getting client IP:', error);
       return '';
     }
   }
@@ -123,7 +122,6 @@ class IPWhitelistService {
 
       return false;
     } catch (error) {
-      console.error('Error checking IP whitelist:', error);
       // Fail open in case of error (allow access)
       return true;
     }
@@ -154,7 +152,6 @@ class IPWhitelistService {
       this.rules = data || [];
       this.lastFetch = new Date();
     } catch (error) {
-      console.error('Error fetching IP whitelist rules:', error);
       this.rules = [];
     }
   }
@@ -242,7 +239,6 @@ class IPWhitelistService {
         metadata: data
       });
     } catch (error) {
-      console.error('Error adding IP to whitelist:', error);
       throw error;
     }
   }
@@ -270,7 +266,6 @@ class IPWhitelistService {
         description: 'Removed IP from whitelist'
       });
     } catch (error) {
-      console.error('Error removing IP from whitelist:', error);
       throw error;
     }
   }
@@ -302,7 +297,6 @@ class IPWhitelistService {
 
       return data || [];
     } catch (error) {
-      console.error('Error fetching whitelist rules:', error);
       return [];
     }
   }
@@ -343,7 +337,6 @@ class IPWhitelistService {
         timezone: data.timezone
       };
     } catch (error) {
-      console.error('Error getting IP geolocation:', error);
       return {};
     }
   }
@@ -412,7 +405,6 @@ class IPWhitelistService {
         ip
       };
     } catch (error) {
-      console.error('Error checking access:', error);
       // Fail open
       return {
         allowed: true,

@@ -129,7 +129,6 @@ export function logError(
 
   // In development, log to console
   if (import.meta.env.DEV) {
-    console.error(`[${context}] Error:`, errorInfo);
   }
 
   // In production, you might want to send to an error tracking service

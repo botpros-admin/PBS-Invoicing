@@ -53,7 +53,6 @@ const ImportFailureQueue: React.FC<ImportFailureQueueProps> = ({ onReprocess }) 
       if (error) throw error;
       setFailures(data || []);
     } catch (error) {
-      console.error('Error fetching failures:', error);
       addNotification('error', 'Failed to load import failures');
     } finally {
       setLoading(false);
@@ -103,7 +102,6 @@ const ImportFailureQueue: React.FC<ImportFailureQueueProps> = ({ onReprocess }) 
       setSelectedFailures(new Set());
       fetchFailures();
     } catch (error) {
-      console.error('Error reprocessing:', error);
       addNotification('error', 'Failed to reprocess items');
     }
   };
@@ -126,7 +124,6 @@ const ImportFailureQueue: React.FC<ImportFailureQueueProps> = ({ onReprocess }) 
       setEditingRow(null);
       fetchFailures();
     } catch (error) {
-      console.error('Error updating row:', error);
       addNotification('error', 'Failed to update row');
     }
   };
@@ -161,7 +158,6 @@ const ImportFailureQueue: React.FC<ImportFailureQueueProps> = ({ onReprocess }) 
         handleReprocess();
       }
     } catch (error) {
-      console.error('Error adding clinic:', error);
       addNotification('error', 'Failed to add clinic');
     }
   };
@@ -192,7 +188,6 @@ const ImportFailureQueue: React.FC<ImportFailureQueueProps> = ({ onReprocess }) 
         handleReprocess();
       }
     } catch (error) {
-      console.error('Error adding CPT:', error);
       addNotification('error', 'Failed to add CPT code');
     }
   };

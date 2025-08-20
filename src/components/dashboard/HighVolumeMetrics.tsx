@@ -171,7 +171,6 @@ export const HighVolumeMetrics: React.FC = () => {
       setLabMetrics(labMetricsData.sort((a, b) => b.samplesProcessed - a.samplesProcessed));
       
     } catch (error) {
-      console.error('Error fetching metrics:', error);
     } finally {
       setIsLoading(false);
     }

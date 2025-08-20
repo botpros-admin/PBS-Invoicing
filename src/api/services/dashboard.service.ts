@@ -157,7 +157,6 @@ export async function getDashboardStats(dateRange: DateRange = '30days'): Promis
       }
     ];
   } catch (error) {
-    console.error('Failed to fetch dashboard stats:', error);
     handleSupabaseError(error, 'Dashboard Stats');
     throw error;
   }
@@ -235,7 +234,6 @@ export async function getAgingOverview(): Promise<AgingBucket[]> {
       { label: 'Over 90 Days', value: over90 }
     ];
   } catch (error) {
-    console.error('Failed to fetch aging overview:', error);
     handleSupabaseError(error, 'Aging Overview');
     throw error;
   }
@@ -287,7 +285,6 @@ export async function getStatusDistribution(dateRange: DateRange = '30days'): Pr
     
     return statusDistribution;
   } catch (error) {
-    console.error('Failed to fetch status distribution:', error);
     handleSupabaseError(error, 'Status Distribution');
     throw error;
   }
@@ -348,7 +345,6 @@ export async function getTopClientsByRevenue(dateRange: DateRange = '30days', li
         !('id' in invoice.client) || // Check client.id
         !('name' in invoice.client) // Check client.name
       ) {
-        console.warn(`Skipping invoice due to missing or invalid data structure:`, invoice);
         return; // Skip if data structure is not as expected
       }
 
@@ -394,7 +390,6 @@ export async function getTopClientsByRevenue(dateRange: DateRange = '30days', li
     
     return topClients;
   } catch (error) {
-    console.error('Failed to fetch top clients:', error);
     handleSupabaseError(error, 'Top Clients');
     throw error;
   }

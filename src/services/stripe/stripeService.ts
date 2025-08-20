@@ -63,7 +63,6 @@ class StripeService {
       if (error) throw error;
       return result;
     } catch (error) {
-      console.error('Error creating payment intent:', error);
       throw error;
     }
   }
@@ -130,7 +129,6 @@ class StripeService {
       if (error) throw error;
       return session;
     } catch (error) {
-      console.error('Error creating checkout session:', error);
       throw error;
     }
   }
@@ -168,7 +166,6 @@ class StripeService {
       if (error) throw error;
       return result;
     } catch (error) {
-      console.error('Error setting up ACH payment:', error);
       throw error;
     }
   }
@@ -185,7 +182,6 @@ class StripeService {
       if (error) throw error;
       return data;
     } catch (error) {
-      console.error('Error fetching payment method:', error);
       throw error;
     }
   }
@@ -214,7 +210,6 @@ class StripeService {
       if (error) throw error;
       return customer;
     } catch (error) {
-      console.error('Error creating Stripe customer:', error);
       throw error;
     }
   }
@@ -237,7 +232,6 @@ class StripeService {
       if (error) throw error;
       return result;
     } catch (error) {
-      console.error('Error saving payment method:', error);
       throw error;
     }
   }
@@ -264,7 +258,6 @@ class StripeService {
       if (error) throw error;
       return refund;
     } catch (error) {
-      console.error('Error processing refund:', error);
       throw error;
     }
   }
@@ -284,7 +277,6 @@ class StripeService {
       if (error) throw error;
       return data;
     } catch (error) {
-      console.error('Error fetching payment history:', error);
       throw error;
     }
   }

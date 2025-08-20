@@ -101,7 +101,6 @@ const Reports: React.FC = () => {
             break;
         }
       } catch (error: any) {
-        console.error(`Error fetching data for ${activeTab} tab:`, error);
         setError(error?.message || `Error loading ${activeTab} data. Please try again.`);
       } finally {
         setIsLoading(false);
@@ -179,7 +178,6 @@ const Reports: React.FC = () => {
           break;
       }
     } catch (error: any) {
-      console.error(`Error refreshing data for ${activeTab} tab:`, error);
       setError(error?.message || `Error refreshing ${activeTab} data. Please try again.`);
     } finally {
       setIsLoading(false);

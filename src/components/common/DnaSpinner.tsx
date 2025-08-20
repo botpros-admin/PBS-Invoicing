@@ -14,14 +14,12 @@ const DNAHelix: React.FC<DnaSpinnerProps> = ({ text, width = 300, height = 150 }
     const canvas = canvasRef.current;
     // Ensure canvas exists before proceeding
     if (!canvas) {
-      console.warn("DNAHelix: Canvas ref not available yet.");
       return;
     }
 
     const ctx = canvas.getContext("2d");
     // Ensure context exists before proceeding
     if (!ctx) {
-      console.error("DNAHelix: Failed to get 2D context.");
       return;
     }
 

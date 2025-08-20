@@ -66,7 +66,6 @@ class SessionManager {
   private handleVisibilityChange = () => {
     if (document.hidden) {
       // Tab is hidden, might want to be more aggressive with timeout
-      console.log('Tab hidden, session timeout continues');
     } else {
       // Tab is visible again, check if session is still valid
       this.checkSessionValidity();
@@ -130,7 +129,6 @@ class SessionManager {
   }
 
   private async handleSessionTimeout() {
-    console.log('Session timeout reached');
     
     // Log the timeout event
     await this.logSessionEvent('timeout');
@@ -193,7 +191,6 @@ class SessionManager {
           });
       }
     } catch (error) {
-      console.error('Failed to log activity:', error);
     }
   }
 
@@ -217,7 +214,6 @@ class SessionManager {
           });
       }
     } catch (error) {
-      console.error('Failed to log session event:', error);
     }
   }
 

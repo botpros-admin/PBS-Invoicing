@@ -50,7 +50,6 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
       .single();
     
     if (error) {
-      console.error('Error fetching user role:', error);
       return null;
     }
     return data;
@@ -84,7 +83,6 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
 
     if (staffProfile && !staffError) {
       // This is a PBS staff member
-      console.log('[AuthContext] Found PBS staff profile:', staffProfile.email);
       
       // Fetch role if role_id exists
       if (staffProfile.role_id) {
@@ -104,7 +102,6 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
         }
       } else {
         // Fallback to role field for backward compatibility
-        console.warn(`Staff user ${staffProfile.email} has no role_id, using legacy role field:`, staffProfile.role);
         setRole(null);
         setPermissions([]);
       }
@@ -132,7 +129,6 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
 
     if (clientProfile && !clientError) {
       // This is a client portal user
-      console.log('[AuthContext] Found client portal user:', clientProfile.email);
       
       // Client users have limited permissions
       setRole({ id: 'client', name: 'client', permissions: [] });
@@ -158,12 +154,10 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     }
 
     // No profile found in either table
-    console.error('[AuthContext] No profile found in users or client_users for:', supabaseUser.email);
     return null;
   };
 
   const setSessionData = async (currentSession: Session | null) => {
-    console.log('[AuthContext] Setting session data for user:', currentSession?.user?.email);
     setSession(currentSession);
     if (currentSession?.user) {
       setIsPermissionsLoading(true);
@@ -171,25 +165,22 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
       // This function would be used for advanced RLS scenarios but isn't required
       // try {
       //   await supabase.rpc('set_user_context', { user_uuid: currentSession.user.id });
-      //   console.log('[AuthContext] User context set for database operations');
+      //   
       // } catch (error) {
-      //   console.warn('[AuthContext] Could not set user context:', error);
+      //   
       // }
       
       const profile = await fetchUserProfile(currentSession.user);
       
       if (profile) {
-        console.log('[AuthContext] User profile fetched:', profile?.email, 'with role:', profile.role);
         setUser(profile);
         setIsAuthenticated(true);
       } else {
-        console.error(`[AuthContext] CRITICAL: No profile found for authenticated user ${currentSession.user.email}. Logging out.`);
         clearUserState();
         await supabase.auth.signOut();
       }
       setIsPermissionsLoading(false);
     } else {
-      console.log('[AuthContext] No session, clearing user data');
       clearUserState();
       setIsPermissionsLoading(false);
     }

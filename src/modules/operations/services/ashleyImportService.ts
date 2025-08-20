@@ -256,7 +256,6 @@ export class AshleyImportService {
         if (this.duplicateCache.has(duplicateKey)) {
           if (options.forceDuplicates) {
             // Ashley can force duplicates through
-            console.log(`Forcing duplicate: ${duplicateKey}`);
           } else {
             throw new Error(`Duplicate found: Accession ${row.accession_number} with CPT ${cptCode}`);
           }

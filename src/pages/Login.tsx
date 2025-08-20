@@ -64,7 +64,6 @@ const Login: React.FC = () => {
   useEffect(() => {
     // Use authIsLoading from context to wait for initial check
     if (!authIsLoading && isAuthenticated) {
-      console.log(`[Login Page] User authenticated, navigating to: ${redirectPath}`);
       navigate(redirectPath, { replace: true });
     }
   }, [isAuthenticated, authIsLoading, navigate, redirectPath]);
@@ -83,15 +82,12 @@ const Login: React.FC = () => {
           if (totpFactor?.status === 'verified') {
              setMfaFactorId(totpFactor.id);
              setShowMfaModal(true);
-             console.log('[Login Page] Showing MFA modal for factor:', totpFactor.id);
           } else {
              setError('MFA is required, but no verified TOTP factor found. Please contact support.');
-              console.error('[Login Page] MFA required but no verified TOTP factor available.');
            }
          } catch (err: unknown) { // Use unknown type
             const formattedError = formatAuthError(err instanceof Error ? err : new Error(String(err)));
             setError(formattedError);
-            console.error('[Login Page] Error fetching MFA factors:', err);
          } finally {
            setComponentIsLoading(false); // Stop local loading indicator
         }
@@ -109,11 +105,9 @@ const Login: React.FC = () => {
     setError(null);
     setShowMfaModal(false);
 
-    console.log('[Login Page] Starting 1.25s login delay...');
 
     // Introduce a 1.25-second delay before calling login
     setTimeout(async () => {
-      console.log('[Login Page] Delay finished. Calling login context function...');
       // Call the simplified login method from context
       const result = await login(email, password);
 
@@ -123,12 +117,10 @@ const Login: React.FC = () => {
         setComponentIsLoading(false); // Stop loading on error
       } else if (result.requiresMfa) {
         // Don't stop loading here; wait for the useEffect hook to fetch factorId and show modal
-        console.log('[Login Page] Login requires MFA. Waiting for factor details...');
         // The useEffect listening to `hasMfa` will handle showing the modal
         // Note: componentIsLoading might be set to false in the MFA useEffect error handler
       } else {
         // Login successful (no MFA) - the PublicRoute will handle the redirect
-        console.log('[Login Page] Login successful (no MFA). Auth state updated.');
         if (rememberMe) {
           localStorage.setItem('remembered_email', email);
           localStorage.setItem('remembered_user_type', userType);
@@ -158,14 +150,12 @@ const Login: React.FC = () => {
     const result = await verifyMfa(factorId, code);
 
      if (result.error) {
-       console.error('[Login Page] MFA verification failed:', result.error);
        setComponentIsLoading(false); // Stop loading on error
        // Throw the error so the modal's internal catch handler can display it
        throw result.error;
        // setError(formatAuthError(result.error)); // Or set error here if modal doesn't handle it
      } else {
        // MFA successful - AuthContext's onAuthStateChange will trigger navigation
-       console.log('[Login Page] MFA verification successful. Waiting for navigation...');
       setShowMfaModal(false); // Close modal immediately
       // Keep loading indicator until navigation happens
       // setComponentIsLoading(false); // Let navigation handle UI change

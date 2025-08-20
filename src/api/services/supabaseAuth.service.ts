@@ -15,7 +15,6 @@ import { AuthSession, User as SupabaseUser, Session } from '@supabase/supabase-j
  * May return with MFA challenge if MFA is enabled for the user
  */
 export async function login(credentials: { email: string; password: string }) {
-  console.log('Login attempt with email:', credentials.email);
   
   try {
     // Attempt to sign in
@@ -37,7 +36,6 @@ export async function login(credentials: { email: string; password: string }) {
 
     // Regular login success
     const user = await getUserProfile(data.user);
-    console.log('User profile retrieved:', user.name, user.role);
     
     // Use imported AuthSession type
     const sessionData = data.session as AuthSession; 
@@ -48,7 +46,6 @@ export async function login(credentials: { email: string; password: string }) {
       session: sessionData,
     };
   } catch (error) {
-    console.error('Login error:', error);
     throw error;
   }
 }
@@ -87,14 +84,12 @@ export async function verifyMfaCode(factorId: string, code: string): Promise<Mfa
     const { data: sessionData, error: sessionError } = await supabase.auth.getSession();
     
     if (sessionError || !sessionData.session) {
-      console.error('MFA verified, but failed to get session:', sessionError);
       throw new Error('MFA verified, but session could not be established.');
     }
 
     const { data: userData, error: userError } = await supabase.auth.getUser();
 
     if (userError || !userData.user) {
-       console.error('MFA verified, but failed to get user:', userError);
        throw new Error('MFA verified, but user details could not be retrieved.');
     }
 
@@ -106,7 +101,6 @@ export async function verifyMfaCode(factorId: string, code: string): Promise<Mfa
       session: sessionData.session, // Return the retrieved session
     };
   } catch (error) {
-    console.error('MFA verification error:', error);
     throw error;
   }
 }
@@ -119,7 +113,6 @@ export async function getCurrentUser(): Promise<User | null> {
     const { data, error } = await supabase.auth.getUser();
     
     if (error || !data.user) {
-      console.log('No authenticated user found');
       return null;
     }
 
@@ -128,11 +121,9 @@ export async function getCurrentUser(): Promise<User | null> {
       return await getUserProfile(data.user);
     } catch (profileError) {
       // For HIPAA compliance, we no longer use fallbacks
-      console.error('Error retrieving user profile:', profileError);
       throw new Error('Authentication failed: Unable to verify user access. For security reasons, access has been denied.');
     }
   } catch (error) {
-    console.error('Get current user error:', error);
     return null;
   }
 }
@@ -168,7 +159,6 @@ export async function registerUser(userData: {
 
     return { message: 'Registration successful. Please check your email for verification.' };
   } catch (error) {
-    console.error('Registration error:', error);
     throw error;
   }
 }
@@ -182,7 +172,6 @@ export async function logout() {
     if (error) throw error;
     return { success: true };
   } catch (error) {
-    console.error('Logout error:', error);
     throw error;
   }
 }
@@ -205,7 +194,6 @@ export async function updateUserProfile(userData: Partial<User>): Promise<User> 
 
     return await getUserProfile(data.user);
   } catch (error) {
-    console.error('Update user error:', error);
     throw error;
   }
 }
@@ -227,7 +215,6 @@ export async function enrollMfa(): Promise<MfaEnrollmentData> {
       secret: data.totp.secret,
     };
   } catch (error) {
-    console.error('MFA enrollment error:', error);
     throw error;
   }
 }
@@ -248,7 +235,6 @@ export async function challengeMfa(factorId: string): Promise<MfaChallengeData> 
       factorId: factorId,
     };
   } catch (error) {
-    console.error('MFA challenge error:', error);
     throw error;
   }
 }
@@ -272,7 +258,6 @@ export async function verifyMfaChallenge(params: {
 
     return { success: true };
   } catch (error) {
-    console.error('MFA verification error:', error);
     throw error;
   }
 }
@@ -293,7 +278,6 @@ export async function listMfaFactors(): Promise<MfaFactor[]> {
       friendlyName: factor.friendly_name,
     }));
   } catch (error) {
-    console.error('List MFA factors error:', error);
     throw error;
   }
 }
@@ -311,7 +295,6 @@ export async function unenrollMfa(factorId: string): Promise<{ success: boolean 
 
     return { success: true };
   } catch (error) {
-    console.error('MFA unenroll error:', error);
     throw error;
   }
 }
@@ -320,13 +303,11 @@ export async function unenrollMfa(factorId: string): Promise<{ success: boolean 
  * Request a password reset email.
  */
 export async function requestPasswordReset(email: string): Promise<{ error?: Error }> {
-  console.log(`[AuthService] Requesting password reset for ${email}`);
   const { error } = await supabase.auth.resetPasswordForEmail(email, {
     redirectTo: `${window.location.origin}/update-password`,
   });
 
   if (error) {
-    console.error('[AuthService] Password reset error:', error);
     return { error };
   }
 
@@ -338,13 +319,11 @@ export async function requestPasswordReset(email: string): Promise<{ error?: Err
  */
 export async function sendInvitation(email: string, role: string): Promise<{ message: string } | { error: string }> {
   try {
-    console.log(`Invoking invite-user function for ${email} with role ${role}`);
     const { data, error } = await supabase.functions.invoke('invite-user', {
       body: { email, role },
     });
 
     if (error) {
-      console.error('Error invoking invite-user function:', error.message);
       // Attempt to parse the error response from the function if available
       let errorMessage = `Failed to send invitation: ${error.message}`;
       if (error.context && error.context.json) {
@@ -361,12 +340,10 @@ export async function sendInvitation(email: string, role: string): Promise<{ mes
       return { error: errorMessage };
     }
 
-    console.log('Invite function response:', data);
     // Assuming the function returns { message: '...' } on success
     return data || { message: 'Invitation sent successfully.' }; 
 
   } catch (error: unknown) { // Use unknown type
-    console.error('Unexpected error sending invitation:', error);
     // Type assertion needed if accessing properties like message
     const errorMessage = error instanceof Error ? error.message : String(error);
     return { error: `An unexpected error occurred: ${errorMessage}` };
@@ -377,24 +354,18 @@ export async function sendInvitation(email: string, role: string): Promise<{ mes
  * Helper function to get user profile data
  */
 async function getUserProfile(authUser: SupabaseUser | null): Promise<User> { // Use SupabaseUser type
-  console.log('[getUserProfile] Function entry'); // <<< Log added previously
   if (!authUser) {
-    console.error('[getUserProfile] Auth user object is null or undefined.'); // <<< ADDED LOG
     throw new Error('User not found');
   }
-  console.log(`[getUserProfile] Received authUser with email: ${authUser.email}`); // <<< ADDED LOG
 
   // No longer needed - we don't use fallbacks for HIPAA compliance
 
   // Log authentication attempt without hardcoded admin detection
   if (authUser.email) {
-    console.log(`User profile lookup attempt for: ${authUser.email}`);
   } // <<< Corrected brace placement
 
   try {
     // For all users, try to query the database
-    console.log('[getUserProfile] Entering TRY block for database query for', authUser.email); // <<< Log added previously
-    console.log('Attempting to get user profile from database for', authUser.email);
     
     // Try direct query first (AbortController removed previously)
     let userData;
@@ -409,14 +380,12 @@ async function getUserProfile(authUser: SupabaseUser | null): Promise<User> { //
       
       if (error) {
         // Log the specific database error before throwing a generic one
-        console.error('Detailed Error fetching user profile:', JSON.stringify(error, null, 2)); 
         throw error; // Re-throw the original error to be caught below
       }
       
       userData = data;
     } catch (err: unknown) { // Use unknown type
       // Log the specific error that occurred during the query attempt
-      console.error('Detailed Database query error:', JSON.stringify(err, null, 2));
       // Check if it's an AbortError or PostgrestError for better typing
       const isAbortError = err instanceof Error && err.name === 'AbortError'; // Keep check in case needed later
       // Basic check for PostgrestError structure (using 'message' property)
@@ -424,9 +393,7 @@ async function getUserProfile(authUser: SupabaseUser | null): Promise<User> { //
 
       if (isAbortError) {
          // This path shouldn't be hit now, but keep log just in case
-        console.error('Database query timed out (AbortError detected unexpectedly)');
       } else {
-        console.error('General Database query error:', err); // Keep original log too
       }
       // Throw a new error to be caught by the final catch block
       const errorMessage = isPostgrestError ? (err as { message: string }).message : (err instanceof Error ? err.message : 'Unknown');
@@ -439,7 +406,6 @@ async function getUserProfile(authUser: SupabaseUser | null): Promise<User> { //
       const { data: factorsData } = await supabase.auth.mfa.listFactors();
       hasMfa = factorsData?.totp?.some(factor => factor.status === 'verified') || false;
     } catch (mfaError) {
-      console.warn('Failed to get MFA status, defaulting to false:', mfaError);
     }
 
     // Map database fields to our User type with defensive programming
@@ -458,12 +424,9 @@ async function getUserProfile(authUser: SupabaseUser | null): Promise<User> { //
       avatar: userData.avatar_url || undefined,
     };
 
-    console.log('Successfully retrieved user profile from database:', user.email, user.role);
     return user;
   } catch (error: unknown) { // Use unknown type
     // Log the specific error that caused the profile fetch to fail overall
-    console.error('Detailed failure in getUserProfile:', JSON.stringify(error, null, 2));
-    console.error('Failed to get user profile for:', authUser.email);
     
     // For ALL users, we should not use fallbacks for HIPAA compliance
     // Throw the generic HIPAA-compliant error message for the UI

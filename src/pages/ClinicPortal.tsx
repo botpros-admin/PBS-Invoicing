@@ -138,7 +138,6 @@ const ClinicPortal: React.FC = () => {
       });
 
     } catch (error) {
-      console.error('Error fetching invoices:', error);
       addNotification('error', 'Failed to load invoices');
     } finally {
       setLoading(false);
@@ -157,7 +156,6 @@ const ClinicPortal: React.FC = () => {
       if (data) setStats(data);
 
     } catch (error) {
-      console.error('Error fetching stats:', error);
     }
   };
 
@@ -315,7 +313,6 @@ const ClinicPortal: React.FC = () => {
       fetchStats();
 
     } catch (error) {
-      console.error('Error processing payment:', error);
       addNotification('error', 'Failed to process payment');
     } finally {
       setProcessingPayment(false);
@@ -349,7 +346,6 @@ const ClinicPortal: React.FC = () => {
       });
 
     } catch (error) {
-      console.error('Error downloading PDF:', error);
       addNotification('error', 'Failed to download invoice PDF');
     }
   };

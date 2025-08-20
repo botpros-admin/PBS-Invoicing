@@ -33,7 +33,6 @@ const MfaVerificationModal: React.FC<MfaVerificationModalProps> = ({
         }
       } catch (err) {
         setError('Failed to load authentication methods');
-        console.error('Error loading MFA factors:', err);
       }
     };
     

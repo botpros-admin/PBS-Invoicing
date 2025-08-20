@@ -145,7 +145,6 @@ export const fetchVolumeMetrics = async (dateRange: DateRange = '30days'): Promi
     };
     
   } catch (error) {
-    console.error('Error fetching volume metrics:', error);
     throw error;
   }
 };
@@ -205,7 +204,6 @@ export const fetchLabMetrics = async (dateRange: DateRange = '30days'): Promise<
     return labMetricsData.sort((a, b) => b.samplesProcessed - a.samplesProcessed);
     
   } catch (error) {
-    console.error('Error fetching lab metrics:', error);
     throw error;
   }
 };

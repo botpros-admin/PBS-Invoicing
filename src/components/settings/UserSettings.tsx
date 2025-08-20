@@ -60,7 +60,6 @@ const UserSettings: React.FC = () => {
       e.currentTarget.reset(); // Reset form fields
 
     } catch (error: any) { // Keep 'any' for now as error structure from API might vary
-      console.error("Invitation failed:", error);
       setInviteError(error.message || 'Failed to send invitation. Please try again.');
     } finally {
       setInviteLoading(false);
@@ -81,7 +80,6 @@ const UserSettings: React.FC = () => {
     const confirmed = window.confirm(`Are you sure you want to ${action} this user?`);
 
     if (confirmed) {
-      console.log(`${action.charAt(0).toUpperCase() + action.slice(1)} user (mock):`, userId);
       // This is a mock implementation and should be replaced with a mutation
     }
   };

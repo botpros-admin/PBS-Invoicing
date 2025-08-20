@@ -187,7 +187,6 @@ export const AgingReport: React.FC = () => {
       setInvoices(aged);
       setSummary(summaryData);
     } catch (error) {
-      console.error('Error loading aging data:', error);
     } finally {
       setIsLoading(false);
     }

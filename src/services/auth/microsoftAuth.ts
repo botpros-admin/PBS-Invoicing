@@ -40,7 +40,6 @@ class MicrosoftAuthService {
         this.account = accounts[0];
       }
     } catch (error) {
-      console.error('Error initializing Microsoft auth:', error);
     }
   }
 
@@ -59,12 +58,10 @@ class MicrosoftAuthService {
         
         return response;
       } catch (popupError) {
-        console.warn('Popup blocked, using redirect');
         await this.msalInstance.loginRedirect(loginRequest);
         return null;
       }
     } catch (error) {
-      console.error('Error signing in with Microsoft:', error);
       throw error;
     }
   }
@@ -84,7 +81,6 @@ class MicrosoftAuthService {
         this.account = null;
       }
     } catch (error) {
-      console.error('Error signing out:', error);
       // Fallback to redirect
       await this.msalInstance.logoutRedirect();
     }
@@ -118,7 +114,6 @@ class MicrosoftAuthService {
 
       return await response.json();
     } catch (error) {
-      console.error('Error fetching user profile:', error);
       throw error;
     }
   }
@@ -151,7 +146,6 @@ class MicrosoftAuthService {
         });
       }
     } catch (error) {
-      console.error('Error exchanging token:', error);
       throw error;
     }
   }
@@ -184,13 +178,11 @@ class MicrosoftAuthService {
 
       return response.accessToken;
     } catch (error) {
-      console.error('Error acquiring token:', error);
       // Try interactive method
       try {
         const response = await this.msalInstance.acquireTokenPopup(loginRequest);
         return response.accessToken;
       } catch (popupError) {
-        console.error('Error acquiring token via popup:', popupError);
         return null;
       }
     }

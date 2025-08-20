@@ -37,7 +37,6 @@ class ErrorBoundary extends Component<Props, State> {
       correlationId
     });
     
-    console.error("ErrorBoundary caught an error:", {
       error: error.toString(),
       componentStack: errorInfo.componentStack,
       correlationId

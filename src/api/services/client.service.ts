@@ -75,23 +75,19 @@ export async function getClients(filters?: FilterOptions): Promise<PaginatedResp
       
       query = query.range(startIndex, startIndex + limit - 1);
       
-      console.log('Querying clients data from Supabase with embedded selects');
       
       // Execute query
       const { data, error, count } = await query;
       
       if (error) {
-        console.error('Error fetching clients:', error);
         throw error;
       }
       
       if (!data) {
         // Handle case where data is null (e.g., RLS prevents access)
-        console.warn('No clients data returned from Supabase');
         return { data: [], total: 0, page, limit, totalPages: 0 };
       }
       
-      console.log(`Retrieved ${data.length} clients with related data from database`);
     
       // Convert to frontend types
       const clients: Client[] = data.map((client: any) => {
@@ -128,7 +124,6 @@ export async function getClients(filters?: FilterOptions): Promise<PaginatedResp
       };
     });
   } catch (error) {
-    console.error('Failed to fetch clients:', error);
     throw error;
   }
 }
@@ -204,7 +199,6 @@ export async function getClientById(id: ID): Promise<Client> {
     
     return client;
   } catch (error) {
-    console.error(`Failed to fetch client ${id}:`, error);
     throw error;
   }
 }
@@ -250,14 +244,12 @@ export async function createClient(clientData: Partial<Client>): Promise<Client>
       });
     
     if (paramsError) {
-      console.warn('Failed to create default invoice parameters:', paramsError);
       // Continue anyway as this is not critical
     }
     
     // Return the complete client
     return await getClientById(newClient.id);
   } catch (error) {
-    console.error('Failed to create client:', error);
     throw error;
   }
 }
@@ -293,7 +285,6 @@ export async function updateClient(id: ID, clientData: Partial<Client>): Promise
     // Return the updated client
     return await getClientById(id);
   } catch (error) {
-    console.error(`Failed to update client ${id}:`, error);
     throw error;
   }
 }
@@ -316,7 +307,6 @@ export async function deleteClient(id: ID): Promise<{ message: string }> {
     
     return { message: `Client ${id} deleted successfully` };
   } catch (error) {
-    console.error(`Failed to delete client ${id}:`, error);
     throw error;
   }
 }
@@ -412,7 +402,6 @@ export async function getClientClinics(clientId: ID, filters?: FilterOptions): P
     
     return clinics;
   } catch (error) {
-    console.error(`Failed to fetch clinics for client ${clientId}:`, error);
     throw error;
   }
 }
@@ -478,7 +467,6 @@ export async function getClinicById(clientId: ID, clinicId: ID): Promise<Clinic>
     
     return clinic;
   } catch (error) {
-    console.error(`Failed to fetch clinic ${clinicId} for client ${clientId}:`, error);
     throw error;
   }
 }
@@ -516,7 +504,6 @@ export async function createClinic(clientId: ID, clinicData: Partial<Clinic>): P
     // Return the complete clinic
     return await getClinicById(clientId, newClinic.id);
   } catch (error) {
-    console.error(`Failed to create clinic for client ${clientId}:`, error);
     throw error;
   }
 }
@@ -560,7 +547,6 @@ export async function updateClinic(clientId: ID, clinicId: ID, clinicData: Parti
     // Return the updated clinic
     return await getClinicById(clientId, clinicId);
   } catch (error) {
-    console.error(`Failed to update clinic ${clinicId} for client ${clientId}:`, error);
     throw error;
   }
 }
@@ -585,7 +571,6 @@ export async function deleteClinic(clientId: ID, clinicId: ID): Promise<{ messag
     
     return { message: `Clinic ${clinicId} deleted successfully` };
   } catch (error) {
-    console.error(`Failed to delete clinic ${clinicId} for client ${clientId}:`, error);
     throw error;
   }
 }
@@ -638,7 +623,6 @@ export async function getClinicContacts(clientId: ID, clinicId: ID): Promise<Cli
     
     return contacts;
   } catch (error) {
-    console.error(`Failed to fetch contacts for clinic ${clinicId}:`, error);
     throw error;
   }
 }
@@ -724,7 +708,6 @@ export async function createClinicContact(clientId: ID, clinicId: ID, contactDat
     
     return contact;
   } catch (error) {
-    console.error(`Failed to create contact for clinic ${clinicId}:`, error);
     throw error;
   }
 }
@@ -828,7 +811,6 @@ export async function updateClinicContact(
     
     return contact;
   } catch (error) {
-    console.error(`Failed to update contact ${contactId} for clinic ${clinicId}:`, error);
     throw error;
   }
 }
@@ -895,7 +877,6 @@ export async function deleteClinicContact(clientId: ID, clinicId: ID, contactId:
     
     return { message: `Contact ${contactId} deleted successfully` };
   } catch (error) {
-    console.error(`Failed to delete contact ${contactId} for clinic ${clinicId}:`, error);
     throw error;
   }
 }
@@ -992,7 +973,6 @@ export async function updateInvoiceParameters(clientId: ID, paramsData: Partial<
     
     return invoiceParams;
   } catch (error) {
-    console.error(`Failed to update invoice parameters for client ${clientId}:`, error);
     throw error;
   }
 }

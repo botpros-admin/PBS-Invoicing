@@ -89,7 +89,6 @@ export const PaymentQueue: React.FC<PaymentQueueProps> = ({
       if (error) throw error;
       setPayments(data || []);
     } catch (error: any) {
-      console.error('Error loading payments:', error);
     } finally {
       setIsLoading(false);
     }

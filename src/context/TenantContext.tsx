@@ -94,7 +94,6 @@ export const TenantProvider: React.FC<TenantProviderProps> = ({ children }) => {
 
       setIsLoading(false);
     } catch (err) {
-      console.error('Error fetching organizations:', err);
       setError('Failed to load organizations');
       setIsLoading(false);
     }
@@ -158,7 +157,6 @@ export const TenantProvider: React.FC<TenantProviderProps> = ({ children }) => {
 
       setHierarchy(newHierarchy);
     } catch (err) {
-      console.error('Error building hierarchy:', err);
     }
   };
 
