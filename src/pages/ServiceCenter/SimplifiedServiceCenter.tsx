@@ -6,6 +6,7 @@ import ServiceManagement from './components/ServiceManagement';
 import ServiceOperations from './components/ServiceOperations';
 import InsuranceVerification from './components/InsuranceVerification';
 import ServiceDirectory from './components/ServiceDirectory';
+import ParentAccountAggregation from '../../components/clients/ParentAccountAggregation';
 
 const SimplifiedServiceCenter: React.FC = () => {
   return (
@@ -16,6 +17,7 @@ const SimplifiedServiceCenter: React.FC = () => {
         <Route path="encounter-management/*" element={<ServiceManagement />} />
         <Route path="coverage-verification/*" element={<InsuranceVerification />} />
         <Route path="service-operations/*" element={<ServiceOperations />} />
+        <Route path="parent-accounts/*" element={<ParentAccountAggregation />} />
         <Route index element={<Navigate to="service-registry" replace />} />
       </Routes>
     </div>

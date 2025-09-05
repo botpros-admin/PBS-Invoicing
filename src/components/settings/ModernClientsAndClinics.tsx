@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { 
   Building2, 
   Plus, 
@@ -17,8 +17,12 @@ import {
   Grid,
   List,
   ChevronDown,
-  Building
+  Building,
+  Link2,
+  X
 } from 'lucide-react';
+import { getClients, updateClientParent } from '../../api/services/client.service';
+import { Client } from '../../types';
 
 interface Clinic {
   id: string;
@@ -30,87 +34,49 @@ interface Clinic {
   lastActivity?: string;
 }
 
-interface Client {
-  id: string;
-  name: string;
-  type: 'hospital' | 'clinic' | 'lab' | 'practice';
-  status: 'active' | 'inactive' | 'pending';
-  clinics: Clinic[];
-  totalPatients: number;
-  monthlyRevenue: number;
-  lastActivity: string;
-  contactPerson?: string;
-  email?: string;
-  phone?: string;
-}
-
 const ModernClientsAndClinics: React.FC = () => {
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
   const [searchTerm, setSearchTerm] = useState('');
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedClient, setSelectedClient] = useState<Client | null>(null);
+  const [clients, setClients] = useState<Client[]>([]);
+  const [loading, setLoading] = useState(true);
 
-  // Mock data - replace with your actual data
-  const clients: Client[] = [
-    {
-      id: '1',
-      name: 'Carepoint Medical',
-      type: 'hospital',
-      status: 'active',
-      totalPatients: 2450,
-      monthlyRevenue: 125000,
-      lastActivity: '2 hours ago',
-      contactPerson: 'Dr. Sarah Johnson',
-      email: 'sarah.johnson@carepoint.com',
-      phone: '+1 (555) 123-4567',
-      clinics: [
-        { id: '1-1', name: 'Carepoint North', address: '123 North St', patientCount: 850, lastActivity: '1 day ago' }
-      ]
-    },
-    {
-      id: '2',
-      name: 'City Medical Center',
-      type: 'hospital',
-      status: 'active',
-      totalPatients: 3200,
-      monthlyRevenue: 185000,
-      lastActivity: '1 day ago',
-      contactPerson: 'Michael Chen',
-      email: 'mchen@citymedical.com',
-      phone: '+1 (555) 987-6543',
-      clinics: [
-        { id: '2-1', name: 'North Wing', address: '456 Medical Blvd', patientCount: 1200, lastActivity: '3 hours ago' }
-      ]
-    },
-    {
-      id: '3',
-      name: 'Memorial Hospital',
-      type: 'hospital',
-      status: 'active',
-      totalPatients: 4100,
-      monthlyRevenue: 220000,
-      lastActivity: '3 hours ago',
-      contactPerson: 'Dr. Emily Rodriguez',
-      email: 'erodriguez@memorial.com',
-      phone: '+1 (555) 456-7890',
-      clinics: [
-        { id: '3-1', name: 'Main Campus', address: '789 Hospital Way', patientCount: 1800, lastActivity: '2 hours ago' }
-      ]
-    },
-    {
-      id: '4',
-      name: 'Riverbend Labs',
-      type: 'lab',
-      status: 'active',
-      totalPatients: 1200,
-      monthlyRevenue: 75000,
-      lastActivity: '5 hours ago',
-      contactPerson: 'Lisa Thompson',
-      email: 'lthompson@riverbend.com',
-      phone: '+1 (555) 321-0987',
-      clinics: [
-        { id: '4-1', name: 'Riverbend Labs - East', address: '321 Lab Drive', patientCount: 600, lastActivity: '4 hours ago' }
-      ]
+  useEffect(() => {
+    const fetchClients = async () => {
+      try {
+        setLoading(true);
+        const paginatedResponse = await getClients({ page: 1, limit: 100 }); // Fetching up to 100 clients
+        setClients(paginatedResponse.data);
+      } catch (error) {
+        console.error("Failed to fetch clients:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchClients();
+  }, []);
+
+  const openModal = (client: Client) => {
+    setSelectedClient(client);
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setSelectedClient(null);
+    setIsModalOpen(false);
+  };
+
+  const setParent = async (childId: string, parentId: string | null) => {
+    try {
+      const updatedClient = await updateClientParent(childId, parentId);
+      setClients(clients.map(c => c.id === childId ? updatedClient : c));
+      closeModal();
+    } catch (error) {
+      console.error("Failed to update client parent:", error);
     }
-  ];
+  };
 
   const getStatusColor = (status: string) => {
     switch (status) {
@@ -130,22 +96,64 @@ const ModernClientsAndClinics: React.FC = () => {
     }
   };
 
-  const ClientCard = ({ client }: { client: Client }) => (
+  const ParentSelectorModal = () => {
+    if (!isModalOpen || !selectedClient) return null;
+
+    const availableParents = clients.filter(c => c.id !== selectedClient.id);
+
+    return (
+      <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+        <div className="bg-white rounded-lg shadow-xl p-6 w-full max-w-md">
+          <div className="flex items-center justify-between mb-4">
+            <h2 className="text-lg font-semibold">Set Parent for {selectedClient.name}</h2>
+            <button onClick={closeModal} className="p-1 hover:bg-gray-200 rounded-full">
+              <X className="w-5 h-5" />
+            </button>
+          </div>
+          <div className="mb-4">
+            <label htmlFor="parent-select" className="block text-sm font-medium text-gray-700 mb-1">
+              Select Parent Client
+            </label>
+            <select
+              id="parent-select"
+              className="w-full p-2 border border-gray-300 rounded-lg"
+              onChange={(e) => setParent(selectedClient.id, e.target.value || null)}
+              defaultValue={selectedClient.parentId || ""}
+            >
+              <option value="">None</option>
+              {availableParents.map(p => (
+                <option key={p.id} value={p.id}>{p.name}</option>
+              ))}
+            </select>
+          </div>
+          <div className="flex justify-end space-x-2">
+            <button onClick={closeModal} className="px-4 py-2 bg-gray-200 text-gray-800 rounded-lg hover:bg-gray-300">
+              Cancel
+            </button>
+          </div>
+        </div>
+      </div>
+    );
+  };
+
+  const ClientCard = ({ client }: { client: Client }) => {
+    const parent = client.parentId ? clients.find(c => c.id === client.parentId) : null;
+    return (
     <div className="bg-white rounded-xl shadow-sm border border-gray-100 hover:shadow-lg transition-all duration-200 overflow-hidden group">
       {/* Header */}
       <div className="p-6 pb-4">
         <div className="flex items-start justify-between mb-4">
           <div className="flex items-center space-x-3">
             <div className="p-2 bg-blue-50 rounded-lg text-blue-600">
-              {getTypeIcon(client.type)}
+              {getTypeIcon(client.type || 'hospital')}
             </div>
             <div>
               <h3 className="text-lg font-semibold text-gray-900">{client.name}</h3>
               <div className="flex items-center space-x-2 mt-1">
-                <span className={`px-2 py-1 rounded-full text-xs font-medium ${getStatusColor(client.status)}`}>
-                  {client.status.charAt(0).toUpperCase() + client.status.slice(1)}
+                <span className={`px-2 py-1 rounded-full text-xs font-medium ${getStatusColor(client.status || 'active')}`}>
+                  {client.status ? client.status.charAt(0).toUpperCase() + client.status.slice(1) : 'Active'}
                 </span>
-                <span className="text-xs text-gray-500 capitalize">{client.type}</span>
+                <span className="text-xs text-gray-500 capitalize">{client.type || 'Hospital'}</span>
               </div>
             </div>
           </div>
@@ -156,18 +164,26 @@ const ModernClientsAndClinics: React.FC = () => {
           </div>
         </div>
 
+        {/* Parent Info */}
+        {parent && (
+          <div className="mb-4 p-2 bg-blue-50 rounded-lg text-sm text-blue-700 flex items-center">
+            <Link2 className="w-4 h-4 mr-2" />
+            Parent: <span className="font-semibold ml-1">{parent.name}</span>
+          </div>
+        )}
+
         {/* Stats */}
         <div className="grid grid-cols-3 gap-4 mb-4">
           <div className="text-center p-3 bg-gray-50 rounded-lg">
-            <div className="text-xl font-bold text-gray-900">{client.totalPatients.toLocaleString()}</div>
+            <div className="text-xl font-bold text-gray-900">{(client.totalPatients || 0).toLocaleString()}</div>
             <div className="text-xs text-gray-600">Patients</div>
           </div>
           <div className="text-center p-3 bg-gray-50 rounded-lg">
-            <div className="text-xl font-bold text-green-600">${(client.monthlyRevenue / 1000).toFixed(0)}k</div>
+            <div className="text-xl font-bold text-green-600">${((client.monthlyRevenue || 0) / 1000).toFixed(0)}k</div>
             <div className="text-xs text-gray-600">Monthly Rev.</div>
           </div>
           <div className="text-center p-3 bg-gray-50 rounded-lg">
-            <div className="text-xl font-bold text-blue-600">{client.clinics.length}</div>
+            <div className="text-xl font-bold text-blue-600">{client.clinics?.length || 0}</div>
             <div className="text-xs text-gray-600">Clinics</div>
           </div>
         </div>
@@ -205,7 +221,7 @@ const ModernClientsAndClinics: React.FC = () => {
           </button>
         </div>
         <div className="space-y-2">
-          {client.clinics.map((clinic) => (
+          {client.clinics?.map((clinic) => (
             <div key={clinic.id} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors">
               <div className="flex-1">
                 <div className="font-medium text-sm text-gray-900">{clinic.name}</div>
@@ -242,8 +258,8 @@ const ModernClientsAndClinics: React.FC = () => {
             Last activity: {client.lastActivity}
           </div>
           <div className="flex space-x-2">
-            <button className="text-xs text-gray-600 hover:text-gray-900 font-medium">
-              View Details
+            <button onClick={() => openModal(client)} className="text-xs text-gray-600 hover:text-gray-900 font-medium">
+              Set Parent
             </button>
             <button className="text-xs text-blue-600 hover:text-blue-700 font-medium">
               Manage
@@ -252,10 +268,15 @@ const ModernClientsAndClinics: React.FC = () => {
         </div>
       </div>
     </div>
-  );
+  )};
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <div className="min-h-screen bg-gray-50">
+      <ParentSelectorModal />
       {/* Header */}
       <div className="bg-white border-b border-gray-200">
         <div className="px-6 py-6">
@@ -338,7 +359,7 @@ const ModernClientsAndClinics: React.FC = () => {
               <Building className="w-5 h-5 text-green-600" />
             </div>
             <div>
-              <div className="text-2xl font-bold text-gray-900">{clients.reduce((acc, client) => acc + client.clinics.length, 0)}</div>
+              <div className="text-2xl font-bold text-gray-900">{clients.reduce((acc, client) => acc + (client.clinics?.length || 0), 0)}</div>
               <div className="text-sm text-gray-600">Active Clinics</div>
             </div>
           </div>
@@ -347,7 +368,7 @@ const ModernClientsAndClinics: React.FC = () => {
               <Users className="w-5 h-5 text-purple-600" />
             </div>
             <div>
-              <div className="text-2xl font-bold text-gray-900">{clients.reduce((acc, client) => acc + client.totalPatients, 0).toLocaleString()}</div>
+              <div className="text-2xl font-bold text-gray-900">{clients.reduce((acc, client) => acc + (client.totalPatients || 0), 0).toLocaleString()}</div>
               <div className="text-sm text-gray-600">Total Patients</div>
             </div>
           </div>
@@ -356,7 +377,7 @@ const ModernClientsAndClinics: React.FC = () => {
               <TrendingUp className="w-5 h-5 text-orange-600" />
             </div>
             <div>
-              <div className="text-2xl font-bold text-gray-900">${(clients.reduce((acc, client) => acc + client.monthlyRevenue, 0) / 1000).toFixed(0)}k</div>
+              <div className="text-2xl font-bold text-gray-900">${(clients.reduce((acc, client) => acc + (client.monthlyRevenue || 0), 0) / 1000).toFixed(0)}k</div>
               <div className="text-sm text-gray-600">Monthly Revenue</div>
             </div>
           </div>
@@ -405,7 +426,7 @@ const ModernClientsAndClinics: React.FC = () => {
                     <td className="px-6 py-4 whitespace-nowrap">
                       <div className="flex items-center">
                         <div className="p-2 bg-blue-50 rounded-lg text-blue-600 mr-3">
-                          {getTypeIcon(client.type)}
+                          {getTypeIcon(client.type || 'hospital')}
                         </div>
                         <div>
                           <div className="text-sm font-medium text-gray-900">{client.name}</div>
@@ -417,25 +438,28 @@ const ModernClientsAndClinics: React.FC = () => {
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
                       <div className="flex flex-col space-y-1">
-                        <span className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${getStatusColor(client.status)}`}>
-                          {client.status.charAt(0).toUpperCase() + client.status.slice(1)}
+                        <span className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${getStatusColor(client.status || 'active')}`}>
+                          {client.status ? client.status.charAt(0).toUpperCase() + client.status.slice(1) : 'Active'}
                         </span>
-                        <span className="text-xs text-gray-500 capitalize">{client.type}</span>
+                        <span className="text-xs text-gray-500 capitalize">{client.type || 'Hospital'}</span>
                       </div>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                      {client.clinics.length}
+                      {client.clinics?.length || 0}
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                      {client.totalPatients.toLocaleString()}
+                      {(client.totalPatients || 0).toLocaleString()}
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                      ${(client.monthlyRevenue / 1000).toFixed(0)}k
+                      ${((client.monthlyRevenue || 0) / 1000).toFixed(0)}k
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                       {client.lastActivity}
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                      <button onClick={() => openModal(client)} className="text-gray-600 hover:text-gray-900 mr-3">
+                        <Link2 className="w-4 h-4" />
+                      </button>
                       <button className="text-blue-600 hover:text-blue-900 mr-3">
                         <Edit3 className="w-4 h-4" />
                       </button>

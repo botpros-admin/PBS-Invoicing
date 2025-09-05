@@ -33,7 +33,9 @@ import UpdatePassword from './pages/UpdatePassword';
 import PayInvoice from './pages/PayInvoice';
 import ResetPassword from './pages/ResetPassword';
 import PasswordResetHandler from './pages/PasswordResetHandler';
-import EnhancedProfile from './pages/EnhancedProfile';
+import Profile from './pages/Profile';
+import TestLaboratory from './pages/TestLaboratory';
+import DuplicateOverridesPage from './pages/DuplicateOverrides';
 // New restructured pages
 import BillingHub from './pages/BillingHub/SimplifiedBillingHub';
 import MyAccount from './pages/MyAccount';
@@ -78,6 +80,7 @@ function App() {
                 <Route path="/team/*" element={<TeamManagement />} />
                 <Route path="/analytics/*" element={<Analytics />} />
                 <Route path="/data/*" element={<DataOperations />} />
+                <Route path="/data/duplicate-overrides" element={<DuplicateOverridesPage />} />
                 
                 {/* Client Portal - External client access */}
                 <Route path="/client-portal/*" element={<ClientPortal />} />
@@ -94,7 +97,8 @@ function App() {
                 <Route path="/settings/*" element={<Settings />} />
                 <Route path="/import" element={<ImportData />} />
                 <Route path="/labs" element={<Labs />} />
-                <Route path="/profile/*" element={<EnhancedProfile />} />
+                <Route path="/profile/*" element={<Profile />} />
+                <Route path="/test-laboratory" element={<TestLaboratory />} />
               </Route>
 
               {/* Error Routes */}

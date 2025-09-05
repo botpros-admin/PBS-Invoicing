@@ -1,0 +1,182 @@
+// This is your Prisma schema file for the laboratory migration
+// These models map to the new _lab_mig tables created during migration
+
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["multiSchema"]
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+  schemas   = ["auth", "public"]
+}
+
+// ==================================================================
+// NEW LABORATORY MODELS (Using _lab_mig tables)
+// ==================================================================
+
+model LaboratoryMig {
+  id                String      @id @default(uuid()) @db.Uuid
+  name              String
+  billingCompanyId  String?     @map("billing_company_id") @db.Uuid
+  address           Json?
+  phone             String?
+  email             String?
+  taxId             String?     @map("tax_id")
+  settings          Json?       @default("{}")
+  isActive          Boolean     @default(true) @map("is_active")
+  createdAt         DateTime    @default(now()) @map("created_at")
+  updatedAt         DateTime    @default(now()) @updatedAt @map("updated_at")
+  
+  clinics           ClinicMig[]
+  
+  @@map("laboratories_lab_mig")
+  @@schema("public")
+}
+
+model ClinicMig {
+  id              String         @id @default(uuid()) @db.Uuid
+  laboratoryId    String         @map("laboratory_id") @db.Uuid
+  parentId        String?        @map("parent_id") @db.Uuid
+  name            String
+  address         Json?
+  phone           String?
+  email           String?
+  accountNumber   String?        @map("account_number")
+  isActive        Boolean        @default(true) @map("is_active")
+  createdAt       DateTime       @default(now()) @map("created_at")
+  updatedAt       DateTime       @default(now()) @updatedAt @map("updated_at")
+  
+  laboratory      LaboratoryMig  @relation(fields: [laboratoryId], references: [id])
+  parent          ClinicMig?     @relation("ClinicHierarchy", fields: [parentId], references: [id])
+  children        ClinicMig[]    @relation("ClinicHierarchy")
+  
+  @@map("clinics_lab_mig")
+  @@schema("public")
+}
+
+model InvoiceLineItemMig {
+  id              String       @id @default(uuid()) @db.Uuid
+  invoiceId       String       @map("invoice_id") @db.Uuid
+  accessionNumber String       @map("accession_number")
+  patientName     String       @map("patient_name")
+  cptCode         String       @map("cpt_code")
+  description     String?
+  units           Int          @default(1)
+  unitPrice       Decimal      @map("unit_price") @db.Decimal(10, 2)
+  totalPrice      Decimal?     @map("total_price") @db.Decimal(10, 2)
+  disputeId       String?      @unique @map("dispute_id") @db.Uuid
+  disputeReason   String?      @map("dispute_reason")
+  createdAt       DateTime     @default(now()) @map("created_at")
+  updatedAt       DateTime     @default(now()) @updatedAt @map("updated_at")
+  
+  dispute         DisputeMig?  @relation(fields: [disputeId], references: [id])
+  
+  @@unique([invoiceId, accessionNumber, cptCode], map: "uniq_accession_cpt_per_invoice")
+  @@map("invoice_line_items_lab_mig")
+  @@schema("public")
+}
+
+model DisputeMig {
+  id              String              @id @default(uuid()) @db.Uuid
+  lineItemId      String?             @unique @map("line_item_id") @db.Uuid
+  status          String              @default("open")
+  reason          String
+  resolutionNotes String?             @map("resolution_notes")
+  createdAt       DateTime            @default(now()) @map("created_at")
+  updatedAt       DateTime            @default(now()) @updatedAt @map("updated_at")
+  resolvedAt      DateTime?           @map("resolved_at")
+  
+  lineItem        InvoiceLineItemMig?
+  comments        DisputeCommentMig[]
+  
+  @@map("disputes_lab_mig")
+  @@schema("public")
+}
+
+model DisputeCommentMig {
+  id        String      @id @default(uuid()) @db.Uuid
+  disputeId String      @map("dispute_id") @db.Uuid
+  userId    String      @map("user_id") @db.Uuid
+  comment   String
+  createdAt DateTime    @default(now()) @map("created_at")
+  
+  dispute   DisputeMig  @relation(fields: [disputeId], references: [id])
+  
+  @@map("dispute_comments_lab_mig")
+  @@schema("public")
+}
+
+model PriceScheduleMig {
+  id            String          @id @default(uuid()) @db.Uuid
+  name          String
+  description   String?
+  laboratoryId  String?         @map("laboratory_id") @db.Uuid
+  clinicId      String?         @map("clinic_id") @db.Uuid
+  isDefault     Boolean         @default(false) @map("is_default")
+  createdAt     DateTime        @default(now()) @map("created_at")
+  updatedAt     DateTime        @default(now()) @updatedAt @map("updated_at")
+  
+  priceRules    PriceRuleMig[]
+  
+  @@map("price_schedules_lab_mig")
+  @@schema("public")
+}
+
+model PriceRuleMig {
+  id          String            @id @default(uuid()) @db.Uuid
+  scheduleId  String            @map("schedule_id") @db.Uuid
+  cptCode     String            @map("cpt_code")
+  price       Decimal           @db.Decimal(10, 2)
+  createdAt   DateTime          @default(now()) @map("created_at")
+  updatedAt   DateTime          @default(now()) @updatedAt @map("updated_at")
+  
+  schedule    PriceScheduleMig  @relation(fields: [scheduleId], references: [id])
+  
+  @@unique([scheduleId, cptCode])
+  @@map("price_rules_lab_mig")
+  @@schema("public")
+}
+
+model ImportBatchMig {
+  id            String              @id @default(uuid()) @db.Uuid
+  laboratoryId  String              @map("laboratory_id") @db.Uuid
+  clinicId      String?             @map("clinic_id") @db.Uuid
+  status        String              @default("pending")
+  totalRows     Int                 @default(0) @map("total_rows")
+  processedRows Int                 @default(0) @map("processed_rows")
+  failedRows    Int                 @default(0) @map("failed_rows")
+  errorLog      Json?               @map("error_log")
+  uploadedAt    DateTime            @default(now()) @map("uploaded_at")
+  completedAt   DateTime?           @map("completed_at")
+  
+  stagingRows   ImportStagingRowMig[]
+  
+  @@map("import_batches_lab_mig")
+  @@schema("public")
+}
+
+model ImportStagingRowMig {
+  id                String          @id @default(uuid()) @db.Uuid
+  batchId           String          @map("batch_id") @db.Uuid
+  rowNumber         Int             @map("row_number")
+  rawData           Json            @map("raw_data")
+  validationStatus  String?         @default("pending") @map("validation_status")
+  errorMessage      String?         @map("error_message")
+  isProcessed       Boolean         @default(false) @map("is_processed")
+  createdAt         DateTime        @default(now()) @map("created_at")
+  
+  batch             ImportBatchMig  @relation(fields: [batchId], references: [id])
+  
+  @@map("import_staging_rows_lab_mig")
+  @@schema("public")
+}
+
+// ==================================================================
+// EXISTING MODELS (Keep these for now during migration)
+// ==================================================================
+
+// Note: Keep your existing User, Invoice, and other models here
+// They will continue to work with the old tables during migration

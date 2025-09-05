@@ -76,6 +76,20 @@ export async function apiRequest<T>(
   }
 }
 
+// Helper to safely get an error message from an unknown type
+const getErrorMessage = (error: unknown): string => {
+  if (error instanceof Error) {
+    return error.message;
+  }
+  if (typeof error === 'object' && error !== null && 'message' in error && typeof (error as any).message === 'string') {
+    return (error as any).message;
+  }
+  if (typeof error === 'string') {
+    return error;
+  }
+  return 'An unknown error occurred';
+};
+
 
 /**
  * Handles Supabase API errors with enhanced diagnostics
@@ -84,17 +98,17 @@ export async function apiRequest<T>(
  * @param context - Additional context for the error
  * @returns Formatted error message
  */
-export function handleSupabaseError(error: any, context: string = 'API request'): never {
-  // Print more detailed error information to help with debugging
+export function handleSupabaseError(error: unknown, context: string = 'API request'): never {
+  const message = getErrorMessage(error);
   
   // Check for authentication issues
-  if (error?.message?.includes('JWT') || 
-      error?.message?.includes('auth') || 
-      error?.message?.includes('token') ||
-      error?.message?.includes('session') ||
-      error?.message?.includes('authentication') ||
-      error?.message?.includes('permission') ||
-      error?.message?.includes('access')) {
+  if (message.includes('JWT') || 
+      message.includes('auth') || 
+      message.includes('token') ||
+      message.includes('session') ||
+      message.includes('authentication') ||
+      message.includes('permission') ||
+      message.includes('access')) {
     
     
     // Attempt to check the auth state to help with debugging
@@ -114,10 +128,10 @@ export function handleSupabaseError(error: any, context: string = 'API request')
   }
   
   // Check for permission/policy errors
-  if (error?.message?.includes('policy') || 
-      error?.message?.includes('permission') || 
-      error?.message?.includes('row level security') ||
-      error?.message?.includes('RLS')) {
+  if (message.includes('policy') || 
+      message.includes('permission') || 
+      message.includes('row level security') ||
+      message.includes('RLS')) {
     
     
     // Attempt to check the user role
@@ -135,14 +149,14 @@ export function handleSupabaseError(error: any, context: string = 'API request')
   }
   
   // For network-related errors
-  if (error instanceof TypeError || error?.message?.includes('network') || error?.message?.includes('connection')) {
+  if (error instanceof TypeError || message.includes('network') || message.includes('connection')) {
     const networkMessage = 'Network error: Please check your internet connection and try again.';
     throw new Error(networkMessage);
   }
   
   // For all other errors, use the error message or a generic fallback
-  const message = error?.message || error?.error_description || 'An unknown error occurred';
-  throw new Error(message);
+  const finalMessage = message || 'An unknown error occurred';
+  throw new Error(finalMessage);
 }
 
 /**
@@ -159,7 +173,7 @@ export async function withAuthRetry<T>(queryFn: () => Promise<T>): Promise<T> {
   } catch (error) {
     
     // Check if this is an auth-related error
-    const errorMessage = (error as any)?.message || '';
+    const errorMessage = getErrorMessage(error);
     const isAuthError = errorMessage.includes('JWT') || 
                         errorMessage.includes('auth') || 
                         errorMessage.includes('token') ||

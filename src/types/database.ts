@@ -26,6 +26,7 @@ export interface Client {
   is_active: boolean;
   created_at: string;
   updated_at: string;
+  parent_id?: string;
 }
 
 export interface CPTCode {
@@ -241,12 +242,20 @@ export interface CreateInvoiceInput {
 
 export interface CreateInvoiceItemInput {
   accession_number: string;
+  // Patient information fields for laboratory billing
+  patient_first_name?: string;
+  patient_last_name?: string;
+  patient_dob?: string;
+  patient_mrn?: string; // Medical Record Number
+  patient_insurance_id?: string;
+  // Service fields
   cpt_code_id: string;
   description: string;
   service_date: string;
-  quantity: number;
-  units?: number; // Units field for mileage, time-based charges, etc.
+  units: number; // Units field for quantity, mileage, time-based charges
   unit_price: number;
+  // Additional fields
+  invoice_type?: 'SNF' | 'Invalids' | 'Hospice' | 'Regular';
   notes?: string;
 }
 

@@ -1,0 +1,433 @@
+QZV-YFGO-OJS
+
+
+Participants    Jermane Mack, Ashley Zarling, Maxwell Ritchie, Rhiannon Hobbs
+
+Date    2025-08-28
+
+Jermane M. 00:01
+They want you to be able to do it in your head, but in real life, you're never going to have to do it. You don't have to do that. You can choose to do that, but you don't have to do that ever. 
+
+Ashley Z. 00:13
+Well, and there may be benefits, but the benefits have to outweigh the downfall. And if time is your biggest constraining factor, you don't want to be hand coding anything. 
+
+Jermane M. 00:24
+Exactly. and you don't it's if you know about coding you can use references to produce what it is that you want specifically. So it's not even like you miss out on much. It just gives you the ability to go in and fix little problems easier rather than just hold on. 
+
+Maxwell R. 00:49
+Yeah. Sorry. Can you hear me? Yeah. 
+
+Maxwell R. 00:57
+I can hear you jermaine's now on mute yes still calm what did i do hang on a second um do you guys get the the feedback echo in your office well. 
+
+Maxwell R. 01:14
+I disconnected my um my dock which had my headset which i connected directly into it now but it is only using the microphone And the sound is like, or I guess it's using the microphone from my computer and the sound is going into my headset. So let me see if I can switch this and turn on. No, I mean, it looks like. Okay. Speakers. Could you say something? 
+
+Ashley Z. 01:49
+Man or me? 
+
+Maxwell R. 01:51
+James. Yes, the other one. 
+
+Maxwell R. 01:55
+It's doing what? 
+
+Maxwell R. 01:57
+It's echoing. 
+
+Maxwell R. 01:59
+It's not coming through the mic. So you can't hear me? 
+
+Maxwell R. 02:02
+I can hear you, but I can hear me. I'm on mute. 
+
+Maxwell R. 02:05
+You can... Okay, yeah. So then that means my... 
+
+Ashley Z. 02:08
+I'm hearing Jermaine through Max's headset right now. 
+
+Maxwell R. 02:13
+Okay, what about now? 
+
+Maxwell R. 02:15
+Jermaine, talk? 
+
+Maxwell R. 02:16
+Yeah, I can still hear it. 
+
+Maxwell R. 02:19
+I'll be back. 
+
+Ashley Z. 02:23
+Beautiful. Perfect. 
+
+Jermane M. 02:26
+Yeah, we got these headsets because of that and these headsets are like the best headsets ever created Why we watched this on this YouTube video where this guy literally compared Feedback and like echo and cancellation You have like a blender next to it and like you go outside and do like a hundred yards away He just went so far and these headsets was like only a hundred something dollars apiece. 
+
+Ashley Z. 02:54
+But it was competing with like literally 700 headsets right and we've had a lot of it now is just tech too so like teams tech i feel like is pretty good about like sound filtering and and things like that because it's just an overlay onto whatever headset you're gonna use but yeah that's always a problem with like the zoom and working from I sometimes wonder what it would be like to go like back in an office where I actually like see clients in an office space. 
+
+Jermane M. 03:27
+Yeah. Do you enjoy that better? 
+
+Ashley Z. 03:31
+I do this because I can be home with my kids. And obviously there's two markets I get to tap into that I don't get to tap into an office, which is I can have a client anywhere in the country, but I can also have an employee anywhere in the country. So I get to pick from the best of the best and really open myself. I miss the office just because I'm an extrovert in some ways I'm an introvert in others but I'm an extrovert when it comes to work I think collaboration is really good and collaboration best occurs you know in an office space that being said I don't know I think it's a situation where you can't have your cake and eat it too so you got to decide like I'm going to make the most of the work from home and pick the best employees all over the country and utilize that part of it or you get the in-office personal collaboration. You don't really get both. 
+
+Jermane M. 04:25
+Yeah, I think when you can link like your business heads in an office, like for those that have the betterment of the company in mind, it works great. Like when me and Max weren't in an office, we would talk, you know, spitball ideas. But actually having everything in one place and having the ability to kind of go over the conversations right then and there after in person. And even having that, you know, I guess the curiosity of trying different things and being right there, kind of working through those things together, it leads to. 
+
+Ashley Z. 05:02
+Uh results that wouldn't have happened otherwise i also think it reduces burnout because um online we can schedule a bunch of meetings and have a ton of emails things that could have been taken care of by just popping your head in an office yeah literally yeah yeah yeah have you seen this piece of paper yeah i have this piece of paper here you go but then it becomes a task when you work online yep schedule it and do yeah and you don't get any of like the social positive feedback from collaboration. Like you don't feel like your friends like you know yeah, yeah, yeah co-workers so in that regard I Don't look super highly on like the work from home process I just think it's cons and you gotta just pick which works for you now as far as the startup goes I don't have to pay for rent or office space which here in town would be a couple grand So I don't have to pay for an office suite. I don't have to pay for any of that kind of stuff so like as far as like capital to start a business it's been highly reduced for me i don't have to pay for office maintenance i get it things like that yeah the most expensive barrier is just setting up sending setups i'm gonna just scroll i'm gonna just slide my chair over there oh you're gonna do the buddy thing again yeah okay Hi Jermaine. Back to feeling like buddies. 
+
+Maxwell R. 06:44
+Okay, I think it's good. Can you just check real quick? I'm sorry. I think I got it. 
+
+Ashley Z. 06:55
+This goes back to when Max says he's not IT. He's an API pro, he's a coding pro, he's a liaison for web app development, but he is not IT. 
+
+Jermane M. 07:08
+Test, test, test. Okay, it looks like it's working now. 
+
+Maxwell R. 07:12
+Perfect. 
+
+Maxwell R. 07:12
+I can do IT sometimes. 
+
+Ashley Z. 07:16
+Okay. Yeah, you watch out. 
+
+Jermane M. 07:26
+All righty. So what's been going on at your end, Ashley? 
+
+Ashley Z. 07:32
+Yeah, I mean, I was fully out of office last week, so I'm getting back in and finishing up and finalizing. I got a really long task list. We've got three or four new clients in the onboard pipeline right now. We were able to sell our PGX product to someone, so we'll see the volume on that. Yeah, like fully crossed the finish line sell. They're doing their first implementation, so we'll see what Tara is able to do to buy us time to develop it. a PGXVOB bot and a prior authorization bot or software, depending on the direction we go long-term, I'm going to hire some temp workers to do that process manually. And then they'll know their temp. So they'll just leave once we figure the bot out and all of that kind of stuff. 
+
+Jermane M. 08:18
+Is that needed now or you're kind of still gaining the volume? 
+
+Ashley Z. 08:23
+It's needed, but we're going to just figure it out for now until we can pay for everything. You know, honestly that first invoice will pay for everything because we get paid 50 of bob and he's doing between 200 and 500 weekly and it costs me 50 or four dollars of bob so the margins are there to just fully support any growth in that area that's needed but but the problem is in my industry and you guys will know this is i'm always net 30 but i'm truly net 60. because it's it's 30 days of work then i invoice. 
+
+Jermane M. 08:59
+And then it's at 30 yeah i'm in this like uh weird limbo place that's pretty much every business in a sense like i didn't know till we started business where it's like all right you send the invoice but they don't necessarily have to pay it for 30 days then it will be considered late so if they pay the invoice on the first you invoice on the first next month they could pay on the 30th and you've waited two months to get a check that's just. 
+
+Maxwell R. 09:28
+Yeah well then you have to wait for the funds to clear and yeah then you know if if you're a first time paying client um it can actually take much longer it could take like two weeks you know before you end up like getting well and god forbid you're trying to set up ach and you're trying to get a bank transfer and not just a card swipe oh my goodness that's. 
+
+Ashley Z. 09:49
+How it goes yeah so that's where we're at right now like i'm in an invoicing cycle right now that has a lot of capital in it but they Yeah, I'm not. 30 to pay me so I'm just waiting and then This new deal's been signed, but I'm probably 60 days out from realizing any of that revenue at all. So, yeah, I mean, I'm just kind of in an invoicing cycle. Things are looking really positive. I'll share this with you guys because I've kind of shared with you guys my business development as it went. Someone offered to purchase us yesterday, like a legit on-paper offer to purchase for $1.9 million. And we turned it down. So far. 
+
+Jermane M. 10:31
+Give us a couple of weeks. Oh. 
+
+Ashley Z. 10:33
+Dude. I just want to go to bed for a little while. But $1.9 million gets me about a year. It doesn't get me, you know, because I only own a percentage of the company. I don't actually get $1.9 million. The U.S. government wants a chunk of it. So, you know, you actually don't make $1.9 million. 
+
+Ashley Z. 10:52
+Yeah. 
+
+Ashley Z. 10:52
+For sure. But they were going to offer us 30% retention at our current proportion. So, like... we would still own 30 the four owners and um with a with a buyout in five years and then they offered to continue to pay me my salary which all sounds great except for i really think we have something here with the accounting software and the pgx program that's worth more than 1.9 million um because we do about 1.9 million in revenue a year it costs us a lot to run that revenue um but that's a year's worth of revenue for our company. And I think because we started off this year with one client and we'll end it with about 15 that we're scalable. We have something really good here. We have, we have things we're doing that are unique. And I think the company inevitably in just assets and like ideas and the appeals that we build and the relationships we have with, with insurance carriers is worth more than 1.9 million. 
+
+Jermane M. 11:53
+But if you're already. netting well gross 1.9 um one of my close friends he just gave our business like a whole analysis because he's licensed in all of those different categories whatever they are and he said that based on the field that you're in there's a multiplier that's applied ai is like the highest right now but health might have like a 2x multiplier 3x multiplier And then they go based on that plus your gross revenue. So it was 1.9. Even if it was a times two multiplier, it should be double what it is that you're making already net. 
+
+Ashley Z. 12:42
+I think it was also 1.9 because they were allowing us a 30% retention. Yeah, yeah, sure. 
+
+Ashley Z. 12:47
+That's easy. Yeah. 
+
+Ashley Z. 12:48
+So it was the RCM broker who approached us that said that he had a billing company and a private equity. equity firm reach out to do a partnership to buy us out. 
+
+Jermane M. 12:58
+And even the salary is really good salary. 
+
+Jermane M. 13:02
+Yeah. 
+
+Jermane M. 13:02
+Yeah. 
+
+Ashley Z. 13:03
+Yeah. Salary for five years is not bad. The problem is if they just absorbed my salary, I don't make industry standard. I make way below because I want my company to be successful and I don't want to just be bleeding it dry. But like I had a recruiter reach out to me last month and say, I have you on the docket. Like. 
+
+Ashley Z. 13:22
+You have by name been requested the job starts at 380,000 and so like that around 200 to 400,000 is my going rate I will tell you I don't want to believe my company yeah so I want to take a third of our gross revenue into my salary that's ridiculous yeah we've had to have those conversations and make those decisions ourselves as far as like you know what do we want to you know you know go down that route. 
+
+Jermane M. 13:52
+You know or do we yeah pay us out as employees yeah because you you get those type of offers a lot in this industry especially now that i think there were yeah it's it's we get literally like job offers all the time for that type of stuff like there's this one lady contacting us me and max and she doesn't i don't even know if she knows we're connected but she just Contact me and Max for the past two years. Yeah, for the past two years with offer after offer after offer. And I'm like, no, I'm not. No. Yeah. 
+
+Ashley Z. 14:30
+That's the whole thing about entrepreneur. It's like I'm actually not here for the salary. I'm here for something else so much more. 
+
+Jermane M. 14:36
+Yeah, there's something you can't really take away. With this specifically, you'll become basically like an overseas. Amount worker in this sense because they'll work you to build everything and then some a million bots this net build the infrastructure Build a web page build a web app and you're getting a salary But in reality if you are going to a company each of those will be independently paid for and you would have that charge the development cost if you're gonna Build extensions and plugins. All of those things cost additional fees. So you really limit your ability to even make what you're actually worth. But you get the security of a paycheck. Yeah. 
+
+Ashley Z. 15:26
+My husband and I spoke a while back because there was a billing company that sold for a lot of money. About $200 million. It was an acquisition. And he said like... would never sell my billing company for less than 20 million because you do the numbers and it's like how much do i need to not have to go back to work ever yeah so that i work on my terms when i want to and you run those numbers and you say well at this after the government gets their greedy little grubby fingers on it um uh you know what what is like we call it freedom money right the the freedom to work or to not work. And what is your freedom money? Like what buys you your freedom from? It doesn't mean I never work. I actually probably would consult, you know, 10 hours a month or whatever here and there. I have no problem keeping my knowledge of the industry. But yeah, yeah. I just thought, you know, just watching each other's businesses grow. You guys are playing that interesting that I had a broker was like, you need to call me this morning. I have an offer on my desk for you. And at first I was like, scammer. Then I actually looked at his LinkedIn and he's like. the verified linkedin he sells rcms he is a broker so i called him and i was like hi are like are what's what is this and he's like i have an offer i cannot tell you the kind of who the clients are until we get into ndas but i have an offer from a private equity firm and a current rcm company to purchase you and. 
+
+Jermane M. 16:58
+I was like crazy yeah that's amazing that's how you know you're on the right track. Yep. 
+
+Ashley Z. 17:05
+Well, that's how I know I'm a threat, right? 
+
+Ashley Z. 17:07
+Yeah. 
+
+Ashley Z. 17:07
+It's like a there's only so many labs in the nation that do PCR testing. And I have almost 15 of them. Almost 15 of them are my clients. And that means 15 of them left other places and only one of them left agility. So all of the other ones have been like true generation just throughout the year, just clientele generation through sales. Yeah. I mean, it's pretty big. It's been awesome to see us grow, you know, the 1,500% this year, and we aren't even done with the year. So we got a ways to go. We got a long ways to go. That's why we're here. Yeah. 
+
+Jermane M. 17:52
+That's all that matters. You're going. So, yeah, I know with the previous thing, the HL7 stuff, I don't know. 
+
+Ashley Z. 18:05
+I ran into another problem. They double mapped clinic names. So I developed two sequence IDs for the same clinic over and over and over and over and over again, which I should have caught, but I didn't. So then I went to pivot table out the data, and I noticed clinics were on there multiple times under slightly different name variations. And then I went into Collaborate and I added every single one of those clinics as a separate clinic because I did a drop file into CMD. So I'm now going through and scrubbing clinics. But then that's what I was doing on Friday. And then obviously my niece passed away. And now I'm back in office. I'm working on it today and posting payments and such. So I should have that done. That's where we're at with the HL7 right now. And then, yeah, I'm just in, I'm in a invoicing cycle right now to hopefully develop some capital. I would love to message all of them and be like, pay me today. They don't owe me for a few more weeks. 
+
+Jermane M. 19:04
+All of us would love to do that. 
+
+Ashley Z. 19:07
+My next contracts are going to be net one. 
+
+Jermane M. 19:12
+Net one. As soon as this is due, it's due. Otherwise, you're late. 
+
+Ashley Z. 19:20
+You don't realize until you realize that you have net 30 in all your contracts and what that actually means for you. I signed it, so I did it to myself. 
+
+Jermane M. 19:29
+Two months. of potentially no income is crazy. 
+
+Ashley Z. 19:33
+Yeah, especially when you hire four people. 
+
+Jermane M. 19:36
+Yeah, no, trust me, I get it. 
+
+Jermane M. 19:38
+It's the learning curve. 
+
+Jermane M. 19:41
+You know, it's the learning curve. 
+
+Ashley Z. 19:42
+But you don't even know how you navigate outside of it. Like, do you guys tell clients, like, this is due upon receipt? Like, is that how you move forward? Because this is definitely not industry standard. Industry standard on most invoicing processes, unless you're doing a deliverable that you're paying for before, is net 30. 
+
+Maxwell R. 19:59
+So i don't know how to depends on the company depends i mean the size of the company is obviously a big factor if they're a bigger company you're not really going to have you know well You may have some wiggle room there, you know, cause they may have an accountant. It depends on like how close you are with them, how, you know, like some, some companies give a bit more, you know, power to people in those types, like, you know, those types of, of, of, of roles. And some people are like, really like, Hey, let me just go ahead and pay this and get it out of the way. Yeah. Thankfully we have, you know, like a client that's like that, where it's like, they'll offer to pay us before we even have to, you know. they're like hurry up and send the invoice already would you like okay sure thing you know so you know and we we appreciate that you know um we appreciate people like that thankfully we've had clients um that just quickly pay like there's we haven't had any issues yeah you know they're where that's been like a thing um so but yeah exactly we and we thank our lucky stars for that because you know it's not always like that and i've worked for like you know other companies i've actually owned a staffing um a recruitment firm that i'd started and um you know be there as well like i'll send you an invoice and it's 30 days till you see it receive payment well actually um it's like a 90 day so you know right Right. Because you want to know that your people, you know, a lot of them try to even like, they try to milk it for like six months, you know, and it's because... 
+
+Ashley Z. 21:40
+They want to know if the placement was successful. 
+
+Maxwell R. 21:42
+That's right. You know, and you don't really know until like, you know, there's like, it's really time is, you know, what you're using to gauge that. Are they going to really stick around? Are they really going to, you know, be the right fit across the board? So, sometimes... Depending on the complexity of the role, it just takes time in order to figure that out. But you try to get a happy ground and then iron that out. But like you said, you do that in the contract and hopefully you get favorable terms. Yeah. 
+
+Ashley Z. 22:20
+The next contracts I send out, I'm going to try to do like net 15 and see. I mean, the worst they're going to say is red line. I know that they won't do that 15. But yeah, net 15 would... would reduce that to a 45-day turnaround, which doesn't seem significant, but that's a payroll cycle. Like, that's pretty significant. Two weeks is a payroll cycle, 15 days. So, yeah, it's interesting, because then I have to go back to my owners and be like, ooh, you know, startup capital. They're going to close payroll down and do those kinds of things. So, it's a lot of fun. We're getting to the other side of it now, but... Yeah, payroll is always like this looming thing where it's like, and every two weeks, I don't know how your business works with your other developers and stuff, but it's like, and every two weeks, everyone needs paid. And I got to clear that every two weeks. And then you start another fight uphill to clear payroll. And then you have your monthly expenses, too. So it's a lot of fun. Oh, yeah. 
+
+Maxwell R. 23:21
+On entrepreneurship. 
+
+Ashley Z. 23:24
+Yeah. Yeah. Yeah. All right. So. Something I picked for myself. 
+
+Maxwell R. 23:31
+I wanted to, I was looking at some of our transcripts. I kind of blanked out as far as where we had left off from the last meeting. I did, I was working on some of the changes that we spoke about in our last couple of meetings. I think like what we'd met like two or three times, you know, that we. there were a lot of changes that we had talked about um and so i don't have something that is like pushed to staging for you guys to kind of follow along with but i can definitely you know um try my best to paint that picture um as far as what you know what we wanted to do kind of to pick back up from where we left off so um the last thing that we spoke about, one of the last things at least was like a dispute. It was a dedicated ticketing system. Okay. For, for disputes. So rather than just like having notifications, it would be its own dedicated space where, you know, um, both the team and the, uh, the clinic or the, The lab has their own panel where they can see a queue that tracks literally up to each line of disputes with each having its own unique ticket number. And that way you can communicate. specifically on that ticket regarding that uh disputed line item or line items um but you could do it on on on each at an individual um or you could do it you know for like more than one um but this way you guys could either you know hopefully come to a resolution you know and just accept them and it would like you know and you could from that from that ticket platform update the invoice like from there rather than have to go into like the invoice like you can literally handle and manage all of the the dispute process within the ticketing system that is not the only place where that could be handled of course but just to have a means of dispute tracking and organization that was like one one of the things that we had discussed if that makes sense and then we also talked about like report like reporting um so like invoice level reporting for like aging balances yes status stuff like that and then you know the detailed line item reports um payment reports as well, like for tracking all incoming payments and what their status is. 
+
+Maxwell R. 26:49
+Yeah. 
+
+Maxwell R. 26:50
+And having that, you know, integrated, you know, via whatever the system, you know, payment gateway that we're using, which would be, you know, for the time being Stripe, but it could be, of course, you know, the one that you'd mentioned. 
+
+Ashley Z. 27:04
+GPI. Yeah. 
+
+Maxwell R. 27:06
+Yeah. So, yeah, does that sound about right? I mean. 
+
+Ashley Z. 27:12
+Yeah, no, it sounds absolutely correct. I mean, I'm just thinking about here going back to the accounting software. You know, the goals of the software essentially are that a lab or a billing company, but right now a billing company can easily with, you know, with ease and reporting functions. So like dropping in Excel files. generate invoices that are specific to lab needs and meet lab clientele's requirements, then that system can create a proper routing for either payment or non-payment of invoices. And from all of that data, reporting can be overlaid on top of it. Yep. So, you know, that ticketing system, correct. That reporting, correct. The reporting we'd want to see on three levels, being able to pull a report on what's actually inside of an invoice, being able to report on invoices, being able to report on payments on those three levels. Yeah, that sounds correct. 
+
+Maxwell R. 28:29
+Okay. 
+
+Ashley Z. 28:40
+Yeah, I don't know because obviously I had pulled up the accounting software system, saw that there wasn't any updates. So I'm kind of at your whim about what questions or what items you want to talk through because we have talked about clinics and clients. We talked about users and permissions. We talked about pricing, payment settings. We're obviously using Stripe for now. Email settings. We talked about invoice parameters. We've discussed security. We had a great conversation on that. Reporting, you know, I love the dashboards and stuff you guys have in the reports in here. So I'm just excited to see what that looks like on the three levels that we've kind of discussed. And then invoice generation, honestly, is going to be the most challenging part is like actually putting pen to paper and seeing if it can generate an invoice. And at what points can we break it? How could it not generate an invoice? voice so um just doing a lot of tests with a lot of fake data plugging in wrong cpt codes wrong clinics how does it route those but also run 10 000 lines through it like does it crash and fail and just find the maximum capacity limits for it because it's fine that it has maximum capacity limits we'll just have to find those like and let rihanna know the parameters like never upload a file with more than 2 000 lines otherwise you're gonna find yourself in trouble like just defining those parameters are great because every system has parameters you will never find a system that doesn't but just defining those so you know i'm excited Honestly, if you guys are in a place where with payment and those kinds of things, you want to put this in a hold even max and just like work on the things we've discussed and then place it back and hold. And then I hopefully will have some payment here in the next 30 days and we can have further discussions as well. I want to be super fair to you all. So totally depends on what you're thinking. 
+
+Maxwell R. 30:39
+Yeah. I mean, that was basically like that is the plan. Yeah. Like. Like, you know, you know, again, yes, we aren't like giving full. Like. 
+
+Ashley Z. 30:57
+Don't dedicate your resources. 
+
+Maxwell R. 30:59
+We're not like, obviously, until we're like 100 percent, like we can't give 100 percent to it. And, you know, I know we and we are actually moving relatively quick, like. kind of referring back to what Jermaine was saying about like how the method that we use in order to develop at the level that we do is about as cutting edge as as AI allows at the moment and it is extremely extremely good considering that you can literally have like an agile team of web developers that you know we're all working with and that we're using in steering in the right direction. And this is all very like the future is now type of stuff. And we're just excited that we're in this field and know enough about it to be able to implement it really well and to make these type of changes really quickly and efficiently. To literally do things that teams of developers, we could do that in a day, what might take them a week of time. So now, with that being the case, it does certainly cost a fair amount of resource that we haven't really been able to push at that level. So yes, that would necessitate... um yeah you know getting our contract executed for sure yeah yeah the rest of that you know once once everything all the cogs are in place we're really gonna see you know some things move and you'll still start seeing that no. 
+
+Ashley Z. 32:59
+I'm honestly just grateful that we're sitting in august and y'all are still talking to me and like working with me there's no no no yeah yeah cool it's But I wanted to. 
+
+Maxwell R. 33:07
+Like I said, initially, I want... we want to go over like what the full big picture here is so that we can just you know focus on the things you know that for sure we want and we that way we account for everything um oftentimes and this is how it is germaine knows this like we we get a client just like with when the our other client they they they just want something simple yeah in their minds that does a particular thing. But in order to do that, there are so many other complexities that it ends up being... It's far more than just a simple thing that does some things, if that makes sense. 
+
+Jermane M. 33:56
+This is all from one page on the web app we discussed. 
+
+Maxwell R. 34:02
+One change that you wanted to make that ended up becoming... 
+
+Jermane M. 34:06
+Pages. 
+
+Ashley Z. 34:08
+100 changes. I cannot think of another piece of our scope, though, right now. Like, in my mind, unless you guys want to re-discuss an item, because I have a brain that's a little bit different, like, I truly feel like, and you guys correct me if I'm wrong, I've flushed out what I can think of right now. Unless we have a thing in front of me that I can be like, this isn't working or this is. like if if we're able to deliver the items we've talked about like i can close my eyes and picture those screens i don't even have to i can picture those screens i can picture that workflow i can see how things plug in and come out of it having green and hair accounting for those last couple items was helpful. I think there definitely will be things at the end where it's like, oh, this is broken. This isn't working because I've worked with IT before. Or hey, a client requested this. But like, as far as a working product goes and accounting for like that goal, I had just talked about like a system that laboratories can utilize that specifically addresses their needs. I think it's really helped that like we've opened up QuickBooks and CMD and like done a comparison. So there's a place where you guys are like, I actually, I hear the words you're saying. but I can't picture this or I don't see this or I don't understand this. Could you walk us through the process top to bottom again? Like, like tell us, like close your eyes and tell us what you think of reports. Or tell us, close your eyes and tell us what you think the payment posting queue should look like. Or whatever it might be. I'm happy to do those things. But like going over the software, the system and saying, I. I do worry now that it's been two weeks on top of it that I would say something that's I'm in conflict with something I've said in the past and it's not that I disagree with what I said previously what I said is probably right um it's just like my brain will remap and it will draw a new line that didn't exist before when the other path was just fine um so and I do that with my employees so that's why I say uh I don't want to do that to you all and and give you two answers both are great answers. first one was just as great as the second answer. So I don't want to do that to you all where you look at the transcripts and you're like well Ashley told us to do the payment posting screen this way and then later on told us to do the payment posting screen this way. The first time was right. Like I don't want to do that to you all either just because I know me. So is there an item specifically Max like you reviewed the transcripts and you're like Ashley sure said words here that you would like me to. 
+
+Maxwell R. 36:46
+Discuss and and talk about again yeah there definitely definitely is and and i appreciate it um and yeah that's definitely something that we always try to keep in mind and that's where it becomes it can become tricky um so i appreciate that um but i do i do have some questions Hang on a second here. uh yeah so okay but no this is this is great so just to make sure that uh we build the dispute system the ticketing system good hey i had a couple questions so like this would be you know and again we have like the various logins there's like the the clinic lab user right there's the Then there's the team, and this is just for a non-SaaS version where they'll have their team, and there'll be an admin and then a user. And then you can have your users that have various permissions. But at the team level, when a dispute ticket comes in, let's say Rhiannon... needs to see something, you know, in order to make a decision or whatever? What, like, what's the first piece of info that they need to see? Is it, would it be like the patient's name or like, you know, this PT code or like what type of notification or like the reason that they gave probably like all the above? 
+
+Ashley Z. 38:39
+So the notification in the top right would just be hey, you have a dispute on file, maybe with the clinic name, or hey, a dispute has been logged for Maxwell Wellness. That is all that would need to be said there. Then when they click on it, and we enter into the ticketing system, what items would be there? So I would see that those items would be generated from the invoice that the dispute came from, and then the note section that is filled out at that point. So what would it say? It would say the clinic name, It would say the invoice number. It would say the dollar amount. in dispute, the patient in dispute, the date of service in dispute, the CPT codes in dispute. So we'd probably have the same lines that the checkbox, the checkbox at the end of the line would trigger that data to be pooled and collected. So if it is checked on a UTI panel, it would say UTI panel, this date of service, you could format it in the same way. So patient name, you just pull that over into the ticket itself. And then the ticket itself would just house that information. So starting from the line, it would move its way over and it would collect the total amount. It would collect the CPT code. It would collect the patient information. It would collect. the invoice number, the clinic name, it would collect who filed it, like with their username, kind of like I talked about last time, we don't have to do it that route, but like of collecting who's the contact information on this, so I can ask them questions if I have questions about their dispute. And then it will capture the dispute field, so that note section that's populating and opening up, it would collect that dispute field and show it. on the ticket itself and then it would put in the date that the dispute was filed as well so that way we have the tracking ability to say these tickets are more than 30 days old these tickets are less than 30 days old those kinds of things makes. 
+
+Maxwell R. 40:43
+Sense okay okay um what happens if you need more information about a dispute um like. 
+
+Ashley Z. 40:59
+Okay. Salesforce's ticketing system? 
+
+Maxwell R. 41:04
+No. I haven't. 
+
+Ashley Z. 41:09
+That's good. Because there's two versions of tickets that I've utilized. One second. It's causing me trouble here. 
+
+Ashley Z. 41:29
+It doesn't want me in there right now. Apparently, I'm going to have to go in and open. Okay. Let me just Salesforce ticketing system. 
+
+Ashley Z. 41:54
+Um essentially like collaborate md's ticketing system doesn't allow for comment response right and that's fine if we went the route that no comment response is allowed essentially at that point we would need the person's contact information and we would just message them or email them or call them get information and work the ticket from there the other option is in salesforce you're able to leave a case comment and then they would get a notification a comment has been left on your case you have five days to resolve or respond to the comment or else your case will be closed. That's kind of how sales forces work with Collaborate MD is the initial ticket is made and then there's a case comment section that essentially works like a back and forth chat in the sense of my initial ticket is considered comment one, that note section. And then I could type back and say, thank you for saying this patient has insurance information on file. When I processed the insurance information, it said it was not. eligible for these dates of service here's the information then they would have five days to respond to that for new and further updated information otherwise the ticket closes out like it's just done they don't get to keep working and working and working that ticket and holding us out for 30 plus days so that's kind of how sales forces work is like it will allow an issued response from collaborating md to us and if we don't respond to that within a certain period of time they make three attempts. of notification so they would ping three times three notifications until a response is given at the point that the third notification isn't responded to that case is just closed they don't allow for cases to just sit so that would be like the notification case comment route so then they could put in a new comment and say okay please self-pay the patient if the patient doesn't have active insurance for those dates um or they could say okay we'll client bill it and they could keep commenting and we would essentially have a running log of case comments until the case is closed either on our end or theirs. 
+
+Ashley Z. 43:49
+Got it. 
+
+Ashley Z. 43:49
+And the closing of the case would either result always in the two paths of the invoice remains or that line is deleted. There's no other path to the end of a closed case. So if a case auto defaults closed because it hasn't been resolved, like we did an item and they didn't resolve back to it or report back to it, then it would always result in the items left on their invoice. If they respond, then we would have essentially unlimited time to continue to work it on our end because we may have to send the patient a letter or do a phone call or something like that. So there would be items where it would maybe take more time on our end. 
+
+Maxwell R. 44:36
+Okay. 
+
+Ashley Z. 44:40
+Sorry. Go for it, Max. 
+
+Maxwell R. 44:42
+I'm sorry if I cut you off. 
+
+Ashley Z. 44:44
+Nope. This is the beauty of Zoom. 
+
+Maxwell R. 44:47
+So, okay. So the Salesforce model style with the back and forth comments and you said there's a... So there's a five-day auto-close rule? 
+
+Ashley Z. 45:02
+Theirs is a three-time notification. So they'll notify you on a day. It'll wait a day. It'll notify you again. So you'll get pinged in your inbox again. You have a notification. Please respond. And then it will do a third one. And if you don't respond within 24 hours, it's off. 
+
+Maxwell R. 45:18
+Got it. All right. Perfect. All right. So once that… conversation or whatever is like completed and finalized um and the ticket is closed uh if they accept the dispute then what so would we either have the system zero out that line like on the invoice or like create a credit on the on like the. 
+
+Ashley Z. 45:59
+It would zero out the line paid for okay all right so would not would it would okay got it yeah the only time credits would happen would be through the credit management system um would be through the credit system and that would only happen after a payment's been made dispute happens before payment they're in the payment screen they're supposed to go and pay they're clicking dispute. 
+
+Maxwell R. 46:30
+And if they deny, what is the final step? 
+
+Ashley Z. 46:35
+Let's talk through that. They're like, hey, we're not paying it. We're disputing. We say, hey, we've read your dispute reason. We're saying you're still paying it. And they say, no, we're not paying it again. We aren't giving them more than one dispute. So once a case has been opened on the line, you cannot have two cases on the line. 
+
+Ashley Z. 46:56
+And that's the rule? 
+
+Maxwell R. 46:58
+And that's the rule. 
+
+Maxwell R. 46:59
+Okay. 
+
+Ashley Z. 47:00
+So when we've closed a case on a line, the only way for them to ever reopen anything with us would be to email or call us directly. Like where I, I just don't want to make a system where they're never paying because they're always delaying their invoices by always disputing them. 
+
+Ashley Z. 47:17
+Okay. 
+
+Ashley Z. 47:18
+Because at the end of the day, we're going to hear their reason. We're going to hear, we believe that this patient has insurance or we believe this patient. isn't actually on hospice, we'll investigate it. That's the point of the ticket is that an investigation would occur. And if after an escalated investigation occurs one time, we're not doing that over and over again. Like we've invested the resources for an escalated investigation that usually occurs at a detailed level. It's not done on a large report, right? We specifically go in, we look at that patient's insurance card, we call the insurance company, like we do all these extra things I don't want it to ever be a circle where again and again and again and again and again, again, we're doing the same line and the same patient and they're not paying. So the rule is one time and then if they want to ever escalate, they can call, you know, at that point because then on the phone I'm going to tell them, hey, there's a ticket here. Please reference ticket number 123. We've discussed this. This is final. So yeah, at that point, one time. And let's say they still say they're not paying it. Then they're going to have an outstanding balance due and we'll pursue it through those methods. We will no longer pursue it through a dispute method. So if we ran in reviews and says, no, you actually owe this, it's owed. Unless for some reason the lab comes back and says, which we've had, hey, this nursing home went bankrupt. But then we would just go through and put, you know. administrative write-off and close out all their invoices um or we would submit them to bankruptcy court like those are our two options is to be a part of the long list of creditors or to to write off the balances and say it's not worth our time okay uh should. 
+
+Maxwell R. 49:10
+The system or would this be at like a user responsibility um level uh like which what responsibility is it the system or the user to like should it automatically delete the line item from the invoice and then issue the updated version based on whatever that outcome is or like should. 
+
+Ashley Z. 49:38
+It keep should it keep the original invoice intact okay Rhiannon this is probably where I'm gonna need you to jump in so I'm gonna state this just in case you weren't super duper listening at the point where a dispute is approved. So you say, yes, this patient is resolved. You've provided us with the invalid information. You've provided us with whatever. It's resolved. It should be removed from the invoice. You click approve. Do you want it to automatically delete that line invoice, that line void as a zero dollar? And then reissue an invoice? Or do you want it to you click approve and then that invoice kicks back into draft status? And then it goes where you go and work all your drafts to reissue a new a new one. My only concern is if it auto happens and they do a ticket for 10 patients, we're going to work one, a new invoice will be put out. We'll work another, a new invoice could be put out. We work another, a new invoice could be put out. That's my only concern with that methodology. 
+
+Maxwell R. 50:55
+Yep. But they might want that. 
+
+Jermane M. 50:59
+Yeah. 
+
+Ashley Z. 51:02
+I think. 
+
+Ashley Z. 51:03
+Yeah. I don't know. I think it needs to kick into draft mode. What do you think, Rhiannon? 
+
+Rhiannon H. 51:11
+Yeah, I could see how it would be useful in the first one, like you said, if it's just one. But if you have like multiples of patients and get multiple notifications, how that could be irritating on a client side. Because I know some clients are just very, very nice to work with. So I would say probably. the draft mode and then from there issue once i've reviewed it or whomever's working it reviews it then you click finalize and it re-pushes out a new one after everything's completed so max this would add an additional layer that. 
+
+Ashley Z. 51:51
+We would want to see anytime there's an invoice there's a little side counter to say like tickets open tickets on invoice resolve tickets on invoice yep yeah. 
+
+Maxwell R. 52:03
+I was even thinking i mean is draft the appropriate status or would it like need like maybe like a pending approve like or uh like on like open open dispute or could because like um would that like would that terminology draft encapsulate entirely what this is or would we want to needs review. 
+
+Ashley Z. 52:31
+And then it would be put into draft and then it would be picked up from draft to approvals and then approvals to email so probably needs review or like like an attention bar just like a needs attention needs review needs something and then we can default to that status whenever a ticket's been approved or hasn't been approved like but in this actual workflow this would occur when a ticket has been approved by rhiannon a line is being voided So then a void would be put on the line. So it would say Jermaine, MAC, UTI, $0. The clinic knows we accounted for it. It's no longer there on the balance. It would go into needs approval or needs review. Rhiannon would close that ticket. Then she would pull, it's Monday morning. She's going to pull a list of all of her invoices. She's going to click filter, needs review. She's going to click on those invoices. She's going to review them. If they're good to go, she'll put them in an approval status, and then they'll go out on the next email cycle, or she can do a manual push and have it go out. Does that sound right, Rhiannon? 
+
+Rhiannon H. 53:41
+Yeah, I think that sounds correct. Also, I have Salesforce pulled up if you wanted to look at it. 
+
+Ashley Z. 53:57
+Do you have your CMD Salesforce open? 
+
+Rhiannon H. 53:59
+Yeah. 
+
+Ashley Z. 54:00
+Do you have a recent ticket? 
+
+Rhiannon H. 54:03
+Yeah, I have my closed tickets. 
+
+Ashley Z. 54:05
+Okay, will you open one of those and share your screen? 
+
+Rhiannon H. 54:09
+Yeah, let me see here. Okay, so here's like where the closed tickets are and you go into it and... 
+
+Ashley Z. 54:26
+Yep, so you can see. Case comment, hello Rhiannon. Hello Rhiannon, hello Rhiannon. And there's comments. And then you can see there's a little blue button there, add comment. When she goes into add comment or add attachment, it's going to ping them back in their queue that Rhiannon in this case, needs to work it or Dean needs to work it. And then she can leave a new comment and then that'll ping them back. And when they leave a comment, it pings her back on course. That's how the health course works. 
+
+Maxwell R. 54:54
+Yep. Yeah, that's actually really simple. 
+
+Ashley Z. 54:58
+Okay, guys, I actually have a hard stop. I'm so sorry. I will see you tomorrow. 
+
+Maxwell R. 55:02
+Okay. All right. Bye. 
+
+Jermane M. 55:05
+What is that? 
+

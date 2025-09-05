@@ -1,9 +1,15 @@
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
-import { AppUser } from '../types';
+import { AppUser, UserRole } from '../types';
 import { supabase } from '../api/supabase';
 import { Session, User as SupabaseUser } from '@supabase/supabase-js';
 
 interface Permission {
+  resource: string;
+  actions: string[];
+}
+
+// Added for type safety on RPC calls
+interface UserPermission {
   resource: string;
   actions: string[];
 }
@@ -30,6 +36,11 @@ interface AuthContextType {
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
+
+// Type guard to validate user roles from the database
+const isValidUserRole = (role: any): role is UserRole => {
+  return ['super_admin', 'admin', 'ar_manager', 'staff'].includes(role);
+};
 
 export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [user, setUser] = useState<AppUser | null>(null);
@@ -74,103 +85,99 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   };
 
   const fetchUserProfile = async (supabaseUser: SupabaseUser): Promise<AppUser | null> => {
-    // First try to fetch from users table (PBS staff)
-    const { data: staffProfile, error: staffError } = await supabase
-      .from('users')
-      .select('*')
-      .eq('auth_id', supabaseUser.id)
-      .single();
+    // Call the get_user_profile RPC function to securely fetch the user's profile.
+    // This single function replaces the multiple, direct table queries.
+    const { data: profile, error } = await supabase.rpc('get_user_profile');
 
-    if (staffProfile && !staffError) {
-      // This is a PBS staff member
-      
-      // Fetch role if role_id exists
-      if (staffProfile.role_id) {
-        const roleData = await fetchUserRole(staffProfile.role_id);
-        if (roleData) {
-          setRole(roleData);
-          // Parse permissions from JSONB
-          const parsedPermissions: Permission[] = [];
-          if (roleData.permissions && typeof roleData.permissions === 'object') {
-            Object.entries(roleData.permissions as any).forEach(([resource, actions]) => {
-              if (Array.isArray(actions)) {
-                parsedPermissions.push({ resource, actions });
-              }
-            });
-          }
-          setPermissions(parsedPermissions);
+    if (error) {
+      console.error('Error fetching user profile:', error);
+      return null;
+    }
+
+    if (!profile) {
+      console.warn('No user profile found for the authenticated user.');
+      return null;
+    }
+
+    // Fetch user-specific and role-based permissions after getting the profile
+    const { data: userPermissions, error: permissionsError } = await supabase.rpc('get_user_permissions');
+    if (permissionsError) {
+      console.error('Error fetching user permissions:', permissionsError);
+    }
+
+    const dbPermissions: Permission[] = userPermissions?.map((p: UserPermission) => ({
+      resource: p.resource,
+      actions: p.actions
+    })) || [];
+
+    // If the user is a staff member, fetch their role details to merge permissions
+    if (profile.userType === 'staff' && profile.role_id) {
+      const roleData = await fetchUserRole(profile.role_id);
+      if (roleData) {
+        setRole(roleData);
+        const rolePermissions: Permission[] = [];
+        if (roleData.permissions && typeof roleData.permissions === 'object') {
+          Object.entries(roleData.permissions as Record<string, string[]>).forEach(([resource, actions]) => {
+            if (Array.isArray(actions)) {
+              rolePermissions.push({ resource, actions });
+            }
+          });
         }
-      } else {
-        // Fallback to role field for backward compatibility
-        setRole(null);
-        setPermissions([]);
+        
+        // Merge role and user-specific permissions
+        const permissionMap = new Map<string, Set<string>>();
+        rolePermissions.forEach(p => permissionMap.set(p.resource, new Set(p.actions)));
+        dbPermissions.forEach(p => {
+          const existing = permissionMap.get(p.resource) || new Set<string>();
+          p.actions.forEach(action => existing.add(action));
+          permissionMap.set(p.resource, existing);
+        });
+
+        setPermissions(Array.from(permissionMap, ([resource, actions]) => ({ resource, actions: Array.from(actions) })));
       }
-
-      return {
-        userType: 'staff',
-        id: staffProfile.id,
-        name: `${staffProfile.first_name || ''} ${staffProfile.last_name || ''}`.trim() || staffProfile.email,
-        email: staffProfile.email,
-        role: (staffProfile.role as any) || 'staff',
-        status: staffProfile.status || 'active',
-        mfaEnabled: staffProfile.mfa_enabled || false,
-        createdAt: staffProfile.created_at,
-        updatedAt: staffProfile.updated_at,
-        organizationId: staffProfile.organization_id,
-      };
+    } else {
+      // For client users or staff without a specific role, use only their direct permissions
+      setPermissions(dbPermissions);
+      setRole(profile.userType === 'client' ? { id: 'client', name: 'client', permissions: [] } : null);
     }
 
-    // If not found in users table, try client_users table
-    const { data: clientProfile, error: clientError } = await supabase
-      .from('client_users')
-      .select('*, clients!inner(*)')
-      .eq('auth_id', supabaseUser.id)
-      .single();
-
-    if (clientProfile && !clientError) {
-      // This is a client portal user
-      
-      // Client users have limited permissions
-      setRole({ id: 'client', name: 'client', permissions: [] });
-      setPermissions([
-        { resource: 'invoices', actions: ['read'] },
-        { resource: 'payments', actions: ['read', 'create'] },
-        { resource: 'reports', actions: ['read'] }
-      ]);
-
-      return {
-        userType: 'client',
-        id: clientProfile.id,
-        name: `${clientProfile.first_name || ''} ${clientProfile.last_name || ''}`.trim() || clientProfile.email,
-        email: clientProfile.email,
-        role: 'user' as any,
-        status: clientProfile.status || 'active',
-        mfaEnabled: false,
-        createdAt: clientProfile.created_at,
-        updatedAt: clientProfile.updated_at,
-        organizationId: clientProfile.clients?.organization_id,
-        clientId: clientProfile.client_id,
-      };
-    }
-
-    // No profile found in either table
-    return null;
+    // The RPC function returns a JSON object that matches the AppUser structure
+    return profile as AppUser;
   };
 
   const setSessionData = async (currentSession: Session | null) => {
     setSession(currentSession);
     if (currentSession?.user) {
       setIsPermissionsLoading(true);
-      // Commented out set_user_context as it's not essential and causing 404 errors
-      // This function would be used for advanced RLS scenarios but isn't required
-      // try {
-      //   await supabase.rpc('set_user_context', { user_uuid: currentSession.user.id });
-      //   
-      // } catch (error) {
-      //   
-      // }
-      
       const profile = await fetchUserProfile(currentSession.user);
+
+      // Set user context for RLS after fetching the profile
+      // This is CRITICAL for multi-tenant isolation!
+      if (profile) {
+        try {
+          // Call set_user_context with the correct parameter name
+          // The function will look up organization_id from the database
+          const { data, error } = await supabase.rpc('set_user_context', {
+            user_id: currentSession.user.id  // Changed from p_auth_id to user_id
+          });
+          
+          if (error) {
+            console.error('CRITICAL: Failed to set user context for RLS:', error);
+            // SECURITY: Force immediate logout on RLS context failure
+            clearUserState();
+            await supabase.auth.signOut();
+            throw new Error('Security context initialization failed. User has been logged out for safety.');
+          } else if (data) {
+            console.log('User context set successfully:', data);
+          }
+        } catch (error) {
+          console.error('CRITICAL: Error calling set_user_context:', error);
+          // SECURITY: Force immediate logout on RLS context failure
+          clearUserState();
+          await supabase.auth.signOut();
+          throw new Error('Security context initialization failed. User has been logged out for safety.');
+        }
+      }
       
       if (profile) {
         setUser(profile);
@@ -188,10 +195,22 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   };
 
   useEffect(() => {
-    supabase.auth.getSession().then(({ data: { session } }) => setSessionData(session));
+    supabase.auth.getSession()
+      .then(({ data: { session } }) => setSessionData(session))
+      .catch(error => {
+        console.error("Error initializing session:", error);
+        // setSessionData handles logout, but we ensure state is clean as a fallback.
+        clearUserState();
+        setIsLoading(false);
+        setIsPermissionsLoading(false);
+      });
 
     const { data: authListener } = supabase.auth.onAuthStateChange((_event, session) => {
-      setSessionData(session);
+      // Wrap in a promise chain to catch potential errors from setSessionData
+      Promise.resolve(setSessionData(session)).catch(error => {
+        console.error("Error processing auth state change:", error);
+        // setSessionData already forces a logout on critical failure, so we just log it.
+      });
     });
 
     return () => {
@@ -200,13 +219,23 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   }, []);
 
   const login = async (email: string, password: string) => {
-    const { data, error } = await supabase.auth.signInWithPassword({ email, password });
-    
-    if (!error && data?.user) {
-      await setSessionData(data.session);
+    try {
+      const { data, error } = await supabase.auth.signInWithPassword({ email, password });
+      
+      if (error) {
+        return { error };
+      }
+
+      if (data?.user) {
+        await setSessionData(data.session);
+      }
+      
+      return {}; // Success
+    } catch (error) {
+      // This will catch critical errors from setSessionData (e.g., RLS failure)
+      // and return them to the login form to be displayed.
+      return { error: error as Error };
     }
-    
-    return { error: error || undefined };
   };
 
   const logout = async () => {

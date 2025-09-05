@@ -1,4 +1,5 @@
 import React, { useState, useRef } from 'react';
+import { Link } from 'react-router-dom';
 import { 
   Upload, 
   FileText, 
@@ -147,9 +148,9 @@ export const ImportDataEnhanced: React.FC = () => {
 
   const downloadTemplate = () => {
     const csvContent = [
-      'accession_number,cpt_code,client_code,service_date,quantity',
-      'ACC001,80053,CLIENT1,2024-01-15,1',
-      'ACC002,80061,CLIENT1,2024-01-15,2'
+      'accession_number,cpt_code,client_code,laboratory_code,service_date,quantity',
+      'ACC001,80053,CLIENT1,LAB1,2024-01-15,1',
+      'ACC002,80061,CLIENT1,LAB1,2024-01-15,2'
     ].join('\n');
 
     const blob = new Blob([csvContent], { type: 'text/csv' });
@@ -405,7 +406,11 @@ export const ImportDataEnhanced: React.FC = () => {
                     </h3>
                     <p className="text-sm text-yellow-700 mt-1">
                       {importResult.duplicates.length} entries already exist in the system.
-                      Enable "Allow duplicates" to import them anyway.
+                      Enable "Allow duplicates" to import them anyway, or{' '}
+                      <Link to="/data/duplicate-overrides" className="underline">
+                        manage overrides
+                      </Link>
+                      .
                     </p>
                   </div>
                 </div>

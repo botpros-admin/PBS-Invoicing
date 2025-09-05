@@ -20,6 +20,7 @@ import PaymentProcessing from './components/PaymentProcessing';
 import CPTManagement from './components/CPTManagement';
 import LabBilling from './components/LabBilling';
 import BillingOperations from './components/BillingOperations';
+import DuplicateReviewPage from './DuplicateReviewPage';
 
 const BillingHub: React.FC = () => {
   const tabs = [
@@ -139,6 +140,7 @@ const BillingHub: React.FC = () => {
             <Route path="cpt/*" element={<CPTManagement />} />
             <Route path="lab-billing/*" element={<LabBilling />} />
             <Route path="operations/*" element={<BillingOperations />} />
+            <Route path="duplicate-review" element={<DuplicateReviewPage />} />
             <Route path="*" element={<Navigate to="/billing" replace />} />
           </Routes>
         </div>

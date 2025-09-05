@@ -26,6 +26,7 @@ import {
   Database
 } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
+import { UserRole, ClientUserRole } from '../types';
 
 interface SidebarProps {
   collapsed: boolean;
@@ -35,173 +36,174 @@ interface NavItem {
   path: string;
   label: string;
   icon: React.ReactNode;
-  allowedRoles: string[];
+  allowedRoles: (UserRole | ClientUserRole)[];
   isNew?: boolean;
   children?: NavItem[];
 }
+
+// Define navigation structure with nested items outside the component
+// This prevents it from being recreated on every render, fixing the infinite loop
+const navItems: NavItem[] = [
+  { 
+    path: '/dashboard', 
+    label: 'Dashboard', 
+    icon: <LayoutDashboard size={20} />, 
+    allowedRoles: ['admin', 'ar_manager', 'staff', 'user'] 
+  },
+  
+  // Billing Hub with nested sub-tabs
+  { 
+    path: '/billing', 
+    label: 'Billing Hub', 
+    icon: <Wallet size={20} />, 
+    allowedRoles: ['admin', 'ar_manager', 'staff'], 
+    children: [
+      { 
+        path: '/billing/dashboard', 
+        label: 'Dashboard', 
+        icon: <LayoutDashboard size={16} />,
+        allowedRoles: ['admin', 'ar_manager', 'staff']
+      },
+      { 
+        path: '/billing/invoices', 
+        label: 'Invoices', 
+        icon: <FileText size={16} />,
+        allowedRoles: ['admin', 'ar_manager', 'staff']
+      },
+      { 
+        path: '/billing/payments', 
+        label: 'Payments', 
+        icon: <CreditCard size={16} />,
+        allowedRoles: ['admin', 'ar_manager', 'staff']
+      },
+      { 
+        path: '/billing/cpt', 
+        label: 'CPT & Pricing', 
+        icon: <Calculator size={16} />,
+        allowedRoles: ['admin', 'ar_manager', 'staff']
+      },
+      { 
+        path: '/billing/lab-billing', 
+        label: 'Lab Billing', 
+        icon: <Building size={16} />,
+        allowedRoles: ['admin', 'ar_manager', 'staff']
+      },
+      { 
+        path: '/billing/operations', 
+        label: 'Operations', 
+        icon: <Briefcase size={16} />,
+        allowedRoles: ['admin', 'ar_manager', 'staff']
+      },
+    ]
+  },
+  
+  // Service Center with nested sub-tabs
+  { 
+    path: '/service-center', 
+    label: 'Service Center', 
+    icon: <Users size={20} />, 
+    allowedRoles: ['admin', 'ar_manager', 'staff'], 
+    children: [
+      { 
+        path: '/service-center/service-registry', 
+        label: 'Service Registry', 
+        icon: <ClipboardList size={16} />,
+        allowedRoles: ['admin', 'ar_manager', 'staff']
+      },
+      { 
+        path: '/service-center/encounter-management', 
+        label: 'Encounter Management', 
+        icon: <UserCheck size={16} />,
+        allowedRoles: ['admin', 'ar_manager', 'staff']
+      },
+      { 
+        path: '/service-center/coverage-verification', 
+        label: 'Coverage Verification', 
+        icon: <Shield size={16} />,
+        allowedRoles: ['admin', 'ar_manager', 'staff']
+      },
+      { 
+        path: '/service-center/service-operations', 
+        label: 'Service Operations', 
+        icon: <Briefcase size={16} />,
+        allowedRoles: ['admin', 'ar_manager', 'staff']
+      },
+    ]
+  },
+  
+  // Team operations
+  { 
+    path: '/team', 
+    label: 'Team Operations', 
+    icon: <Users size={20} />, 
+    allowedRoles: ['admin', 'ar_manager'],
+    children: [
+      { 
+        path: '/team/members', 
+        label: 'Team Members', 
+        icon: <User size={16} />,
+        allowedRoles: ['admin', 'ar_manager']
+      },
+      { 
+        path: '/team/tasks', 
+        label: 'Task Management', 
+        icon: <FileCheck size={16} />,
+        allowedRoles: ['admin', 'ar_manager']
+      },
+    ]
+  },
+  
+  // Analytics & reporting
+  { 
+    path: '/analytics', 
+    label: 'Analytics', 
+    icon: <BarChart3 size={20} />, 
+    allowedRoles: ['admin', 'ar_manager'],
+    children: [
+      { 
+        path: '/analytics/reports', 
+        label: 'Reports', 
+        icon: <FileText size={16} />,
+        allowedRoles: ['admin', 'ar_manager']
+      },
+      { 
+        path: '/analytics/trends', 
+        label: 'Trends', 
+        icon: <TrendingUp size={16} />,
+        allowedRoles: ['admin', 'ar_manager']
+      },
+    ]
+  },
+  
+  // Data import/export operations
+  { 
+    path: '/data', 
+    label: 'Data Operations', 
+    icon: <Database size={20} />, 
+    allowedRoles: ['admin', 'ar_manager'], 
+    isNew: true,
+    children: [
+      { 
+        path: '/data/import', 
+        label: 'Import', 
+        icon: <Upload size={16} />,
+        allowedRoles: ['admin', 'ar_manager']
+      },
+      { 
+        path: '/data/export', 
+        label: 'Export', 
+        icon: <Database size={16} />,
+        allowedRoles: ['admin', 'ar_manager']
+      },
+    ]
+  },
+];
 
 const NestedSidebar: React.FC<SidebarProps> = ({ collapsed }) => {
   const { user, logout, isAuthenticated } = useAuth();
   const location = useLocation();
   const navigate = useNavigate();
   const [expandedSections, setExpandedSections] = useState<Set<string>>(new Set());
-
-  // Define navigation structure with nested items
-  const navItems: NavItem[] = [
-    { 
-      path: '/dashboard', 
-      label: 'Dashboard', 
-      icon: <LayoutDashboard size={20} />, 
-      allowedRoles: ['admin', 'ar_manager', 'staff', 'user'] 
-    },
-    
-    // Billing Hub with nested sub-tabs
-    { 
-      path: '/billing', 
-      label: 'Billing Hub', 
-      icon: <Wallet size={20} />, 
-      allowedRoles: ['admin', 'ar_manager', 'staff'], 
-      children: [
-        { 
-          path: '/billing/dashboard', 
-          label: 'Dashboard', 
-          icon: <LayoutDashboard size={16} />,
-          allowedRoles: ['admin', 'ar_manager', 'staff']
-        },
-        { 
-          path: '/billing/invoices', 
-          label: 'Invoices', 
-          icon: <FileText size={16} />,
-          allowedRoles: ['admin', 'ar_manager', 'staff']
-        },
-        { 
-          path: '/billing/payments', 
-          label: 'Payments', 
-          icon: <CreditCard size={16} />,
-          allowedRoles: ['admin', 'ar_manager', 'staff']
-        },
-        { 
-          path: '/billing/cpt', 
-          label: 'CPT & Pricing', 
-          icon: <Calculator size={16} />,
-          allowedRoles: ['admin', 'ar_manager', 'staff']
-        },
-        { 
-          path: '/billing/lab-billing', 
-          label: 'Lab Billing', 
-          icon: <Building size={16} />,
-          allowedRoles: ['admin', 'ar_manager', 'staff']
-        },
-        { 
-          path: '/billing/operations', 
-          label: 'Operations', 
-          icon: <Briefcase size={16} />,
-          allowedRoles: ['admin', 'ar_manager', 'staff']
-        },
-      ]
-    },
-    
-    // Service Center with nested sub-tabs
-    { 
-      path: '/service-center', 
-      label: 'Service Center', 
-      icon: <Users size={20} />, 
-      allowedRoles: ['admin', 'ar_manager', 'staff'], 
-      children: [
-        { 
-          path: '/service-center/service-registry', 
-          label: 'Service Registry', 
-          icon: <ClipboardList size={16} />,
-          allowedRoles: ['admin', 'ar_manager', 'staff']
-        },
-        { 
-          path: '/service-center/encounter-management', 
-          label: 'Encounter Management', 
-          icon: <UserCheck size={16} />,
-          allowedRoles: ['admin', 'ar_manager', 'staff']
-        },
-        { 
-          path: '/service-center/coverage-verification', 
-          label: 'Coverage Verification', 
-          icon: <Shield size={16} />,
-          allowedRoles: ['admin', 'ar_manager', 'staff']
-        },
-        { 
-          path: '/service-center/service-operations', 
-          label: 'Service Operations', 
-          icon: <Briefcase size={16} />,
-          allowedRoles: ['admin', 'ar_manager', 'staff']
-        },
-      ]
-    },
-    
-    // Team operations
-    { 
-      path: '/team', 
-      label: 'Team Operations', 
-      icon: <Users size={20} />, 
-      allowedRoles: ['admin', 'ar_manager'],
-      children: [
-        { 
-          path: '/team/members', 
-          label: 'Team Members', 
-          icon: <User size={16} />,
-          allowedRoles: ['admin', 'ar_manager']
-        },
-        { 
-          path: '/team/tasks', 
-          label: 'Task Management', 
-          icon: <FileCheck size={16} />,
-          allowedRoles: ['admin', 'ar_manager']
-        },
-      ]
-    },
-    
-    // Analytics & reporting
-    { 
-      path: '/analytics', 
-      label: 'Analytics', 
-      icon: <BarChart3 size={20} />, 
-      allowedRoles: ['admin', 'ar_manager'],
-      children: [
-        { 
-          path: '/analytics/reports', 
-          label: 'Reports', 
-          icon: <FileText size={16} />,
-          allowedRoles: ['admin', 'ar_manager']
-        },
-        { 
-          path: '/analytics/trends', 
-          label: 'Trends', 
-          icon: <TrendingUp size={16} />,
-          allowedRoles: ['admin', 'ar_manager']
-        },
-      ]
-    },
-    
-    // Data import/export operations
-    { 
-      path: '/data', 
-      label: 'Data Operations', 
-      icon: <Database size={20} />, 
-      allowedRoles: ['admin', 'ar_manager'], 
-      isNew: true,
-      children: [
-        { 
-          path: '/data/import', 
-          label: 'Import', 
-          icon: <Upload size={16} />,
-          allowedRoles: ['admin', 'ar_manager']
-        },
-        { 
-          path: '/data/export', 
-          label: 'Export', 
-          icon: <Database size={16} />,
-          allowedRoles: ['admin', 'ar_manager']
-        },
-      ]
-    },
-  ];
 
   // Auto-expand sections based on current path
   useEffect(() => {
@@ -215,7 +217,7 @@ const NestedSidebar: React.FC<SidebarProps> = ({ collapsed }) => {
     });
     
     setExpandedSections(newExpanded);
-  }, [location.pathname]);
+  }, [location.pathname]); // Removed navItems from dependencies since it's a constant
 
   const toggleSection = (path: string, hasChildren: boolean) => {
     if (collapsed) return; // Don't expand when sidebar is collapsed
@@ -250,7 +252,7 @@ const NestedSidebar: React.FC<SidebarProps> = ({ collapsed }) => {
   };
 
   const filteredNavItems = isAuthenticated && user 
-    ? navItems.filter(item => item.allowedRoles.includes(user.role as any))
+    ? navItems.filter(item => item.allowedRoles.includes(user.role))
     : [];
 
   const renderNavItem = (item: NavItem, level: number = 0) => {
@@ -261,7 +263,7 @@ const NestedSidebar: React.FC<SidebarProps> = ({ collapsed }) => {
     
     // Filter children based on user role
     const filteredChildren = hasChildren && isAuthenticated && user
-      ? item.children.filter(child => child.allowedRoles.includes(user.role as any))
+      ? item.children.filter(child => child.allowedRoles.includes(user.role))
       : [];
 
     return (

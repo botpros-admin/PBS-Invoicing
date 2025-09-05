@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import {
   TrendingUp,
   TrendingDown,
@@ -7,52 +7,86 @@ import {
   Clock,
   CheckCircle,
   AlertCircle,
-  BarChart3
+  Users,
+  ChevronDown
 } from 'lucide-react';
+import { getClients, getClientById } from '../../../api/services/client.service';
+import { Client } from '../../../types';
 
 const ClientDashboard: React.FC = () => {
-  // Sample data - would come from API
+  const [selectedAccountId, setSelectedAccountId] = useState('all');
+  const [mainAccount, setMainAccount] = useState<Client | null>(null);
+  const [subAccounts, setSubAccounts] = useState<Client[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        setLoading(true);
+        // In a real app, you would get the current user's client ID
+        const currentClientId = '1'; // Mocking parent client ID
+        const parentAccount = await getClientById(currentClientId);
+        setMainAccount(parentAccount);
+
+        if (parentAccount.isParent) {
+          const paginatedResponse = await getClients({ parentId: parentAccount.id });
+          setSubAccounts(paginatedResponse.data);
+        }
+      } catch (error) {
+        console.error("Failed to fetch client data:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  const displayedData = useMemo(() => {
+    const accountsToAggregate = selectedAccountId === 'all'
+      ? [mainAccount, ...subAccounts].filter(Boolean)
+      : [mainAccount, ...subAccounts].filter(acc => acc && acc.id === selectedAccountId);
+
+    const aggregated = {
+      metrics: {
+        totalClaims: accountsToAggregate.reduce((sum, acc) => sum + (acc?.totalClaims || 0), 0),
+        claimsApproved: accountsToAggregate.reduce((sum, acc) => sum + (acc?.claimsApproved || 0), 0),
+        outstandingBalance: accountsToAggregate.reduce((sum, acc) => sum + (acc?.outstandingBalance || 0), 0),
+        avgProcessingTime: accountsToAggregate.length > 0
+          ? accountsToAggregate.reduce((sum, acc) => sum + (acc?.avgProcessingTime || 0), 0) / accountsToAggregate.length
+          : 0,
+      },
+      recentClaims: accountsToAggregate.flatMap(acc => acc?.recentClaims || [])
+    };
+    return aggregated;
+  }, [selectedAccountId, mainAccount, subAccounts]);
+
   const metrics = [
     {
       label: 'Total Claims This Month',
-      value: '1,247',
-      change: '+12%',
-      trend: 'up',
+      value: displayedData.metrics.totalClaims.toLocaleString(),
       icon: FileText,
       color: 'blue'
     },
     {
       label: 'Claims Approved',
-      value: '892',
-      percentage: '71.5%',
-      trend: 'up',
+      value: displayedData.metrics.claimsApproved.toLocaleString(),
+      percentage: `${displayedData.metrics.totalClaims > 0 ? ((displayedData.metrics.claimsApproved / displayedData.metrics.totalClaims) * 100).toFixed(1) : 0}%`,
       icon: CheckCircle,
       color: 'green'
     },
     {
       label: 'Outstanding Balance',
-      value: '$45,892.50',
-      change: '-8%',
-      trend: 'down',
+      value: `$${displayedData.metrics.outstandingBalance.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`,
       icon: DollarSign,
       color: 'red'
     },
     {
       label: 'Avg. Processing Time',
-      value: '3.2 days',
-      change: '-0.5 days',
-      trend: 'down',
+      value: `${displayedData.metrics.avgProcessingTime.toFixed(1)} days`,
       icon: Clock,
       color: 'purple'
     }
-  ];
-
-  const recentClaims = [
-    { id: 'CLM-2024-001', patient: 'John Doe', amount: '$1,250', status: 'approved', date: '2024-01-22' },
-    { id: 'CLM-2024-002', patient: 'Jane Smith', amount: '$850', status: 'pending', date: '2024-01-22' },
-    { id: 'CLM-2024-003', patient: 'Lab Test Batch', amount: '$3,400', status: 'processing', date: '2024-01-21' },
-    { id: 'CLM-2024-004', patient: 'Robert Johnson', amount: '$450', status: 'denied', date: '2024-01-21' },
-    { id: 'CLM-2024-005', patient: 'Specimen Analysis', amount: '$2,100', status: 'approved', date: '2024-01-20' }
   ];
 
   const getStatusBadge = (status: string) => {
@@ -70,12 +104,36 @@ const ClientDashboard: React.FC = () => {
     );
   };
 
+  const AccountSelector = () => (
+    <div className="relative">
+      <select
+        value={selectedAccountId}
+        onChange={(e) => setSelectedAccountId(e.target.value)}
+        className="appearance-none w-full md:w-auto bg-white border border-gray-300 rounded-lg pl-4 pr-10 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500"
+      >
+        <option value="all">All Sub-Accounts (Aggregated)</option>
+        {mainAccount && <option value={mainAccount.id}>{mainAccount.name} (Parent)</option>}
+        {subAccounts.map(child => (
+          <option key={child.id} value={child.id}>{child.name}</option>
+        ))}
+      </select>
+      <ChevronDown className="w-4 h-4 absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 pointer-events-none" />
+    </div>
+  );
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <div className="space-y-6">
       {/* Header */}
-      <div>
-        <h1 className="text-2xl font-bold text-gray-900">Dashboard</h1>
-        <p className="text-gray-600 mt-1">Real-time overview of your claims and billing</p>
+      <div className="flex flex-col md:flex-row md:items-center md:justify-between">
+        <div>
+          <h1 className="text-2xl font-bold text-gray-900">Dashboard</h1>
+          <p className="text-gray-600 mt-1">Real-time overview of your claims and billing</p>
+        </div>
+        {mainAccount?.isParent && <div className="mt-4 md:mt-0"><AccountSelector /></div>}
       </div>
 
       {/* Metrics Grid */}
@@ -84,14 +142,6 @@ const ClientDashboard: React.FC = () => {
           <div key={index} className="bg-white rounded-lg p-6 shadow-sm">
             <div className="flex items-center justify-between mb-4">
               <metric.icon className={`w-8 h-8 text-${metric.color}-500`} />
-              {metric.trend && (
-                <div className={`flex items-center text-sm ${
-                  metric.trend === 'up' ? 'text-green-600' : 'text-red-600'
-                }`}>
-                  {metric.trend === 'up' ? <TrendingUp className="w-4 h-4 mr-1" /> : <TrendingDown className="w-4 h-4 mr-1" />}
-                  {metric.change}
-                </div>
-              )}
             </div>
             <p className="text-2xl font-bold text-gray-900">{metric.value}</p>
             <p className="text-sm text-gray-600 mt-1">{metric.label}</p>
@@ -114,7 +164,7 @@ const ClientDashboard: React.FC = () => {
             </div>
           </div>
           <div className="divide-y divide-gray-200">
-            {recentClaims.map((claim) => (
+            {displayedData.recentClaims.map((claim) => (
               <div key={claim.id} className="p-4 hover:bg-gray-50">
                 <div className="flex items-center justify-between">
                   <div>
@@ -123,7 +173,7 @@ const ClientDashboard: React.FC = () => {
                     <p className="text-xs text-gray-500 mt-1">{claim.date}</p>
                   </div>
                   <div className="text-right">
-                    <p className="text-sm font-semibold text-gray-900 mb-1">{claim.amount}</p>
+                    <p className="text-sm font-semibold text-gray-900 mb-1">${claim.amount.toLocaleString()}</p>
                     {getStatusBadge(claim.status)}
                   </div>
                 </div>
@@ -146,15 +196,7 @@ const ClientDashboard: React.FC = () => {
             <div className="space-y-4">
               <div className="flex justify-between items-center">
                 <span className="text-sm text-gray-600">Current Balance</span>
-                <span className="text-lg font-semibold text-gray-900">$45,892.50</span>
-              </div>
-              <div className="flex justify-between items-center">
-                <span className="text-sm text-gray-600">Past Due (30+ days)</span>
-                <span className="text-lg font-semibold text-red-600">$12,450.00</span>
-              </div>
-              <div className="flex justify-between items-center">
-                <span className="text-sm text-gray-600">Due This Week</span>
-                <span className="text-lg font-semibold text-yellow-600">$8,200.00</span>
+                <span className="text-lg font-semibold text-gray-900">${displayedData.metrics.outstandingBalance.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
               </div>
               <div className="pt-4 border-t">
                 <button className="w-full px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
@@ -162,57 +204,6 @@ const ClientDashboard: React.FC = () => {
                 </button>
               </div>
             </div>
-          </div>
-        </div>
-      </div>
-
-      {/* Processing Performance Chart */}
-      <div className="bg-white rounded-lg shadow-sm p-6">
-        <div className="flex items-center justify-between mb-6">
-          <h2 className="text-lg font-semibold text-gray-900">Claims Processing Performance</h2>
-          <div className="flex items-center space-x-4 text-sm">
-            <span className="flex items-center">
-              <span className="w-3 h-3 bg-green-500 rounded-full mr-2"></span>
-              Approved
-            </span>
-            <span className="flex items-center">
-              <span className="w-3 h-3 bg-yellow-500 rounded-full mr-2"></span>
-              Pending
-            </span>
-            <span className="flex items-center">
-              <span className="w-3 h-3 bg-red-500 rounded-full mr-2"></span>
-              Denied
-            </span>
-          </div>
-        </div>
-        
-        {/* Simple bar chart visualization */}
-        <div className="h-64 flex items-end justify-between space-x-2">
-          {[65, 78, 82, 71, 89, 76, 92].map((value, index) => (
-            <div key={index} className="flex-1 flex flex-col items-center">
-              <div className="w-full bg-gray-200 rounded-t" style={{ height: `${value * 2}px` }}>
-                <div className="bg-green-500 rounded-t" style={{ height: `${value * 1.4}px` }}></div>
-              </div>
-              <span className="text-xs text-gray-600 mt-2">
-                {['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'][index]}
-              </span>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      {/* Alert Banner */}
-      <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
-        <div className="flex items-start">
-          <AlertCircle className="w-5 h-5 text-yellow-600 mt-0.5 mr-3" />
-          <div>
-            <p className="text-sm font-medium text-yellow-800">
-              New Prior Authorization Requirements
-            </p>
-            <p className="text-sm text-yellow-700 mt-1">
-              Starting February 1st, certain high-cost procedures will require prior authorization. 
-              <a href="#" className="ml-1 underline">Learn more</a>
-            </p>
           </div>
         </div>
       </div>

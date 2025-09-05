@@ -51,7 +51,14 @@
       "Bash(start http://localhost:5176)",
       "Bash(start http://localhost:5175)",
       "Bash(start http://localhost:5177)",
-      "Bash(timeout:*)"
+      "Bash(timeout:*)",
+      "Bash(start http://localhost:5178)",
+      "Bash(start http://localhost:5179)",
+      "Bash(npx prisma migrate:*)",
+      "Bash(npx prisma:*)",
+      "Bash(start http://localhost:5180)",
+      "Bash(start http://localhost:5181)",
+      "Bash(start http://localhost:5174)"
     ],
     "deny": [],
     "ask": [],

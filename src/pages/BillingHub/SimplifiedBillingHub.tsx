@@ -9,6 +9,11 @@ import CPTManagement from './components/CPTManagement';
 import LabBilling from './components/LabBilling';
 import BillingOperations from './components/BillingOperations';
 
+// New Laboratory Features
+import InvoiceTypeSeparator from '../../components/invoicing/InvoiceTypeSeparator';
+import DisputeTicketingSystem from '../../components/disputes/DisputeTicketingSystem';
+import PricingManagement from '../../components/pricing/PricingManagement';
+
 const SimplifiedBillingHub: React.FC = () => {
   return (
     <div className="h-full">
@@ -20,6 +25,12 @@ const SimplifiedBillingHub: React.FC = () => {
         <Route path="cpt/*" element={<CPTManagement />} />
         <Route path="lab-billing/*" element={<LabBilling />} />
         <Route path="operations/*" element={<BillingOperations />} />
+        
+        {/* New Laboratory Features */}
+        <Route path="invoice-separation" element={<InvoiceTypeSeparator />} />
+        <Route path="disputes" element={<DisputeTicketingSystem />} />
+        <Route path="pricing" element={<PricingManagement />} />
+        
         <Route index element={<Navigate to="dashboard" replace />} />
       </Routes>
     </div>

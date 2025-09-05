@@ -23,7 +23,15 @@ interface SidebarProps {
 const Sidebar: React.FC<SidebarProps> = ({ collapsed }) => {
   const { user, logout, isAuthenticated } = useAuth(); 
 
-  const navItems = [
+  const navItems: {
+    path: string;
+    label: string;
+    icon: JSX.Element;
+    allowedRoles: (UserRole | ClientUserRole)[];
+    isNew?: boolean;
+    hidden?: boolean;
+    isLegacy?: boolean;
+  }[] = [
     // Core operational tasks only - no personal settings!
     { path: '/dashboard', label: 'Dashboard', icon: <LayoutDashboard size={20} />, allowedRoles: ['admin', 'ar_manager', 'staff', 'user'] },
     
@@ -48,7 +56,7 @@ const Sidebar: React.FC<SidebarProps> = ({ collapsed }) => {
 
   const filteredNavItems = isAuthenticated && user 
     ? navItems.filter(item => 
-        item.allowedRoles.includes(user.role as any) && !item.hidden
+        item.allowedRoles.includes(user.role) && !item.hidden
       )
     : [];
 

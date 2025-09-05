@@ -38,7 +38,7 @@ export async function getClients(filters?: FilterOptions): Promise<PaginatedResp
       // Initialize query
       let query = supabase
         .from('clients')
-        .select('*', { count: 'exact' });
+        .select('*, parent:clients!parent_id(*)', { count: 'exact' });
       
       // Apply filters
       if (filters?.search) {
@@ -110,6 +110,11 @@ export async function getClients(filters?: FilterOptions): Promise<PaginatedResp
           organizationId: client.organization_id?.toString() || '',
           createdAt: client.created_at,
           updatedAt: client.updated_at,
+          parentId: client.parent_id?.toString(),
+          parent: client.parent ? {
+            id: client.parent.id.toString(),
+            name: client.parent.name,
+          } : undefined,
           clinics: [], // Not implemented yet
           invoiceParameters: null // Not implemented yet
         };
@@ -142,7 +147,8 @@ export async function getClientById(id: ID): Promise<Client> {
       .select(`
         *,
         clinics(*),
-        invoice_parameters(*)
+        invoice_parameters(*),
+        parent:clients!parent_id(*)
       `)
       .eq('id', id.toString())
       .single();
@@ -159,6 +165,11 @@ export async function getClientById(id: ID): Promise<Client> {
       organizationId: clientData.organization_id?.toString() || '',
       createdAt: clientData.created_at,
       updatedAt: clientData.updated_at,
+      parentId: clientData.parent_id?.toString(),
+      parent: clientData.parent ? {
+        id: clientData.parent.id.toString(),
+        name: clientData.parent.name,
+      } : undefined,
       clinics: clientData.clinics?.map((clinic: any) => ({
         id: clinic.id.toString(),
         name: clinic.name,
@@ -218,7 +229,8 @@ export async function createClient(clientData: Partial<Client>): Promise<Client>
         name: clientData.name,
         address: clientData.address,
         logo_url: clientData.logoUrl,
-        organization_id: clientData.organizationId ? parseInt(clientData.organizationId.toString()) : null
+        organization_id: clientData.organizationId ? parseInt(clientData.organizationId.toString()) : null,
+        parent_id: clientData.parentId ? clientData.parentId.toString() : null
       })
       .select()
       .single();
@@ -273,6 +285,9 @@ export async function updateClient(id: ID, clientData: Partial<Client>): Promise
         ? parseInt(clientData.organizationId.toString()) 
         : null;
     }
+    if (clientData.parentId !== undefined) {
+      updateData.parent_id = clientData.parentId ? clientData.parentId.toString() : null;
+    }
     
     // Update client
     const { error } = await supabase
@@ -286,6 +301,30 @@ export async function updateClient(id: ID, clientData: Partial<Client>): Promise
     return await getClientById(id);
   } catch (error) {
     throw error;
+  }
+}
+
+/**
+ * Update the parent of a client
+ * 
+ * @param clientId - The ID of the client to update
+ * @param parentId - The ID of the new parent client, or null to remove the parent
+ * @returns The updated client
+ */
+export async function updateClientParent(clientId: ID, parentId: ID | null): Promise<Client> {
+  try {
+    const { error } = await supabase
+      .from('clients')
+      .update({ parent_id: parentId ? parentId.toString() : null })
+      .eq('id', clientId.toString());
+
+    if (error) {
+      handleSupabaseError(error, 'updating client parent');
+    }
+
+    return await getClientById(clientId);
+  } catch (error) {
+    throw handleSupabaseError(error, 'updating client parent');
   }
 }
 

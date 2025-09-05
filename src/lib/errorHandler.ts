@@ -183,8 +183,8 @@ export class ErrorHandler {
 
   private sendToMonitoring(error: AppError) {
     // Send to external monitoring service
-    if (typeof window !== 'undefined' && (window as any).gtag) {
-      (window as any).gtag('event', 'error', {
+    if (typeof window !== 'undefined' && window.gtag) {
+      window.gtag('event', 'error', {
         error_category: error.category,
         error_severity: error.severity,
         error_code: error.code,

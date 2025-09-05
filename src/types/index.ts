@@ -1,3 +1,4 @@
+export * from './disputes';
 // Import database types for consistency
 import type { Database } from './database.generated';
 
@@ -20,6 +21,7 @@ interface BaseUser {
   organizationId?: ID;
   name: string;
   email: string;
+  phone?: string; // Added missing property
   status: UserStatus;
   mfaEnabled: boolean;
   lastLoginAt?: Timestamp;
@@ -116,7 +118,7 @@ export interface ClinicPricingOverride {
   updatedAt: Timestamp;
 }
 
-// Invoice Item - Enhanced from database type
+// Invoice Item - Enhanced from database type with laboratory billing fields
 export interface InvoiceItem extends Omit<DbInvoiceItem, 'invoice_id' | 'cpt_code_id' | 'cpt_code' | 'description_override' | 'date_of_service' | 'unit_price' | 'is_disputed' | 'dispute_reason' | 'dispute_resolved_at' | 'dispute_resolution_notes' | 'medical_necessity_provided' | 'medical_necessity_document_path' | 'created_at' | 'updated_at'> {
   invoiceId: ID;
   cptCodeId: ID;
@@ -132,6 +134,19 @@ export interface InvoiceItem extends Omit<DbInvoiceItem, 'invoice_id' | 'cpt_cod
   medicalNecessityDocumentPath?: string;
   createdAt: Timestamp;
   updatedAt: Timestamp;
+  
+  // Laboratory billing specific fields
+  patientFirstName?: string;
+  patientLastName?: string;
+  patientDob?: DateString;
+  patientMrn?: string; // Medical Record Number
+  patientInsuranceId?: string;
+  units?: number; // For mileage/quantity billing
+  invoiceType?: 'SNF' | 'Invalids' | 'Hospice' | 'Regular';
+  importBatchId?: ID;
+  importRowNumber?: number;
+  importStatus?: 'success' | 'error' | 'warning';
+  importErrorMessage?: string;
 }
 
 // Invoice
