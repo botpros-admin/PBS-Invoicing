@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { NavLink, useLocation, useNavigate } from 'react-router-dom';
-import { 
-  LayoutDashboard, 
-  FileText, 
-  BarChart3, 
+import {
+  FileText,
+  BarChart3,
   Settings,
   Building2,
   Upload,
@@ -23,7 +22,8 @@ import {
   UserCheck,
   ClipboardList,
   TrendingUp,
-  Database
+  Database,
+  LayoutDashboard
 } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import { UserRole, ClientUserRole } from '../types';
@@ -44,13 +44,6 @@ interface NavItem {
 // Define navigation structure with nested items outside the component
 // This prevents it from being recreated on every render, fixing the infinite loop
 const navItems: NavItem[] = [
-  { 
-    path: '/dashboard', 
-    label: 'Dashboard', 
-    icon: <LayoutDashboard size={20} />, 
-    allowedRoles: ['admin', 'ar_manager', 'staff', 'user'] 
-  },
-  
   // Billing Hub with nested sub-tabs
   { 
     path: '/billing', 
@@ -308,7 +301,6 @@ const NestedSidebar: React.FC<SidebarProps> = ({ collapsed }) => {
           /* Leaf item (no children) */
           <NavLink
             to={item.path}
-            end={item.path === '/dashboard'}
             className={({ isActive }) =>
               `flex items-center py-3 px-4 rounded-lg transition-colors ${
                 isActive
