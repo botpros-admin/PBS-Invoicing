@@ -2,6 +2,20 @@
 
 A comprehensive invoicing and billing management system built for PBS (Precision Billing Solutions) to manage laboratory billing, client portals, and payment processing.
 
+---
+
+## 🚨 CRITICAL DEPLOYMENT WARNING 🚨
+
+**WE MAINTAIN EXACTLY ONE (1) DEPLOYMENT - NEVER CREATE NEW ONES**
+
+- Current Deployment: `4a19b4f7-c8d3-4a73-9a0f-ad6015b395a4`
+- Production URL: https://pbs-invoicing.botpros.ai/
+- **NEVER create multiple deployments**
+- **ALWAYS update the existing deployment via wrangler**
+- **DELETE any accidental new deployments immediately**
+
+---
+
 ## Architecture
 
 - **Frontend**: React 18 + TypeScript + Vite (Cloudflare Pages)
@@ -34,17 +48,26 @@ A comprehensive invoicing and billing management system built for PBS (Precision
 
 ## DEPLOYMENT INSTRUCTIONS
 
-### ⚠️ CRITICAL: DEPLOYMENT RULES
+### 🚨 CRITICAL: DEPLOYMENT RULES 🚨
 
-**ONLY DEPLOY VIA CLOUDFLARE WRANGLER - DO NOT USE ANY OTHER METHOD**
+**WE HAVE EXACTLY ONE (1) DEPLOYMENT - NEVER CREATE NEW DEPLOYMENTS**
 
-- ✅ Deploy ONLY via Cloudflare CLI (wrangler)
-- ✅ Deploy ONLY to production branch
-- ✅ Production URL: https://pbs-invoicing.botpros.ai/
-- ❌ DO NOT use `git push` to trigger deployments
-- ❌ DO NOT use Cloudflare Dashboard automatic deployments
-- ❌ DO NOT deploy to preview/staging environments
-- ❌ DO NOT use npm/netlify/vercel or any other platform
+**ABSOLUTE DEPLOYMENT POLICY:**
+- ✅ **ONE SINGLE DEPLOYMENT ONLY**: We maintain exactly ONE deployment
+- ✅ **CURRENT DEPLOYMENT ID**: `4a19b4f7-c8d3-4a73-9a0f-ad6015b395a4`
+- ✅ **Production URL**: https://pbs-invoicing.botpros.ai/
+- ✅ **Deploy ONLY via wrangler** to update the EXISTING deployment
+- ✅ **Deploy ONLY to production branch**
+
+**NEVER DO THIS - ZERO TOLERANCE:**
+- ❌ **NEVER create new deployments** - We update the existing one
+- ❌ **NEVER deploy to preview/staging/feature branches**
+- ❌ **NEVER use git push to trigger deployments**
+- ❌ **NEVER use Cloudflare Dashboard automatic deployments**
+- ❌ **NEVER create multiple deployments** - Delete immediately if created
+- ❌ **NEVER use npm/netlify/vercel or any other platform**
+
+**DEPLOYMENT COUNT: EXACTLY 1 (ONE) - NO EXCEPTIONS**
 
 ### Prerequisites
 
@@ -66,23 +89,25 @@ A comprehensive invoicing and billing management system built for PBS (Precision
 
 ### Frontend Deployment (Cloudflare Pages)
 
-**Deploy to Production ONLY:**
+**⚠️ THIS UPDATES THE EXISTING DEPLOYMENT - DOES NOT CREATE A NEW ONE ⚠️**
 
 ```bash
 # Build the frontend
 npm run build
 
-# Deploy to Cloudflare Pages (production)
+# Deploy to Cloudflare Pages (updates existing deployment 4a19b4f7)
 wrangler pages deploy dist --project-name=pbs-invoicing-frontend --branch=production
 
 # The deployment will be live at: https://pbs-invoicing.botpros.ai/
 ```
 
-**Important Notes:**
-- Always deploy to `--branch=production` to ensure it goes to the production URL
-- Do NOT deploy to other branches (main, preview, etc.)
+**Critical Notes:**
+- This command **UPDATES** the existing deployment (ID: 4a19b4f7)
+- **NEVER** use different branch names - ONLY `--branch=production`
+- **NEVER** deploy without the `--branch=production` flag
 - The `dist` directory contains the built React application
 - Deployment takes ~30-60 seconds to propagate globally
+- **If you accidentally create a new deployment, DELETE IT IMMEDIATELY**
 
 ### Backend Deployment (Cloudflare Workers)
 
