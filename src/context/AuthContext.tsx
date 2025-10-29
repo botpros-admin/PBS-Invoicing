@@ -1,15 +1,7 @@
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 import { AppUser, UserRole } from '../types';
-import { supabase } from '../api/supabase';
-import { Session, User as SupabaseUser } from '@supabase/supabase-js';
 
 interface Permission {
-  resource: string;
-  actions: string[];
-}
-
-// Added for type safety on RPC calls
-interface UserPermission {
   resource: string;
   actions: string[];
 }
@@ -22,49 +14,71 @@ interface Role {
 
 interface AuthContextType {
   user: AppUser | null;
-  session: Session | null;
   role: Role | null;
   permissions: Permission[];
   isAuthenticated: boolean;
   isLoading: boolean;
   isPermissionsLoading: boolean;
+  hasMfa: boolean;
   hasPermission: (resource: string, action: string) => boolean;
   hasAnyPermission: (resource: string) => boolean;
-  login: (email: string, password: string) => Promise<{ error?: Error }>;
+  login: (email: string, password: string) => Promise<{ error?: Error; requiresMfa?: boolean }>;
+  verifyMfa: (factorId: string, code: string) => Promise<{ error?: Error }>;
   logout: () => Promise<void>;
   refreshPermissions: () => Promise<void>;
+  requestPasswordReset: (email: string) => Promise<{ error?: Error }>;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
-// Type guard to validate user roles from the database
-const isValidUserRole = (role: any): role is UserRole => {
-  return ['super_admin', 'admin', 'ar_manager', 'staff'].includes(role);
+const API_BASE_URL = import.meta.env.VITE_API_URL || '/api';
+
+// Helper to get auth token from localStorage
+const getAuthToken = (): string | null => {
+  return localStorage.getItem('pbs_invoicing_token');
+};
+
+// Helper to set auth token
+const setAuthToken = (token: string) => {
+  localStorage.setItem('pbs_invoicing_token', token);
+};
+
+// Helper to clear auth token
+const clearAuthToken = () => {
+  localStorage.removeItem('pbs_invoicing_token');
+  localStorage.removeItem('pbs_invoicing_user');
+};
+
+// Helper for authenticated fetch requests
+const authenticatedFetch = async (endpoint: string, options: RequestInit = {}) => {
+  const token = getAuthToken();
+  const headers = {
+    'Content-Type': 'application/json',
+    ...(token && { 'Authorization': `Bearer ${token}` }),
+    ...options.headers,
+  };
+
+  const response = await fetch(`${API_BASE_URL}${endpoint}`, {
+    ...options,
+    headers,
+  });
+
+  if (!response.ok) {
+    const errorData = await response.json().catch(() => ({ message: 'Request failed' }));
+    throw new Error(errorData.message || `Request failed: ${response.status}`);
+  }
+
+  return response.json();
 };
 
 export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [user, setUser] = useState<AppUser | null>(null);
-  const [session, setSession] = useState<Session | null>(null);
   const [role, setRole] = useState<Role | null>(null);
   const [permissions, setPermissions] = useState<Permission[]>([]);
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(true);
-  const [isPermissionsLoading, setIsPermissionsLoading] = useState<boolean>(true);
-
-  const fetchUserRole = async (roleId: string): Promise<Role | null> => {
-    if (!roleId) return null;
-    
-    const { data, error } = await supabase
-      .from('roles')
-      .select('*')
-      .eq('id', roleId)
-      .single();
-    
-    if (error) {
-      return null;
-    }
-    return data;
-  };
+  const [isPermissionsLoading, setIsPermissionsLoading] = useState<boolean>(false);
+  const [hasMfa, setHasMfa] = useState<boolean>(false);
 
   const hasPermission = (resource: string, action: string): boolean => {
     if (isLoading || isPermissionsLoading) return false;
@@ -82,189 +96,173 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     setRole(null);
     setPermissions([]);
     setIsAuthenticated(false);
+    setHasMfa(false);
+    clearAuthToken();
   };
 
-  const fetchUserProfile = async (supabaseUser: SupabaseUser): Promise<AppUser | null> => {
-    // Call the get_user_profile RPC function to securely fetch the user's profile.
-    // This single function replaces the multiple, direct table queries.
-    const { data: profile, error } = await supabase.rpc('get_user_profile');
+  const fetchUserProfile = async () => {
+    try {
+      const data = await authenticatedFetch('/auth/me');
 
-    if (error) {
-      console.error('Error fetching user profile:', error);
-      return null;
-    }
+      if (data.user) {
+        setUser(data.user);
+        setIsAuthenticated(true);
 
-    if (!profile) {
-      console.warn('No user profile found for the authenticated user.');
-      return null;
-    }
+        // Store user in localStorage for persistence
+        localStorage.setItem('pbs_invoicing_user', JSON.stringify(data.user));
 
-    // Fetch user-specific and role-based permissions after getting the profile
-    const { data: userPermissions, error: permissionsError } = await supabase.rpc('get_user_permissions');
-    if (permissionsError) {
-      console.error('Error fetching user permissions:', permissionsError);
-    }
-
-    const dbPermissions: Permission[] = userPermissions?.map((p: UserPermission) => ({
-      resource: p.resource,
-      actions: p.actions
-    })) || [];
-
-    // If the user is a staff member, fetch their role details to merge permissions
-    if (profile.userType === 'staff' && profile.role_id) {
-      const roleData = await fetchUserRole(profile.role_id);
-      if (roleData) {
-        setRole(roleData);
-        const rolePermissions: Permission[] = [];
-        if (roleData.permissions && typeof roleData.permissions === 'object') {
-          Object.entries(roleData.permissions as Record<string, string[]>).forEach(([resource, actions]) => {
-            if (Array.isArray(actions)) {
-              rolePermissions.push({ resource, actions });
-            }
-          });
+        // Set permissions if available
+        if (data.permissions) {
+          setPermissions(data.permissions);
         }
-        
-        // Merge role and user-specific permissions
-        const permissionMap = new Map<string, Set<string>>();
-        rolePermissions.forEach(p => permissionMap.set(p.resource, new Set(p.actions)));
-        dbPermissions.forEach(p => {
-          const existing = permissionMap.get(p.resource) || new Set<string>();
-          p.actions.forEach(action => existing.add(action));
-          permissionMap.set(p.resource, existing);
-        });
 
-        setPermissions(Array.from(permissionMap, ([resource, actions]) => ({ resource, actions: Array.from(actions) })));
+        // Set role if available
+        if (data.role) {
+          setRole(data.role);
+        }
+
+        return data.user;
       }
-    } else {
-      // For client users or staff without a specific role, use only their direct permissions
-      setPermissions(dbPermissions);
-      setRole(profile.userType === 'client' ? { id: 'client', name: 'client', permissions: [] } : null);
-    }
 
-    // The RPC function returns a JSON object that matches the AppUser structure
-    return profile as AppUser;
+      return null;
+    } catch (error) {
+      console.error('Error fetching user profile:', error);
+      clearUserState();
+      return null;
+    }
   };
 
-  const setSessionData = async (currentSession: Session | null) => {
-    setSession(currentSession);
-    if (currentSession?.user) {
-      setIsPermissionsLoading(true);
-      const profile = await fetchUserProfile(currentSession.user);
+  // Check for existing session on mount
+  useEffect(() => {
+    const initAuth = async () => {
+      const token = getAuthToken();
+      const storedUser = localStorage.getItem('pbs_invoicing_user');
 
-      // Set user context for RLS after fetching the profile
-      // This is CRITICAL for multi-tenant isolation!
-      if (profile) {
+      if (token && storedUser) {
         try {
-          // Call set_user_context with the correct parameter name
-          // The function will look up organization_id from the database
-          const { data, error } = await supabase.rpc('set_user_context', {
-            user_id: currentSession.user.id  // Changed from p_auth_id to user_id
-          });
-          
-          if (error) {
-            console.error('CRITICAL: Failed to set user context for RLS:', error);
-            // SECURITY: Force immediate logout on RLS context failure
+          // Verify token is still valid by fetching user profile
+          const profile = await fetchUserProfile();
+          if (!profile) {
             clearUserState();
-            await supabase.auth.signOut();
-            throw new Error('Security context initialization failed. User has been logged out for safety.');
-          } else if (data) {
-            console.log('User context set successfully:', data);
           }
         } catch (error) {
-          console.error('CRITICAL: Error calling set_user_context:', error);
-          // SECURITY: Force immediate logout on RLS context failure
+          console.error('Session verification failed:', error);
           clearUserState();
-          await supabase.auth.signOut();
-          throw new Error('Security context initialization failed. User has been logged out for safety.');
         }
       }
-      
-      if (profile) {
-        setUser(profile);
-        setIsAuthenticated(true);
-      } else {
-        clearUserState();
-        await supabase.auth.signOut();
-      }
-      setIsPermissionsLoading(false);
-    } else {
-      clearUserState();
-      setIsPermissionsLoading(false);
-    }
-    setIsLoading(false);
-  };
 
-  useEffect(() => {
-    supabase.auth.getSession()
-      .then(({ data: { session } }) => setSessionData(session))
-      .catch(error => {
-        console.error("Error initializing session:", error);
-        // setSessionData handles logout, but we ensure state is clean as a fallback.
-        clearUserState();
-        setIsLoading(false);
-        setIsPermissionsLoading(false);
-      });
-
-    const { data: authListener } = supabase.auth.onAuthStateChange((_event, session) => {
-      // Wrap in a promise chain to catch potential errors from setSessionData
-      Promise.resolve(setSessionData(session)).catch(error => {
-        console.error("Error processing auth state change:", error);
-        // setSessionData already forces a logout on critical failure, so we just log it.
-      });
-    });
-
-    return () => {
-      authListener.subscription.unsubscribe();
+      setIsLoading(false);
     };
+
+    initAuth();
   }, []);
 
   const login = async (email: string, password: string) => {
     try {
-      const { data, error } = await supabase.auth.signInWithPassword({ email, password });
-      
-      if (error) {
-        return { error };
+      const data = await authenticatedFetch('/auth/login', {
+        method: 'POST',
+        body: JSON.stringify({ email, password }),
+      });
+
+      if (data.requiresMfa) {
+        setHasMfa(true);
+        return { requiresMfa: true };
       }
 
-      if (data?.user) {
-        await setSessionData(data.session);
+      if (data.token && data.user) {
+        setAuthToken(data.token);
+        setUser(data.user);
+        setIsAuthenticated(true);
+        localStorage.setItem('pbs_invoicing_user', JSON.stringify(data.user));
+
+        // Fetch full profile with permissions
+        await fetchUserProfile();
+
+        return {};
       }
-      
-      return {}; // Success
+
+      return { error: new Error('Invalid response from server') };
     } catch (error) {
-      // This will catch critical errors from setSessionData (e.g., RLS failure)
-      // and return them to the login form to be displayed.
-      return { error: error as Error };
+      console.error('Login error:', error);
+      return { error: error instanceof Error ? error : new Error('Login failed') };
+    }
+  };
+
+  const verifyMfa = async (factorId: string, code: string) => {
+    try {
+      const data = await authenticatedFetch('/auth/verify-mfa', {
+        method: 'POST',
+        body: JSON.stringify({ factorId, code }),
+      });
+
+      if (data.token && data.user) {
+        setAuthToken(data.token);
+        setUser(data.user);
+        setIsAuthenticated(true);
+        setHasMfa(false);
+        localStorage.setItem('pbs_invoicing_user', JSON.stringify(data.user));
+
+        // Fetch full profile with permissions
+        await fetchUserProfile();
+
+        return {};
+      }
+
+      return { error: new Error('Invalid MFA code') };
+    } catch (error) {
+      console.error('MFA verification error:', error);
+      return { error: error instanceof Error ? error : new Error('MFA verification failed') };
     }
   };
 
   const logout = async () => {
-    await supabase.auth.signOut();
-    clearUserState();
+    try {
+      // Call logout endpoint to invalidate token on server
+      await authenticatedFetch('/auth/logout', { method: 'POST' }).catch(() => {
+        // Ignore errors on logout - clear local state anyway
+      });
+    } finally {
+      clearUserState();
+    }
   };
 
   const refreshPermissions = async () => {
-    if (session?.user) {
+    if (isAuthenticated) {
       setIsPermissionsLoading(true);
-      await fetchUserProfile(session.user);
+      await fetchUserProfile();
       setIsPermissionsLoading(false);
     }
   };
 
+  const requestPasswordReset = async (email: string) => {
+    try {
+      await authenticatedFetch('/auth/reset-password', {
+        method: 'POST',
+        body: JSON.stringify({ email }),
+      });
+      return {};
+    } catch (error) {
+      console.error('Password reset error:', error);
+      return { error: error instanceof Error ? error : new Error('Password reset failed') };
+    }
+  };
+
   return (
-    <AuthContext.Provider value={{ 
-      user, 
-      session, 
+    <AuthContext.Provider value={{
+      user,
       role,
       permissions,
-      isAuthenticated, 
-      isLoading, 
+      isAuthenticated,
+      isLoading,
       isPermissionsLoading,
+      hasMfa,
       hasPermission,
       hasAnyPermission,
-      login, 
+      login,
+      verifyMfa,
       logout,
-      refreshPermissions 
+      refreshPermissions,
+      requestPasswordReset,
     }}>
       {children}
     </AuthContext.Provider>

@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom'; // Removed useLocation
 import { useAuth } from '../context/AuthContext';
 import { Lock, Mail, LogIn, AlertCircle, Building2, Users, Shield, TestTube, Activity } from 'lucide-react';
-import { supabase } from '../api/supabase'; // Import supabase client
 import MfaVerificationModal from '../components/auth/MfaVerificationModal';
 import DnaSpinner from '../components/common/DnaSpinner';
 import { formatAuthError } from '../utils/authErrors'; // Keep error formatting
@@ -29,9 +28,9 @@ const Login: React.FC = () => {
   // Demo credentials for different user types
   const demoCredentials = {
     pbs: [
-      { email: 'admin@testemail.com', password: 'TempPass123!', role: 'PBS Administrator' },
-      { email: 'billing@testemail.com', password: 'TempPass123!', role: 'Billing Specialist' },
-      { email: 'claims@testemail.com', password: 'TempPass123!', role: 'Claims Processor' }
+      { email: 'admin@test.com', password: 'password123', role: 'PBS Administrator' },
+      { email: 'admin@testemail.com', password: 'TempPass123', role: 'Admin (Alternative)' },
+      { email: 'billing@testemail.com', password: 'TempPass123', role: 'Billing Specialist' }
     ],
     client: [
       { email: 'john.smith@questdiagnostics.com', password: 'ClientPass123!', role: 'Client Admin (Quest)' },
@@ -71,28 +70,11 @@ const Login: React.FC = () => {
   // Show MFA modal if context indicates it's needed after login attempt
   useEffect(() => {
     if (hasMfa && !showMfaModal && componentIsLoading) {
-      // Need to get the factorId - assuming only one TOTP factor for now
-      const fetchFactorId = async () => {
-        try {
-          // Use Supabase client directly here or add a method to context if preferred
-          const { data, error: factorError } = await supabase.auth.mfa.listFactors();
-          if (factorError) throw factorError;
-
-          const totpFactor = data?.totp?.[0]; // Get the first TOTP factor
-          if (totpFactor?.status === 'verified') {
-             setMfaFactorId(totpFactor.id);
-             setShowMfaModal(true);
-          } else {
-             setError('MFA is required, but no verified TOTP factor found. Please contact support.');
-           }
-         } catch (err: unknown) { // Use unknown type
-            const formattedError = formatAuthError(err instanceof Error ? err : new Error(String(err)));
-            setError(formattedError);
-         } finally {
-           setComponentIsLoading(false); // Stop local loading indicator
-        }
-      };
-      fetchFactorId();
+      // MFA required - show modal with a generic factor ID
+      // The backend will handle factor validation
+      setMfaFactorId('mfa-factor');
+      setShowMfaModal(true);
+      setComponentIsLoading(false);
     }
   }, [hasMfa, showMfaModal, componentIsLoading]); // Depend on hasMfa from context
 
