@@ -18,7 +18,6 @@ import ErrorBoundary from './components/ErrorBoundary';
 // Pages
 import Login from './pages/Login';
 import LandingPage from './pages/LandingPage';
-import Dashboard from './pages/Dashboard/index';
 import Invoices from './pages/Invoices';
 import CreateInvoice from './pages/CreateInvoice';
 import InvoiceDetail from './pages/InvoiceDetail';
@@ -72,8 +71,6 @@ function App() {
                   <Layout />
                 </ProtectedRoute>
               }>
-                <Route path="/dashboard" element={<Dashboard />} />
-                
                 {/* New Operational Sections */}
                 <Route path="/billing/*" element={<BillingHub />} />
                 <Route path="/service-center/*" element={<ServiceCenter />} />
