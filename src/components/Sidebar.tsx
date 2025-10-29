@@ -1,9 +1,8 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import { 
-  LayoutDashboard, 
-  FileText, 
-  BarChart3, 
+import {
+  FileText,
+  BarChart3,
   Settings,
   Building2,
   Upload,
@@ -33,8 +32,7 @@ const Sidebar: React.FC<SidebarProps> = ({ collapsed }) => {
     isLegacy?: boolean;
   }[] = [
     // Core operational tasks only - no personal settings!
-    { path: '/dashboard', label: 'Dashboard', icon: <LayoutDashboard size={20} />, allowedRoles: ['admin', 'ar_manager', 'staff', 'user'] },
-    
+
     // Billing operations
     { path: '/billing', label: 'Billing Hub', icon: <Wallet size={20} />, allowedRoles: ['admin', 'ar_manager', 'staff'], isNew: true },
     
@@ -92,7 +90,6 @@ const Sidebar: React.FC<SidebarProps> = ({ collapsed }) => {
             <li key={item.path} className="mb-2 px-2">
               <NavLink
                 to={item.path}
-                end={item.path === '/dashboard'} 
                 className={({ isActive }) =>
                   `flex items-center py-3 px-4 rounded-lg transition-colors ${
                     isActive
