@@ -13,7 +13,7 @@ interface PublicRouteProps {
  */
 const PublicRoute: React.FC<PublicRouteProps> = ({
   children,
-  redirectTo = '/dashboard', // Default redirect for authenticated users
+  redirectTo = '/billing/dashboard', // Default redirect for authenticated users
 }) => {
   const { isAuthenticated, isLoading } = useAuth();
 
