@@ -30,10 +30,10 @@ const NotFound: React.FC = () => {
             
             <div className="pt-4 flex flex-col space-y-3">
               <Link
-                to="/"
+                to="/billing"
                 className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
               >
-                Return to Dashboard
+                Go to Billing Hub
               </Link>
               <button
                 onClick={() => window.history.back()}

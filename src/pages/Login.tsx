@@ -23,7 +23,7 @@ const Login: React.FC = () => {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   // const location = useLocation(); // Remove unused location
-  const redirectPath = searchParams.get('redirect') || '/dashboard';
+  const redirectPath = searchParams.get('redirect') || '/billing';
 
   // Demo credentials for different user types
   const demoCredentials = {
