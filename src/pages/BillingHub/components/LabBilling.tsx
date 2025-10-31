@@ -2,7 +2,6 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
   FileText,
-  Split,
   AlertTriangle,
   DollarSign,
   Building2,
@@ -24,14 +23,6 @@ const LabBilling: React.FC = () => {
       path: '/billing/duplicate-review',
       status: 'critical',
       benefits: ['Real-time warnings', 'Override with audit trail', 'Review queue for conflicts']
-    },
-    {
-      title: 'Invoice Type Separation',
-      description: 'Automatically separate SNF, Invalids, Hospice invoices for faster payment',
-      icon: <Split className="h-8 w-8" />,
-      path: '/billing/invoice-separation',
-      status: 'new',
-      benefits: ['Prevent payment delays', 'Automatic separation', 'One-click splitting']
     },
     {
       title: 'Dispute Management',
