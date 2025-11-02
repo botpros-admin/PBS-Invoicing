@@ -6,13 +6,14 @@ A comprehensive invoicing and billing management system built for PBS (Precision
 
 ## 🚨 CRITICAL DEPLOYMENT WARNING 🚨
 
-**WE MAINTAIN EXACTLY ONE (1) DEPLOYMENT - NEVER CREATE NEW ONES**
+**WE DEPLOY ONLY VIA WRANGLER - NEVER VIA GITHUB**
 
-- Current Deployment: `4a19b4f7-c8d3-4a73-9a0f-ad6015b395a4`
 - Production URL: https://pbs-invoicing.botpros.ai/
-- **NEVER create multiple deployments**
-- **ALWAYS update the existing deployment via wrangler**
-- **DELETE any accidental new deployments immediately**
+- Cloudflare Pages Project: `pbs-invoicing-frontend`
+- Production Branch: `main` (serves the production domain)
+- **NEVER use git push to trigger deployments**
+- **ALWAYS deploy manually via wrangler CLI**
+- **GitHub is for version control only, NOT for deployments**
 
 ---
 
@@ -50,24 +51,23 @@ A comprehensive invoicing and billing management system built for PBS (Precision
 
 ### 🚨 CRITICAL: DEPLOYMENT RULES 🚨
 
-**WE HAVE EXACTLY ONE (1) DEPLOYMENT - NEVER CREATE NEW DEPLOYMENTS**
+**READ THIS CAREFULLY - DEPLOYMENT IS MANUAL ONLY**
 
-**ABSOLUTE DEPLOYMENT POLICY:**
-- ✅ **ONE SINGLE DEPLOYMENT ONLY**: We maintain exactly ONE deployment
-- ✅ **CURRENT DEPLOYMENT ID**: `4a19b4f7-c8d3-4a73-9a0f-ad6015b395a4`
+**THE CORRECT WAY TO DEPLOY:**
+- ✅ **ONLY use wrangler CLI** - Manual deployment only
+- ✅ **Deploy to branch: `main`** (this is the production branch)
 - ✅ **Production URL**: https://pbs-invoicing.botpros.ai/
-- ✅ **Deploy ONLY via wrangler** to update the EXISTING deployment
-- ✅ **Deploy ONLY to production branch**
+- ✅ **Project name**: `pbs-invoicing-frontend`
+- ✅ **Always build before deploying**: `npm run build` first
 
 **NEVER DO THIS - ZERO TOLERANCE:**
-- ❌ **NEVER create new deployments** - We update the existing one
-- ❌ **NEVER deploy to preview/staging/feature branches**
-- ❌ **NEVER use git push to trigger deployments**
-- ❌ **NEVER use Cloudflare Dashboard automatic deployments**
-- ❌ **NEVER create multiple deployments** - Delete immediately if created
-- ❌ **NEVER use npm/netlify/vercel or any other platform**
+- ❌ **NEVER use `git push` to deploy** - GitHub push does NOT trigger deployments
+- ❌ **NEVER deploy to any branch other than `main`** - Only `main` serves production
+- ❌ **NEVER use `--branch=production`** - The correct branch is `main`
+- ❌ **NEVER enable Cloudflare automatic deployments from GitHub**
+- ❌ **NEVER use npm/netlify/vercel or any other deployment platform**
 
-**DEPLOYMENT COUNT: EXACTLY 1 (ONE) - NO EXCEPTIONS**
+**REMEMBER: GitHub is for version control only. Deployments are manual via wrangler.**
 
 ### Prerequisites
 
@@ -89,25 +89,34 @@ A comprehensive invoicing and billing management system built for PBS (Precision
 
 ### Frontend Deployment (Cloudflare Pages)
 
-**⚠️ THIS UPDATES THE EXISTING DEPLOYMENT - DOES NOT CREATE A NEW ONE ⚠️**
+**STEP-BY-STEP DEPLOYMENT PROCESS**
 
+**Step 1: Build the Application**
 ```bash
-# Build the frontend
 npm run build
+```
+This creates the production build in the `dist/` directory.
 
-# Deploy to Cloudflare Pages (updates existing deployment 4a19b4f7)
-wrangler pages deploy dist --project-name=pbs-invoicing-frontend --branch=production
-
-# The deployment will be live at: https://pbs-invoicing.botpros.ai/
+**Step 2: Deploy to Cloudflare Pages**
+```bash
+wrangler pages deploy dist --project-name=pbs-invoicing-frontend --branch=main
 ```
 
-**Critical Notes:**
-- This command **UPDATES** the existing deployment (ID: 4a19b4f7)
-- **NEVER** use different branch names - ONLY `--branch=production`
-- **NEVER** deploy without the `--branch=production` flag
+**Step 3: Verify Deployment**
+After 30-60 seconds, the deployment will be live at: https://pbs-invoicing.botpros.ai/
+
+**IMPORTANT NOTES FOR AI AGENTS:**
+- The `--branch=main` flag is REQUIRED (not `production`, not any other name)
+- The `main` branch serves the production domain
+- If you get uncommitted changes warning, add `--commit-dirty=true` flag
 - The `dist` directory contains the built React application
-- Deployment takes ~30-60 seconds to propagate globally
-- **If you accidentally create a new deployment, DELETE IT IMMEDIATELY**
+- Each deployment creates a new deployment ID automatically
+- Deployment propagates globally in ~30-60 seconds
+
+**Complete Command with All Flags:**
+```bash
+wrangler pages deploy dist --project-name=pbs-invoicing-frontend --branch=main --commit-dirty=true
+```
 
 ### Backend Deployment (Cloudflare Workers)
 
@@ -225,9 +234,11 @@ PBS_Invoicing/
 
 ---
 
-## Commit Guidelines
+## Version Control (GitHub)
 
-When committing changes to GitHub:
+**GitHub is for version control ONLY - NOT for deployments**
+
+When you make code changes, commit them to GitHub:
 
 ```bash
 git add .
@@ -235,7 +246,22 @@ git commit -m "feat: your feature description"
 git push origin main
 ```
 
-**Remember:** Git commits do NOT trigger deployments. Only manual wrangler deployments update production.
+**🚨 CRITICAL: Pushing to GitHub does NOT deploy to production! 🚨**
+
+After pushing to GitHub, you MUST manually deploy using wrangler:
+```bash
+npm run build
+wrangler pages deploy dist --project-name=pbs-invoicing-frontend --branch=main --commit-dirty=true
+```
+
+**Workflow Summary:**
+1. Make code changes locally
+2. Test locally with `npm run dev`
+3. Commit and push to GitHub (version control)
+4. Build with `npm run build`
+5. Deploy with `wrangler pages deploy` (manual deployment)
+
+**GitHub push ≠ Deployment. Always deploy manually with wrangler.**
 
 ---
 

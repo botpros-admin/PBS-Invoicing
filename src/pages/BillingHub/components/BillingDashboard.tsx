@@ -20,8 +20,16 @@ type TimePeriod = 'today' | '7d' | '30d' | '60d' | '90d';
 // Dashboard stats interface
 interface DashboardStats {
   period: string;
-  revenue: number;
-  invoices_created: number;
+  revenue: {
+    today: number;
+    period: number;
+    change: number;
+  };
+  invoices: {
+    today: number;
+    period: number;
+    change: number;
+  };
   pending_payments: number;
   overdue: {
     total: number;
@@ -32,8 +40,8 @@ interface DashboardStats {
       '90+': number;
     };
   };
-  collection_rate: number;
-  avg_days_to_payment: number;
+  collectionRate: number;
+  avgDaysToPayment: number;
   disputes: {
     total_open: number;
     breakdown: {
@@ -187,6 +195,28 @@ const BillingDashboard: React.FC = () => {
   const [stats, setStats] = useState<DashboardStats | null>(null);
   const [loading, setLoading] = useState(true);
 
+  // Helper function to safely format currency
+  const formatCurrency = (value: any): string => {
+    // Handle null, undefined, or invalid values
+    if (value === null || value === undefined) return '0.00';
+
+    // If it's already a number, use it
+    if (typeof value === 'number' && !isNaN(value)) {
+      return value.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    }
+
+    // If it's a string, try to parse it
+    if (typeof value === 'string') {
+      const parsed = parseFloat(value);
+      if (!isNaN(parsed)) {
+        return parsed.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+      }
+    }
+
+    // Fallback to 0.00
+    return '0.00';
+  };
+
   // Fetch dashboard stats from API
   const fetchStats = async () => {
     try {
@@ -213,12 +243,12 @@ const BillingDashboard: React.FC = () => {
         // Set default empty stats
         setStats({
           period: timePeriod,
-          revenue: 0,
-          invoices_created: 0,
+          revenue: { today: 0, period: 0, change: 0 },
+          invoices: { today: 0, period: 0, change: 0 },
           pending_payments: 0,
           overdue: { total: 0, breakdown: { '0-30': 0, '31-60': 0, '61-90': 0, '90+': 0 } },
-          collection_rate: 0,
-          avg_days_to_payment: 0,
+          collectionRate: 0,
+          avgDaysToPayment: 0,
           disputes: { total_open: 0, breakdown: { '1_day': 0, '1_week': 0, '30_days': 0, '60_days': 0, '90+': 0 } },
           unposted_payments: { total: 0, breakdown: { '7_days': 0, '30_days': 0, '90+': 0 } }
         });
@@ -228,12 +258,12 @@ const BillingDashboard: React.FC = () => {
       // Set default empty stats on error
       setStats({
         period: timePeriod,
-        revenue: 0,
-        invoices_created: 0,
+        revenue: { today: 0, period: 0, change: 0 },
+        invoices: { today: 0, period: 0, change: 0 },
         pending_payments: 0,
         overdue: { total: 0, breakdown: { '0-30': 0, '31-60': 0, '61-90': 0, '90+': 0 } },
-        collection_rate: 0,
-        avg_days_to_payment: 0,
+        collectionRate: 0,
+        avgDaysToPayment: 0,
         disputes: { total_open: 0, breakdown: { '1_day': 0, '1_week': 0, '30_days': 0, '60_days': 0, '90+': 0 } },
         unposted_payments: { total: 0, breakdown: { '7_days': 0, '30_days': 0, '90+': 0 } }
       });
@@ -248,23 +278,23 @@ const BillingDashboard: React.FC = () => {
 
   // Calculate selected overdue amount
   const getOverdueAmount = () => {
-    if (!stats) return 0;
-    if (overdueBucket === 'total') return stats.overdue.total;
-    return stats.overdue.breakdown[overdueBucket as keyof typeof stats.overdue.breakdown];
+    if (!stats || !stats.overdue) return 0;
+    if (overdueBucket === 'total') return stats.overdue.total ?? 0;
+    return stats.overdue.breakdown?.[overdueBucket as keyof typeof stats.overdue.breakdown] ?? 0;
   };
 
   // Calculate selected disputes count
   const getDisputesCount = () => {
-    if (!stats) return 0;
-    if (disputesBucket === 'total') return stats.disputes.total_open;
-    return stats.disputes.breakdown[disputesBucket as keyof typeof stats.disputes.breakdown];
+    if (!stats || !stats.disputes) return 0;
+    if (disputesBucket === 'total') return stats.disputes.total_open ?? 0;
+    return stats.disputes.breakdown?.[disputesBucket as keyof typeof stats.disputes.breakdown] ?? 0;
   };
 
   // Calculate selected unposted payments count
   const getUnpostedCount = () => {
-    if (!stats) return 0;
-    if (unpostedBucket === 'total') return stats.unposted_payments.total;
-    return stats.unposted_payments.breakdown[unpostedBucket as keyof typeof stats.unposted_payments.breakdown];
+    if (!stats || !stats.unposted_payments) return 0;
+    if (unpostedBucket === 'total') return stats.unposted_payments.total ?? 0;
+    return stats.unposted_payments.breakdown?.[unpostedBucket as keyof typeof stats.unposted_payments.breakdown] ?? 0;
   };
 
   // Sample data for bottom sections (would come from API)
@@ -307,7 +337,7 @@ const BillingDashboard: React.FC = () => {
             <div className="flex-1">
               <p className="text-sm text-gray-600">Revenue</p>
               <p className="text-2xl font-bold text-gray-900">
-                ${stats.revenue.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                ${formatCurrency(stats?.revenue?.period)}
               </p>
               <TimePeriodSelector
                 value={timePeriod}
@@ -326,7 +356,7 @@ const BillingDashboard: React.FC = () => {
           <div className="flex items-center justify-between">
             <div className="flex-1">
               <p className="text-sm text-gray-600">Invoices Created</p>
-              <p className="text-2xl font-bold text-gray-900">{stats.invoices_created}</p>
+              <p className="text-2xl font-bold text-gray-900">{stats?.invoices?.period ?? 0}</p>
               <TimePeriodSelector
                 value={timePeriod}
                 onChange={setTimePeriod}
@@ -344,7 +374,7 @@ const BillingDashboard: React.FC = () => {
           <div className="flex items-center justify-between">
             <div className="flex-1">
               <p className="text-sm text-gray-600">Pending Payments</p>
-              <p className="text-2xl font-bold text-gray-900">{stats.pending_payments}</p>
+              <p className="text-2xl font-bold text-gray-900">{stats?.pending_payments ?? 0}</p>
               <TimePeriodSelector
                 value={timePeriod}
                 onChange={setTimePeriod}
@@ -363,12 +393,12 @@ const BillingDashboard: React.FC = () => {
             <div className="flex-1">
               <p className="text-sm text-gray-600">Overdue Amount</p>
               <p className="text-2xl font-bold text-gray-900">
-                ${getOverdueAmount().toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                ${formatCurrency(getOverdueAmount())}
               </p>
               <OverdueBreakdownSelector
                 value={overdueBucket}
                 onChange={setOverdueBucket}
-                breakdown={stats.overdue.breakdown}
+                breakdown={stats?.overdue?.breakdown ?? { '0-30': 0, '31-60': 0, '61-90': 0, '90+': 0 }}
               />
             </div>
             <div className="bg-red-100 p-3 rounded-lg">
@@ -383,7 +413,7 @@ const BillingDashboard: React.FC = () => {
             <div className="flex-1">
               <p className="text-sm text-gray-600">Collection Rate</p>
               <p className="text-2xl font-bold text-gray-900">
-                {stats.collection_rate.toFixed(1)}%
+                {stats?.collectionRate?.toFixed(1) ?? '0.0'}%
               </p>
               <TimePeriodSelector
                 value={timePeriod}
@@ -402,7 +432,7 @@ const BillingDashboard: React.FC = () => {
           <div className="flex items-center justify-between">
             <div className="flex-1">
               <p className="text-sm text-gray-600">Avg Days to Payment</p>
-              <p className="text-2xl font-bold text-gray-900">{stats.avg_days_to_payment}</p>
+              <p className="text-2xl font-bold text-gray-900">{stats?.avgDaysToPayment ?? 0}</p>
               <TimePeriodSelector
                 value={timePeriod}
                 onChange={setTimePeriod}
@@ -424,7 +454,7 @@ const BillingDashboard: React.FC = () => {
               <DisputesBreakdownSelector
                 value={disputesBucket}
                 onChange={setDisputesBucket}
-                breakdown={stats.disputes.breakdown}
+                breakdown={stats?.disputes?.breakdown ?? { '1_day': 0, '1_week': 0, '30_days': 0, '60_days': 0, '90+': 0 }}
               />
             </div>
             <div className="bg-orange-100 p-3 rounded-lg">
@@ -442,7 +472,7 @@ const BillingDashboard: React.FC = () => {
               <UnpostedBreakdownSelector
                 value={unpostedBucket}
                 onChange={setUnpostedBucket}
-                breakdown={stats.unposted_payments.breakdown}
+                breakdown={stats?.unposted_payments?.breakdown ?? { '7_days': 0, '30_days': 0, '90+': 0 }}
               />
             </div>
             <div className="bg-purple-100 p-3 rounded-lg">
