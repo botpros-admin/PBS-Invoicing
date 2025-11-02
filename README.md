@@ -152,27 +152,38 @@ VITE_SUPABASE_ANON_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
 
 ---
 
-## Development
+## Local Development
 
-### Install Dependencies
-
-```bash
-npm install
+### Directory Structure
+```
+C:\Users\Agent\Desktop\CLIENTS\
+├── PBS/                 # Frontend (React + Vite)
+└── PBS-Backend/         # Backend (Cloudflare Worker)
 ```
 
-### Run Development Server
+### Running the Full Stack Locally
 
+**Terminal 1 - Backend (Worker):**
 ```bash
-npm run dev
+cd C:\Users\Agent\Desktop\CLIENTS\PBS-Backend
+npm install  # First time only
+npm run dev  # Runs on http://localhost:8787
 ```
 
-Access at: http://localhost:5174
-
-### Build for Production
-
+**Terminal 2 - Frontend:**
 ```bash
-npm run build
+cd C:\Users\Agent\Desktop\CLIENTS\PBS
+npm install  # First time only
+npm run dev  # Runs on http://localhost:5174
 ```
+
+**That's it!** The frontend automatically uses `.env.local` which points to `localhost:8787`.
+
+### How It Works
+
+- **Local:** Frontend calls `http://localhost:8787/api`
+- **Production:** Frontend calls `https://pbs-invoicing.botpros.ai/api`
+- Environment automatically switches based on build context
 
 ---
 
@@ -253,16 +264,26 @@ PBS_Invoicing/
 **When you make code changes:**
 
 ```bash
-# 1. Test locally
-npm run dev
+# 1. Test locally (run both in separate terminals)
+cd C:\Users\Agent\Desktop\CLIENTS\PBS-Backend
+npm run dev  # Terminal 1
+
+cd C:\Users\Agent\Desktop\CLIENTS\PBS
+npm run dev  # Terminal 2
 
 # 2. Build for production
+cd C:\Users\Agent\Desktop\CLIENTS\PBS
 npm run build
 
-# 3. Deploy to Cloudflare (MANUAL - does NOT happen automatically)
+# 3. Deploy Backend to Cloudflare (if backend changed)
+cd C:\Users\Agent\Desktop\CLIENTS\PBS-Backend
+wrangler deploy
+
+# 4. Deploy Frontend to Cloudflare
+cd C:\Users\Agent\Desktop\CLIENTS\PBS
 wrangler pages deploy dist --project-name=pbs-invoicing-frontend --branch=main --commit-dirty=true
 
-# 4. Commit to GitHub (SEPARATE from deployment)
+# 5. Commit to GitHub (SEPARATE from deployment)
 git add .
 git commit -m "your commit message"
 git push origin main
