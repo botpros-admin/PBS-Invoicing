@@ -234,34 +234,57 @@ PBS_Invoicing/
 
 ---
 
-## Version Control (GitHub)
+## Development Workflow
 
-**GitHub is for version control ONLY - NOT for deployments**
+### Working Directory
+**Local Directory:** `C:\Users\Agent\Desktop\CLIENTS\PBS`
+- This is your source of truth
+- All development happens here
+- Most up-to-date version is always local
 
-When you make code changes, commit them to GitHub:
+### Branch Strategy
+**ONE BRANCH ONLY:** `main`
+- ✅ We use ONLY the `main` branch
+- ❌ NEVER create other branches (no dev, staging, feature branches)
+- ❌ NEVER merge from other branches
+
+### Complete Workflow (Step by Step)
+
+**When you make code changes:**
 
 ```bash
+# 1. Test locally
+npm run dev
+
+# 2. Build for production
+npm run build
+
+# 3. Deploy to Cloudflare (MANUAL - does NOT happen automatically)
+wrangler pages deploy dist --project-name=pbs-invoicing-frontend --branch=main --commit-dirty=true
+
+# 4. Commit to GitHub (SEPARATE from deployment)
 git add .
-git commit -m "feat: your feature description"
+git commit -m "your commit message"
 git push origin main
 ```
 
-**🚨 CRITICAL: Pushing to GitHub does NOT deploy to production! 🚨**
+### Important Notes
 
-After pushing to GitHub, you MUST manually deploy using wrangler:
-```bash
-npm run build
-wrangler pages deploy dist --project-name=pbs-invoicing-frontend --branch=main --commit-dirty=true
-```
+**Cloudflare and GitHub are SEPARATE operations:**
+- Deploying to Cloudflare ≠ Pushing to GitHub
+- Pushing to GitHub ≠ Deploying to Cloudflare
+- You must do BOTH manually
+- Order: Deploy first, then commit (so git history matches production)
 
-**Workflow Summary:**
-1. Make code changes locally
-2. Test locally with `npm run dev`
-3. Commit and push to GitHub (version control)
-4. Build with `npm run build`
-5. Deploy with `wrangler pages deploy` (manual deployment)
+**GitHub is version control ONLY:**
+- GitHub stores your code history
+- GitHub push does NOT trigger deployments
+- No automatic deployments from GitHub
 
-**GitHub push ≠ Deployment. Always deploy manually with wrangler.**
+**Cloudflare is hosting ONLY:**
+- Cloudflare serves the live site
+- You deploy manually via wrangler CLI
+- Each deployment is independent of GitHub
 
 ---
 
